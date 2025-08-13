@@ -9,7 +9,7 @@ const Header = () => {
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-2">
               <Icon name="Building" size={24} className="text-primary" />
-              <span className="text-xl font-bold text-gray-900">B2B Маркетплейс</span>
+              <span className="text-xl font-bold text-gray-900">BizNexus</span>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
               <a href="#suppliers" className="text-gray-600 hover:text-primary transition-colors">Поставщики</a>

@@ -4,7 +4,7 @@ import Icon from "@/components/ui/icon";
 
 const HeroSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-blue-50 to-white">
+    <section className="py-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -14,23 +14,23 @@ const HeroSection = () => {
                 Верифицированная платформа
               </Badge>
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                B2B маркетплейс для
-                <span className="text-primary"> оптовых продаж</span>
+                Корпоративная платформа
+                <span className="text-primary"> B2B закупок</span>
               </h1>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Крупнейшая платформа для прямых оптовых закупок. Верифицированные поставщики, 
-                проверенные документы, выгодные цены для вашего бизнеса.
+                Автоматизированная экосистема для эффективного управления цепочками поставок. 
+                Комплексные решения для оптимизации закупочных процессов.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="text-base">
                 <Icon name="Search" size={18} className="mr-2" />
-                Найти поставщика
+                Начать работу
               </Button>
               <Button variant="outline" size="lg" className="text-base">
                 <Icon name="Store" size={18} className="mr-2" />
-                Стать поставщиком
+                Подключить поставщика
               </Button>
             </div>
 
