@@ -12,7 +12,7 @@ const Footer = () => {
               Повысьте эффективность закупок
             </h2>
             <p className="text-lg opacity-90">
-              Интегрируйтесь с DM Business Market для оптимизации всех закупочных процессов. 
+              Интегрируйтесь с BM Business Market для оптимизации всех закупочных процессов. 
               Консалтинг включен.
             </p>
             
@@ -55,7 +55,7 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Icon name="Building" size={24} className="text-primary" />
-                <span className="text-xl font-bold">DM Business Market</span>
+                <span className="text-xl font-bold">BM Business Market</span>
               </div>
               <p className="text-gray-400 text-sm">
                 Корпоративная платформа для бизнес-закупок и продаж между компаниями.
@@ -89,7 +89,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="Mail" size={16} />
-                  <span>info@dmmarket.ru</span>
+                  <span>info@bmmarket.ru</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Icon name="MapPin" size={16} />
@@ -100,7 +100,7 @@ const Footer = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
-            <p>© 2024 DM Business Market. Все права защищены.</p>
+            <p>© 2024 BM Business Market. Все права защищены.</p>
           </div>
         </div>
       </footer>
