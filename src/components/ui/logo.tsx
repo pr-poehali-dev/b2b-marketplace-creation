@@ -2,9 +2,12 @@ const Logo = () => {
   return (
     <div className="flex items-center space-x-3">
       <div className="relative">
-        <div className="w-12 h-12 bg-primary flex items-center justify-center rounded">
-          <div className="text-white font-bold text-xl tracking-wider">
-            <span className="block text-center leading-none">BM</span>
+        <div className="w-16 h-16 bg-teal-800 flex flex-col items-center justify-center rounded-lg">
+          <div className="text-white font-bold text-2xl leading-none tracking-wider">
+            BM
+          </div>
+          <div className="text-white text-[6px] font-medium tracking-[0.15em] mt-0.5">
+            BUSINESS MARKET
           </div>
         </div>
       </div>
