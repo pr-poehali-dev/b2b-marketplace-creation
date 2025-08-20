@@ -11,9 +11,9 @@ const Header = () => {
             <Logo />
             <nav className="hidden md:flex items-center space-x-6">
               <a href="#catalog" className="text-gray-600 hover:text-primary transition-colors">Каталог товаров</a>
-              <a href="#about" className="text-gray-600 hover:text-primary transition-colors">О компании</a>
               <a href="#delivery" className="text-gray-600 hover:text-primary transition-colors">Доставка</a>
               <a href="#contacts" className="text-gray-600 hover:text-primary transition-colors">Контакты</a>
+              <a href="#about" className="text-gray-600 hover:text-primary transition-colors">О компании</a>
             </nav>
           </div>
           <div className="flex items-center space-x-3">
