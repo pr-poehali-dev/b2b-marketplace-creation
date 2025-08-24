@@ -52,8 +52,8 @@ const HeroSection = () => {
 
           <div className="relative">
             <img 
-              src="/img/e609e60c-cb27-4ef8-809f-b5d3ba4a4fe1.jpg" 
-              alt="Деловое рукопожатие"
+              src="/img/fd7d00c7-29ce-4483-b35b-705ae512901d.jpg" 
+              alt="Платформа B2B закупок"
               className="rounded-lg shadow-2xl w-full"
             />
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
