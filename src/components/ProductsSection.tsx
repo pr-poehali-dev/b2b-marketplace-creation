@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
 
 const ProductsSection = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [priceFilter, setPriceFilter] = useState("all");
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
+
   const products = [
     {
       id: 1,
@@ -109,6 +117,35 @@ const ProductsSection = () => {
     }
   ];
 
+  // Фильтрация товаров
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         product.seller.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = categoryFilter === "all" || product.category === categoryFilter;
+    const matchesVerified = !verifiedOnly || product.verified;
+    
+    let matchesPrice = true;
+    if (priceFilter !== "all") {
+      const price = parseFloat(product.price.replace(",", ""));
+      switch (priceFilter) {
+        case "low":
+          matchesPrice = price < 1000;
+          break;
+        case "medium":
+          matchesPrice = price >= 1000 && price < 10000;
+          break;
+        case "high":
+          matchesPrice = price >= 10000;
+          break;
+      }
+    }
+    
+    return matchesSearch && matchesCategory && matchesVerified && matchesPrice;
+  });
+
+  // Получить уникальные категории
+  const categories = [...new Set(products.map(p => p.category))];
+
   return (
     <>
       {/* Suppliers Section */}
@@ -181,8 +218,74 @@ const ProductsSection = () => {
             </p>
           </div>
 
+          {/* Фильтры товаров */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Icon name="Filter" size={20} className="mr-2" />
+                Фильтры каталога
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Поиск товара</label>
+                  <Input
+                    placeholder="Введите название товара..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Категория</label>
+                  <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Все категории" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все категории</SelectItem>
+                      {categories.map(category => (
+                        <SelectItem key={category} value={category}>{category}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Ценовой диапазон</label>
+                  <Select value={priceFilter} onValueChange={setPriceFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Любая цена" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Любая цена</SelectItem>
+                      <SelectItem value="low">До 1,000 ₽</SelectItem>
+                      <SelectItem value="medium">1,000 - 10,000 ₽</SelectItem>
+                      <SelectItem value="high">Свыше 10,000 ₽</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Дополнительно</label>
+                  <Button
+                    variant={verifiedOnly ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setVerifiedOnly(!verifiedOnly)}
+                    className="w-full"
+                  >
+                    <Icon name="CheckCircle" size={16} className="mr-2" />
+                    {verifiedOnly ? "Только верифицированные" : "Все поставщики"}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative overflow-hidden">
                   <img 
@@ -260,10 +363,32 @@ const ProductsSection = () => {
             ))}
           </div>
 
+          {filteredProducts.length === 0 && (
+            <Card className="text-center py-12 mt-8">
+              <CardContent>
+                <Icon name="Search" size={48} className="mx-auto text-gray-400 mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Товары не найдены</h3>
+                <p className="text-gray-600">Попробуйте изменить параметры поиска или фильтры</p>
+                <Button 
+                  variant="outline" 
+                  className="mt-4"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCategoryFilter("all");
+                    setPriceFilter("all");
+                    setVerifiedOnly(false);
+                  }}
+                >
+                  Сбросить фильтры
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
           <div className="text-center mt-12">
             <Button size="lg" variant="outline" className="px-8">
               <Icon name="Grid3x3" size={18} className="mr-2" />
-              Посмотреть весь каталог
+              Посмотреть весь каталог ({filteredProducts.length} из {products.length})
             </Button>
           </div>
         </div>
