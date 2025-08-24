@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import { useNavigate } from 'react-router-dom';
 
 const Pricing = () => {
+  const navigate = useNavigate();
+  
   const plans = [
     {
       name: 'Базовый',
@@ -59,8 +62,8 @@ const Pricing = () => {
         <div className="mb-8">
           <Button 
             variant="outline" 
-            onClick={() => window.history.back()}
-            className="flex items-center space-x-2"
+            onClick={() => navigate('/')}
+            className="flex items-center space-x-2 hover:bg-gray-50 cursor-pointer"
           >
             <Icon name="ArrowLeft" size={16} />
             <span>Назад в меню</span>
