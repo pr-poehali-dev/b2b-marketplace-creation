@@ -6,9 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SuppliersMap from "@/components/SuppliersMap";
 
 const Suppliers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -200,7 +202,20 @@ const Suppliers = () => {
           <p className="text-gray-600">Найдите надежных партнеров для вашего бизнеса</p>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-8">
+        <Tabs defaultValue="list" className="space-y-6">
+          <TabsList className="grid w-full max-w-md grid-cols-2">
+            <TabsTrigger value="list" className="flex items-center">
+              <Icon name="List" size={16} className="mr-2" />
+              Список
+            </TabsTrigger>
+            <TabsTrigger value="map" className="flex items-center">
+              <Icon name="MapPin" size={16} className="mr-2" />
+              Карта
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="list">
+            <div className="grid lg:grid-cols-4 gap-8">
           {/* Боковая панель с фильтрами */}
           <div className="lg:col-span-1">
             <Card className="sticky top-4">
@@ -429,6 +444,12 @@ const Suppliers = () => {
             )}
           </div>
         </div>
+          </TabsContent>
+
+          <TabsContent value="map">
+            <SuppliersMap suppliers={filteredSuppliers} />
+          </TabsContent>
+        </Tabs>
         </div>
         
         <Footer />
