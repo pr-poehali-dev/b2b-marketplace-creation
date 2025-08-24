@@ -39,9 +39,9 @@ const Header = () => {
               <Icon name="Users" size={18} />
               <span>Поставщики</span>
             </a>
-            <a href="#delivery" className="flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-primary transition-colors">
-              <Icon name="Truck" size={18} />
-              <span>Доставка</span>
+            <a href="/pricing" className="flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-primary transition-colors">
+              <Icon name="CreditCard" size={18} />
+              <span>Наши тарифы</span>
             </a>
             <a href="#contacts" className="flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-primary transition-colors">
               <Icon name="Phone" size={18} />
