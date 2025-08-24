@@ -20,17 +20,21 @@ const Header = () => {
 
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
-      <div className="container mx-auto px-4 py-4 ml-64">
-        <div className="flex items-center justify-end">
-          <div className="flex items-center space-x-3">
-            <Button variant="outline" size="sm">
-              <Icon name="LogIn" size={16} className="mr-2" />
-              Войти
-            </Button>
-            <Button size="sm">
-              <Icon name="UserPlus" size={16} className="mr-2" />
-              Регистрация
-            </Button>
+      <div className="ml-64 overflow-hidden">
+        <div className="container mx-auto px-4 py-4 max-w-none">
+          <div className="flex items-center justify-end">
+            <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
+              <Button variant="outline" size="sm" className="text-xs md:text-sm px-2 md:px-3">
+                <Icon name="LogIn" size={14} className="mr-1 md:mr-2 flex-shrink-0" />
+                <span className="hidden sm:inline">Войти</span>
+                <span className="sm:hidden">Вход</span>
+              </Button>
+              <Button size="sm" className="text-xs md:text-sm px-2 md:px-3">
+                <Icon name="UserPlus" size={14} className="mr-1 md:mr-2 flex-shrink-0" />
+                <span className="hidden sm:inline">Регистрация</span>
+                <span className="sm:hidden">Рег.</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
