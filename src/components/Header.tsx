@@ -2,13 +2,20 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import Logo from "@/components/ui/logo";
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 const Header = () => {
   const location = useLocation();
+  const [openSection, setOpenSection] = useState<string | null>(null);
   
   // Определяем активный пункт меню
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  // Управление разделами
+  const toggleSection = (section: string) => {
+    setOpenSection(openSection === section ? null : section);
   };
 
   return (
@@ -55,216 +62,285 @@ const Header = () => {
 
             {/* Заказы и продажи */}
             <div>
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-2">
-                Продажи и заказы
-              </div>
               <div className="space-y-1">
-                <a 
-                  href="/orders" 
-                  className={`flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/orders') 
+                <button 
+                  onClick={() => toggleSection('orders')}
+                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                    isActive('/orders') || openSection === 'orders'
                       ? 'bg-primary text-white' 
                       : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
                     <Icon name="ShoppingBag" size={18} />
-                    <span>Все заказы</span>
+                    <span>Заказы и продажи</span>
                   </div>
-                  <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">24</span>
-                </a>
-                <a 
-                  href="/orders/pending" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ml-6 ${
-                    isActive('/orders/pending') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="Clock" size={16} />
-                  <span>В ожидании</span>
-                </a>
-                <a 
-                  href="/orders/processing" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ml-6 ${
-                    isActive('/orders/processing') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="Package" size={16} />
-                  <span>В обработке</span>
-                </a>
-                <a 
-                  href="/orders/completed" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ml-6 ${
-                    isActive('/orders/completed') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="CheckCircle" size={16} />
-                  <span>Выполненные</span>
-                </a>
-                <a 
-                  href="/analytics" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/analytics') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="TrendingUp" size={18} />
-                  <span>Аналитика продаж</span>
-                </a>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">24</span>
+                    <Icon 
+                      name={openSection === 'orders' ? 'ChevronUp' : 'ChevronDown'} 
+                      size={16} 
+                    />
+                  </div>
+                </button>
+                {openSection === 'orders' && (
+                  <div className="space-y-1 ml-6">
+                    <a 
+                      href="/orders" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/orders') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="List" size={16} />
+                      <span>Все заказы</span>
+                    </a>
+                    <a 
+                      href="/orders/pending" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/orders/pending') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="Clock" size={16} />
+                      <span>В ожидании</span>
+                    </a>
+                    <a 
+                      href="/orders/processing" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/orders/processing') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="Package" size={16} />
+                      <span>В обработке</span>
+                    </a>
+                    <a 
+                      href="/orders/completed" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/orders/completed') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="CheckCircle" size={16} />
+                      <span>Выполненные</span>
+                    </a>
+                    <a 
+                      href="/analytics" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/analytics') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="TrendingUp" size={16} />
+                      <span>Аналитика продаж</span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Товары и каталог */}
             <div>
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-2">
-                Товары и каталог
-              </div>
               <div className="space-y-1">
-                <a 
-                  href="/catalog" 
-                  className={`flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/catalog') 
+                <button 
+                  onClick={() => toggleSection('catalog')}
+                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                    isActive('/catalog') || openSection === 'catalog'
                       ? 'bg-primary text-white' 
                       : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
                     <Icon name="Grid3x3" size={18} />
-                    <span>Каталог товаров</span>
+                    <span>Товары и каталог</span>
                   </div>
-                  <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">2.5k</span>
-                </a>
-                <a 
-                  href="/catalog/categories" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ml-6 ${
-                    isActive('/catalog/categories') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="FolderOpen" size={16} />
-                  <span>Категории</span>
-                </a>
-                <a 
-                  href="/inventory" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/inventory') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="Warehouse" size={18} />
-                  <span>Склад и остатки</span>
-                </a>
-                <a 
-                  href="/returns" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/returns') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="RotateCcw" size={18} />
-                  <span>Возвраты</span>
-                </a>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">2.5k</span>
+                    <Icon 
+                      name={openSection === 'catalog' ? 'ChevronUp' : 'ChevronDown'} 
+                      size={16} 
+                    />
+                  </div>
+                </button>
+                {openSection === 'catalog' && (
+                  <div className="space-y-1 ml-6">
+                    <a 
+                      href="/catalog" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/catalog') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="List" size={16} />
+                      <span>Все товары</span>
+                    </a>
+                    <a 
+                      href="/catalog/categories" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/catalog/categories') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="FolderOpen" size={16} />
+                      <span>Категории</span>
+                    </a>
+                    <a 
+                      href="/inventory" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/inventory') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="Warehouse" size={16} />
+                      <span>Склад и остатки</span>
+                    </a>
+                    <a 
+                      href="/returns" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/returns') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="RotateCcw" size={16} />
+                      <span>Возвраты</span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Поставщики и закупки */}
             <div>
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-2">
-                Поставщики
-              </div>
               <div className="space-y-1">
-                <a 
-                  href="/suppliers" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/suppliers') 
+                <button 
+                  onClick={() => toggleSection('suppliers')}
+                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                    isActive('/suppliers') || openSection === 'suppliers'
                       ? 'bg-primary text-white' 
                       : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Users" size={18} />
-                  <span>Все поставщики</span>
-                </a>
-                <a 
-                  href="/purchases" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/purchases') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="ShoppingCart" size={18} />
-                  <span>Закупки</span>
-                </a>
-                <a 
-                  href="/contracts" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/contracts') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="FileText" size={18} />
-                  <span>Договоры</span>
-                </a>
+                  <div className="flex items-center space-x-3">
+                    <Icon name="Users" size={18} />
+                    <span>Поставщики</span>
+                  </div>
+                  <Icon 
+                    name={openSection === 'suppliers' ? 'ChevronUp' : 'ChevronDown'} 
+                    size={16} 
+                  />
+                </button>
+                {openSection === 'suppliers' && (
+                  <div className="space-y-1 ml-6">
+                    <a 
+                      href="/suppliers" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/suppliers') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="Users" size={16} />
+                      <span>Все поставщики</span>
+                    </a>
+                    <a 
+                      href="/purchases" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/purchases') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="ShoppingCart" size={16} />
+                      <span>Закупки</span>
+                    </a>
+                    <a 
+                      href="/contracts" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/contracts') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="FileText" size={16} />
+                      <span>Договоры</span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Финансы */}
             <div>
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-2">
-                Финансы
-              </div>
               <div className="space-y-1">
-                <a 
-                  href="/finance" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/finance') 
+                <button 
+                  onClick={() => toggleSection('finance')}
+                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                    isActive('/finance') || openSection === 'finance'
                       ? 'bg-primary text-white' 
                       : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
                   }`}
                 >
-                  <Icon name="DollarSign" size={18} />
-                  <span>Финансы</span>
-                </a>
-                <a 
-                  href="/invoices" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/invoices') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="Receipt" size={18} />
-                  <span>Счета</span>
-                </a>
-                <a 
-                  href="/pricing" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
-                    isActive('/pricing') 
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                  }`}
-                >
-                  <Icon name="CreditCard" size={18} />
-                  <span>Тарифы</span>
-                </a>
+                  <div className="flex items-center space-x-3">
+                    <Icon name="DollarSign" size={18} />
+                    <span>Финансы</span>
+                  </div>
+                  <Icon 
+                    name={openSection === 'finance' ? 'ChevronUp' : 'ChevronDown'} 
+                    size={16} 
+                  />
+                </button>
+                {openSection === 'finance' && (
+                  <div className="space-y-1 ml-6">
+                    <a 
+                      href="/finance" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/finance') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="TrendingUp" size={16} />
+                      <span>Общая статистика</span>
+                    </a>
+                    <a 
+                      href="/invoices" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/invoices') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="Receipt" size={16} />
+                      <span>Счета</span>
+                    </a>
+                    <a 
+                      href="/pricing" 
+                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                        isActive('/pricing') 
+                          ? 'bg-primary/20 text-primary' 
+                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
+                      }`}
+                    >
+                      <Icon name="CreditCard" size={16} />
+                      <span>Тарифы</span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Настройки и поддержка */}
             <div>
-              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-3 mb-2">
-                Поддержка
-              </div>
               <div className="space-y-1">
                 <a 
                   href="/settings" 
