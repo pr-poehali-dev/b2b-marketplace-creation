@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import SearchSection from "@/components/SearchSection";
+import AboutSection from "@/components/AboutSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import ProductsSection from "@/components/ProductsSection";
 import DeliverySection from "@/components/DeliverySection";
@@ -13,6 +14,7 @@ const Index = () => {
       <div className="ml-64">
         <HeroSection />
         <SearchSection />
+        <AboutSection />
         <FeaturesSection />
         <ProductsSection />
         <DeliverySection />
