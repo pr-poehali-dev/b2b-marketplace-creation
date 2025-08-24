@@ -82,19 +82,94 @@ const Footer = () => {
             
             <div>
               <h4 className="font-semibold mb-4">Контакты</h4>
-              <div className="space-y-3 text-sm text-gray-400">
-                <div className="flex items-center gap-2">
-                  <Icon name="Phone" size={16} />
-                  <span>+7 (800) 123-45-67</span>
+              <div className="space-y-4 text-sm text-gray-400">
+                
+                {/* Основные контакты */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Icon name="Phone" size={16} />
+                    <span>+7 (800) 123-45-67</span>
+                    <span className="text-xs text-gray-500">(бесплатно)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icon name="Headphones" size={16} />
+                    <span>+7 (495) 987-65-43</span>
+                    <span className="text-xs text-gray-500">(тех. поддержка)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icon name="Mail" size={16} />
+                    <span>info@bmmarket.ru</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="Mail" size={16} />
-                  <span>info@bmmarket.ru</span>
+
+                {/* Адреса офисов */}
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <Icon name="MapPin" size={16} className="mt-0.5" />
+                    <div>
+                      <div>Москва, ул. Деловая, 1</div>
+                      <div className="text-xs text-gray-500">Главный офис</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Icon name="MapPin" size={16} className="mt-0.5" />
+                    <div>
+                      <div>СПб, Невский пр., 85</div>
+                      <div className="text-xs text-gray-500">Региональный офис</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="MapPin" size={16} />
-                  <span>Москва, ул. Деловая, 1</span>
+
+                {/* Время работы */}
+                <div className="flex items-start gap-2">
+                  <Icon name="Clock" size={16} className="mt-0.5" />
+                  <div>
+                    <div>Пн-Пт: 9:00 - 18:00</div>
+                    <div>Сб-Вс: 10:00 - 16:00</div>
+                    <div className="text-xs text-gray-500">МСК</div>
+                  </div>
                 </div>
+
+                {/* Мессенджеры */}
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Icon name="MessageCircle" size={16} />
+                    <span>@bmmarket_bot</span>
+                    <span className="text-xs text-gray-500">(Telegram)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icon name="MessageSquare" size={16} />
+                    <span>+7 (800) 123-45-67</span>
+                    <span className="text-xs text-gray-500">(WhatsApp)</span>
+                  </div>
+                </div>
+
+                {/* Социальные сети */}
+                <div className="pt-2 border-t border-gray-800">
+                  <div className="text-xs text-gray-500 mb-2">Мы в социальных сетях:</div>
+                  <div className="flex gap-3">
+                    <div className="flex items-center gap-1 hover:text-blue-400 cursor-pointer transition-colors">
+                      <Icon name="MessageCircle" size={14} />
+                      <span className="text-xs">Telegram</span>
+                    </div>
+                    <div className="flex items-center gap-1 hover:text-green-400 cursor-pointer transition-colors">
+                      <Icon name="MessageSquare" size={14} />
+                      <span className="text-xs">WhatsApp</span>
+                    </div>
+                    <div className="flex items-center gap-1 hover:text-blue-500 cursor-pointer transition-colors">
+                      <Icon name="Globe" size={14} />
+                      <span className="text-xs">VK</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Реквизиты */}
+                <div className="pt-2 border-t border-gray-800 text-xs">
+                  <div className="text-gray-500 mb-1">ООО "БМ Бизнес Маркет"</div>
+                  <div className="text-gray-600">ИНН: 7701234567</div>
+                  <div className="text-gray-600">ОГРН: 1027700123456</div>
+                </div>
+
               </div>
             </div>
           </div>
