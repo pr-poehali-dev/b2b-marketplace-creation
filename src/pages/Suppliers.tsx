@@ -193,7 +193,8 @@ const Suppliers = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="ml-64">
+        <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Поставщики</h1>
           <p className="text-gray-600">Найдите надежных партнеров для вашего бизнеса</p>
@@ -428,9 +429,10 @@ const Suppliers = () => {
             )}
           </div>
         </div>
+        </div>
+        
+        <Footer />
       </div>
-      
-      <Footer />
     </div>
   );
 };
