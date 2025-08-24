@@ -25,6 +25,7 @@ const Suppliers = () => {
     {
       id: 1,
       name: "ООО «Металл-Трейд»",
+      inn: "7701234567",
       logo: "/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg",
       category: "Металлопрокат",
       region: "Москва",
@@ -41,6 +42,7 @@ const Suppliers = () => {
     {
       id: 2,
       name: "АО «СтройБаза Регион»",
+      inn: "7812345678",
       logo: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
       category: "Стройматериалы",
       region: "Санкт-Петербург",
@@ -57,6 +59,7 @@ const Suppliers = () => {
     {
       id: 3,
       name: "ИП Электроника-Опт",
+      inn: "5423456789",
       logo: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
       category: "Электроника",
       region: "Новосибирск",
@@ -73,6 +76,7 @@ const Suppliers = () => {
     {
       id: 4,
       name: "ООО «Кровля-Проф»",
+      inn: "6634567890",
       logo: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
       category: "Стройматериалы",
       region: "Екатеринбург",
@@ -89,6 +93,7 @@ const Suppliers = () => {
     {
       id: 5,
       name: "ООО «Пак-Сервис»",
+      inn: "1645678901",
       logo: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
       category: "Упаковка",
       region: "Казань",
@@ -105,6 +110,7 @@ const Suppliers = () => {
     {
       id: 6,
       name: "АО «КабельСнаб»",
+      inn: "7756789012",
       logo: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
       category: "Электротехника",
       region: "Москва",
@@ -121,6 +127,7 @@ const Suppliers = () => {
     {
       id: 7,
       name: "ООО «ОфисСнаб»",
+      inn: "7767890123",
       logo: "/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg",
       category: "Канцелярия",
       region: "Москва",
@@ -137,6 +144,7 @@ const Suppliers = () => {
     {
       id: 8,
       name: "ИП Крепёжников А.В.",
+      inn: "3678901234",
       logo: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
       category: "Крепёж",
       region: "Воронеж",
