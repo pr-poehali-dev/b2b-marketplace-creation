@@ -5,9 +5,8 @@ import Logo from "@/components/ui/logo";
 const Header = () => {
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Logo />
+      <div className="container mx-auto px-4 py-4 ml-64">
+        <div className="flex items-center justify-end">
           <div className="flex items-center space-x-3">
             <Button variant="outline" size="sm">
               <Icon name="LogIn" size={16} className="mr-2" />
@@ -22,7 +21,10 @@ const Header = () => {
       </div>
       
       {/* Боковая навигация */}
-      <nav className="fixed left-0 bottom-0 top-0 w-64 bg-white border-r z-40 pt-20">
+      <nav className="fixed left-0 bottom-0 top-0 w-64 bg-white border-r z-40">
+        <div className="p-4 border-b">
+          <Logo />
+        </div>
         <div className="p-4">
           <div className="space-y-2">
             <a href="/orders" className="flex items-center space-x-3 p-3 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-primary transition-colors">
