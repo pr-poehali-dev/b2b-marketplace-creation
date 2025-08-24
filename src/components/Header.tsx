@@ -10,6 +10,7 @@ const Header = () => {
           <div className="flex items-center space-x-8">
             <Logo />
             <nav className="hidden md:flex items-center space-x-6">
+              <a href="/orders" className="text-gray-600 hover:text-primary transition-colors">Все заказы</a>
               <a href="#catalog" className="text-gray-600 hover:text-primary transition-colors">Каталог товаров</a>
               <a href="#delivery" className="text-gray-600 hover:text-primary transition-colors">Доставка</a>
               <a href="#contacts" className="text-gray-600 hover:text-primary transition-colors">Контакты</a>
