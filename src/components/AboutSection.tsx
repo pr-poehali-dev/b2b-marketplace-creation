@@ -2,31 +2,31 @@ import Icon from '@/components/ui/icon';
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
+    <section id="about" className="py-12 md:py-20 bg-gray-50 overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="max-w-6xl mx-auto">
           
           {/* Заголовок */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 px-2">
               О компании BM Business Market
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Лидер в области корпоративных B2B закупок в России. 
               С 2018 года помогаем компаниям оптимизировать процессы снабжения.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
             
             {/* Левая колонка - История и миссия */}
-            <div className="space-y-8">
+            <div className="space-y-6 md:space-y-8">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <Icon name="Target" size={28} className="text-blue-600" />
-                  Наша миссия
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2 md:gap-3 flex-wrap">
+                  <Icon name="Target" size={24} className="text-blue-600 flex-shrink-0" />
+                  <span>Наша миссия</span>
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                   Создать экосистему, где каждая компания может эффективно управлять 
                   закупками, находить надежных поставщиков и развивать бизнес. 
                   Мы объединяем традиционный опыт с современными технологиями.
@@ -34,62 +34,62 @@ const AboutSection = () => {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                  <Icon name="Clock" size={28} className="text-green-600" />
-                  История развития
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2 md:gap-3 flex-wrap">
+                  <Icon name="Clock" size={24} className="text-green-600 flex-shrink-0" />
+                  <span>История развития</span>
                 </h3>
-                <div className="space-y-4">
-                  <div className="flex gap-4">
-                    <div className="w-20 text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1">
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex gap-3 md:gap-4">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2018
                     </div>
-                    <p className="text-gray-600">Основание компании и запуск MVP платформы</p>
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">Основание компании и запуск MVP платформы</p>
                   </div>
-                  <div className="flex gap-4">
-                    <div className="w-20 text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1">
+                  <div className="flex gap-3 md:gap-4">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2020
                     </div>
-                    <p className="text-gray-600">Достигли отметки 500+ активных поставщиков</p>
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">Достигли отметки 500+ активных поставщиков</p>
                   </div>
-                  <div className="flex gap-4">
-                    <div className="w-20 text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1">
+                  <div className="flex gap-3 md:gap-4">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2022
                     </div>
-                    <p className="text-gray-600">Запуск ИИ-аналитики и автоматизации процессов</p>
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">Запуск ИИ-аналитики и автоматизации процессов</p>
                   </div>
-                  <div className="flex gap-4">
-                    <div className="w-20 text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1">
+                  <div className="flex gap-3 md:gap-4">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2024
                     </div>
-                    <p className="text-gray-600">Более 2500 поставщиков и 15000+ товарных позиций</p>
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">Более 2500 поставщиков и 15000+ товарных позиций</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Правая колонка - Преимущества и команда */}
-            <div className="space-y-8">
+            <div className="space-y-6 md:space-y-8">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <Icon name="Award" size={28} className="text-yellow-600" />
-                  Наши достижения
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2 md:gap-3 flex-wrap">
+                  <Icon name="Award" size={24} className="text-yellow-600 flex-shrink-0" />
+                  <span>Наши достижения</span>
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-white rounded-lg p-4 border">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">98%</div>
-                    <div className="text-sm text-gray-600">Довольных клиентов</div>
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="bg-white rounded-lg p-3 md:p-4 border min-w-0">
+                    <div className="text-xl md:text-2xl font-bold text-blue-600 mb-1 truncate">98%</div>
+                    <div className="text-xs md:text-sm text-gray-600 leading-tight">Довольных клиентов</div>
                   </div>
-                  <div className="bg-white rounded-lg p-4 border">
-                    <div className="text-2xl font-bold text-green-600 mb-1">24/7</div>
-                    <div className="text-sm text-gray-600">Поддержка</div>
+                  <div className="bg-white rounded-lg p-3 md:p-4 border min-w-0">
+                    <div className="text-xl md:text-2xl font-bold text-green-600 mb-1 truncate">24/7</div>
+                    <div className="text-xs md:text-sm text-gray-600 leading-tight">Поддержка</div>
                   </div>
-                  <div className="bg-white rounded-lg p-4 border">
-                    <div className="text-2xl font-bold text-purple-600 mb-1">2500+</div>
-                    <div className="text-sm text-gray-600">Поставщиков</div>
+                  <div className="bg-white rounded-lg p-3 md:p-4 border min-w-0">
+                    <div className="text-xl md:text-2xl font-bold text-purple-600 mb-1 truncate">2500+</div>
+                    <div className="text-xs md:text-sm text-gray-600 leading-tight">Поставщиков</div>
                   </div>
-                  <div className="bg-white rounded-lg p-4 border">
-                    <div className="text-2xl font-bold text-orange-600 mb-1">15К+</div>
-                    <div className="text-sm text-gray-600">Товаров</div>
+                  <div className="bg-white rounded-lg p-3 md:p-4 border min-w-0">
+                    <div className="text-xl md:text-2xl font-bold text-orange-600 mb-1 truncate">15К+</div>
+                    <div className="text-xs md:text-sm text-gray-600 leading-tight">Товаров</div>
                   </div>
                 </div>
               </div>
@@ -134,26 +134,26 @@ const AboutSection = () => {
           </div>
 
           {/* Команда и контакты */}
-          <div className="mt-16 text-center">
-            <div className="bg-white rounded-2xl p-8 border">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <div className="mt-12 md:mt-16 text-center">
+            <div className="bg-white rounded-2xl p-4 md:p-6 lg:p-8 border max-w-4xl mx-auto">
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4 px-2">
                 Готовы начать сотрудничество?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-4 md:mb-6 text-sm md:text-base px-2">
                 Свяжитесь с нашей командой экспертов для персональной консультации
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2">
-                  <Icon name="Phone" size={20} />
-                  Позвонить сейчас
+              <div className="flex flex-wrap gap-3 md:gap-4 justify-center px-2">
+                <button className="bg-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm md:text-base min-w-0">
+                  <Icon name="Phone" size={18} className="flex-shrink-0" />
+                  <span className="truncate">Позвонить</span>
                 </button>
-                <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
-                  <Icon name="Mail" size={20} />
-                  Написать письмо
+                <button className="border border-gray-300 text-gray-700 px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm md:text-base min-w-0">
+                  <Icon name="Mail" size={18} className="flex-shrink-0" />
+                  <span className="truncate">Написать</span>
                 </button>
-                <button className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center gap-2">
-                  <Icon name="MessageCircle" size={20} />
-                  Telegram
+                <button className="bg-green-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center gap-2 text-sm md:text-base min-w-0">
+                  <Icon name="MessageCircle" size={18} className="flex-shrink-0" />
+                  <span className="truncate">Telegram</span>
                 </button>
               </div>
             </div>
