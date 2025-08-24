@@ -12,7 +12,7 @@ const Header = () => {
   };
 
   return (
-    <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+    <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
       <div className="container mx-auto px-4 py-4 ml-64">
         <div className="flex items-center justify-end">
           <div className="flex items-center space-x-3">
@@ -29,7 +29,10 @@ const Header = () => {
       </div>
       
       {/* Боковая навигация */}
-      <nav className="fixed left-0 bottom-0 top-0 w-64 bg-white border-r z-40 flex flex-col">
+      <nav 
+        className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col"
+        style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}
+      >
         <div className="p-4 border-b">
           <Logo />
         </div>
