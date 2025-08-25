@@ -2,14 +2,11 @@ const Logo = () => {
   return (
     <a href="/" className="flex items-center space-x-3">
       <div className="relative">
-        <div className="w-12 h-12 bg-teal-800 flex flex-col items-center justify-center rounded-lg">
-          <div className="text-white font-bold text-lg leading-none tracking-wider">
-            BM
-          </div>
-          <div className="text-white text-[5px] font-medium tracking-[0.15em] mt-0.5">
-            BUSINESS MARKET
-          </div>
-        </div>
+        <img 
+          src="https://cdn.poehali.dev/files/5cbc8996-f3ed-4a2a-b204-1487ae3d6e70.png" 
+          alt="Business Market Logo" 
+          className="w-12 h-12 rounded-lg object-contain bg-white p-1 shadow-sm border border-gray-200"
+        />
       </div>
       <div className="flex flex-col">
         <span className="text-xl font-bold text-gray-900 leading-tight">Business Market</span>
