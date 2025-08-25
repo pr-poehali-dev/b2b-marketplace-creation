@@ -51,7 +51,7 @@ const Header = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="p-6 border-b flex items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50">
+        <div className="py-4 px-6 border-b flex items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50">
           <Logo isCollapsed={!isHovered} />
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
