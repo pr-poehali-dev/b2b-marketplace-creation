@@ -7,6 +7,7 @@ import { useState } from 'react';
 const Header = () => {
   const location = useLocation();
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Определяем активный пункт меню
   const isActive = (path: string) => {
@@ -20,7 +21,9 @@ const Header = () => {
 
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
-      <div className="ml-64 overflow-hidden">
+      <div className={`transition-all duration-300 overflow-hidden ${
+        isHovered ? 'ml-64' : 'ml-16'
+      }`}>
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-end">
             <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
@@ -41,11 +44,15 @@ const Header = () => {
       
       {/* Боковая навигация */}
       <nav 
-        className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col"
+        className={`fixed left-0 top-0 bottom-0 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col transition-all duration-300 ${
+          isHovered ? 'w-64' : 'w-16'
+        }`}
         style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="p-4 border-b">
-          <Logo />
+        <div className="p-4 border-b flex items-center justify-center">
+          {isHovered ? <Logo /> : <Icon name="Menu" size={24} className="text-primary" />}
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
           <div className="space-y-4">
@@ -60,7 +67,7 @@ const Header = () => {
                 }`}
               >
                 <Icon name="Home" size={18} />
-                <span>Главная</span>
+                {isHovered && <span>Главная</span>}
               </a>
             </div>
 
@@ -77,17 +84,19 @@ const Header = () => {
                 >
                   <div className="flex items-center space-x-3">
                     <Icon name="ShoppingBag" size={18} />
-                    <span>Заказы и продажи</span>
+                    {isHovered && <span>Заказы и продажи</span>}
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">24</span>
-                    <Icon 
-                      name={openSection === 'orders' ? 'ChevronUp' : 'ChevronDown'} 
-                      size={16} 
-                    />
-                  </div>
+                  {isHovered && (
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">24</span>
+                      <Icon 
+                        name={openSection === 'orders' ? 'ChevronUp' : 'ChevronDown'} 
+                        size={16} 
+                      />
+                    </div>
+                  )}
                 </button>
-                {openSection === 'orders' && (
+                {openSection === 'orders' && isHovered && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/orders" 
@@ -98,7 +107,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="List" size={16} />
-                      <span>Все заказы</span>
+                      {isHovered && <span>Все заказы</span>}
                     </a>
                     <a 
                       href="/orders/pending" 
@@ -109,7 +118,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Clock" size={16} />
-                      <span>В ожидании</span>
+                      {isHovered && <span>В ожидании</span>}
                     </a>
                     <a 
                       href="/orders/processing" 
@@ -120,7 +129,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Package" size={16} />
-                      <span>В обработке</span>
+                      {isHovered && <span>В обработке</span>}
                     </a>
                     <a 
                       href="/orders/completed" 
@@ -131,7 +140,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="CheckCircle" size={16} />
-                      <span>Выполненные</span>
+                      {isHovered && <span>Выполненные</span>}
                     </a>
                     <a 
                       href="/analytics" 
@@ -142,7 +151,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="TrendingUp" size={16} />
-                      <span>Аналитика продаж</span>
+                      {isHovered && <span>Аналитика продаж</span>}
                     </a>
                   </div>
                 )}
@@ -162,17 +171,19 @@ const Header = () => {
                 >
                   <div className="flex items-center space-x-3">
                     <Icon name="Grid3x3" size={18} />
-                    <span>Товары и каталог</span>
+                    {isHovered && <span>Товары и каталог</span>}
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">2.5k</span>
-                    <Icon 
-                      name={openSection === 'catalog' ? 'ChevronUp' : 'ChevronDown'} 
-                      size={16} 
-                    />
-                  </div>
+                  {isHovered && (
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">2.5k</span>
+                      <Icon 
+                        name={openSection === 'catalog' ? 'ChevronUp' : 'ChevronDown'} 
+                        size={16} 
+                      />
+                    </div>
+                  )}
                 </button>
-                {openSection === 'catalog' && (
+                {openSection === 'catalog' && isHovered && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/catalog" 
@@ -183,7 +194,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="List" size={16} />
-                      <span>Все товары</span>
+                      {isHovered && <span>Все товары</span>}
                     </a>
                     <a 
                       href="/catalog/categories" 
@@ -194,7 +205,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="FolderOpen" size={16} />
-                      <span>Категории</span>
+                      {isHovered && <span>Категории</span>}
                     </a>
                     <a 
                       href="/inventory" 
@@ -205,7 +216,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Warehouse" size={16} />
-                      <span>Склад и остатки</span>
+                      {isHovered && <span>Склад и остатки</span>}
                     </a>
                     <a 
                       href="/returns" 
@@ -216,7 +227,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="RotateCcw" size={16} />
-                      <span>Возвраты</span>
+                      {isHovered && <span>Возвраты</span>}
                     </a>
                   </div>
                 )}
@@ -236,14 +247,16 @@ const Header = () => {
                 >
                   <div className="flex items-center space-x-3">
                     <Icon name="Users" size={18} />
-                    <span>Поставщики</span>
+                    {isHovered && <span>Поставщики</span>}
                   </div>
-                  <Icon 
-                    name={openSection === 'suppliers' ? 'ChevronUp' : 'ChevronDown'} 
-                    size={16} 
-                  />
+                  {isHovered && (
+                    <Icon 
+                      name={openSection === 'suppliers' ? 'ChevronUp' : 'ChevronDown'} 
+                      size={16} 
+                    />
+                  )}
                 </button>
-                {openSection === 'suppliers' && (
+                {openSection === 'suppliers' && isHovered && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/suppliers" 
@@ -254,7 +267,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Users" size={16} />
-                      <span>Все поставщики</span>
+                      {isHovered && <span>Все поставщики</span>}
                     </a>
                     <a 
                       href="/purchases" 
@@ -265,7 +278,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="ShoppingCart" size={16} />
-                      <span>Закупки</span>
+                      {isHovered && <span>Закупки</span>}
                     </a>
                     <a 
                       href="/contracts" 
@@ -276,7 +289,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="FileText" size={16} />
-                      <span>Договоры</span>
+                      {isHovered && <span>Договоры</span>}
                     </a>
                   </div>
                 )}
@@ -296,14 +309,16 @@ const Header = () => {
                 >
                   <div className="flex items-center space-x-3">
                     <Icon name="DollarSign" size={18} />
-                    <span>Финансы</span>
+                    {isHovered && <span>Финансы</span>}
                   </div>
-                  <Icon 
-                    name={openSection === 'finance' ? 'ChevronUp' : 'ChevronDown'} 
-                    size={16} 
-                  />
+                  {isHovered && (
+                    <Icon 
+                      name={openSection === 'finance' ? 'ChevronUp' : 'ChevronDown'} 
+                      size={16} 
+                    />
+                  )}
                 </button>
-                {openSection === 'finance' && (
+                {openSection === 'finance' && isHovered && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/finance" 
@@ -314,7 +329,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="TrendingUp" size={16} />
-                      <span>Общая статистика</span>
+                      {isHovered && <span>Общая статистика</span>}
                     </a>
                     <a 
                       href="/invoices" 
@@ -325,7 +340,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Receipt" size={16} />
-                      <span>Счета</span>
+                      {isHovered && <span>Счета</span>}
                     </a>
                     <a 
                       href="/pricing" 
@@ -336,7 +351,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="CreditCard" size={16} />
-                      <span>Тарифы</span>
+                      {isHovered && <span>Тарифы</span>}
                     </a>
                   </div>
                 )}
@@ -355,7 +370,7 @@ const Header = () => {
                   }`}
                 >
                   <Icon name="Settings" size={18} />
-                  <span>Настройки</span>
+                  {isHovered && <span>Настройки</span>}
                 </a>
                 <a 
                   href="#contacts" 
@@ -366,7 +381,7 @@ const Header = () => {
                   }`}
                 >
                   <Icon name="Phone" size={18} />
-                  <span>Контакты</span>
+                  {isHovered && <span>Контакты</span>}
                 </a>
                 <a 
                   href="#about" 
@@ -377,7 +392,7 @@ const Header = () => {
                   }`}
                 >
                   <Icon name="Info" size={18} />
-                  <span>О компании</span>
+                  {isHovered && <span>О компании</span>}
                 </a>
                 <a 
                   href="/help" 
@@ -388,7 +403,7 @@ const Header = () => {
                   }`}
                 >
                   <Icon name="HelpCircle" size={18} />
-                  <span>Помощь</span>
+                  {isHovered && <span>Помощь</span>}
                 </a>
               </div>
             </div>
