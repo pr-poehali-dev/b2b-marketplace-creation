@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
       <div className={`transition-all duration-300 overflow-hidden ${
-        isHovered ? 'ml-64' : 'ml-16'
+        isHovered ? 'ml-56' : 'ml-16'
       }`}>
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-end">
@@ -45,7 +45,7 @@ const Header = () => {
       {/* Боковая навигация */}
       <nav 
         className={`fixed left-0 top-0 bottom-0 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col transition-all duration-300 ${
-          isHovered ? 'w-64' : 'w-16'
+          isHovered ? 'w-56' : 'w-16'
         }`}
         style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}
         onMouseEnter={() => setIsHovered(true)}

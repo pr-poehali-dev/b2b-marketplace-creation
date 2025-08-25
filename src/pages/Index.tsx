@@ -12,7 +12,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-64 transition-all duration-300">
+      <div className="ml-56 transition-all duration-300">
         <BrandHeader />
         <HeroSection />
         <SearchSection />
