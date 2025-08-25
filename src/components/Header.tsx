@@ -322,73 +322,7 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Финансы */}
-            <div>
-              <div className="space-y-1">
-                <button 
-                  onClick={() => toggleSection('finance')}
-                  className={`w-full flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
-                    isActive('/finance') || openSection === 'finance'
-                      ? 'bg-primary text-white' 
-                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
-                  }`}
-                >
-                  {isHovered ? (
-                    <>
-                      <div className="w-6 flex justify-center">
-                        <Icon name="DollarSign" size={20} className="font-medium" />
-                      </div>
-                      <span className="ml-3 flex-1">Финансы</span>
-                    </>
-                  ) : (
-                    <Icon name="DollarSign" size={28} className="font-bold" />
-                  )}
-                  {isHovered && (
-                    <Icon 
-                      name={openSection === 'finance' ? 'ChevronUp' : 'ChevronDown'} 
-                      size={16} 
-                    />
-                  )}
-                </button>
-                {openSection === 'finance' && isHovered && (
-                  <div className="space-y-1 ml-6">
-                    <a 
-                      href="/finance" 
-                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
-                        isActive('/finance') 
-                          ? 'bg-primary/20 text-primary' 
-                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                      }`}
-                    >
-                      <Icon name="TrendingUp" size={16} />
-                      {isHovered && <span>Общая статистика</span>}
-                    </a>
-                    <a 
-                      href="/invoices" 
-                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
-                        isActive('/invoices') 
-                          ? 'bg-primary/20 text-primary' 
-                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                      }`}
-                    >
-                      <Icon name="Receipt" size={16} />
-                      {isHovered && <span>Счета</span>}
-                    </a>
-                    <a 
-                      href="/pricing" 
-                      className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
-                        isActive('/pricing') 
-                          ? 'bg-primary/20 text-primary' 
-                          : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
-                      }`}
-                    >
-                      <Icon name="CreditCard" size={16} />
-                      {isHovered && <span>Тарифы</span>}
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
+
 
             {/* Настройки и поддержка */}
             <div>
