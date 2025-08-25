@@ -8,12 +8,7 @@ const BrandHeader = () => {
       </div>
       
       <div className="relative max-w-6xl mx-auto text-center">
-        {/* Main title with gradient text */}
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-white via-emerald-100 to-teal-100 bg-clip-text text-transparent">
-            Business Market
-          </span>
-        </h1>
+
         
         {/* Subtitle with glow effect */}
         <div className="mb-6">
