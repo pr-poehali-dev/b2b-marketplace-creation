@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
     <section className="pt-6 pb-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
               <Badge variant="secondary" className="w-fit">
@@ -50,11 +50,11 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative lg:mt-8">
+          <div className="relative">
             <img 
               src="/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg" 
               alt="Деловые переговоры B2B"
-              className="rounded-lg shadow-2xl w-full max-w-md mx-auto lg:max-w-full"
+              className="rounded-lg shadow-2xl w-full"
             />
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
               <div className="flex items-center space-x-2">
