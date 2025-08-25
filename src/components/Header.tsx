@@ -52,7 +52,7 @@ const Header = () => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="p-4 border-b flex items-center justify-center">
-          <Logo />
+          <Logo isCollapsed={!isHovered} />
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
           <div className="space-y-4">
