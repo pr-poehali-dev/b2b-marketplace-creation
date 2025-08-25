@@ -5,12 +5,15 @@ interface LogoProps {
 const Logo = ({ isCollapsed = false }: LogoProps) => {
   if (isCollapsed) {
     return (
-      <a href="/" className="flex items-center justify-center">
-        <img 
-          src="https://cdn.poehali.dev/files/5cbc8996-f3ed-4a2a-b204-1487ae3d6e70.png" 
-          alt="Business Market Logo" 
-          className="w-10 h-10 rounded object-contain"
-        />
+      <a href="/" className="flex items-center justify-center mb-4 group">
+        <div className="relative">
+          <img 
+            src="https://cdn.poehali.dev/files/5cbc8996-f3ed-4a2a-b204-1487ae3d6e70.png" 
+            alt="Business Market Logo" 
+            className="w-14 h-14 rounded-lg object-contain bg-white p-2 shadow-lg border-2 border-teal-200 group-hover:border-teal-400 transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
+          />
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-teal-100/20 to-emerald-100/20 group-hover:from-teal-200/30 group-hover:to-emerald-200/30 transition-all duration-300"></div>
+        </div>
       </a>
     );
   }
