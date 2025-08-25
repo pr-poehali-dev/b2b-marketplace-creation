@@ -60,16 +60,22 @@ const Header = () => {
             <div>
               <a 
                 href="/" 
-                className={`flex items-center p-3 rounded-lg transition-colors ${
+                className={`flex items-center ${isHovered ? 'p-3' : 'p-3 justify-center'} rounded-lg transition-colors ${
                   isActive('/') 
                     ? 'bg-primary text-white' 
                     : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                 }`}
               >
-                <div className="w-6 flex justify-center">
-                  <Icon name="Home" size={24} className="font-bold text-gray-900" />
-                </div>
-                {isHovered && <span className="ml-3">Главная</span>}
+                {isHovered ? (
+                  <>
+                    <div className="w-6 flex justify-center">
+                      <Icon name="Home" size={24} className="font-bold" />
+                    </div>
+                    <span className="ml-3">Главная</span>
+                  </>
+                ) : (
+                  <Icon name="Home" size={24} className="font-bold" />
+                )}
               </a>
             </div>
 
