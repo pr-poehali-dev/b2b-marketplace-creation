@@ -27,7 +27,7 @@ const Header = () => {
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <h1 className="text-xl md:text-2xl font-bold text-gray-900">BizPlatform</h1>
+              <h1 className="text-xl md:text-2xl font-bold text-gray-900">Business Market</h1>
               <p className="text-xs md:text-sm text-gray-600">Платформа для бизнеса</p>
             </div>
             <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
