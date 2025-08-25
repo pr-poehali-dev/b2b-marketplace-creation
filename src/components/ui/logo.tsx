@@ -18,16 +18,13 @@ const Logo = ({ isCollapsed = false }: LogoProps) => {
   }
 
   return (
-    <a href="/" className="flex items-center space-x-4">
-      <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl border-4 border-emerald-800 ring-4 ring-emerald-700/30 flex items-center justify-center p-2">
+    <a href="/" className="flex items-center justify-center">
+      <div className="w-16 h-16 bg-white rounded-2xl shadow-2xl border-4 border-emerald-800 ring-4 ring-emerald-700/30 flex items-center justify-center p-2">
         <img 
           src="https://cdn.poehali.dev/files/4d20b7de-6689-423f-acb3-f8d75e6d3142.png" 
           alt="BM Business Market Logo" 
           className="w-full h-full object-contain rounded-xl"
         />
-      </div>
-      <div className="flex flex-col">
-        <span className="text-xl font-bold text-gray-900 leading-tight">Business Market</span>
       </div>
     </a>
   );
