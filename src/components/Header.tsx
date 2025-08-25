@@ -55,7 +55,7 @@ const Header = () => {
           <Logo isCollapsed={!isHovered} />
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
-          <div className={isHovered ? 'space-y-4' : 'space-y-2'}>
+          <div className={isHovered ? 'space-y-2' : 'space-y-2'}>
             {/* Основная навигация */}
             <div>
               <a 
