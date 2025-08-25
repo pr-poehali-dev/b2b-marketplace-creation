@@ -69,7 +69,7 @@ const Header = () => {
                 {isHovered ? (
                   <>
                     <div className="w-6 flex justify-center">
-                      <Icon name="Home" size={18} className="font-medium" />
+                      <Icon name="Home" size={16} className="font-medium" />
                     </div>
                     <span className="ml-3">Главная</span>
                   </>
@@ -93,7 +93,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="ShoppingBag" size={18} className="font-medium" />
+                        <Icon name="ShoppingBag" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3 flex-1">Заказы и продажи</span>
                     </>
@@ -186,7 +186,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="Grid3x3" size={18} className="font-medium" />
+                        <Icon name="Grid3x3" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3 flex-1">Товары и каталог</span>
                     </>
@@ -268,7 +268,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="Users" size={18} className="font-medium" />
+                        <Icon name="Users" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3 flex-1">Поставщики</span>
                     </>
@@ -338,7 +338,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="Settings" size={18} className="font-medium" />
+                        <Icon name="Settings" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3">Настройки</span>
                     </>
@@ -357,7 +357,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="Phone" size={18} className="font-medium" />
+                        <Icon name="Phone" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3">Контакты</span>
                     </>
@@ -376,7 +376,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="Info" size={18} className="font-medium" />
+                        <Icon name="Info" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3">О компании</span>
                     </>
@@ -395,7 +395,7 @@ const Header = () => {
                   {isHovered ? (
                     <>
                       <div className="w-6 flex justify-center">
-                        <Icon name="HelpCircle" size={18} className="font-medium" />
+                        <Icon name="HelpCircle" size={16} className="font-medium" />
                       </div>
                       <span className="ml-3">Помощь</span>
                     </>
