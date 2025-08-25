@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import BrandHeader from "@/components/BrandHeader";
 import HeroSection from "@/components/HeroSection";
 import SearchSection from "@/components/SearchSection";
 import AboutSection from "@/components/AboutSection";
@@ -11,7 +12,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-64">
+      <div className="ml-64 transition-all duration-300">
+        <BrandHeader />
         <HeroSection />
         <SearchSection />
         <AboutSection />
