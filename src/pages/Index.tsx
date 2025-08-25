@@ -13,7 +13,6 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <div className="ml-56 transition-all duration-300">
-        <BrandHeader />
         <HeroSection />
         <SearchSection />
         <AboutSection />
