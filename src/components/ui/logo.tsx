@@ -10,7 +10,7 @@ const Logo = () => {
       </div>
       <div className="flex flex-col">
         <span className="text-xl font-bold text-gray-900 leading-tight">Business Market</span>
-        <span className="text-xs text-gray-600 uppercase tracking-wide font-medium">B2B Platform</span>
+
       </div>
     </a>
   );
