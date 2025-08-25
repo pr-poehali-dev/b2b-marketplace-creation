@@ -50,7 +50,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative -mt-8">
+          <div className="relative -mt-16">
             <img 
               src="/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg" 
               alt="Деловые переговоры B2B"
