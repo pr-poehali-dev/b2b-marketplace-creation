@@ -5,14 +5,14 @@ interface LogoProps {
 const Logo = ({ isCollapsed = false }: LogoProps) => {
   if (isCollapsed) {
     return (
-      <a href="/" className="flex items-center justify-center mb-4 group">
+      <a href="/" className="flex items-center justify-center mb-6 group">
         <div className="relative">
           <img 
             src="https://cdn.poehali.dev/files/5cbc8996-f3ed-4a2a-b204-1487ae3d6e70.png" 
             alt="Business Market Logo" 
-            className="w-14 h-14 rounded-lg object-contain bg-white p-2 shadow-lg border-2 border-teal-200 group-hover:border-teal-400 transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
+            className="w-20 h-20 rounded-xl object-contain bg-white p-3 shadow-2xl border-4 border-teal-300 group-hover:border-teal-500 transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl ring-4 ring-teal-100/50"
           />
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-teal-100/20 to-emerald-100/20 group-hover:from-teal-200/30 group-hover:to-emerald-200/30 transition-all duration-300"></div>
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-teal-200/30 to-emerald-200/30 group-hover:from-teal-300/40 group-hover:to-emerald-300/40 transition-all duration-300"></div>
         </div>
       </a>
     );
