@@ -24,7 +24,7 @@ const Logo = ({ isCollapsed = false }: LogoProps) => {
         <img 
           src="https://cdn.poehali.dev/files/5cbc8996-f3ed-4a2a-b204-1487ae3d6e70.png" 
           alt="Business Market Logo" 
-          className="w-12 h-12 rounded-lg object-contain bg-white p-1 shadow-sm border border-gray-200"
+          className="w-24 h-24 rounded-2xl object-contain bg-white p-3 shadow-2xl border-4 border-teal-400 ring-8 ring-teal-100/80"
         />
       </div>
       <div className="flex flex-col">
