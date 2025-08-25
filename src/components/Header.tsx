@@ -60,14 +60,16 @@ const Header = () => {
             <div>
               <a 
                 href="/" 
-                className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                className={`flex items-center p-3 rounded-lg transition-colors ${
                   isActive('/') 
                     ? 'bg-primary text-white' 
                     : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                 }`}
               >
-                <Icon name="Home" size={22} className="font-bold" />
-                {isHovered && <span>Главная</span>}
+                <div className="w-6 flex justify-center">
+                  <Icon name="Home" size={22} className="font-bold" />
+                </div>
+                {isHovered && <span className="ml-3">Главная</span>}
               </a>
             </div>
 
@@ -76,16 +78,16 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('orders')}
-                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center p-3 rounded-lg transition-colors ${
                     isActive('/orders') || openSection === 'orders'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="w-6 flex justify-center">
                     <Icon name="ShoppingBag" size={22} className="font-bold" />
-                    {isHovered && <span>Заказы и продажи</span>}
                   </div>
+                  {isHovered && <span className="ml-3 flex-1">Заказы и продажи</span>}
                   {isHovered && (
                     <div className="flex items-center space-x-2">
                       <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">24</span>
@@ -163,16 +165,16 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('catalog')}
-                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center p-3 rounded-lg transition-colors ${
                     isActive('/catalog') || openSection === 'catalog'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="w-6 flex justify-center">
                     <Icon name="Grid3x3" size={22} className="font-bold" />
-                    {isHovered && <span>Товары и каталог</span>}
                   </div>
+                  {isHovered && <span className="ml-3 flex-1">Товары и каталог</span>}
                   {isHovered && (
                     <div className="flex items-center space-x-2">
                       <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">2.5k</span>
@@ -239,16 +241,16 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('suppliers')}
-                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center p-3 rounded-lg transition-colors ${
                     isActive('/suppliers') || openSection === 'suppliers'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="w-6 flex justify-center">
                     <Icon name="Users" size={22} className="font-bold" />
-                    {isHovered && <span>Поставщики</span>}
                   </div>
+                  {isHovered && <span className="ml-3 flex-1">Поставщики</span>}
                   {isHovered && (
                     <Icon 
                       name={openSection === 'suppliers' ? 'ChevronUp' : 'ChevronDown'} 
@@ -301,16 +303,16 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('finance')}
-                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center p-3 rounded-lg transition-colors ${
                     isActive('/finance') || openSection === 'finance'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="w-6 flex justify-center">
                     <Icon name="DollarSign" size={22} className="font-bold" />
-                    {isHovered && <span>Финансы</span>}
                   </div>
+                  {isHovered && <span className="ml-3 flex-1">Финансы</span>}
                   {isHovered && (
                     <Icon 
                       name={openSection === 'finance' ? 'ChevronUp' : 'ChevronDown'} 
@@ -363,47 +365,55 @@ const Header = () => {
               <div className="space-y-1">
                 <a 
                   href="/settings" 
-                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center p-3 rounded-lg transition-colors ${
                     isActive('/settings') 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Settings" size={22} className="font-bold" />
-                  {isHovered && <span>Настройки</span>}
+                  <div className="w-6 flex justify-center">
+                    <Icon name="Settings" size={22} className="font-bold" />
+                  </div>
+                  {isHovered && <span className="ml-3">Настройки</span>}
                 </a>
                 <a 
                   href="#contacts" 
-                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center p-3 rounded-lg transition-colors ${
                     location.hash === '#contacts' 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Phone" size={22} className="font-bold" />
-                  {isHovered && <span>Контакты</span>}
+                  <div className="w-6 flex justify-center">
+                    <Icon name="Phone" size={22} className="font-bold" />
+                  </div>
+                  {isHovered && <span className="ml-3">Контакты</span>}
                 </a>
                 <a 
                   href="#about" 
-                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center p-3 rounded-lg transition-colors ${
                     location.hash === '#about' 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Info" size={22} className="font-bold" />
-                  {isHovered && <span>О компании</span>}
+                  <div className="w-6 flex justify-center">
+                    <Icon name="Info" size={22} className="font-bold" />
+                  </div>
+                  {isHovered && <span className="ml-3">О компании</span>}
                 </a>
                 <a 
                   href="/help" 
-                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center p-3 rounded-lg transition-colors ${
                     isActive('/help') 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="HelpCircle" size={22} className="font-bold" />
-                  {isHovered && <span>Помощь</span>}
+                  <div className="w-6 flex justify-center">
+                    <Icon name="HelpCircle" size={22} className="font-bold" />
+                  </div>
+                  {isHovered && <span className="ml-3">Помощь</span>}
                 </a>
               </div>
             </div>
