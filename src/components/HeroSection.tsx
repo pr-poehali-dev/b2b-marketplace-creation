@@ -56,7 +56,7 @@ const HeroSection = () => {
               alt="Деловые переговоры B2B"
               className="rounded-lg shadow-2xl w-4/5 mx-auto"
             />
-            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
+            <div className="absolute top-4 right-4 bg-white p-3 rounded-lg shadow-lg">
               <div className="flex items-center space-x-2">
                 <Icon name="CheckCircle" size={20} className="text-green-500" />
                 <span className="font-medium text-sm">Верифицировано</span>
