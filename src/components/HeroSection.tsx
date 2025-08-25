@@ -4,7 +4,7 @@ import Icon from "@/components/ui/icon";
 
 const HeroSection = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-50 to-white">
+    <section className="pt-6 pb-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
