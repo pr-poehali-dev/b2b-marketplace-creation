@@ -52,7 +52,7 @@ const Header = () => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="p-4 border-b flex items-center justify-center">
-          {isHovered ? <Logo /> : <Icon name="Menu" size={24} className="text-primary" />}
+          {isHovered ? <Logo /> : <Icon name="Menu" size={28} className="text-primary font-bold" />}
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
           <div className="space-y-4">
@@ -60,13 +60,13 @@ const Header = () => {
             <div>
               <a 
                 href="/" 
-                className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                   isActive('/') 
                     ? 'bg-primary text-white' 
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                    : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                 }`}
               >
-                <Icon name="Home" size={18} />
+                <Icon name="Home" size={22} className="font-bold" />
                 {isHovered && <span>Главная</span>}
               </a>
             </div>
@@ -76,14 +76,14 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('orders')}
-                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     isActive('/orders') || openSection === 'orders'
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <Icon name="ShoppingBag" size={18} />
+                    <Icon name="ShoppingBag" size={22} className="font-bold" />
                     {isHovered && <span>Заказы и продажи</span>}
                   </div>
                   {isHovered && (
@@ -163,14 +163,14 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('catalog')}
-                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     isActive('/catalog') || openSection === 'catalog'
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <Icon name="Grid3x3" size={18} />
+                    <Icon name="Grid3x3" size={22} className="font-bold" />
                     {isHovered && <span>Товары и каталог</span>}
                   </div>
                   {isHovered && (
@@ -239,14 +239,14 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('suppliers')}
-                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     isActive('/suppliers') || openSection === 'suppliers'
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <Icon name="Users" size={18} />
+                    <Icon name="Users" size={22} className="font-bold" />
                     {isHovered && <span>Поставщики</span>}
                   </div>
                   {isHovered && (
@@ -301,14 +301,14 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('finance')}
-                  className={`w-full flex items-center justify-between space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     isActive('/finance') || openSection === 'finance'
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
-                    <Icon name="DollarSign" size={18} />
+                    <Icon name="DollarSign" size={22} className="font-bold" />
                     {isHovered && <span>Финансы</span>}
                   </div>
                   {isHovered && (
@@ -363,46 +363,46 @@ const Header = () => {
               <div className="space-y-1">
                 <a 
                   href="/settings" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     isActive('/settings') 
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Settings" size={18} />
+                  <Icon name="Settings" size={22} className="font-bold" />
                   {isHovered && <span>Настройки</span>}
                 </a>
                 <a 
                   href="#contacts" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     location.hash === '#contacts' 
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Phone" size={18} />
+                  <Icon name="Phone" size={22} className="font-bold" />
                   {isHovered && <span>Контакты</span>}
                 </a>
                 <a 
                   href="#about" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     location.hash === '#about' 
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="Info" size={18} />
+                  <Icon name="Info" size={22} className="font-bold" />
                   {isHovered && <span>О компании</span>}
                 </a>
                 <a 
                   href="/help" 
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center justify-center space-x-3 p-3 rounded-lg transition-colors ${
                     isActive('/help') 
                       ? 'bg-primary text-white' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  <Icon name="HelpCircle" size={18} />
+                  <Icon name="HelpCircle" size={22} className="font-bold" />
                   {isHovered && <span>Помощь</span>}
                 </a>
               </div>
