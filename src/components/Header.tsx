@@ -26,10 +26,7 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <h1 className="text-xl md:text-2xl font-bold text-gray-900">Business Market</h1>
-              <p className="text-xs md:text-sm text-gray-600">Платформа для бизнеса</p>
-            </div>
+
             <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
               <Button variant="outline" size="sm" className="text-xs md:text-sm px-2 md:px-3">
                 <Icon name="LogIn" size={14} className="mr-1 md:mr-2 flex-shrink-0" />
