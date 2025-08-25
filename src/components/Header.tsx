@@ -67,7 +67,7 @@ const Header = () => {
                 }`}
               >
                 <div className="w-6 flex justify-center">
-                  <Icon name="Home" size={22} className="font-bold" />
+                  <Icon name="Home" size={24} className="font-bold text-gray-900" />
                 </div>
                 {isHovered && <span className="ml-3">Главная</span>}
               </a>
