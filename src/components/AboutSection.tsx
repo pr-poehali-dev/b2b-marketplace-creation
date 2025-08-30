@@ -9,7 +9,7 @@ const AboutSection = () => {
           {/* Заголовок */}
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 px-2">
-              О компании BM Business Market
+              О компании Business Market
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               Лидер в области корпоративных B2B закупок в России. 
