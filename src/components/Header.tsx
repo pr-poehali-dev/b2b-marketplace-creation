@@ -1,15 +1,14 @@
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import Logo from "@/components/ui/logo";
-import RegistrationForm from "@/components/RegistrationForm";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [showRegistration, setShowRegistration] = useState(false);
   
   // Определяем активный пункт меню
   const isActive = (path: string) => {
@@ -41,7 +40,7 @@ const Header = () => {
               <Button 
                 size="sm" 
                 className="text-xs md:text-sm px-2 md:px-3"
-                onClick={() => setShowRegistration(true)}
+                onClick={() => navigate('/register')}
               >
                 <Icon name="UserPlus" size={14} className="mr-1 md:mr-2 flex-shrink-0" />
                 <span className="hidden sm:inline">Регистрация</span>
@@ -419,20 +418,7 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Модальное окно регистрации */}
-      {showRegistration && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[10000]">
-          <div className="relative">
-            <button
-              onClick={() => setShowRegistration(false)}
-              className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center z-10 hover:bg-gray-50"
-            >
-              <Icon name="X" size={16} />
-            </button>
-            <RegistrationForm />
-          </div>
-        </div>
-      )}
+
     </header>
   );
 };
