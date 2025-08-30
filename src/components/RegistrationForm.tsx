@@ -216,7 +216,7 @@ const RegistrationForm = () => {
             </Button>
             <Button 
               type="submit"
-              className="flex-1 bg-green-600 hover:bg-green-700"
+              className="flex-1 bg-primary hover:bg-primary/90"
               disabled={!fullName.trim() || !email.trim() || !password.trim() || password !== confirmPassword}
             >
               <Icon name="CheckCircle" size={16} className="mr-2" />
