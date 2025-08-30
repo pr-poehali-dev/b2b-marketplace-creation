@@ -28,8 +28,8 @@ const Header = () => {
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <span className="text-lg font-bold text-gray-900">Business Market</span>
-              <span className="text-sm text-gray-600 ml-2">платформа для бизнеса</span>
+              <span className="text-base sm:text-lg font-bold text-gray-900">Business Market</span>
+              <span className="hidden sm:inline text-sm text-gray-600 ml-2">платформа для бизнеса</span>
             </div>
             <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
               <Button 

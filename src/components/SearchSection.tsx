@@ -77,19 +77,19 @@ const SearchSection = () => {
   };
 
   return (
-    <section className="py-12 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="py-8 sm:py-12 bg-gray-50">
+      <div className="container mx-auto px-3 sm:px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-center text-2xl font-bold text-gray-900 mb-8">
+          <h2 className="text-center text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 px-2">
             Найдите то, что нужно вашему бизнесу
           </h2>
           
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <div className="flex gap-4">
+          <div className="bg-white rounded-lg p-4 sm:p-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <div className="flex-1 relative" ref={searchRef}>
                 <Input 
-                  placeholder="Поиск товаров, категорий, поставщиков..." 
-                  className="text-base h-12"
+                  placeholder="Поиск товаров и поставщиков..." 
+                  className="text-sm sm:text-base h-12"
                   value={searchQuery}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
@@ -110,14 +110,14 @@ const SearchSection = () => {
                   </div>
                 )}
               </div>
-              <Button size="lg" className="px-8" onClick={handleSearch}>
+              <Button size="lg" className="px-4 sm:px-8 w-full sm:w-auto" onClick={handleSearch}>
                 <Icon name="Search" size={20} className="mr-2" />
                 Поиск
               </Button>
             </div>
             
-            <div className="flex flex-wrap gap-2 mt-4">
-              <span className="text-sm text-gray-600">Популярные запросы:</span>
+            <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
+              <span className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-0">Популярные:</span>
               {["Металлопрокат", "Стройматериалы", "Продукты питания", "Упаковка"].map((tag) => (
                 <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-white transition-colors" onClick={() => handleTagClick(tag)}>
                   {tag}
