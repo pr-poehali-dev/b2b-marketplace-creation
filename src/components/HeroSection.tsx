@@ -54,10 +54,10 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative -mt-16 w-4/5 mx-auto">
+          <div className="relative -mt-24 w-4/5 mx-auto">
             <img 
-              src="/img/12bdf578-7cfe-4dd8-be76-225c50da33d8.jpg" 
-              alt="Профессиональные деловые переговоры"
+              src="/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg" 
+              alt="Российские бизнес-партнеры заключают сделку"
               className="rounded-lg shadow-2xl w-full h-96 object-cover"
             />
             <div className="absolute top-4 right-4 bg-white px-3 py-2 rounded-lg shadow-lg">
