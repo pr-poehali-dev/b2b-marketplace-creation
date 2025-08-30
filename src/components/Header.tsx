@@ -2,13 +2,26 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import Logo from "@/components/ui/logo";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Определение мобильного устройства
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // Определяем активный пункт меню
   const isActive = (path: string) => {
@@ -20,10 +33,13 @@ const Header = () => {
     setOpenSection(openSection === section ? null : section);
   };
 
+  // Определяем, должно ли меню быть развернутым
+  const isMenuExpanded = isMobile || isMenuExpanded;
+
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
       <div className={`transition-all duration-300 overflow-hidden ${
-        isHovered ? 'ml-56' : 'ml-16'
+        isMenuExpanded ? 'ml-56' : 'ml-16'
       }`}>
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
@@ -59,28 +75,28 @@ const Header = () => {
       {/* Боковая навигация */}
       <nav 
         className={`fixed left-0 top-0 bottom-0 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col transition-all duration-300 ${
-          isHovered ? 'w-56' : 'w-16'
+          isMenuExpanded ? 'w-56' : 'w-16'
         }`}
         style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => !isMobile && setIsHovered(true)}
+        onMouseLeave={() => !isMobile && setIsHovered(false)}
       >
         <div className="py-4 px-6 border-b flex items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50">
-          <Logo isCollapsed={!isHovered} />
+          <Logo isCollapsed={!isMenuExpanded} />
         </div>
         <div className="p-4 flex-1 overflow-y-auto">
-          <div className={isHovered ? 'space-y-2' : 'space-y-2'}>
+          <div className="space-y-2">
             {/* Основная навигация */}
             <div>
               <a 
                 href="/" 
-                className={`flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                   isActive('/') 
                     ? 'bg-primary text-white' 
                     : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                 }`}
               >
-                {isHovered ? (
+                {isMenuExpanded ? (
                   <>
                     <div className="w-6 flex justify-center">
                       <Icon name="Home" size={16} className="font-medium" />
@@ -98,13 +114,13 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('orders')}
-                  className={`w-full flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`w-full flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     isActive('/orders') || openSection === 'orders'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="ShoppingBag" size={16} className="font-medium" />
@@ -114,7 +130,7 @@ const Header = () => {
                   ) : (
                     <Icon name="ShoppingBag" size={28} className="font-bold" />
                   )}
-                  {isHovered && (
+                  {isMenuExpanded && (
                     <div className="flex items-center space-x-2">
                       <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">24</span>
                       <Icon 
@@ -124,7 +140,7 @@ const Header = () => {
                     </div>
                   )}
                 </button>
-                {openSection === 'orders' && isHovered && (
+                {openSection === 'orders' && isMenuExpanded && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/orders" 
@@ -135,7 +151,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="List" size={16} />
-                      {isHovered && <span>Все заказы</span>}
+                      {isMenuExpanded && <span>Все заказы</span>}
                     </a>
                     <a 
                       href="/orders/pending" 
@@ -146,7 +162,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Clock" size={16} />
-                      {isHovered && <span>В ожидании</span>}
+                      {isMenuExpanded && <span>В ожидании</span>}
                     </a>
                     <a 
                       href="/orders/processing" 
@@ -157,7 +173,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Package" size={16} />
-                      {isHovered && <span>В обработке</span>}
+                      {isMenuExpanded && <span>В обработке</span>}
                     </a>
                     <a 
                       href="/orders/completed" 
@@ -168,7 +184,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="CheckCircle" size={16} />
-                      {isHovered && <span>Выполненные</span>}
+                      {isMenuExpanded && <span>Выполненные</span>}
                     </a>
                     <a 
                       href="/analytics" 
@@ -179,7 +195,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="TrendingUp" size={16} />
-                      {isHovered && <span>Аналитика продаж</span>}
+                      {isMenuExpanded && <span>Аналитика продаж</span>}
                     </a>
                   </div>
                 )}
@@ -191,13 +207,13 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('catalog')}
-                  className={`w-full flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`w-full flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     isActive('/catalog') || openSection === 'catalog'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="Grid3x3" size={16} className="font-medium" />
@@ -207,7 +223,7 @@ const Header = () => {
                   ) : (
                     <Icon name="Grid3x3" size={28} className="font-bold" />
                   )}
-                  {isHovered && (
+                  {isMenuExpanded && (
                     <div className="flex items-center space-x-2">
                       <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">2.5k</span>
                       <Icon 
@@ -217,7 +233,7 @@ const Header = () => {
                     </div>
                   )}
                 </button>
-                {openSection === 'catalog' && isHovered && (
+                {openSection === 'catalog' && isMenuExpanded && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/catalog" 
@@ -228,7 +244,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="List" size={16} />
-                      {isHovered && <span>Все товары</span>}
+                      {isMenuExpanded && <span>Все товары</span>}
                     </a>
                     <a 
                       href="/catalog/categories" 
@@ -239,7 +255,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="FolderOpen" size={16} />
-                      {isHovered && <span>Категории</span>}
+                      {isMenuExpanded && <span>Категории</span>}
                     </a>
                     <a 
                       href="/inventory" 
@@ -250,7 +266,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Warehouse" size={16} />
-                      {isHovered && <span>Склад и остатки</span>}
+                      {isMenuExpanded && <span>Склад и остатки</span>}
                     </a>
                     <a 
                       href="/returns" 
@@ -261,7 +277,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="RotateCcw" size={16} />
-                      {isHovered && <span>Возвраты</span>}
+                      {isMenuExpanded && <span>Возвраты</span>}
                     </a>
                   </div>
                 )}
@@ -273,13 +289,13 @@ const Header = () => {
               <div className="space-y-1">
                 <button 
                   onClick={() => toggleSection('suppliers')}
-                  className={`w-full flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`w-full flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     isActive('/suppliers') || openSection === 'suppliers'
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="Users" size={16} className="font-medium" />
@@ -289,14 +305,14 @@ const Header = () => {
                   ) : (
                     <Icon name="Users" size={28} className="font-bold" />
                   )}
-                  {isHovered && (
+                  {isMenuExpanded && (
                     <Icon 
                       name={openSection === 'suppliers' ? 'ChevronUp' : 'ChevronDown'} 
                       size={16} 
                     />
                   )}
                 </button>
-                {openSection === 'suppliers' && isHovered && (
+                {openSection === 'suppliers' && isMenuExpanded && (
                   <div className="space-y-1 ml-6">
                     <a 
                       href="/suppliers" 
@@ -307,7 +323,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="Users" size={16} />
-                      {isHovered && <span>Все поставщики</span>}
+                      {isMenuExpanded && <span>Все поставщики</span>}
                     </a>
                     <a 
                       href="/purchases" 
@@ -318,7 +334,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="ShoppingCart" size={16} />
-                      {isHovered && <span>Закупки</span>}
+                      {isMenuExpanded && <span>Закупки</span>}
                     </a>
                     <a 
                       href="/contracts" 
@@ -329,7 +345,7 @@ const Header = () => {
                       }`}
                     >
                       <Icon name="FileText" size={16} />
-                      {isHovered && <span>Договоры</span>}
+                      {isMenuExpanded && <span>Договоры</span>}
                     </a>
                   </div>
                 )}
@@ -343,13 +359,13 @@ const Header = () => {
               <div className="space-y-1">
                 <a 
                   href="/settings" 
-                  className={`flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     isActive('/settings') 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="Settings" size={16} className="font-medium" />
@@ -362,13 +378,13 @@ const Header = () => {
                 </a>
                 <a 
                   href="#contacts" 
-                  className={`flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     location.hash === '#contacts' 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="Phone" size={16} className="font-medium" />
@@ -381,13 +397,13 @@ const Header = () => {
                 </a>
                 <a 
                   href="#about" 
-                  className={`flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     location.hash === '#about' 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="Info" size={16} className="font-medium" />
@@ -400,13 +416,13 @@ const Header = () => {
                 </a>
                 <a 
                   href="/help" 
-                  className={`flex items-center ${isHovered ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                  className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     isActive('/help') 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}
                 >
-                  {isHovered ? (
+                  {isMenuExpanded ? (
                     <>
                       <div className="w-6 flex justify-center">
                         <Icon name="HelpCircle" size={16} className="font-medium" />
