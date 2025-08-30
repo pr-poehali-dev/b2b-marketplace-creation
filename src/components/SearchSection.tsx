@@ -2,8 +2,29 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import Icon from "@/components/ui/icon";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchSection = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleTagClick = (tag: string) => {
+    navigate(`/catalog?search=${encodeURIComponent(tag)}`);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -18,9 +39,12 @@ const SearchSection = () => {
                 <Input 
                   placeholder="Поиск товаров, категорий, поставщиков..." 
                   className="text-base h-12"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={handleKeyPress}
                 />
               </div>
-              <Button size="lg" className="px-8">
+              <Button size="lg" className="px-8" onClick={handleSearch}>
                 <Icon name="Search" size={20} className="mr-2" />
                 Поиск
               </Button>
@@ -29,7 +53,7 @@ const SearchSection = () => {
             <div className="flex flex-wrap gap-2 mt-4">
               <span className="text-sm text-gray-600">Популярные запросы:</span>
               {["Металлопрокат", "Стройматериалы", "Продукты питания", "Упаковка"].map((tag) => (
-                <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-white transition-colors">
+                <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-white transition-colors" onClick={() => handleTagClick(tag)}>
                   {tag}
                 </Badge>
               ))}
