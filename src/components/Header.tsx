@@ -32,7 +32,12 @@ const Header = () => {
               <span className="text-sm text-gray-600 ml-2">платформа для бизнеса</span>
             </div>
             <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
-              <Button variant="outline" size="sm" className="text-xs md:text-sm px-2 md:px-3">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="text-xs md:text-sm px-2 md:px-3"
+                onClick={() => navigate('/login')}
+              >
                 <Icon name="LogIn" size={14} className="mr-1 md:mr-2 flex-shrink-0" />
                 <span className="hidden sm:inline">Войти</span>
                 <span className="sm:hidden">Вход</span>

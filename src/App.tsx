@@ -10,6 +10,7 @@ import Catalog from "./pages/Catalog";
 import Suppliers from "./pages/Suppliers";
 import Pricing from "./components/Pricing";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
