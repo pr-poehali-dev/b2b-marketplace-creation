@@ -14,6 +14,18 @@ const Register = () => {
       <div className="ml-56 transition-all duration-300">
         <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 flex items-center justify-center p-8">
           <div className="w-full max-w-lg">
+            {/* Кнопка возврата */}
+            <div className="mb-6">
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate('/')}
+                className="text-gray-600 hover:text-gray-900 hover:bg-white/50"
+              >
+                <Icon name="ArrowLeft" size={16} className="mr-2" />
+                Вернуться на главную
+              </Button>
+            </div>
+
             {/* Заголовок страницы */}
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-3">
@@ -48,17 +60,7 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Кнопка возврата */}
-            <div className="mt-8 text-center">
-              <Button 
-                variant="ghost" 
-                onClick={() => navigate('/')}
-                className="text-gray-600 hover:text-gray-900 hover:bg-white/50"
-              >
-                <Icon name="ArrowLeft" size={16} className="mr-2" />
-                Вернуться на главную
-              </Button>
-            </div>
+
           </div>
         </div>
       </div>
