@@ -77,19 +77,19 @@ const SearchSection = () => {
   };
 
   return (
-    <section className="py-8 sm:py-12 bg-gray-50">
-      <div className="container mx-auto px-3 sm:px-4">
+    <section className="py-10 sm:py-16 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-center text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 px-2">
+          <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-8 sm:mb-10 px-2">
             Найдите то, что нужно вашему бизнесу
           </h2>
           
-          <div className="bg-white rounded-lg p-4 sm:p-6 shadow-sm">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="bg-white rounded-xl p-5 sm:p-8 shadow-lg border">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
               <div className="flex-1 relative" ref={searchRef}>
                 <Input 
                   placeholder="Поиск товаров и поставщиков..." 
-                  className="text-sm sm:text-base h-12"
+                  className="text-base sm:text-lg h-12 sm:h-14 px-4 rounded-lg"
                   value={searchQuery}
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
@@ -110,16 +110,16 @@ const SearchSection = () => {
                   </div>
                 )}
               </div>
-              <Button size="lg" className="px-4 sm:px-8 w-full sm:w-auto" onClick={handleSearch}>
+              <Button size="lg" className="px-6 sm:px-10 h-12 sm:h-14 w-full sm:w-auto text-base sm:text-lg font-semibold rounded-lg" onClick={handleSearch}>
                 <Icon name="Search" size={20} className="mr-2" />
                 Поиск
               </Button>
             </div>
             
-            <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
-              <span className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-0">Популярные:</span>
+            <div className="flex flex-wrap gap-2 sm:gap-3 mt-5 sm:mt-6">
+              <span className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-0 w-full sm:w-auto">Популярные запросы:</span>
               {["Металлопрокат", "Стройматериалы", "Продукты питания", "Упаковка"].map((tag) => (
-                <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-white transition-colors" onClick={() => handleTagClick(tag)}>
+                <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary hover:text-white transition-colors text-sm sm:text-base px-3 py-2 rounded-full" onClick={() => handleTagClick(tag)}>
                   {tag}
                 </Badge>
               ))}
