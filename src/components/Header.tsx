@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   // Определяем, должно ли меню быть развернутым
-  const isMenuExpanded = isMobile || isMenuExpanded;
+  const isMenuExpanded = isMobile || isHovered;
 
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
