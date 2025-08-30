@@ -54,7 +54,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative order-first lg:order-last mt-4 lg:-mt-24 w-full sm:w-5/6 lg:w-4/5 mx-auto">
+          <div className="relative order-first lg:order-last mt-2 lg:-mt-32 w-full sm:w-5/6 lg:w-4/5 mx-auto">
             <img 
               src="/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg" 
               alt="Российские бизнес-партнеры заключают сделку"
