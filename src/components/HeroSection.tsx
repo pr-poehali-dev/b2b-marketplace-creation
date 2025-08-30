@@ -15,7 +15,7 @@ const HeroSection = () => {
               </Badge>
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
                 Корпоративная платформа
-                <span className="text-primary"> B2B закупок</span>
+                <span className="text-primary"> Business Market</span>
               </h1>
               <p className="text-lg text-gray-600 leading-relaxed">
                 Цифровая торговая площадка для оптовых покупателей и продавцов. Помогаем предприятиям 
