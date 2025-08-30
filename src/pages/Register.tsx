@@ -41,9 +41,9 @@ const Register = () => {
               <div className="text-xs text-gray-500">
                 <p className="mb-1">Регистрируясь, вы соглашаetесь с нашими</p>
                 <p>
-                  <a href="#" className="text-primary hover:text-primary/80">Условиями использования</a>
+                  <a href="/terms" className="text-primary hover:text-primary/80">Условиями использования</a>
                   {' '}и{' '}
-                  <a href="#" className="text-primary hover:text-primary/80">Политикой конфиденциальности</a>
+                  <a href="/privacy" className="text-primary hover:text-primary/80">Политикой конфиденциальности</a>
                 </p>
               </div>
             </div>
