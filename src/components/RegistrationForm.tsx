@@ -11,6 +11,8 @@ const RegistrationForm = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [inn, setInn] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSendCode = () => {
     setStep(2);
@@ -22,7 +24,11 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Регистрация:', { phone, fullName, email, inn });
+    if (password !== confirmPassword) {
+      alert('Пароли не совпадают!');
+      return;
+    }
+    console.log('Регистрация:', { phone, fullName, email, inn, password });
     alert('Регистрация завершена! (демо-версия)');
   };
 
@@ -142,6 +148,45 @@ const RegistrationForm = () => {
           </div>
 
           <div>
+            <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+              Пароль <span className="text-red-500">*</span>
+            </Label>
+            <div className="mt-1 relative">
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Введите пароль"
+                className="pl-10"
+                required
+              />
+              <Icon name="Lock" size={18} className="absolute left-3 top-3 text-gray-400" />
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+              Подтвердите пароль <span className="text-red-500">*</span>
+            </Label>
+            <div className="mt-1 relative">
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Повторите пароль"
+                className="pl-10"
+                required
+              />
+              <Icon name="Lock" size={18} className="absolute left-3 top-3 text-gray-400" />
+            </div>
+            {password && confirmPassword && password !== confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">Пароли не совпадают</p>
+            )}
+          </div>
+
+          <div>
             <Label htmlFor="inn" className="text-sm font-medium text-gray-700">
               ИНН <span className="text-gray-400">(необязательно)</span>
             </Label>
@@ -172,7 +217,7 @@ const RegistrationForm = () => {
             <Button 
               type="submit"
               className="flex-1 bg-green-600 hover:bg-green-700"
-              disabled={!fullName.trim() || !email.trim()}
+              disabled={!fullName.trim() || !email.trim() || !password.trim() || password !== confirmPassword}
             >
               <Icon name="CheckCircle" size={16} className="mr-2" />
               Зарегистрироваться
