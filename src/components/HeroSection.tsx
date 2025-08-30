@@ -28,7 +28,7 @@ const HeroSection = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-base">
+              <Button size="lg" className="text-base" onClick={() => navigate('/login')}>
                 <Icon name="Search" size={18} className="mr-2" />
                 Начать работу
               </Button>
