@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="pt-6 pb-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="container mx-auto px-4">
@@ -29,7 +32,7 @@ const HeroSection = () => {
                 <Icon name="Search" size={18} className="mr-2" />
                 Начать работу
               </Button>
-              <Button variant="outline" size="lg" className="text-base">
+              <Button variant="outline" size="lg" className="text-base" onClick={() => navigate('/register')}>
                 <Icon name="Store" size={18} className="mr-2" />
                 Подключить поставщика
               </Button>
