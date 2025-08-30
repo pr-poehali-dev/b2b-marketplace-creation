@@ -56,9 +56,9 @@ const HeroSection = () => {
 
           <div className="relative -mt-16 w-4/5 mx-auto">
             <img 
-              src="/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg" 
-              alt="Деловые переговоры B2B"
-              className="rounded-lg shadow-2xl w-full"
+              src="/img/12bdf578-7cfe-4dd8-be76-225c50da33d8.jpg" 
+              alt="Профессиональные деловые переговоры"
+              className="rounded-lg shadow-2xl w-full h-96 object-cover"
             />
             <div className="absolute top-4 right-4 bg-white px-3 py-2 rounded-lg shadow-lg">
               <div className="flex items-center space-x-2">
