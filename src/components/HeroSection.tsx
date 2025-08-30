@@ -51,13 +51,13 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative -mt-16">
+          <div className="relative -mt-16 w-4/5 mx-auto">
             <img 
               src="/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg" 
               alt="Деловые переговоры B2B"
-              className="rounded-lg shadow-2xl w-4/5 mx-auto"
+              className="rounded-lg shadow-2xl w-full"
             />
-            <div className="absolute top-6 right-6 bg-white px-3 py-2 rounded-lg shadow-lg whitespace-nowrap">
+            <div className="absolute top-4 right-4 bg-white px-3 py-2 rounded-lg shadow-lg">
               <div className="flex items-center space-x-2">
                 <Icon name="CheckCircle" size={20} className="text-green-500" />
                 <span className="font-medium text-sm">Верифицировано</span>
