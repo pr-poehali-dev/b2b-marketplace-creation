@@ -55,7 +55,7 @@ const NavigationSection = ({
           <span className="ml-3 flex-1 font-medium truncate">{title}</span>
         </>
       ) : (
-        <Icon name={icon} size={28} className="font-bold" />
+        <Icon name={icon} size={16} className="font-medium" />
       )}
       {isMenuExpanded && isCollapsible && (
         <div className="flex items-center space-x-2">
@@ -91,7 +91,7 @@ const NavigationSection = ({
           <span className="ml-3 font-medium truncate">{title}</span>
         </>
       ) : (
-        <Icon name={icon} size={28} className="font-bold" />
+        <Icon name={icon} size={16} className="font-medium" />
       )}
     </a>
   );
