@@ -55,14 +55,14 @@ const SidebarNavigation = ({
       onMouseEnter={() => !isMobile && !isPinned && setIsHovered(true)}
       onMouseLeave={() => !isMobile && !isPinned && setIsHovered(false)}
     >
-      <div className="py-4 px-6 border-b flex items-center justify-between bg-gradient-to-br from-teal-50 to-emerald-50">
+      <div className="py-4 px-6 border-b flex items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50 relative">
         <Logo isCollapsed={!isMenuExpanded} />
         {isMenuExpanded && (
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsPinned(!isPinned)}
-            className={`p-1.5 rounded-md transition-colors ${
+            className={`absolute right-2 p-1.5 rounded-md transition-colors ${
               isPinned 
                 ? 'bg-blue-100 text-blue-600 hover:bg-blue-200' 
                 : 'text-gray-500 hover:bg-gray-100'
