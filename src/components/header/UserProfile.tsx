@@ -71,7 +71,7 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
             <DropdownMenuSeparator />
             <DropdownMenuItem 
               className="flex items-center cursor-pointer justify-between"
-              onClick={() => navigate('/profile')}
+              onClick={() => navigate('/profile/company')}
             >
               <div className="flex items-center">
                 <Icon name="Building2" size={16} className="mr-2" />
