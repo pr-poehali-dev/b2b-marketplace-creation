@@ -396,9 +396,9 @@ const Header = () => {
                   )}
                 </a>
                 <a 
-                  href="#about" 
+                  href="/about" 
                   className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
-                    location.hash === '#about' 
+                    isActive('/about') 
                       ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
                   }`}

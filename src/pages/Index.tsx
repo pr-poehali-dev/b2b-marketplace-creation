@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import BrandHeader from "@/components/BrandHeader";
 import HeroSection from "@/components/HeroSection";
 import SearchSection from "@/components/SearchSection";
-import AboutSection from "@/components/AboutSection";
+
 import FeaturesSection from "@/components/FeaturesSection";
 import ProductsSection from "@/components/ProductsSection";
 import DeliverySection from "@/components/DeliverySection";
@@ -15,7 +15,6 @@ const Index = () => {
       <div className="ml-56 transition-all duration-300">
         <HeroSection />
         <SearchSection />
-        <AboutSection />
         <FeaturesSection />
         <ProductsSection />
         <DeliverySection />
