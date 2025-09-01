@@ -3,7 +3,7 @@ import Icon from "@/components/ui/icon";
 
 const SettingsSection = () => {
   return (
-    <section className="py-16 sm:py-20 bg-gray-50">
+    <section id="settings" className="py-16 sm:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">
