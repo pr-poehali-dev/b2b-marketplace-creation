@@ -433,6 +433,25 @@ const Header = () => {
                     <Icon name="HelpCircle" size={28} className="font-bold" />
                   )}
                 </a>
+                <a 
+                  href="/contacts" 
+                  className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+                    isActive('/contacts') 
+                      ? 'bg-primary text-white' 
+                      : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
+                  }`}
+                >
+                  {isMenuExpanded ? (
+                    <>
+                      <div className="w-6 flex justify-center">
+                        <Icon name="Phone" size={16} className="font-medium" />
+                      </div>
+                      <span className="ml-3">Контакты</span>
+                    </>
+                  ) : (
+                    <Icon name="Phone" size={28} className="font-bold" />
+                  )}
+                </a>
               </div>
             </div>
           </div>
