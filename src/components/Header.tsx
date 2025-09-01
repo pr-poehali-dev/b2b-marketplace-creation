@@ -358,7 +358,7 @@ const Header = () => {
             <div>
               <div className="space-y-1">
                 <a 
-                  href="/#settings" 
+                  href="/settings" 
                   className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
                     isActive('/settings') 
                       ? 'bg-primary text-white' 
