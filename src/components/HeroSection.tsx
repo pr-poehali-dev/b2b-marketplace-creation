@@ -16,7 +16,7 @@ const HeroSection = () => {
                 <Icon name="Star" size={14} className="mr-1" />
                 Верифицированная платформа
               </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-[1.15] sm:leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-[1.15] sm:leading-tight">
                 Корпоративная платформа
                 <span className="text-primary"> Business Market</span>
               </h1>
