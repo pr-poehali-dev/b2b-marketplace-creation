@@ -7,7 +7,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="pt-6 sm:pt-8 pb-16 sm:pb-20 bg-gradient-to-b from-slate-50 to-white">
+    <section className="pt-2 sm:pt-4 pb-16 sm:pb-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start lg:items-center">
           <div className="space-y-8 lg:space-y-10">
