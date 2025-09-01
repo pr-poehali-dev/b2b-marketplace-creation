@@ -7,140 +7,61 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import Icon from "@/components/ui/icon";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { useState, useEffect, useRef } from "react";
-
-interface SettingsData {
-  notifications: boolean;
-  autoRefresh: boolean;
-  priceAlerts: boolean;
-  maxPrice: number[];
-  notificationFrequency: string;
-  deliveryRegion: string;
-  companyName: string;
-  companyInn: string;
-  companyPhone: string;
-}
-
-const defaultSettings: SettingsData = {
-  notifications: true,
-  autoRefresh: false,
-  priceAlerts: true,
-  maxPrice: [50000],
-  notificationFrequency: "daily",
-  deliveryRegion: "moscow",
-  companyName: "",
-  companyInn: "",
-  companyPhone: ""
-};
+import { useState } from "react";
 
 const SettingsSection = () => {
-  const { toast } = useToast();
-  const [settings, setSettings] = useState<SettingsData>(defaultSettings);
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasChanges, setHasChanges] = useState(false);
-  const originalSettings = useRef<SettingsData>(defaultSettings);
+  const [notifications, setNotifications] = useState(true);
+  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [priceAlerts, setPriceAlerts] = useState(true);
+  const [maxPrice, setMaxPrice] = useState([50000]);
+  const [notificationFrequency, setNotificationFrequency] = useState("daily");
+  const [deliveryRegion, setDeliveryRegion] = useState("moscow");
+  const [companyName, setCompanyName] = useState("");
+  const [companyInn, setCompanyInn] = useState("");
+  const [companyPhone, setCompanyPhone] = useState("");
 
-  // Загрузка настроек из localStorage при инициализации
-  useEffect(() => {
-    const savedSettings = localStorage.getItem('businessMarketSettings');
-    if (savedSettings) {
-      try {
-        const parsed = JSON.parse(savedSettings);
-        setSettings({...defaultSettings, ...parsed});
-        originalSettings.current = {...defaultSettings, ...parsed};
-      } catch (error) {
-        console.error('Ошибка при загрузке настроек:', error);
-        toast({
-          title: "Ошибка",
-          description: "Не удалось загрузить сохраненные настройки",
-          variant: "destructive"
-        });
-      }
-    }
-  }, [toast]);
-
-  // Отслеживание изменений
-  useEffect(() => {
-    const changed = JSON.stringify(settings) !== JSON.stringify(originalSettings.current);
-    setHasChanges(changed);
-  }, [settings]);
-
-  const updateSetting = <K extends keyof SettingsData>(key: K, value: SettingsData[K]) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
-  };
-
-  const validateSettings = (): boolean => {
-    if (settings.companyName && settings.companyName.length < 2) {
-      toast({
-        title: "Ошибка валидации",
-        description: "Название компании должно содержать минимум 2 символа",
-        variant: "destructive"
-      });
-      return false;
-    }
-
-    if (settings.companyInn && !/^\d{10,12}$/.test(settings.companyInn)) {
-      toast({
-        title: "Ошибка валидации", 
-        description: "ИНН должен содержать 10 или 12 цифр",
-        variant: "destructive"
-      });
-      return false;
-    }
-
-    if (settings.companyPhone && !/^\+7\s?\(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/.test(settings.companyPhone)) {
-      toast({
-        title: "Ошибка валидации",
-        description: "Телефон должен быть в формате +7 (999) 123-45-67",
-        variant: "destructive"
-      });
-      return false;
-    }
-
-    return true;
-  };
-
-  const saveSettings = async () => {
-    if (!validateSettings()) return;
-
-    setIsLoading(true);
-    try {
-      // Имитация API запроса
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      localStorage.setItem('businessMarketSettings', JSON.stringify(settings));
-      originalSettings.current = {...settings};
-      setHasChanges(false);
-      
-      toast({
-        title: "Успешно сохранено",
-        description: "Все настройки были успешно сохранены",
-      });
-    } catch (error) {
-      toast({
-        title: "Ошибка сохранения",
-        description: "Не удалось сохранить настройки. Попробуйте еще раз.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
-    }
+  const saveSettings = () => {
+    const settings = {
+      notifications,
+      autoRefresh,
+      priceAlerts,
+      maxPrice,
+      notificationFrequency,
+      deliveryRegion,
+      companyName,
+      companyInn,
+      companyPhone
+    };
+    localStorage.setItem('businessMarketSettings', JSON.stringify(settings));
+    alert('Настройки сохранены!');
   };
 
   const resetSettings = () => {
-    setSettings(defaultSettings);
-    originalSettings.current = defaultSettings;
+    setNotifications(true);
+    setAutoRefresh(false);
+    setPriceAlerts(true);
+    setMaxPrice([50000]);
+    setNotificationFrequency("daily");
+    setDeliveryRegion("moscow");
+    setCompanyName("");
+    setCompanyInn("");
+    setCompanyPhone("");
     localStorage.removeItem('businessMarketSettings');
-    setHasChanges(false);
-    
-    toast({
-      title: "Настройки сброшены",
-      description: "Все настройки возвращены к значениям по умолчанию",
-    });
+    alert('Настройки сброшены!');
   };
 
   const exportData = () => {
+    const settings = {
+      notifications,
+      autoRefresh,
+      priceAlerts,
+      maxPrice,
+      notificationFrequency,
+      deliveryRegion,
+      companyName,
+      companyInn,
+      companyPhone
+    };
     const dataStr = JSON.stringify(settings, null, 2);
     const dataBlob = new Blob([dataStr], {type: 'application/json'});
     const url = URL.createObjectURL(dataBlob);
@@ -151,35 +72,7 @@ const SettingsSection = () => {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    
-    toast({
-      title: "Данные экспортированы",
-      description: "Файл с настройками загружен на ваш компьютер",
-    });
-  };
-
-  const changePassword = () => {
-    toast({
-      title: "Смена пароля",
-      description: "Функция смены пароля будет доступна в следующем обновлении",
-    });
-  };
-
-  const toggleTwoFactor = () => {
-    toast({
-      title: "Двухфакторная аутентификация",
-      description: "Настройка 2FA будет доступна в следующем обновлении",
-    });
-  };
-
-  const deleteAccount = () => {
-    if (confirm('Вы действительно хотите удалить аккаунт? Это действие необратимо.')) {
-      toast({
-        title: "Удаление аккаунта",
-        description: "Функция удаления аккаунта будет доступна в следующем обновлении",
-        variant: "destructive"
-      });
-    }
+    alert('Настройки экспортированы!');
   };
 
   return (
@@ -220,8 +113,8 @@ const SettingsSection = () => {
                 </div>
                 <Switch 
                   id="notifications"
-                  checked={settings.notifications}
-                  onCheckedChange={(checked) => updateSetting('notifications', checked)}
+                  checked={notifications}
+                  onCheckedChange={setNotifications}
                 />
               </div>
               
@@ -234,16 +127,16 @@ const SettingsSection = () => {
                 </div>
                 <Switch 
                   id="price-alerts"
-                  checked={settings.priceAlerts}
-                  onCheckedChange={(checked) => updateSetting('priceAlerts', checked)}
+                  checked={priceAlerts}
+                  onCheckedChange={setPriceAlerts}
                 />
               </div>
 
               <div className="space-y-3">
                 <Label>Частота уведомлений</Label>
                 <Select 
-                  value={settings.notificationFrequency} 
-                  onValueChange={(value) => updateSetting('notificationFrequency', value)}
+                  value={notificationFrequency} 
+                  onValueChange={setNotificationFrequency}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -275,8 +168,8 @@ const SettingsSection = () => {
                 <Label>Максимальная цена товара (₽)</Label>
                 <div className="px-3">
                   <Slider
-                    value={settings.maxPrice}
-                    onValueChange={(value) => updateSetting('maxPrice', value)}
+                    value={maxPrice}
+                    onValueChange={setMaxPrice}
                     max={1000000}
                     min={1000}
                     step={5000}
@@ -284,7 +177,7 @@ const SettingsSection = () => {
                   />
                   <div className="flex justify-between text-sm text-gray-500 mt-1">
                     <span>1,000₽</span>
-                    <span className="font-medium">{settings.maxPrice[0].toLocaleString()}₽</span>
+                    <span className="font-medium">{maxPrice[0].toLocaleString()}₽</span>
                     <span>1,000,000₽</span>
                   </div>
                 </div>
@@ -293,8 +186,8 @@ const SettingsSection = () => {
               <div className="space-y-3">
                 <Label>Регион поставки</Label>
                 <Select 
-                  value={settings.deliveryRegion} 
-                  onValueChange={(value) => updateSetting('deliveryRegion', value)}
+                  value={deliveryRegion} 
+                  onValueChange={setDeliveryRegion}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -317,8 +210,8 @@ const SettingsSection = () => {
                 </div>
                 <Switch 
                   id="auto-refresh"
-                  checked={settings.autoRefresh}
-                  onCheckedChange={(checked) => updateSetting('autoRefresh', checked)}
+                  checked={autoRefresh}
+                  onCheckedChange={setAutoRefresh}
                 />
               </div>
             </CardContent>
@@ -341,8 +234,8 @@ const SettingsSection = () => {
                 <Input 
                   id="company-name" 
                   placeholder="ООО 'Ваша компания'" 
-                  value={settings.companyName}
-                  onChange={(e) => updateSetting('companyName', e.target.value)}
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
                 />
               </div>
               
@@ -351,8 +244,8 @@ const SettingsSection = () => {
                 <Input 
                   id="company-inn" 
                   placeholder="1234567890" 
-                  value={settings.companyInn}
-                  onChange={(e) => updateSetting('companyInn', e.target.value)}
+                  value={companyInn}
+                  onChange={(e) => setCompanyInn(e.target.value)}
                 />
               </div>
 
@@ -361,8 +254,8 @@ const SettingsSection = () => {
                 <Input 
                   id="company-phone" 
                   placeholder="+7 (999) 123-45-67" 
-                  value={settings.companyPhone}
-                  onChange={(e) => updateSetting('companyPhone', e.target.value)}
+                  value={companyPhone}
+                  onChange={(e) => setCompanyPhone(e.target.value)}
                 />
               </div>
 
@@ -370,10 +263,9 @@ const SettingsSection = () => {
                 className="w-full" 
                 variant="outline"
                 onClick={saveSettings}
-                disabled={!hasChanges || isLoading}
               >
                 <Icon name="Save" size={16} className="mr-2" />
-                {isLoading ? 'Сохранение...' : 'Сохранить изменения'}
+                Сохранить изменения
               </Button>
             </CardContent>
           </Card>
@@ -390,12 +282,12 @@ const SettingsSection = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Button variant="outline" className="w-full justify-start" onClick={changePassword}>
+              <Button variant="outline" className="w-full justify-start" onClick={() => alert('Функция будет доступна в следующем обновлении')}>
                 <Icon name="Key" size={16} className="mr-2" />
                 Изменить пароль
               </Button>
               
-              <Button variant="outline" className="w-full justify-start" onClick={toggleTwoFactor}>
+              <Button variant="outline" className="w-full justify-start" onClick={() => alert('Функция будет доступна в следующем обновлении')}>
                 <Icon name="Smartphone" size={16} className="mr-2" />
                 Двухфакторная аутентификация
               </Button>
@@ -406,7 +298,11 @@ const SettingsSection = () => {
               </Button>
 
               <div className="pt-4 border-t">
-                <Button variant="destructive" className="w-full" onClick={deleteAccount}>
+                <Button variant="destructive" className="w-full" onClick={() => {
+                  if (confirm('Вы действительно хотите удалить аккаунт? Это действие необратимо.')) {
+                    alert('Функция будет доступна в следующем обновлении');
+                  }
+                }}>
                   <Icon name="Trash2" size={16} className="mr-2" />
                   Удалить аккаунт
                 </Button>
@@ -421,31 +317,20 @@ const SettingsSection = () => {
             size="lg" 
             className="text-base h-12" 
             onClick={saveSettings}
-            disabled={!hasChanges || isLoading}
           >
             <Icon name="Save" size={18} className="mr-2" />
-            {isLoading ? 'Сохранение...' : 'Сохранить все настройки'}
+            Сохранить все настройки
           </Button>
           <Button 
             variant="outline" 
             size="lg" 
             className="text-base h-12"
             onClick={resetSettings}
-            disabled={isLoading}
           >
             <Icon name="RotateCcw" size={18} className="mr-2" />
             Сбросить к умолчанию
           </Button>
         </div>
-        
-        {hasChanges && (
-          <div className="text-center mt-4">
-            <p className="text-sm text-orange-600 bg-orange-50 px-4 py-2 rounded-lg inline-block">
-              <Icon name="AlertTriangle" size={14} className="mr-1 inline" />
-              У вас есть несохраненные изменения
-            </p>
-          </div>
-        )}
       </div>
     </section>
   );
