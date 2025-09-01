@@ -1,5 +1,7 @@
 import Logo from "@/components/ui/logo";
 import NavigationSection from "./NavigationSection";
+import { Button } from "@/components/ui/button";
+import Icon from "@/components/ui/icon";
 
 interface SidebarNavigationProps {
   isMenuExpanded: boolean;
@@ -8,6 +10,8 @@ interface SidebarNavigationProps {
   toggleSection: (section: string) => void;
   isActive: (path: string) => boolean;
   setIsHovered: (value: boolean) => void;
+  isPinned: boolean;
+  setIsPinned: (value: boolean) => void;
 }
 
 const SidebarNavigation = ({ 
@@ -16,7 +20,9 @@ const SidebarNavigation = ({
   openSection, 
   toggleSection, 
   isActive, 
-  setIsHovered 
+  setIsHovered,
+  isPinned,
+  setIsPinned
 }: SidebarNavigationProps) => {
   
   const ordersItems = [
@@ -46,11 +52,30 @@ const SidebarNavigation = ({
         isMenuExpanded ? 'w-56' : 'w-16'
       }`}
       style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}
-      onMouseEnter={() => !isMobile && setIsHovered(true)}
-      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onMouseEnter={() => !isMobile && !isPinned && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && !isPinned && setIsHovered(false)}
     >
-      <div className="py-4 px-6 border-b flex items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50">
+      <div className="py-4 px-6 border-b flex items-center justify-between bg-gradient-to-br from-teal-50 to-emerald-50">
         <Logo isCollapsed={!isMenuExpanded} />
+        {isMenuExpanded && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsPinned(!isPinned)}
+            className={`p-1.5 rounded-md transition-colors ${
+              isPinned 
+                ? 'bg-blue-100 text-blue-600 hover:bg-blue-200' 
+                : 'text-gray-500 hover:bg-gray-100'
+            }`}
+            title={isPinned ? 'Открепить меню' : 'Закрепить меню'}
+          >
+            <Icon 
+              name={isPinned ? "PinOff" : "Pin"} 
+              size={16}
+              className={isPinned ? "rotate-45" : ""}
+            />
+          </Button>
+        )}
       </div>
       
       <div className="p-4 flex-1 overflow-y-auto">

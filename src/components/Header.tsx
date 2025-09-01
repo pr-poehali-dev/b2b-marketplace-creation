@@ -9,6 +9,10 @@ const Header = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isPinned, setIsPinned] = useState(() => {
+    const saved = localStorage.getItem('sidebar-pinned');
+    return saved === 'true';
+  });
 
   // Определение мобильного устройства
   useEffect(() => {
@@ -32,8 +36,14 @@ const Header = () => {
     setOpenSection(openSection === section ? null : section);
   };
 
+  // Управление закреплением меню
+  const handlePinToggle = (pinned: boolean) => {
+    setIsPinned(pinned);
+    localStorage.setItem('sidebar-pinned', pinned.toString());
+  };
+
   // Определяем, должно ли меню быть развернутым
-  const isMenuExpanded = isMobile || isHovered;
+  const isMenuExpanded = isMobile || isHovered || isPinned;
 
   return (
     <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
@@ -62,6 +72,8 @@ const Header = () => {
         toggleSection={toggleSection}
         isActive={isActive}
         setIsHovered={setIsHovered}
+        isPinned={isPinned}
+        setIsPinned={handlePinToggle}
       />
     </header>
   );
