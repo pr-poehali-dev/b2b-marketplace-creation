@@ -78,8 +78,8 @@ const SidebarNavigation = ({
         )}
       </div>
       
-      <div className="p-4 flex-1 overflow-y-auto">
-        <div className="space-y-2">
+      <div className="px-3 py-3 flex-1 overflow-y-auto">
+        <div className="space-y-1">
           {/* Главная */}
           <NavigationSection
             title="Главная"

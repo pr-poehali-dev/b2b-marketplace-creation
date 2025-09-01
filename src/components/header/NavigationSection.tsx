@@ -41,7 +41,7 @@ const NavigationSection = ({
   const renderButton = () => (
     <button 
       onClick={onToggle}
-      className={`w-full flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+      className={`w-full flex items-center ${isMenuExpanded ? 'px-3 py-2.5' : 'p-2 justify-center'} rounded-lg transition-colors ${
         isActive || openSection === sectionKey
           ? 'bg-primary text-white' 
           : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
@@ -52,7 +52,7 @@ const NavigationSection = ({
           <div className="w-6 flex justify-center">
             <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 flex-1">{title}</span>
+          <span className="ml-3 flex-1 text-sm font-medium truncate">{title}</span>
         </>
       ) : (
         <Icon name={icon} size={28} className="font-bold" />
@@ -60,7 +60,7 @@ const NavigationSection = ({
       {isMenuExpanded && isCollapsible && (
         <div className="flex items-center space-x-2">
           {badge && (
-            <span className={`text-xs px-2 py-1 rounded-full ${badgeColor}`}>{badge}</span>
+            <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${badgeColor}`}>{badge}</span>
           )}
           <Icon 
             name={openSection === sectionKey ? 'ChevronUp' : 'ChevronDown'} 
@@ -69,7 +69,7 @@ const NavigationSection = ({
         </div>
       )}
       {isMenuExpanded && !isCollapsible && badge && (
-        <span className={`text-xs px-2 py-1 rounded-full ${badgeColor}`}>{badge}</span>
+        <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${badgeColor}`}>{badge}</span>
       )}
     </button>
   );
@@ -77,7 +77,7 @@ const NavigationSection = ({
   const renderLink = () => (
     <a 
       href={items[0]?.href || "#"}
-      className={`flex items-center ${isMenuExpanded ? 'p-3' : 'p-2 justify-center'} rounded-lg transition-colors ${
+      className={`flex items-center ${isMenuExpanded ? 'px-3 py-2.5' : 'p-2 justify-center'} rounded-lg transition-colors ${
         isActive
           ? 'bg-primary text-white' 
           : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
@@ -88,7 +88,7 @@ const NavigationSection = ({
           <div className="w-6 flex justify-center">
             <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3">{title}</span>
+          <span className="ml-3 text-sm font-medium truncate">{title}</span>
         </>
       ) : (
         <Icon name={icon} size={28} className="font-bold" />
@@ -102,19 +102,19 @@ const NavigationSection = ({
         {isCollapsible ? renderButton() : renderLink()}
         
         {isCollapsible && openSection === sectionKey && isMenuExpanded && (
-          <div className="space-y-1 ml-6">
+          <div className="space-y-0.5 ml-6">
             {items.map((item, index) => (
               <a 
                 key={index}
                 href={item.href} 
-                className={`flex items-center space-x-3 p-2 rounded-lg transition-colors ${
+                className={`flex items-center space-x-2.5 px-2 py-1.5 rounded-md transition-colors ${
                   checkIsActive(item.href) 
                     ? 'bg-primary/20 text-primary' 
                     : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
                 }`}
               >
-                <Icon name={item.icon} size={16} />
-                {isMenuExpanded && <span>{item.label}</span>}
+                <Icon name={item.icon} size={14} />
+                {isMenuExpanded && <span className="text-xs font-normal truncate">{item.label}</span>}
               </a>
             ))}
           </div>
