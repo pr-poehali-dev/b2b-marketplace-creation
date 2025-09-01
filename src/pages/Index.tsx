@@ -1,9 +1,11 @@
 import Header from "@/components/Header";
-import BusinessHeroSection from "@/components/BusinessHeroSection";
-import TrustedCompaniesSection from "@/components/TrustedCompaniesSection";
+import BrandHeader from "@/components/BrandHeader";
+import HeroSection from "@/components/HeroSection";
+import SearchSection from "@/components/SearchSection";
+
 import FeaturesSection from "@/components/FeaturesSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import ROICalculatorSection from "@/components/ROICalculatorSection";
+import ProductsSection from "@/components/ProductsSection";
+import DeliverySection from "@/components/DeliverySection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -11,11 +13,11 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <div className="ml-56 transition-all duration-300">
-        <BusinessHeroSection />
-        <TrustedCompaniesSection />
+        <HeroSection />
+        <SearchSection />
         <FeaturesSection />
-        <TestimonialsSection />
-        <ROICalculatorSection />
+        <ProductsSection />
+        <DeliverySection />
         <Footer />
       </div>
     </div>
