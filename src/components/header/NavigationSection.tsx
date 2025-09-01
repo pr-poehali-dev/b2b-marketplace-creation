@@ -52,7 +52,7 @@ const NavigationSection = ({
           <div className="w-6 flex justify-center">
             <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 flex-1 font-medium truncate">{title}</span>
+          <span className="ml-3 flex-1 text-base font-medium truncate">{title}</span>
         </>
       ) : (
         <Icon name={icon} size={16} className="font-medium" />
