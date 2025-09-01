@@ -168,6 +168,19 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
+          {/* Тарифы */}
+          <NavigationSection
+            title="Тарифы"
+            icon="CreditCard"
+            isExpanded={false}
+            isActive={isActive('/pricing')}
+            isMenuExpanded={isMenuExpanded}
+            openSection={openSection}
+            sectionKey="pricing"
+            items={[{ href: "/pricing", icon: "CreditCard", label: "Тарифы" }]}
+            checkIsActive={isActive}
+          />
+
           {/* Помощь */}
           <NavigationSection
             title="Помощь"
