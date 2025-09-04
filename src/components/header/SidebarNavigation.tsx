@@ -142,6 +142,21 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
+          {/* Новости */}
+          <NavigationSection
+            title="Новости"
+            icon="Newspaper"
+            isExpanded={false}
+            isActive={isActive('/news')}
+            isMenuExpanded={isMenuExpanded}
+            openSection={openSection}
+            sectionKey="news"
+            badge="Новое"
+            badgeColor="bg-green-100 text-green-600"
+            items={[{ href: "/news", icon: "Newspaper", label: "Новости" }]}
+            checkIsActive={isActive}
+          />
+
           {/* Настройки */}
           <NavigationSection
             title="Настройки"
