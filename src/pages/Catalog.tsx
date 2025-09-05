@@ -21,6 +21,7 @@ const Catalog = () => {
   const [sortBy, setSortBy] = useState("name");
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
+  const [favorites, setFavorites] = useState<number[]>([]);
   
   const { addItem } = useCart();
 
@@ -178,15 +179,23 @@ const Catalog = () => {
     setSortBy("name");
   };
 
-  const handleAddToCart = (product: typeof products[0]) => {
-    addItem({
-      id: product.id.toString(),
-      title: product.name,
-      price: product.price,
-      image: product.image,
-      category: product.category,
-      company: product.seller
-    });
+  const handleToggleFavorite = (product: typeof products[0]) => {
+    const isFavorite = favorites.includes(product.id);
+    
+    if (isFavorite) {
+      setFavorites(prev => prev.filter(id => id !== product.id));
+    } else {
+      setFavorites(prev => [...prev, product.id]);
+      // Добавляем товар в корзину при добавлении в избранное
+      addItem({
+        id: product.id.toString(),
+        title: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        company: product.seller
+      });
+    }
   };
 
   const handleSendInquiry = (product: typeof products[0]) => {
@@ -382,27 +391,25 @@ const Catalog = () => {
                           </div>
                         </div>
 
-                        <div className="space-y-2 pt-2">
-                          <div className="flex gap-2">
-                            <Button 
-                              className="flex-1" 
-                              disabled={!product.inStock}
-                              onClick={() => handleAddToCart(product)}
-                            >
-                              <Icon name="ShoppingCart" size={16} className="mr-2" />
-                              {product.inStock ? "В корзину" : "Нет в наличии"}
-                            </Button>
-                            <Button variant="outline" size="icon">
-                              <Icon name="Heart" size={16} />
-                            </Button>
-                          </div>
+                        <div className="flex gap-2 pt-2">
                           <Button 
-                            variant="outline" 
-                            className="w-full"
+                            className="flex-1"
                             onClick={() => handleSendInquiry(product)}
                           >
                             <Icon name="Mail" size={16} className="mr-2" />
                             Отправить заявку
+                          </Button>
+                          <Button 
+                            variant={favorites.includes(product.id) ? "default" : "outline"} 
+                            size="icon"
+                            onClick={() => handleToggleFavorite(product)}
+                            className={favorites.includes(product.id) ? "text-white" : ""}
+                          >
+                            <Icon 
+                              name={favorites.includes(product.id) ? "Heart" : "Heart"} 
+                              size={16} 
+                              className={favorites.includes(product.id) ? "fill-current" : ""}
+                            />
                           </Button>
                         </div>
                       </div>
