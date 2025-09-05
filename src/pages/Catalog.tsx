@@ -9,6 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCart } from "@/contexts/CartContext";
 
 const Catalog = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +18,8 @@ const Catalog = () => {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 100000]);
   const [sortBy, setSortBy] = useState("name");
+  
+  const { addItem } = useCart();
 
   // Расширенный каталог товаров
   const products = [
@@ -170,6 +173,17 @@ const Catalog = () => {
     setInStockOnly(false);
     setPriceRange([0, 100000]);
     setSortBy("name");
+  };
+
+  const handleAddToCart = (product: typeof products[0]) => {
+    addItem({
+      id: product.id.toString(),
+      title: product.name,
+      price: product.price,
+      image: product.image,
+      category: product.category,
+      company: product.seller
+    });
   };
 
   return (
@@ -356,7 +370,11 @@ const Catalog = () => {
                         </div>
 
                         <div className="flex gap-2 pt-2">
-                          <Button className="flex-1" disabled={!product.inStock}>
+                          <Button 
+                            className="flex-1" 
+                            disabled={!product.inStock}
+                            onClick={() => handleAddToCart(product)}
+                          >
                             <Icon name="ShoppingCart" size={16} className="mr-2" />
                             {product.inStock ? "В корзину" : "Нет в наличии"}
                           </Button>

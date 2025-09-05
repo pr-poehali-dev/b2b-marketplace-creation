@@ -21,17 +21,20 @@ import Privacy from "./pages/Privacy";
 import ProfileCompany from "./pages/ProfileCompany";
 import NewsPublish from "./pages/NewsPublish";
 import News from "./pages/News";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
+      <CartProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/catalog" element={<Catalog />} />
@@ -48,10 +51,12 @@ const App = () => (
           <Route path="/profile/company" element={<ProfileCompany />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/publish" element={<NewsPublish />} />
+          <Route path="/cart" element={<Cart />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
