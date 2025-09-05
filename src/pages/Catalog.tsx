@@ -10,6 +10,7 @@ import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
+import FlyToCartAnimation from "@/components/FlyToCartAnimation";
 import { useCart } from "@/contexts/CartContext";
 
 const Catalog = () => {
@@ -22,6 +23,15 @@ const Catalog = () => {
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [flyingAnimation, setFlyingAnimation] = useState<{
+    isActive: boolean;
+    startElement: HTMLElement | null;
+    productImage?: string;
+  }>({
+    isActive: false,
+    startElement: null,
+    productImage: undefined
+  });
   
   const { addItem } = useCart();
 
@@ -179,13 +189,21 @@ const Catalog = () => {
     setSortBy("name");
   };
 
-  const handleToggleFavorite = (product: typeof products[0]) => {
+  const handleToggleFavorite = (product: typeof products[0], event: React.MouseEvent<HTMLButtonElement>) => {
     const isFavorite = favorites.includes(product.id);
     
     if (isFavorite) {
       setFavorites(prev => prev.filter(id => id !== product.id));
     } else {
       setFavorites(prev => [...prev, product.id]);
+      
+      // Запускаем анимацию полета в корзину
+      setFlyingAnimation({
+        isActive: true,
+        startElement: event.currentTarget,
+        productImage: product.image
+      });
+      
       // Добавляем товар в корзину при добавлении в избранное
       addItem({
         id: product.id.toString(),
@@ -196,6 +214,13 @@ const Catalog = () => {
         company: product.seller
       });
     }
+  };
+
+  const handleAnimationComplete = () => {
+    setFlyingAnimation(prev => ({
+      ...prev,
+      isActive: false
+    }));
   };
 
   const handleSendInquiry = (product: typeof products[0]) => {
@@ -402,7 +427,7 @@ const Catalog = () => {
                           <Button 
                             variant={favorites.includes(product.id) ? "default" : "outline"} 
                             size="icon"
-                            onClick={() => handleToggleFavorite(product)}
+                            onClick={(e) => handleToggleFavorite(product, e)}
                             className={favorites.includes(product.id) ? "text-white" : ""}
                           >
                             <Icon 
@@ -442,6 +467,13 @@ const Catalog = () => {
         isOpen={isInquiryModalOpen}
         onClose={handleCloseInquiry}
         product={selectedProduct}
+      />
+
+      <FlyToCartAnimation
+        isActive={flyingAnimation.isActive}
+        startElement={flyingAnimation.startElement}
+        productImage={flyingAnimation.productImage}
+        onComplete={handleAnimationComplete}
       />
     </div>
   );

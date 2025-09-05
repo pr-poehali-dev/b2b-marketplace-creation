@@ -34,6 +34,7 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
           size="sm"
           className="relative"
           onClick={() => navigate('/cart')}
+          data-cart-icon
         >
           <Icon name="ShoppingCart" size={20} />
           {getTotalItems() > 0 && (
