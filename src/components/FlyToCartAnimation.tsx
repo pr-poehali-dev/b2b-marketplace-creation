@@ -26,14 +26,14 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
         actualStartRect = productImageElement.getBoundingClientRect();
       }
       
-      // Ищем иконку корзины в header
-      const cartIcon = document.querySelector('[data-cart-icon]') as HTMLElement;
-      if (!cartIcon) {
+      // Ищем иконку избранного в header
+      const favoritesIcon = document.querySelector('[data-favorites-icon]') as HTMLElement;
+      if (!favoritesIcon) {
         onComplete();
         return;
       }
       
-      const endRect = cartIcon.getBoundingClientRect();
+      const endRect = favoritesIcon.getBoundingClientRect();
       
       setStartPosition({
         x: actualStartRect.left + actualStartRect.width / 2,
@@ -95,18 +95,16 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
           />
         </div>
       ) : (
-        <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center shadow-xl">
+        <div className="w-16 h-16 bg-red-500 rounded-lg flex items-center justify-center shadow-xl">
           <svg 
             width="24" 
             height="24" 
             viewBox="0 0 24 24" 
-            fill="none" 
+            fill="white" 
             stroke="white" 
             strokeWidth="2"
           >
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
         </div>
       )}
@@ -116,7 +114,7 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className={`absolute w-1 h-1 bg-primary rounded-full animate-ping`}
+            className={`absolute w-1 h-1 bg-red-400 rounded-full animate-ping`}
             style={{
               left: `${Math.random() * 40}px`,
               top: `${Math.random() * 40}px`,

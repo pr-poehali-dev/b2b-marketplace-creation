@@ -29,20 +29,31 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
   return (
     <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
       {isLoggedIn && (
-        <Button
-          variant="ghost"
-          size="sm"
-          className="relative"
-          onClick={() => navigate('/cart')}
-          data-cart-icon
-        >
-          <Icon name="ShoppingCart" size={20} />
-          {getTotalItems() > 0 && (
-            <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-primary text-white">
-              {getTotalItems()}
-            </Badge>
-          )}
-        </Button>
+        <>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="relative"
+            onClick={() => navigate('/favorites')}
+            data-favorites-icon
+          >
+            <Icon name="Heart" size={20} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="relative"
+            onClick={() => navigate('/cart')}
+            data-cart-icon
+          >
+            <Icon name="ShoppingCart" size={20} />
+            {getTotalItems() > 0 && (
+              <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-primary text-white">
+                {getTotalItems()}
+              </Badge>
+            )}
+          </Button>
+        </>
       )}
       {isLoggedIn ? (
         <DropdownMenu>
