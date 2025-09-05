@@ -93,23 +93,6 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* Заказы и продажи */}
-          <NavigationSection
-            title="Заказы и продажи"
-            icon="ShoppingBag"
-            isExpanded={openSection === 'orders'}
-            isActive={isActive('/orders')}
-            isMenuExpanded={isMenuExpanded}
-            openSection={openSection}
-            sectionKey="orders"
-            badge="24"
-            badgeColor="bg-red-100 text-red-600"
-            items={ordersItems}
-            isCollapsible={true}
-            onToggle={() => toggleSection('orders')}
-            checkIsActive={isActive}
-          />
-
           {/* Товары и каталог */}
           <NavigationSection
             title="Товары и каталог"
@@ -124,6 +107,23 @@ const SidebarNavigation = ({
             items={catalogItems}
             isCollapsible={true}
             onToggle={() => toggleSection('catalog')}
+            checkIsActive={isActive}
+          />
+
+          {/* Заказы и продажи */}
+          <NavigationSection
+            title="Заказы и продажи"
+            icon="ShoppingBag"
+            isExpanded={openSection === 'orders'}
+            isActive={isActive('/orders')}
+            isMenuExpanded={isMenuExpanded}
+            openSection={openSection}
+            sectionKey="orders"
+            badge="24"
+            badgeColor="bg-red-100 text-red-600"
+            items={ordersItems}
+            isCollapsible={true}
+            onToggle={() => toggleSection('orders')}
             checkIsActive={isActive}
           />
 
