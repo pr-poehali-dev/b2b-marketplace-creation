@@ -197,10 +197,13 @@ const Catalog = () => {
     } else {
       setFavorites(prev => [...prev, product.id]);
       
-      // Запускаем анимацию полета в корзину
+      // Находим карточку товара (родительский элемент)
+      const cardElement = event.currentTarget.closest('[data-product-card]') as HTMLElement;
+      
+      // Запускаем анимацию полета в корзину от карточки товара
       setFlyingAnimation({
         isActive: true,
-        startElement: event.currentTarget,
+        startElement: cardElement || event.currentTarget,
         productImage: product.image
       });
       
@@ -357,7 +360,7 @@ const Catalog = () => {
             {filteredProducts.length > 0 ? (
               <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (
-                  <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow" data-product-card>
                     <div className="aspect-video relative overflow-hidden">
                       <img 
                         src={product.image} 

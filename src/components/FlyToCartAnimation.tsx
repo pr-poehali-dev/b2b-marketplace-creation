@@ -18,6 +18,14 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
       // Получаем позицию стартового элемента
       const startRect = startElement.getBoundingClientRect();
       
+      // Если это карточка товара, берем позицию изображения для более точной анимации
+      const productImageElement = startElement.querySelector('img');
+      let actualStartRect = startRect;
+      
+      if (productImageElement) {
+        actualStartRect = productImageElement.getBoundingClientRect();
+      }
+      
       // Ищем иконку корзины в header
       const cartIcon = document.querySelector('[data-cart-icon]') as HTMLElement;
       if (!cartIcon) {
@@ -28,8 +36,8 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
       const endRect = cartIcon.getBoundingClientRect();
       
       setStartPosition({
-        x: startRect.left + startRect.width / 2,
-        y: startRect.top + startRect.height / 2
+        x: actualStartRect.left + actualStartRect.width / 2,
+        y: actualStartRect.top + actualStartRect.height / 2
       });
       
       setEndPosition({
@@ -71,15 +79,15 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
           : 'opacity-0 scale-0'
       }`}
       style={{
-        left: animationState === 'flying' ? endPosition.x - 20 : startPosition.x - 20,
-        top: animationState === 'flying' ? endPosition.y - 20 : startPosition.y - 20,
+        left: animationState === 'flying' ? endPosition.x - 32 : startPosition.x - 32,
+        top: animationState === 'flying' ? endPosition.y - 32 : startPosition.y - 32,
         transform: animationState === 'flying' 
           ? 'translate(-50%, -50%) scale(0.8)' 
           : 'translate(-50%, -50%) scale(1)',
       }}
     >
       {productImage ? (
-        <div className="w-10 h-10 rounded-lg overflow-hidden shadow-lg border-2 border-primary bg-white">
+        <div className="w-16 h-16 rounded-lg overflow-hidden shadow-xl border-2 border-primary bg-white">
           <img 
             src={productImage} 
             alt="Flying product" 
@@ -87,10 +95,10 @@ const FlyToCartAnimation = ({ isActive, startElement, productImage, onComplete }
           />
         </div>
       ) : (
-        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-lg">
+        <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center shadow-xl">
           <svg 
-            width="20" 
-            height="20" 
+            width="24" 
+            height="24" 
             viewBox="0 0 24 24" 
             fill="none" 
             stroke="white" 
