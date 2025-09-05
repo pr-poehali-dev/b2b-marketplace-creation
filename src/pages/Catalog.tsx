@@ -9,6 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ProductInquiryModal from "@/components/ProductInquiryModal";
 import { useCart } from "@/contexts/CartContext";
 
 const Catalog = () => {
@@ -18,6 +19,8 @@ const Catalog = () => {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 100000]);
   const [sortBy, setSortBy] = useState("name");
+  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+  const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   
   const { addItem } = useCart();
 
@@ -184,6 +187,16 @@ const Catalog = () => {
       category: product.category,
       company: product.seller
     });
+  };
+
+  const handleSendInquiry = (product: typeof products[0]) => {
+    setSelectedProduct(product);
+    setIsInquiryModalOpen(true);
+  };
+
+  const handleCloseInquiry = () => {
+    setSelectedProduct(null);
+    setIsInquiryModalOpen(false);
   };
 
   return (
@@ -369,17 +382,27 @@ const Catalog = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-2 pt-2">
+                        <div className="space-y-2 pt-2">
+                          <div className="flex gap-2">
+                            <Button 
+                              className="flex-1" 
+                              disabled={!product.inStock}
+                              onClick={() => handleAddToCart(product)}
+                            >
+                              <Icon name="ShoppingCart" size={16} className="mr-2" />
+                              {product.inStock ? "В корзину" : "Нет в наличии"}
+                            </Button>
+                            <Button variant="outline" size="icon">
+                              <Icon name="Heart" size={16} />
+                            </Button>
+                          </div>
                           <Button 
-                            className="flex-1" 
-                            disabled={!product.inStock}
-                            onClick={() => handleAddToCart(product)}
+                            variant="outline" 
+                            className="w-full"
+                            onClick={() => handleSendInquiry(product)}
                           >
-                            <Icon name="ShoppingCart" size={16} className="mr-2" />
-                            {product.inStock ? "В корзину" : "Нет в наличии"}
-                          </Button>
-                          <Button variant="outline" size="icon">
-                            <Icon name="Heart" size={16} />
+                            <Icon name="Mail" size={16} className="mr-2" />
+                            Отправить заявку
                           </Button>
                         </div>
                       </div>
@@ -407,6 +430,12 @@ const Catalog = () => {
         
         <Footer />
       </div>
+
+      <ProductInquiryModal
+        isOpen={isInquiryModalOpen}
+        onClose={handleCloseInquiry}
+        product={selectedProduct}
+      />
     </div>
   );
 };
