@@ -1,0 +1,62 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Icon from "@/components/ui/icon";
+import ProductCard, { Product } from "./ProductCard";
+
+interface CatalogGridProps {
+  products: Product[];
+  viewMode: 'grid' | 'list';
+  favorites: number[];
+  onToggleFavorite: (product: Product, event: React.MouseEvent<HTMLButtonElement>) => void;
+  onSendInquiry: (product: Product) => void;
+  onResetFilters: () => void;
+}
+
+const CatalogGrid = ({
+  products,
+  viewMode,
+  favorites,
+  onToggleFavorite,
+  onSendInquiry,
+  onResetFilters
+}: CatalogGridProps) => {
+  if (products.length === 0) {
+    return (
+      <Card className="text-center py-16 shadow-lg border-0">
+        <CardContent>
+          <div className="max-w-md mx-auto">
+            <Icon name="SearchX" size={64} className="mx-auto text-gray-300 mb-6" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">Товары не найдены</h3>
+            <p className="text-gray-600 mb-6">
+              К сожалению, по вашему запросу ничего не найдено. Попробуйте изменить параметры поиска.
+            </p>
+            <Button onClick={onResetFilters} className="bg-blue-600 hover:bg-blue-700">
+              <Icon name="RotateCcw" size={16} className="mr-2" />
+              Сбросить все фильтры
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <div className={viewMode === 'grid' 
+      ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-6" 
+      : "space-y-4"
+    }>
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          viewMode={viewMode}
+          isFavorite={favorites.includes(product.id)}
+          onToggleFavorite={onToggleFavorite}
+          onSendInquiry={onSendInquiry}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default CatalogGrid;
