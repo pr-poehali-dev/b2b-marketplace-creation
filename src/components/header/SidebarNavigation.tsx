@@ -110,9 +110,9 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* Заказы и продажи */}
+          {/* Заказы */}
           <NavigationSection
-            title="Заказы и продажи"
+            title="Заказы"
             icon="ShoppingBag"
             isExpanded={openSection === 'orders'}
             isActive={isActive('/orders')}
