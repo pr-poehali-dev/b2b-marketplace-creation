@@ -23,6 +23,7 @@ const Catalog = () => {
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [flyingAnimation, setFlyingAnimation] = useState<{
     isActive: boolean;
     startElement: HTMLElement | null;
@@ -39,21 +40,25 @@ const Catalog = () => {
   const products = [
     {
       id: 1,
-      name: "Труба стальная 108x4 ГОСТ 8732",
+      name: "Труба стальная бесшовная 108x4 мм ГОСТ 8732-78",
       image: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
       category: "Металлопрокат",
-      seller: "ООО «Металл-Трейд»",
+      seller: "ООО «МетПром-Сталь»",
       verified: true,
       price: 45600,
+      oldPrice: 48000,
       unit: "за тонну",
       minOrder: "5 тонн",
       available: "120 тонн",
       rating: 4.9,
-      inStock: true
+      reviews: 127,
+      inStock: true,
+      discount: 5,
+      description: "Высококачественная стальная труба для промышленного использования"
     },
     {
       id: 2,
-      name: "Цемент ПЦ 400-Д20 навалом",
+      name: "Цемент ПЦ 400-Д20 навалом, М-400",
       image: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
       category: "Стройматериалы",
       seller: "АО «СтройБаза Регион»",
@@ -63,91 +68,175 @@ const Catalog = () => {
       minOrder: "20 тонн",
       available: "500+ тонн",
       rating: 4.8,
-      inStock: true
+      reviews: 89,
+      inStock: true,
+      description: "Портландцемент высокого качества для строительных работ"
     },
     {
       id: 3,
-      name: "Платы Arduino Uno R3 (партия)",
+      name: "Arduino Uno R3 + набор датчиков (комплект)",
       image: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
       category: "Электроника",
-      seller: "ИП Электроника-Опт",
-      verified: false,
-      price: 890,
-      unit: "за штуку",
-      minOrder: "100 шт",
-      available: "2,000 шт",
+      seller: "ТД «Электро-Компонент»",
+      verified: true,
+      price: 1290,
+      oldPrice: 1450,
+      unit: "за комплект",
+      minOrder: "50 комплектов",
+      available: "2,000+ шт",
       rating: 4.6,
-      inStock: true
+      reviews: 234,
+      inStock: true,
+      discount: 11,
+      description: "Полный стартовый набор для изучения Arduino с документацией"
     },
     {
       id: 4,
-      name: "Профнастил С8 оцинкованный",
-      image: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
-      category: "Стройматериалы",
-      seller: "ООО «Кровля-Проф»",
+      name: "Профнастил оцинкованный С8-1150-0.5",
+      image: "/img/30071e99-054b-4aad-b22b-679e73394520.jpg",
+      category: "Кровельные материалы",
+      seller: "ООО «КровляСтрой»",
       verified: true,
       price: 485,
       unit: "за м²",
       minOrder: "200 м²",
       available: "5,000+ м²",
       rating: 4.7,
-      inStock: true
+      reviews: 156,
+      inStock: true,
+      description: "Качественный профлист для кровельных и фасадных работ"
     },
     {
       id: 5,
-      name: "Упаковка картонная 300x200x100",
+      name: "Упаковка картонная гофрированная 300x200x100",
       image: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
-      category: "Упаковка",
-      seller: "ООО «Пак-Сервис»",
+      category: "Упаковочные материалы",
+      seller: "ООО «УпакТрейд»",
       verified: true,
       price: 18.50,
       unit: "за штуку",
       minOrder: "1,000 шт",
       available: "50,000+ шт",
       rating: 4.5,
-      inStock: false
+      reviews: 67,
+      inStock: false,
+      description: "Прочная картонная упаковка для транспортировки товаров"
     },
     {
       id: 6,
-      name: "Кабель ВВГ 3x2.5 (бухта 100м)",
+      name: "Кабель ВВГнг-LS 3x2.5 (бухта 100м)",
       image: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
       category: "Электротехника",
-      seller: "АО «КабельСнаб»",
+      seller: "АО «КабельСистемы»",
       verified: true,
       price: 2340,
       unit: "за бухту",
       minOrder: "10 бухт",
       available: "200+ бухт",
       rating: 4.9,
-      inStock: true
+      reviews: 98,
+      inStock: true,
+      description: "Негорючий силовой кабель для внутренней проводки"
     },
     {
       id: 7,
-      name: "Офисная бумага А4 80г/м²",
+      name: "Бумага офисная А4 Svetocopy 80г/м² (500л.)",
       image: "/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg",
-      category: "Канцелярия",
-      seller: "ООО «ОфисСнаб»",
+      category: "Канцелярские товары",
+      seller: "ООО «ОфисСнаб Плюс»",
       verified: true,
       price: 280,
+      oldPrice: 320,
       unit: "за пачку",
       minOrder: "50 пачек",
       available: "1,000+ пачек",
       rating: 4.4,
-      inStock: true
+      reviews: 145,
+      inStock: true,
+      discount: 13,
+      description: "Высококачественная офисная бумага для печати и копирования"
     },
     {
       id: 8,
-      name: "Болты М12x60 с гайками",
+      name: "Комплект крепежа М12x60 (болт + гайка + шайба)",
       image: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
-      category: "Крепёж",
-      seller: "ИП Крепёжников",
+      category: "Крепёжные изделия",
+      seller: "ИП Крепёжкин А.В.",
       verified: false,
       price: 15,
       unit: "за комплект",
       minOrder: "500 комплектов",
       available: "10,000+ комплектов",
       rating: 4.2,
-      inStock: true
+      reviews: 78,
+      inStock: true,
+      description: "Надежный крепежный набор из оцинкованной стали"
+    },
+    {
+      id: 9,
+      name: "Светодиодная лента RGB 5050 (5м + контроллер)",
+      image: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
+      category: "Светотехника",
+      seller: "ТД «СветДиод»",
+      verified: true,
+      price: 1250,
+      oldPrice: 1400,
+      unit: "за комплект",
+      minOrder: "20 комплектов",
+      available: "500+ комплектов",
+      rating: 4.6,
+      reviews: 112,
+      inStock: true,
+      discount: 11,
+      description: "Многоцветная LED-лента с пультом управления и контроллером"
+    },
+    {
+      id: 10,
+      name: "Плитка керамическая 30x30 см матовая",
+      image: "/img/30071e99-054b-4aad-b22b-679e73394520.jpg",
+      category: "Отделочные материалы",
+      seller: "ООО «КерамПро»",
+      verified: true,
+      price: 890,
+      unit: "за м²",
+      minOrder: "50 м²",
+      available: "2,000+ м²",
+      rating: 4.5,
+      reviews: 89,
+      inStock: true,
+      description: "Износостойкая керамическая плитка для внутренней отделки"
+    },
+    {
+      id: 11,
+      name: "Пленка полиэтиленовая техническая 200 мкм",
+      image: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
+      category: "Полимерные материалы",
+      seller: "АО «ПолиПак»",
+      verified: true,
+      price: 145,
+      unit: "за м²",
+      minOrder: "200 м²",
+      available: "10,000+ м²",
+      rating: 4.3,
+      reviews: 56,
+      inStock: true,
+      description: "Прочная техническая пленка для упаковки и защиты"
+    },
+    {
+      id: 12,
+      name: "Инструмент измерительный: штангенциркуль 0-150мм",
+      image: "/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg",
+      category: "Измерительные приборы",
+      seller: "ТД «ТехПрибор»",
+      verified: true,
+      price: 850,
+      unit: "за штуку",
+      minOrder: "10 штук",
+      available: "150+ штук",
+      rating: 4.8,
+      reviews: 43,
+      inStock: true,
+      description: "Высокоточный штангенциркуль с цифровым индикатором"
     }
   ];
 
@@ -155,7 +244,8 @@ const Catalog = () => {
   const filteredProducts = products
     .filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           product.seller.toLowerCase().includes(searchQuery.toLowerCase());
+                           product.seller.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.category.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = categoryFilter === "all" || product.category === categoryFilter;
       const matchesVerified = !verifiedOnly || product.verified;
       const matchesStock = !inStockOnly || product.inStock;
@@ -171,6 +261,10 @@ const Catalog = () => {
           return b.price - a.price;
         case "rating":
           return b.rating - a.rating;
+        case "popular":
+          return (b.reviews || 0) - (a.reviews || 0);
+        case "discount":
+          return (b.discount || 0) - (a.discount || 0);
         case "name":
         default:
           return a.name.localeCompare(b.name);
@@ -190,6 +284,9 @@ const Catalog = () => {
   };
 
   const handleToggleFavorite = (product: typeof products[0], event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
     const isFavorite = favorites.includes(product.id);
     
     if (isFavorite) {
@@ -241,226 +338,346 @@ const Catalog = () => {
       <Header />
       
       <div className="ml-64">
-        <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Каталог товаров</h1>
-          <p className="text-gray-600">Широкий ассортимент товаров от проверенных поставщиков</p>
-        </div>
-
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* Боковая панель с фильтрами */}
-          <div className="lg:col-span-1">
-            <Card className="sticky top-4">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <Icon name="Filter" size={20} className="mr-2" />
-                    Фильтры
-                  </span>
-                  <Button variant="ghost" size="sm" onClick={resetFilters}>
-                    <Icon name="X" size={16} />
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Поиск */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Поиск</label>
-                  <Input
-                    placeholder="Название товара..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
+        <div className="container mx-auto px-6 py-8">
+          {/* Hero секция */}
+          <div className="mb-8 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-8 text-white relative overflow-hidden">
+            <div className="relative z-10">
+              <h1 className="text-4xl font-bold mb-3">Каталог товаров</h1>
+              <p className="text-xl text-blue-100 mb-6">Более 10,000 товаров от проверенных поставщиков</p>
+              <div className="flex gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <Icon name="Shield" size={16} className="text-blue-200" />
+                  <span>Проверенные поставщики</span>
                 </div>
-
-                {/* Категория */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Категория</label>
-                  <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Все категории" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Все категории</SelectItem>
-                      {categories.map(category => (
-                        <SelectItem key={category} value={category}>{category}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <div className="flex items-center gap-2">
+                  <Icon name="Truck" size={16} className="text-blue-200" />
+                  <span>Быстрая доставка</span>
                 </div>
-
-                {/* Ценовой диапазон */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Цена: {priceRange[0].toLocaleString('ru-RU')} - {priceRange[1].toLocaleString('ru-RU')} ₽
-                  </label>
-                  <Slider
-                    value={priceRange}
-                    onValueChange={setPriceRange}
-                    max={100000}
-                    min={0}
-                    step={100}
-                    className="w-full"
-                  />
+                <div className="flex items-center gap-2">
+                  <Icon name="Award" size={16} className="text-blue-200" />
+                  <span>Гарантия качества</span>
                 </div>
-
-                {/* Чекбоксы */}
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="verified"
-                      checked={verifiedOnly}
-                      onCheckedChange={setVerifiedOnly}
-                    />
-                    <label htmlFor="verified" className="text-sm font-medium">
-                      Только верифицированные
-                    </label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="inStock"
-                      checked={inStockOnly}
-                      onCheckedChange={setInStockOnly}
-                    />
-                    <label htmlFor="inStock" className="text-sm font-medium">
-                      Только в наличии
-                    </label>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Основной контент */}
-          <div className="lg:col-span-3">
-            {/* Панель сортировки */}
-            <div className="flex items-center justify-between mb-6">
-              <p className="text-gray-600">
-                Найдено товаров: <span className="font-semibold">{filteredProducts.length}</span>
-              </p>
-              
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Сортировать:</span>
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-48">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="name">По названию</SelectItem>
-                    <SelectItem value="price_asc">По цене (возрастанию)</SelectItem>
-                    <SelectItem value="price_desc">По цене (убыванию)</SelectItem>
-                    <SelectItem value="rating">По рейтингу</SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
             </div>
+            <div className="absolute right-0 top-0 h-full w-64 bg-gradient-to-l from-white/10 to-transparent"></div>
+          </div>
 
-            {/* Сетка товаров */}
-            {filteredProducts.length > 0 ? (
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
-                  <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow" data-product-card>
-                    <div className="aspect-video relative overflow-hidden">
-                      <img 
-                        src={product.image} 
-                        alt={product.name}
-                        className="w-full h-full object-cover"
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Боковая панель с фильтрами */}
+            <div className="lg:col-span-1">
+              <Card className="sticky top-4 shadow-lg border-0">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg">
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="flex items-center text-gray-800">
+                      <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
+                      Фильтры
+                    </span>
+                    <Button variant="ghost" size="sm" onClick={resetFilters} className="text-gray-600 hover:text-blue-600">
+                      <Icon name="RotateCcw" size={16} />
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6 p-6">
+                  {/* Поиск */}
+                  <div>
+                    <label className="text-sm font-semibold mb-3 block text-gray-700">Поиск товаров</label>
+                    <div className="relative">
+                      <Icon name="Search" size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <Input
+                        placeholder="Название, категория..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-10 border-gray-200 focus:border-blue-500"
                       />
-                      <Badge className="absolute top-3 left-3 bg-white/90 text-gray-700">
-                        {product.category}
-                      </Badge>
-                      {!product.inStock && (
-                        <Badge variant="destructive" className="absolute top-3 right-3">
-                          Нет в наличии
-                        </Badge>
-                      )}
+                    </div>
+                  </div>
+
+                  {/* Категория */}
+                  <div>
+                    <label className="text-sm font-semibold mb-3 block text-gray-700">Категория</label>
+                    <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                      <SelectTrigger className="border-gray-200 focus:border-blue-500">
+                        <SelectValue placeholder="Все категории" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Все категории</SelectItem>
+                        {categories.map(category => (
+                          <SelectItem key={category} value={category}>{category}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Ценовой диапазон */}
+                  <div>
+                    <label className="text-sm font-semibold mb-3 block text-gray-700">
+                      Цена: {priceRange[0].toLocaleString('ru-RU')} - {priceRange[1].toLocaleString('ru-RU')} ₽
+                    </label>
+                    <Slider
+                      value={priceRange}
+                      onValueChange={setPriceRange}
+                      max={100000}
+                      min={0}
+                      step={500}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Чекбоксы */}
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id="verified"
+                        checked={verifiedOnly}
+                        onCheckedChange={setVerifiedOnly}
+                      />
+                      <label htmlFor="verified" className="text-sm font-medium text-gray-700 cursor-pointer">
+                        Только верифицированные поставщики
+                      </label>
                     </div>
                     
-                    <CardContent className="p-4">
-                      <div className="space-y-3">
-                        <h3 className="font-semibold text-lg text-gray-900 line-clamp-2">
-                          {product.name}
-                        </h3>
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id="inStock"
+                        checked={inStockOnly}
+                        onCheckedChange={setInStockOnly}
+                      />
+                      <label htmlFor="inStock" className="text-sm font-medium text-gray-700 cursor-pointer">
+                        Только товары в наличии
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Статистика */}
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-gray-800 mb-2">Статистика каталога</h4>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex justify-between">
+                        <span>Всего товаров:</span>
+                        <span className="font-medium">{products.length}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Найдено:</span>
+                        <span className="font-medium text-blue-600">{filteredProducts.length}</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Основной контент */}
+            <div className="lg:col-span-3">
+              {/* Панель управления */}
+              <div className="flex items-center justify-between mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                <div className="flex items-center gap-4">
+                  <p className="text-gray-700 font-medium">
+                    Показано <span className="text-blue-600 font-semibold">{filteredProducts.length}</span> из {products.length} товаров
+                  </p>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  {/* Переключатель вида */}
+                  <div className="flex items-center border border-gray-200 rounded-lg p-1">
+                    <Button
+                      variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                      size="sm"
+                      onClick={() => setViewMode('grid')}
+                      className="px-3"
+                    >
+                      <Icon name="Grid3x3" size={16} />
+                    </Button>
+                    <Button
+                      variant={viewMode === 'list' ? 'default' : 'ghost'}
+                      size="sm"
+                      onClick={() => setViewMode('list')}
+                      className="px-3"
+                    >
+                      <Icon name="List" size={16} />
+                    </Button>
+                  </div>
+
+                  {/* Сортировка */}
+                  <div className="flex items-center gap-2">
+                    <Icon name="ArrowUpDown" size={16} className="text-gray-500" />
+                    <Select value={sortBy} onValueChange={setSortBy}>
+                      <SelectTrigger className="w-48 border-gray-200">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="name">По названию</SelectItem>
+                        <SelectItem value="price_asc">Сначала дешевые</SelectItem>
+                        <SelectItem value="price_desc">Сначала дорогие</SelectItem>
+                        <SelectItem value="rating">По рейтингу</SelectItem>
+                        <SelectItem value="popular">По популярности</SelectItem>
+                        <SelectItem value="discount">По скидке</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Сетка товаров */}
+              {filteredProducts.length > 0 ? (
+                <div className={viewMode === 'grid' 
+                  ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-6" 
+                  : "space-y-4"
+                }>
+                  {filteredProducts.map((product) => (
+                    <Card 
+                      key={product.id} 
+                      className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 ${
+                        viewMode === 'list' ? 'flex flex-row h-48' : ''
+                      }`}
+                      data-product-card
+                    >
+                      <div className={`relative overflow-hidden ${
+                        viewMode === 'list' ? 'w-64 h-48' : 'aspect-video'
+                      }`}>
+                        <img 
+                          src={product.image} 
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                         
-                        <div className="flex items-center gap-2">
-                          <Icon name="Store" size={14} className="text-gray-400" />
-                          <span className="text-sm text-gray-600 flex-1">{product.seller}</span>
-                          {product.verified && (
-                            <Badge variant="default" className="text-xs h-5">
-                              <Icon name="CheckCircle" size={10} className="mr-1" />
-                              Верифицирован
+                        {/* Badges */}
+                        <div className="absolute top-3 left-3 flex flex-col gap-2">
+                          <Badge className="bg-white/95 text-gray-700 text-xs">
+                            {product.category}
+                          </Badge>
+                          {product.discount && (
+                            <Badge variant="destructive" className="text-xs">
+                              -{product.discount}%
                             </Badge>
                           )}
                         </div>
-
-                        <div className="flex items-center gap-1">
-                          <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
-                          <span className="text-sm font-medium">{product.rating}</span>
-                        </div>
-
-                        <div className="border-t pt-3">
-                          <div className="flex items-baseline gap-1 mb-2">
-                            <span className="text-xl font-bold text-primary">
-                              {product.price.toLocaleString('ru-RU')} ₽
-                            </span>
-                            <span className="text-sm text-gray-500">{product.unit}</span>
+                        
+                        {!product.inStock && (
+                          <div className="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
+                            <Badge variant="secondary" className="text-sm">
+                              Нет в наличии
+                            </Badge>
                           </div>
-                          
-                          <div className="space-y-1 text-xs text-gray-600">
-                            <div className="flex items-center gap-2">
-                              <Icon name="Package" size={12} />
-                              <span>Мин. заказ: {product.minOrder}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Icon name="Truck" size={12} />
-                              <span>В наличии: {product.available}</span>
-                            </div>
-                          </div>
-                        </div>
+                        )}
 
-                        <div className="flex gap-2 pt-2">
-                          <Button 
-                            className="flex-1"
-                            onClick={() => handleSendInquiry(product)}
-                          >
-                            <Icon name="Mail" size={16} className="mr-2" />
-                            Отправить заявку
-                          </Button>
-                          <Button 
-                            variant={favorites.includes(product.id) ? "default" : "outline"} 
-                            size="icon"
-                            onClick={(e) => handleToggleFavorite(product, e)}
-                            className={favorites.includes(product.id) ? "text-white" : ""}
-                          >
-                            <Icon 
-                              name={favorites.includes(product.id) ? "Heart" : "Heart"} 
-                              size={16} 
-                              className={favorites.includes(product.id) ? "fill-current" : ""}
-                            />
-                          </Button>
-                        </div>
+                        {/* Кнопка избранного */}
+                        <Button 
+                          variant="secondary"
+                          size="icon"
+                          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
+                          onClick={(e) => handleToggleFavorite(product, e)}
+                        >
+                          <Icon 
+                            name="Heart"
+                            size={14} 
+                            className={favorites.includes(product.id) ? "fill-red-500 text-red-500" : "text-gray-600"}
+                          />
+                        </Button>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <Card className="text-center py-12">
-                <CardContent>
-                  <Icon name="Search" size={48} className="mx-auto text-gray-400 mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Товары не найдены</h3>
-                  <p className="text-gray-600 mb-4">
-                    Попробуйте изменить параметры поиска или фильтры
-                  </p>
-                  <Button onClick={resetFilters}>
-                    Сбросить все фильтры
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+                      
+                      <CardContent className={`p-5 flex-1 ${viewMode === 'list' ? 'flex flex-col justify-between' : ''}`}>
+                        <div className="space-y-3">
+                          {/* Название товара */}
+                          <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                            {product.name}
+                          </h3>
+                          
+                          {/* Продавец */}
+                          <div className="flex items-center gap-2">
+                            <Icon name="Store" size={14} className="text-gray-400" />
+                            <span className="text-sm text-gray-600 flex-1">{product.seller}</span>
+                            {product.verified && (
+                              <Badge variant="outline" className="text-xs h-5 border-green-200 text-green-700">
+                                <Icon name="CheckCircle" size={10} className="mr-1" />
+                                Верифицирован
+                              </Badge>
+                            )}
+                          </div>
+
+                          {/* Рейтинг и отзывы */}
+                          <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1">
+                              <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
+                              <span className="text-sm font-medium">{product.rating}</span>
+                            </div>
+                            <span className="text-xs text-gray-500">({product.reviews} отзывов)</span>
+                          </div>
+
+                          {/* Описание (только в режиме списка) */}
+                          {viewMode === 'list' && (
+                            <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+                          )}
+
+                          <div className="border-t pt-3">
+                            {/* Цена */}
+                            <div className="flex items-baseline gap-2 mb-3">
+                              <span className="text-2xl font-bold text-blue-600">
+                                {product.price.toLocaleString('ru-RU')} ₽
+                              </span>
+                              <span className="text-sm text-gray-500">{product.unit}</span>
+                              {product.oldPrice && (
+                                <span className="text-sm text-gray-400 line-through">
+                                  {product.oldPrice.toLocaleString('ru-RU')} ₽
+                                </span>
+                              )}
+                            </div>
+                            
+                            {/* Информация о заказе */}
+                            <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
+                              <div className="flex items-center gap-1">
+                                <Icon name="Package" size={12} className="text-gray-400" />
+                                <span>Мин: {product.minOrder}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Icon name="Truck" size={12} className="text-gray-400" />
+                                <span>{product.available}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Кнопки действий */}
+                          <div className="flex gap-2 pt-2">
+                            <Button 
+                              className="flex-1 bg-blue-600 hover:bg-blue-700"
+                              onClick={() => handleSendInquiry(product)}
+                              disabled={!product.inStock}
+                            >
+                              <Icon name="Mail" size={16} className="mr-2" />
+                              Отправить заявку
+                            </Button>
+                            <Button 
+                              variant="outline"
+                              size="icon"
+                              onClick={() => handleSendInquiry(product)}
+                              className="border-gray-200 hover:border-blue-300"
+                            >
+                              <Icon name="MessageCircle" size={16} />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <Card className="text-center py-16 shadow-lg border-0">
+                  <CardContent>
+                    <div className="max-w-md mx-auto">
+                      <Icon name="SearchX" size={64} className="mx-auto text-gray-300 mb-6" />
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3">Товары не найдены</h3>
+                      <p className="text-gray-600 mb-6">
+                        К сожалению, по вашему запросу ничего не найдено. Попробуйте изменить параметры поиска.
+                      </p>
+                      <Button onClick={resetFilters} className="bg-blue-600 hover:bg-blue-700">
+                        <Icon name="RotateCcw" size={16} className="mr-2" />
+                        Сбросить все фильтры
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           </div>
-        </div>
         </div>
         
         <Footer />
