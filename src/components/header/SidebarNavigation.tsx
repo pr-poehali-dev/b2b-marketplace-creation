@@ -93,9 +93,9 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* Товары и каталог */}
+          {/* Товары */}
           <NavigationSection
-            title="Товары и каталог"
+            title="Товары"
             icon="Grid3x3"
             isExpanded={openSection === 'catalog'}
             isActive={isActive('/catalog')}
