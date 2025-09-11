@@ -225,18 +225,21 @@ const ProductCard = ({
               {onAddToCompare && (
                 <Button 
                   variant="outline"
-                  size="sm"
-                  className={`flex-1 text-xs ${
-                    isInCompare ? 'border-blue-500 text-blue-600' : ''
+                  className={`flex-1 text-xs py-2 px-2 h-8 ${
+                    isInCompare ? 'border-blue-500 text-blue-600' : 'border-gray-200'
                   }`}
                   onClick={() => onAddToCompare(product)}
                 >
-                  <Icon 
-                    name="BarChart" 
-                    size={14} 
-                    className={`mr-1 ${isInCompare ? 'text-blue-600' : ''}`}
-                  />
-                  {isInCompare ? 'В сравнении' : 'Сравнить'}
+                  <div className="flex items-center justify-center gap-1 w-full min-w-0">
+                    <Icon 
+                      name="BarChart" 
+                      size={12} 
+                      className={`shrink-0 ${isInCompare ? 'text-blue-600' : 'text-gray-500'}`}
+                    />
+                    <span className="truncate text-xs">
+                      {isInCompare ? 'В сравнении' : 'Сравнить'}
+                    </span>
+                  </div>
                 </Button>
               )}
             </div>
