@@ -349,12 +349,14 @@ const ProductsSection = () => {
 
                     {/* Actions */}
                     <div className="flex gap-2">
-                      <Button className="flex-1">
-                        <Icon name="ShoppingCart" size={16} className="mr-2" />
-                        В корзину
+                      <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 text-sm h-9">
+                        <div className="flex items-center justify-center gap-1.5 w-full min-w-0">
+                          <Icon name="ShoppingCart" size={14} className="shrink-0" />
+                          <span className="truncate">В корзину</span>
+                        </div>
                       </Button>
-                      <Button variant="outline" size="icon">
-                        <Icon name="Heart" size={16} />
+                      <Button variant="outline" size="icon" className="h-9 w-9 shrink-0 border-gray-200 hover:border-red-300">
+                        <Icon name="Heart" size={14} />
                       </Button>
                     </div>
                   </div>

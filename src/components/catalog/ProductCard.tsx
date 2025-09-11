@@ -200,21 +200,23 @@ const ProductCard = ({
           <div className="space-y-2 pt-2">
             <div className="flex gap-2">
               <Button 
-                className="flex-1 bg-blue-600 hover:bg-blue-700"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 text-sm h-9"
                 onClick={() => onSendInquiry(product)}
                 disabled={!product.inStock}
               >
-                <Icon name="Mail" size={16} className="mr-2" />
-                Отправить заявку
+                <div className="flex items-center justify-center gap-1.5 w-full min-w-0">
+                  <Icon name="Mail" size={14} className="shrink-0" />
+                  <span className="truncate">Отправить заявку</span>
+                </div>
               </Button>
               <Button 
                 variant="outline"
                 size="icon"
                 onClick={() => onSendInquiry(product)}
-                className="border-gray-200 hover:border-blue-300"
+                className="border-gray-200 hover:border-blue-300 h-9 w-9 shrink-0"
                 disabled={!product.inStock}
               >
-                <Icon name="MessageCircle" size={16} />
+                <Icon name="MessageCircle" size={14} />
               </Button>
             </div>
             
