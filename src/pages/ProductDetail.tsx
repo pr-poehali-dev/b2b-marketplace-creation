@@ -296,14 +296,15 @@ const ProductDetail = () => {
                       </div>
                     </Button>
                     <Button 
-                      size="lg"
                       variant="outline"
-                      className="w-full bg-white border-blue-600 text-blue-600 hover:bg-blue-50 font-medium text-base py-5 px-4 min-h-[48px] border-2"
                       onClick={handleAddToCart}
                       disabled={!product.inStock}
+                      className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3 px-4 rounded-lg font-medium border-2"
                     >
-                      <Icon name="ShoppingCart" size={18} className="mr-2 shrink-0" />
-                      <span className="whitespace-nowrap">В корзину</span>
+                      <div className="flex items-center justify-center gap-2">
+                        <Icon name="ShoppingCart" size={16} />
+                        <span>В корзину</span>
+                      </div>
                     </Button>
                   </div>
 
