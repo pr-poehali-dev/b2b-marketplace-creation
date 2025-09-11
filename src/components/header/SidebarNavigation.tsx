@@ -35,9 +35,7 @@ const SidebarNavigation = ({
 
   const catalogItems = [
     { href: "/catalog", icon: "List", label: "Все товары" },
-    { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" },
-    { href: "/inventory", icon: "Warehouse", label: "Склад и остатки" },
-    { href: "/returns", icon: "RotateCcw", label: "Возвраты" }
+    { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" }
   ];
 
   const suppliersItems = [
