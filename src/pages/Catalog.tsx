@@ -9,7 +9,7 @@ import CatalogHero from "@/components/catalog/CatalogHero";
 import CatalogFilters from "@/components/catalog/CatalogFilters";
 import CatalogToolbar from "@/components/catalog/CatalogToolbar";
 import CatalogGrid from "@/components/catalog/CatalogGrid";
-import ProductQuickView from "@/components/catalog/ProductQuickView";
+import QuickViewModal from "@/components/catalog/QuickViewModal";
 import ProductComparison from "@/components/catalog/ProductComparison";
 import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
 import { Product } from "@/components/catalog/ProductCard";
@@ -256,12 +256,14 @@ const Catalog = () => {
         onAnimationComplete={handleAnimationComplete}
       />
 
-      <ProductQuickView
+      <QuickViewModal
         product={quickViewProduct}
         isOpen={isQuickViewOpen}
         onClose={handleCloseQuickView}
         onSendInquiry={handleSendInquiry}
-        onToggleFavorite={(product) => {
+        onToggleFavorite={(product, event) => {
+          event.preventDefault();
+          event.stopPropagation();
           if (favorites.includes(product.id)) {
             setFavorites(prev => prev.filter(id => id !== product.id));
           } else {
@@ -269,8 +271,6 @@ const Catalog = () => {
           }
         }}
         isFavorite={quickViewProduct ? favorites.includes(quickViewProduct.id) : false}
-        onAddToCompare={handleAddToCompare}
-        isInCompare={quickViewProduct ? compareProducts.some(p => p.id === quickViewProduct.id) : false}
       />
 
       <ProductComparison
