@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
@@ -25,121 +25,130 @@ const QuickViewModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
-        <DialogHeader className="pb-3">
-          <DialogTitle className="text-lg font-semibold text-left line-clamp-2">
-            {product.name}
-          </DialogTitle>
-        </DialogHeader>
-        
-        <div className="grid grid-cols-3 gap-4">
-          {/* Компактное изображение */}
-          <div className="col-span-1">
-            <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-50">
-              <img 
-                src={product.image} 
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-              {product.discount && (
-                <Badge variant="destructive" className="absolute top-2 left-2 text-xs">
-                  -{product.discount}%
-                </Badge>
-              )}
-              {!product.inStock && (
-                <div className="absolute inset-0 bg-gray-900/60 flex items-center justify-center">
-                  <span className="text-white font-medium text-sm">Нет в наличии</span>
-                </div>
-              )}
-            </div>
+      <DialogContent className="max-w-md p-0 bg-white rounded-2xl overflow-hidden">
+        {/* Закрыть кнопка */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-colors"
+        >
+          <Icon name="X" size={16} className="text-gray-600" />
+        </button>
+
+        {/* Изображение во всю ширину */}
+        <div className="relative h-48 bg-gray-100">
+          <img 
+            src={product.image} 
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Статусы */}
+          <div className="absolute top-3 left-3 flex gap-2">
+            {product.discount && (
+              <Badge variant="destructive" className="text-xs font-medium">
+                -{product.discount}%
+              </Badge>
+            )}
+            {!product.inStock && (
+              <Badge variant="secondary" className="bg-gray-900/80 text-white text-xs">
+                Нет в наличии
+              </Badge>
+            )}
           </div>
 
-          {/* Основная информация */}
-          <div className="col-span-2 space-y-3">
-            {/* Цена - главное */}
-            <div className="flex items-baseline gap-2">
-              <span className="text-xl font-bold text-blue-600">
-                {product.price.toLocaleString('ru-RU')} ₽
-              </span>
-              <span className="text-sm text-gray-500">/{product.unit}</span>
-              {product.oldPrice && (
-                <span className="text-sm text-gray-400 line-through ml-2">
-                  {product.oldPrice.toLocaleString('ru-RU')} ₽
-                </span>
-              )}
-            </div>
-
-            {/* Краткая информация */}
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
-                <span className="font-medium">{product.rating}</span>
-                <span className="text-gray-500">({product.reviews})</span>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Icon name="Store" size={14} className="text-gray-400" />
-                <span className="text-gray-700 truncate">{product.seller}</span>
-                {product.verified && (
-                  <Icon name="CheckCircle" size={12} className="text-green-600 shrink-0" />
-                )}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Icon name="Package" size={14} className="text-gray-400" />
-                <span className="text-gray-700">Мин. заказ: {product.minOrder}</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Icon name="Truck" size={14} className="text-gray-400" />
-                <span className="text-gray-700">В наличии: {product.available}</span>
-              </div>
-            </div>
-
-            {/* Краткое описание */}
-            <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
-              {product.description}
-            </p>
+          {/* Быстрые действия поверх изображения */}
+          <div className="absolute bottom-3 right-3 flex gap-2">
+            <Button
+              size="icon"
+              variant="secondary"
+              className="bg-white/90 backdrop-blur-sm hover:bg-white h-8 w-8"
+              onClick={(e) => onToggleFavorite(product, e)}
+            >
+              <Icon 
+                name="Heart" 
+                size={14} 
+                className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"}
+              />
+            </Button>
           </div>
         </div>
 
-        {/* Компактные кнопки действий */}
-        <div className="flex gap-2 pt-3 border-t mt-4">
+        {/* Контент */}
+        <div className="p-4 space-y-3">
+          {/* Название и цена */}
+          <div>
+            <h3 className="font-semibold text-gray-900 line-clamp-2 text-sm mb-2">
+              {product.name}
+            </h3>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-baseline gap-2">
+                <span className="text-lg font-bold text-blue-600">
+                  {product.price.toLocaleString('ru-RU')} ₽
+                </span>
+                {product.oldPrice && (
+                  <span className="text-xs text-gray-400 line-through">
+                    {product.oldPrice.toLocaleString('ru-RU')} ₽
+                  </span>
+                )}
+              </div>
+              <span className="text-xs text-gray-500">за {product.unit}</span>
+            </div>
+          </div>
+
+          {/* Ключевые факты в виде тегов */}
+          <div className="flex flex-wrap gap-2">
+            <div className="flex items-center gap-1 bg-gray-50 rounded-full px-2 py-1">
+              <Icon name="Star" size={12} className="text-yellow-400 fill-current" />
+              <span className="text-xs font-medium">{product.rating}</span>
+            </div>
+            
+            <div className="flex items-center gap-1 bg-gray-50 rounded-full px-2 py-1">
+              <Icon name="MessageCircle" size={12} className="text-gray-400" />
+              <span className="text-xs">{product.reviews} отзывов</span>
+            </div>
+
+            {product.verified && (
+              <div className="flex items-center gap-1 bg-green-50 rounded-full px-2 py-1">
+                <Icon name="CheckCircle" size={12} className="text-green-600" />
+                <span className="text-xs text-green-700">Верифицирован</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-1 bg-blue-50 rounded-full px-2 py-1">
+              <Icon name="Package" size={12} className="text-blue-600" />
+              <span className="text-xs text-blue-700">от {product.minOrder}</span>
+            </div>
+          </div>
+
+          {/* Продавец */}
+          <div className="flex items-center gap-2 text-xs text-gray-600">
+            <Icon name="Store" size={12} />
+            <span className="truncate">{product.seller}</span>
+          </div>
+
+          {/* Основное действие */}
           <Button 
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 h-9"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-medium"
             onClick={() => {
               onSendInquiry(product);
               onClose();
             }}
             disabled={!product.inStock}
           >
-            <Icon name="Mail" size={14} className="mr-1" />
-            <span className="text-sm">Заявка</span>
-          </Button>
-          
-          <Button 
-            variant="outline"
-            className="flex-1 py-2 h-9"
-            onClick={(e) => {
-              onToggleFavorite(product, e);
-            }}
-          >
-            <Icon 
-              name="Heart" 
-              size={14} 
-              className={`mr-1 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
-            />
-            <span className="text-sm">{isFavorite ? "Избранное" : "В избранное"}</span>
+            <Icon name="Zap" size={16} className="mr-2" />
+            {product.inStock ? 'Быстрая заявка' : 'Товар недоступен'}
           </Button>
 
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={onClose}
-            className="shrink-0 h-9 w-9"
-          >
-            <Icon name="X" size={16} />
-          </Button>
+          {/* Дополнительная информация */}
+          <div className="text-center">
+            <button 
+              onClick={onClose}
+              className="text-xs text-gray-500 hover:text-gray-700 underline"
+            >
+              Посмотреть полную информацию →
+            </button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
