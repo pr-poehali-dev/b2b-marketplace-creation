@@ -13,6 +13,7 @@ interface CatalogGridProps {
   onQuickView?: (product: Product) => void;
   onAddToCompare?: (product: Product) => void;
   compareProducts?: number[];
+  onProductClick?: (productId: number) => void;
 }
 
 const CatalogGrid = ({
@@ -24,7 +25,8 @@ const CatalogGrid = ({
   onResetFilters,
   onQuickView,
   onAddToCompare,
-  compareProducts = []
+  compareProducts = [],
+  onProductClick
 }: CatalogGridProps) => {
   if (products.length === 0) {
     return (
@@ -62,6 +64,7 @@ const CatalogGrid = ({
           onQuickView={onQuickView}
           onAddToCompare={onAddToCompare}
           isInCompare={compareProducts.includes(product.id)}
+          onProductClick={onProductClick}
         />
       ))}
     </div>

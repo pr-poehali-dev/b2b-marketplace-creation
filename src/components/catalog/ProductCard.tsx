@@ -20,6 +20,7 @@ export interface Product {
   inStock: boolean;
   discount?: number;
   description: string;
+  detailedDescription?: string;
 }
 
 interface ProductCardProps {
@@ -31,6 +32,7 @@ interface ProductCardProps {
   onQuickView?: (product: Product) => void;
   onAddToCompare?: (product: Product) => void;
   isInCompare?: boolean;
+  onProductClick?: (productId: number) => void;
 }
 
 const ProductCard = ({
@@ -41,14 +43,16 @@ const ProductCard = ({
   onSendInquiry,
   onQuickView,
   onAddToCompare,
-  isInCompare = false
+  isInCompare = false,
+  onProductClick
 }: ProductCardProps) => {
   return (
     <Card 
-      className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 ${
+      className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 cursor-pointer ${
         viewMode === 'list' ? 'flex flex-row h-48' : ''
       }`}
       data-product-card
+      onClick={() => onProductClick?.(product.id)}
     >
       <div className={`relative overflow-hidden ${
         viewMode === 'list' ? 'w-64 h-48' : 'aspect-video'

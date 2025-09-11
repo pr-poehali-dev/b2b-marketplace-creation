@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
@@ -15,6 +16,7 @@ import { Product } from "@/components/catalog/ProductCard";
 import { productsData } from "@/data/productsData";
 
 const Catalog = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [verifiedOnly, setVerifiedOnly] = useState(false);
@@ -178,6 +180,10 @@ const Catalog = () => {
     setIsComparisonOpen(false);
   };
 
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -228,6 +234,7 @@ const Catalog = () => {
                 onQuickView={handleQuickView}
                 onAddToCompare={handleAddToCompare}
                 compareProducts={compareProducts.map(p => p.id)}
+                onProductClick={handleProductClick}
               />
             </div>
           </div>
