@@ -309,5 +309,65 @@ export const categoriesData: CategoryType[] = [
     productCount: 1450,
     color: "from-gray-500 to-slate-600",
     href: "/catalog?category=Компьютеры и IT"
+  },
+  {
+    id: 31,
+    name: "Спецтехника",
+    description: "Экскаваторы, погрузчики, краны, бульдозеры",
+    icon: "Truck",
+    image: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
+    productCount: 890,
+    color: "from-orange-600 to-red-700",
+    href: "/catalog?category=Спецтехника"
+  },
+  {
+    id: 32,
+    name: "Промышленное оборудование",
+    description: "Станки, прессы, конвейеры, компрессоры",
+    icon: "Factory",
+    image: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
+    productCount: 1240,
+    color: "from-indigo-600 to-purple-700",
+    href: "/catalog?category=Промышленное оборудование"
+  },
+  {
+    id: 33,
+    name: "Строительная техника",
+    description: "Миксеры, виброплиты, бетономешалки, подъемники",
+    icon: "HardHat",
+    image: "/img/30071e99-054b-4aad-b22b-679e73394520.jpg",
+    productCount: 670,
+    color: "from-yellow-600 to-amber-700",
+    href: "/catalog?category=Строительная техника"
+  },
+  {
+    id: 34,
+    name: "Генераторы и электростанции",
+    description: "Дизель-генераторы, бензиновые станции, ИБП",
+    icon: "Zap",
+    image: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
+    productCount: 450,
+    color: "from-blue-600 to-cyan-700",
+    href: "/catalog?category=Генераторы и электростанции"
+  },
+  {
+    id: 35,
+    name: "Складская техника",
+    description: "Погрузчики, тележки, стеллажи, подъемники",
+    icon: "Package",
+    image: "/img/43a9e543-590b-44fb-b286-827f5d9b1ef7.jpg",
+    productCount: 780,
+    color: "from-teal-600 to-green-700",
+    href: "/catalog?category=Складская техника"
+  },
+  {
+    id: 36,
+    name: "Лабораторное оборудование",
+    description: "Микроскопы, весы, центрифуги, анализаторы",
+    icon: "TestTube",
+    image: "/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg",
+    productCount: 320,
+    color: "from-purple-600 to-violet-700",
+    href: "/catalog?category=Лабораторное оборудование"
   }
 ];
