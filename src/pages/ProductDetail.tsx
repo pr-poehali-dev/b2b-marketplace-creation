@@ -200,7 +200,7 @@ const ProductDetail = () => {
               <Separator />
 
               {/* Цена */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 sm:p-6">
                 <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 mb-2">
                   <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600">
                     {product.price.toLocaleString('ru-RU')} ₽
@@ -233,7 +233,7 @@ const ProductDetail = () => {
                   <CardTitle className="text-lg">Условия заказа</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex items-center gap-3">
                       <Icon name="Package" size={20} className="text-gray-400" />
                       <div>
@@ -255,76 +255,78 @@ const ProductDetail = () => {
               {/* Количество и действия */}
               <div className="space-y-4">
                 {/* Выбор количества */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                  <span className="font-medium">Количество:</span>
-                  <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                  <span className="font-medium text-gray-800">Количество:</span>
+                  <div className="flex items-center gap-3 justify-start sm:justify-center">
                     <Button 
                       variant="outline" 
                       size="icon"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       disabled={quantity <= 1}
-                      className="shrink-0"
+                      className="shrink-0 h-10 w-10 border-gray-300 hover:bg-gray-50 disabled:opacity-50"
                     >
-                      <Icon name="Minus" size={16} />
+                      <Icon name="Minus" size={16} className="text-gray-600" />
                     </Button>
-                    <span className="w-12 sm:w-16 text-center font-medium text-lg">{quantity}</span>
+                    <span className="w-16 text-center font-semibold text-lg bg-gray-50 py-2 px-3 rounded border min-h-[40px] flex items-center justify-center">
+                      {quantity}
+                    </span>
                     <Button 
                       variant="outline" 
                       size="icon"
                       onClick={() => setQuantity(quantity + 1)}
-                      className="shrink-0"
+                      className="shrink-0 h-10 w-10 border-gray-300 hover:bg-gray-50"
                     >
-                      <Icon name="Plus" size={16} />
+                      <Icon name="Plus" size={16} className="text-gray-600" />
                     </Button>
                   </div>
                 </div>
 
                 {/* Кнопки действий */}
                 <div className="space-y-3">
-                  <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                     <Button 
                       size="lg"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-sm sm:text-base lg:text-lg py-4 sm:py-6"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium text-base py-5 px-4 min-h-[48px]"
                       onClick={handleSendInquiry}
                       disabled={!product.inStock}
                     >
-                      <Icon name="Mail" size={16} className="mr-2" />
-                      <span className="hidden sm:inline">Отправить заявку</span>
+                      <Icon name="Mail" size={18} className="mr-2 shrink-0" />
+                      <span className="hidden sm:inline whitespace-nowrap">Отправить заявку</span>
                       <span className="sm:hidden">Заявка</span>
                     </Button>
                     <Button 
                       size="lg"
                       variant="outline"
-                      className="w-full text-sm sm:text-base lg:text-lg py-4 sm:py-6 border-2"
+                      className="w-full bg-white border-blue-600 text-blue-600 hover:bg-blue-50 font-medium text-base py-5 px-4 min-h-[48px] border-2"
                       onClick={handleAddToCart}
                       disabled={!product.inStock}
                     >
-                      <Icon name="ShoppingCart" size={16} className="mr-2" />
-                      В корзину
+                      <Icon name="ShoppingCart" size={18} className="mr-2 shrink-0" />
+                      <span className="whitespace-nowrap">В корзину</span>
                     </Button>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                     <Button 
                       variant="outline"
-                      className="w-full text-sm"
+                      className="w-full text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-sm py-3 px-4 min-h-[40px]"
                       onClick={handleToggleFavorite}
                     >
                       <Icon 
                         name="Heart" 
-                        size={14} 
-                        className={`mr-2 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
+                        size={16} 
+                        className={`mr-2 shrink-0 ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-500"}`}
                       />
-                      {isFavorite ? "В избранном" : "В избранное"}
+                      <span className="whitespace-nowrap">{isFavorite ? "В избранном" : "В избранное"}</span>
                     </Button>
                     <Button 
                       variant="outline"
                       onClick={() => navigate('/catalog')}
-                      className="w-full text-sm"
+                      className="w-full text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-sm py-3 px-4 min-h-[40px]"
                     >
-                      <Icon name="ArrowLeft" size={14} className="mr-2" />
-                      <span className="hidden sm:inline">Вернуться к каталогу</span>
-                      <span className="sm:hidden">Каталог</span>
+                      <Icon name="ArrowLeft" size={16} className="mr-2 shrink-0" />
+                      <span className="hidden sm:inline whitespace-nowrap">Вернуться к каталогу</span>
+                      <span className="sm:hidden whitespace-nowrap">Каталог</span>
                     </Button>
                   </div>
                 </div>
