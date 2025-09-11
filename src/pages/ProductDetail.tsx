@@ -285,13 +285,15 @@ const ProductDetail = () => {
                 <div className="space-y-3">
                   <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                     <Button 
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm sm:text-base py-3 px-6 h-12 flex items-center justify-center gap-2"
                       onClick={handleSendInquiry}
                       disabled={!product.inStock}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium"
                     >
-                      <Icon name="Mail" size={16} />
-                      <span className="hidden sm:inline">Отправить заявку</span>
-                      <span className="sm:hidden">Заявка</span>
+                      <div className="flex items-center justify-center gap-2">
+                        <Icon name="Mail" size={16} />
+                        <span className="hidden sm:inline">Отправить заявку</span>
+                        <span className="sm:hidden">Заявка</span>
+                      </div>
                     </Button>
                     <Button 
                       size="lg"
