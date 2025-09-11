@@ -324,12 +324,13 @@ const ProductDetail = () => {
                     <Button 
                       variant="outline"
                       onClick={() => navigate('/catalog')}
-                      className="w-full text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-sm py-3 px-2 overflow-hidden"
+                      className="w-full text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-xs py-2 px-3 h-10"
                     >
-                      <div className="flex items-center justify-center gap-1 w-full">
-                        <Icon name="ArrowLeft" size={14} className="shrink-0" />
-                        <span className="hidden md:inline truncate">Вернуться к каталогу</span>
-                        <span className="md:hidden truncate">Каталог</span>
+                      <div className="flex items-center justify-center gap-1 w-full min-w-0">
+                        <Icon name="ArrowLeft" size={12} className="shrink-0" />
+                        <span className="hidden lg:inline whitespace-nowrap">Вернуться к каталогу</span>
+                        <span className="hidden sm:inline lg:hidden whitespace-nowrap">К каталогу</span>
+                        <span className="sm:hidden whitespace-nowrap">Каталог</span>
                       </div>
                     </Button>
                   </div>
