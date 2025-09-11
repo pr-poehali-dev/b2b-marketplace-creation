@@ -8,6 +8,9 @@ import CatalogHero from "@/components/catalog/CatalogHero";
 import CatalogFilters from "@/components/catalog/CatalogFilters";
 import CatalogToolbar from "@/components/catalog/CatalogToolbar";
 import CatalogGrid from "@/components/catalog/CatalogGrid";
+import ProductQuickView from "@/components/catalog/ProductQuickView";
+import ProductComparison from "@/components/catalog/ProductComparison";
+import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
 import { Product } from "@/components/catalog/ProductCard";
 import { productsData } from "@/data/productsData";
 
@@ -31,6 +34,12 @@ const Catalog = () => {
     startElement: null,
     productImage: undefined
   });
+  
+  // Новые состояния для функциональности
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+  const [compareProducts, setCompareProducts] = useState<Product[]>([]);
+  const [isComparisonOpen, setIsComparisonOpen] = useState(false);
   
   const { addItem } = useCart();
 
@@ -128,6 +137,47 @@ const Catalog = () => {
     setIsInquiryModalOpen(false);
   };
 
+  // Обработчики новой функциональности
+  const handleQuickView = (product: Product) => {
+    setQuickViewProduct(product);
+    setIsQuickViewOpen(true);
+  };
+
+  const handleCloseQuickView = () => {
+    setQuickViewProduct(null);
+    setIsQuickViewOpen(false);
+  };
+
+  const handleAddToCompare = (product: Product) => {
+    setCompareProducts(prev => {
+      const isAlreadyInCompare = prev.some(p => p.id === product.id);
+      
+      if (isAlreadyInCompare) {
+        // Убираем из сравнения
+        return prev.filter(p => p.id !== product.id);
+      } else {
+        // Добавляем в сравнение (максимум 3 товара)
+        if (prev.length >= 3) {
+          // Заменяем первый товар новым
+          return [product, ...prev.slice(0, 2)];
+        }
+        return [product, ...prev];
+      }
+    });
+  };
+
+  const handleRemoveFromCompare = (productId: number) => {
+    setCompareProducts(prev => prev.filter(p => p.id !== productId));
+  };
+
+  const handleOpenComparison = () => {
+    setIsComparisonOpen(true);
+  };
+
+  const handleCloseComparison = () => {
+    setIsComparisonOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -175,6 +225,9 @@ const Catalog = () => {
                 onToggleFavorite={handleToggleFavorite}
                 onSendInquiry={handleSendInquiry}
                 onResetFilters={resetFilters}
+                onQuickView={handleQuickView}
+                onAddToCompare={handleAddToCompare}
+                compareProducts={compareProducts.map(p => p.id)}
               />
             </div>
           </div>
@@ -194,6 +247,37 @@ const Catalog = () => {
         startElement={flyingAnimation.startElement}
         productImage={flyingAnimation.productImage}
         onAnimationComplete={handleAnimationComplete}
+      />
+
+      <ProductQuickView
+        product={quickViewProduct}
+        isOpen={isQuickViewOpen}
+        onClose={handleCloseQuickView}
+        onSendInquiry={handleSendInquiry}
+        onToggleFavorite={(product) => {
+          if (favorites.includes(product.id)) {
+            setFavorites(prev => prev.filter(id => id !== product.id));
+          } else {
+            setFavorites(prev => [...prev, product.id]);
+          }
+        }}
+        isFavorite={quickViewProduct ? favorites.includes(quickViewProduct.id) : false}
+        onAddToCompare={handleAddToCompare}
+        isInCompare={quickViewProduct ? compareProducts.some(p => p.id === quickViewProduct.id) : false}
+      />
+
+      <ProductComparison
+        products={compareProducts}
+        isOpen={isComparisonOpen}
+        onClose={handleCloseComparison}
+        onRemoveProduct={handleRemoveFromCompare}
+        onSendInquiry={handleSendInquiry}
+      />
+
+      <CompareFloatingButton
+        compareProducts={compareProducts}
+        onOpenComparison={handleOpenComparison}
+        onRemoveProduct={handleRemoveFromCompare}
       />
     </div>
   );

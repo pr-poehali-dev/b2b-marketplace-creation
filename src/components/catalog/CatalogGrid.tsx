@@ -10,6 +10,9 @@ interface CatalogGridProps {
   onToggleFavorite: (product: Product, event: React.MouseEvent<HTMLButtonElement>) => void;
   onSendInquiry: (product: Product) => void;
   onResetFilters: () => void;
+  onQuickView?: (product: Product) => void;
+  onAddToCompare?: (product: Product) => void;
+  compareProducts?: number[];
 }
 
 const CatalogGrid = ({
@@ -18,7 +21,10 @@ const CatalogGrid = ({
   favorites,
   onToggleFavorite,
   onSendInquiry,
-  onResetFilters
+  onResetFilters,
+  onQuickView,
+  onAddToCompare,
+  compareProducts = []
 }: CatalogGridProps) => {
   if (products.length === 0) {
     return (
@@ -53,6 +59,9 @@ const CatalogGrid = ({
           isFavorite={favorites.includes(product.id)}
           onToggleFavorite={onToggleFavorite}
           onSendInquiry={onSendInquiry}
+          onQuickView={onQuickView}
+          onAddToCompare={onAddToCompare}
+          isInCompare={compareProducts.includes(product.id)}
         />
       ))}
     </div>

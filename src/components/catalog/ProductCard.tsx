@@ -28,6 +28,9 @@ interface ProductCardProps {
   isFavorite: boolean;
   onToggleFavorite: (product: Product, event: React.MouseEvent<HTMLButtonElement>) => void;
   onSendInquiry: (product: Product) => void;
+  onQuickView?: (product: Product) => void;
+  onAddToCompare?: (product: Product) => void;
+  isInCompare?: boolean;
 }
 
 const ProductCard = ({
@@ -35,7 +38,10 @@ const ProductCard = ({
   viewMode,
   isFavorite,
   onToggleFavorite,
-  onSendInquiry
+  onSendInquiry,
+  onQuickView,
+  onAddToCompare,
+  isInCompare = false
 }: ProductCardProps) => {
   return (
     <Card 
@@ -73,19 +79,57 @@ const ProductCard = ({
           </div>
         )}
 
-        {/* Кнопка избранного */}
-        <Button 
-          variant="secondary"
-          size="icon"
-          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
-          onClick={(e) => onToggleFavorite(product, e)}
-        >
-          <Icon 
-            name="Heart"
-            size={14} 
-            className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"}
-          />
-        </Button>
+        {/* Кнопки действий */}
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          <Button 
+            variant="secondary"
+            size="icon"
+            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
+            onClick={(e) => onToggleFavorite(product, e)}
+          >
+            <Icon 
+              name="Heart"
+              size={14} 
+              className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"}
+            />
+          </Button>
+          
+          {onQuickView && (
+            <Button 
+              variant="secondary"
+              size="icon"
+              className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onQuickView(product);
+              }}
+            >
+              <Icon name="Eye" size={14} className="text-gray-600" />
+            </Button>
+          )}
+          
+          {onAddToCompare && (
+            <Button 
+              variant="secondary"
+              size="icon"
+              className={`w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm ${
+                isInCompare ? 'ring-2 ring-blue-500' : ''
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onAddToCompare(product);
+              }}
+            >
+              <Icon 
+                name="BarChart" 
+                size={14} 
+                className={isInCompare ? "text-blue-600" : "text-gray-600"}
+              />
+            </Button>
+          )}
+        </div>
       </div>
       
       <CardContent className={`p-5 flex-1 ${viewMode === 'list' ? 'flex flex-col justify-between' : ''}`}>
@@ -149,23 +193,58 @@ const ProductCard = ({
           </div>
 
           {/* Кнопки действий */}
-          <div className="flex gap-2 pt-2">
-            <Button 
-              className="flex-1 bg-blue-600 hover:bg-blue-700"
-              onClick={() => onSendInquiry(product)}
-              disabled={!product.inStock}
-            >
-              <Icon name="Mail" size={16} className="mr-2" />
-              Отправить заявку
-            </Button>
-            <Button 
-              variant="outline"
-              size="icon"
-              onClick={() => onSendInquiry(product)}
-              className="border-gray-200 hover:border-blue-300"
-            >
-              <Icon name="MessageCircle" size={16} />
-            </Button>
+          <div className="space-y-2 pt-2">
+            <div className="flex gap-2">
+              <Button 
+                className="flex-1 bg-blue-600 hover:bg-blue-700"
+                onClick={() => onSendInquiry(product)}
+                disabled={!product.inStock}
+              >
+                <Icon name="Mail" size={16} className="mr-2" />
+                Отправить заявку
+              </Button>
+              <Button 
+                variant="outline"
+                size="icon"
+                onClick={() => onSendInquiry(product)}
+                className="border-gray-200 hover:border-blue-300"
+                disabled={!product.inStock}
+              >
+                <Icon name="MessageCircle" size={16} />
+              </Button>
+            </div>
+            
+            {/* Дополнительные действия */}
+            <div className="flex gap-2">
+              {onQuickView && (
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 text-xs"
+                  onClick={() => onQuickView(product)}
+                >
+                  <Icon name="Eye" size={14} className="mr-1" />
+                  Быстрый просмотр
+                </Button>
+              )}
+              {onAddToCompare && (
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  className={`flex-1 text-xs ${
+                    isInCompare ? 'border-blue-500 text-blue-600' : ''
+                  }`}
+                  onClick={() => onAddToCompare(product)}
+                >
+                  <Icon 
+                    name="BarChart" 
+                    size={14} 
+                    className={`mr-1 ${isInCompare ? 'text-blue-600' : ''}`}
+                  />
+                  {isInCompare ? 'В сравнении' : 'Сравнить'}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </CardContent>
