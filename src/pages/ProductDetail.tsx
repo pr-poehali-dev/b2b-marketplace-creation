@@ -84,8 +84,8 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-64">
-        <div className="container mx-auto px-6 py-8">
+      <div className="ml-0 lg:ml-64">
+        <div className="container mx-auto px-4 sm:px-6 py-8 max-w-7xl">
           {/* Хлебные крошки */}
           <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
             <button 
@@ -97,12 +97,12 @@ const ProductDetail = () => {
             <Icon name="ChevronRight" size={14} />
             <span className="text-blue-600">{product.category}</span>
             <Icon name="ChevronRight" size={14} />
-            <span className="text-gray-900 font-medium truncate max-w-xs">
+            <span className="text-gray-900 font-medium truncate max-w-[200px] sm:max-w-xs">
               {product.name}
             </span>
           </nav>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">
             {/* Галерея изображений */}
             <div className="space-y-4">
               {/* Основное изображение */}
@@ -201,13 +201,13 @@ const ProductDetail = () => {
 
               {/* Цена */}
               <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-4xl font-bold text-blue-600">
+                <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 mb-2">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600">
                     {product.price.toLocaleString('ru-RU')} ₽
                   </span>
-                  <span className="text-gray-500 text-lg">{product.unit}</span>
+                  <span className="text-gray-500 text-sm sm:text-base lg:text-lg">{product.unit}</span>
                   {product.oldPrice && (
-                    <span className="text-gray-400 line-through text-xl">
+                    <span className="text-gray-400 line-through text-base sm:text-lg lg:text-xl">
                       {product.oldPrice.toLocaleString('ru-RU')} ₽
                     </span>
                   )}
@@ -255,7 +255,7 @@ const ProductDetail = () => {
               {/* Количество и действия */}
               <div className="space-y-4">
                 {/* Выбор количества */}
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                   <span className="font-medium">Количество:</span>
                   <div className="flex items-center gap-3">
                     <Button 
@@ -263,14 +263,16 @@ const ProductDetail = () => {
                       size="icon"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       disabled={quantity <= 1}
+                      className="shrink-0"
                     >
                       <Icon name="Minus" size={16} />
                     </Button>
-                    <span className="w-16 text-center font-medium text-lg">{quantity}</span>
+                    <span className="w-12 sm:w-16 text-center font-medium text-lg">{quantity}</span>
                     <Button 
                       variant="outline" 
                       size="icon"
                       onClick={() => setQuantity(quantity + 1)}
+                      className="shrink-0"
                     >
                       <Icon name="Plus" size={16} />
                     </Button>
@@ -279,37 +281,38 @@ const ProductDetail = () => {
 
                 {/* Кнопки действий */}
                 <div className="space-y-3">
-                  <div className="flex gap-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <Button 
                       size="lg"
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-lg py-6"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-sm sm:text-base lg:text-lg py-4 sm:py-6"
                       onClick={handleSendInquiry}
                       disabled={!product.inStock}
                     >
-                      <Icon name="Mail" size={20} className="mr-2" />
-                      Отправить заявку
+                      <Icon name="Mail" size={16} className="mr-2" />
+                      <span className="hidden sm:inline">Отправить заявку</span>
+                      <span className="sm:hidden">Заявка</span>
                     </Button>
                     <Button 
                       size="lg"
                       variant="outline"
-                      className="flex-1 text-lg py-6 border-2"
+                      className="w-full text-sm sm:text-base lg:text-lg py-4 sm:py-6 border-2"
                       onClick={handleAddToCart}
                       disabled={!product.inStock}
                     >
-                      <Icon name="ShoppingCart" size={20} className="mr-2" />
+                      <Icon name="ShoppingCart" size={16} className="mr-2" />
                       В корзину
                     </Button>
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <Button 
                       variant="outline"
-                      className="flex-1"
+                      className="w-full text-sm"
                       onClick={handleToggleFavorite}
                     >
                       <Icon 
                         name="Heart" 
-                        size={16} 
+                        size={14} 
                         className={`mr-2 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
                       />
                       {isFavorite ? "В избранном" : "В избранное"}
@@ -317,9 +320,11 @@ const ProductDetail = () => {
                     <Button 
                       variant="outline"
                       onClick={() => navigate('/catalog')}
+                      className="w-full text-sm"
                     >
-                      <Icon name="ArrowLeft" size={16} className="mr-2" />
-                      Вернуться к каталогу
+                      <Icon name="ArrowLeft" size={14} className="mr-2" />
+                      <span className="hidden sm:inline">Вернуться к каталогу</span>
+                      <span className="sm:hidden">Каталог</span>
                     </Button>
                   </div>
                 </div>
@@ -331,7 +336,7 @@ const ProductDetail = () => {
           {relatedProducts.length > 0 && (
             <div className="mt-16">
               <h2 className="text-2xl font-bold mb-8">Похожие товары</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {relatedProducts.map((relatedProduct) => (
                   <Card 
                     key={relatedProduct.id} 
