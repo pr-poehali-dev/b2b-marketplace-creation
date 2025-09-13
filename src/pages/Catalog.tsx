@@ -230,7 +230,7 @@ const Catalog = () => {
         <div className="container mx-auto px-6 py-8">
           <CatalogHero />
 
-          <div className="grid lg:grid-cols-4 gap-8">
+          <div className="grid lg:grid-cols-5 gap-6">
             {/* Боковая панель с фильтрами */}
             <div className="lg:col-span-1">
               <CatalogFilters
@@ -262,7 +262,7 @@ const Catalog = () => {
             </div>
 
             {/* Основной контент */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-4">
               <CatalogToolbar
                 filteredProductsCount={filteredProducts.length}
                 totalProducts={productsData.length}
