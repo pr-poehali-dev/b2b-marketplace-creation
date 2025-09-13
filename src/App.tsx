@@ -26,7 +26,6 @@ import News from "./pages/News";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
-import SupportChatButton from "./components/SupportChatButton";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -38,7 +37,6 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <SupportChatButton />
           <ScrollToTop />
           <Routes>
           <Route path="/" element={<Index />} />
