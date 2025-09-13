@@ -27,14 +27,14 @@ const ScrollToTop = () => {
 
   return (
     <div
-      className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${
+        isVisible ? 'opacity-60 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >
       <Button
         onClick={scrollToTop}
         size="lg"
-        className="rounded-full w-14 h-14 shadow-lg bg-blue-600 hover:bg-blue-700 text-white border-2 border-blue-200 hover:border-blue-300 transition-all duration-200"
+        className="rounded-full w-14 h-14 shadow-lg bg-blue-600/60 hover:bg-blue-700/80 text-white border-2 border-blue-200/30 hover:border-blue-300/50 transition-all duration-200 backdrop-blur-sm"
         title="Вернуться вверх"
       >
         <Icon name="ChevronUp" size={24} />
