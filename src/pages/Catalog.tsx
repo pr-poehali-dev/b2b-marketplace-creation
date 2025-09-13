@@ -226,13 +226,13 @@ const Catalog = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-64">
+      <div className="ml-64 overflow-y-auto">
         <div className="container mx-auto px-6 py-8">
           <CatalogHero />
 
-          <div className="grid lg:grid-cols-4 gap-8">
+          <div className="flex gap-8">
             {/* Боковая панель с фильтрами */}
-            <div className="lg:col-span-1">
+            <div className="w-1/4 flex-shrink-0">
               <CatalogFilters
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
@@ -262,7 +262,7 @@ const Catalog = () => {
             </div>
 
             {/* Основной контент */}
-            <div className="lg:col-span-3">
+            <div className="flex-1">
               <CatalogToolbar
                 filteredProductsCount={filteredProducts.length}
                 totalProducts={productsData.length}
