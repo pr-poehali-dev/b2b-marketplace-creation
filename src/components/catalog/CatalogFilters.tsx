@@ -96,7 +96,7 @@ const CatalogFilters = ({
     locationFilter !== "all";
 
   return (
-    <Card className="sticky top-4 shadow-lg border-0 max-h-[calc(100vh-2rem)] w-full max-w-sm">
+    <Card className="shadow-lg border-0 w-full max-w-sm">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex-shrink-0">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center text-gray-800">
@@ -128,7 +128,7 @@ const CatalogFilters = ({
         )}
       </CardHeader>
       {!isFiltersCollapsed && (
-        <CardContent className="space-y-4 p-6 overflow-y-auto max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
+        <CardContent className="space-y-4 p-6">
         {/* Поиск */}
         <Collapsible open={openSections.search} onOpenChange={() => toggleSection('search')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
