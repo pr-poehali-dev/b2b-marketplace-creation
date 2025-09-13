@@ -21,7 +21,12 @@ const Catalog = () => {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [priceRange, setPriceRange] = useState([0, 100000]);
+  const [discountOnly, setDiscountOnly] = useState(false);
+  const [fastDelivery, setFastDelivery] = useState(false);
+  const [priceRange, setPriceRange] = useState([0, 10000000]);
+  const [ratingFilter, setRatingFilter] = useState(0);
+  const [minOrderFilter, setMinOrderFilter] = useState("all");
+  const [locationFilter, setLocationFilter] = useState("all");
   const [sortBy, setSortBy] = useState("name");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
@@ -55,9 +60,37 @@ const Catalog = () => {
       const matchesCategory = categoryFilter === "all" || product.category === categoryFilter;
       const matchesVerified = !verifiedOnly || product.verified;
       const matchesStock = !inStockOnly || product.inStock;
-      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+      const matchesDiscount = !discountOnly || product.discount;
+      const matchesFastDelivery = !fastDelivery; // Пока все товары подходят
+      const matchesPrice = product.price >= priceRange[0] && (priceRange[1] >= 10000000 || product.price <= priceRange[1]);
+      const matchesRating = ratingFilter === 0 || (product.rating && product.rating >= ratingFilter);
+      
+      const matchesMinOrder = (() => {
+        if (minOrderFilter === "all") return true;
+        if (minOrderFilter === "1") return product.minOrder?.includes("1 штука");
+        
+        const minOrderValue = parseInt(product.minOrder?.split(" ")[0] || "1");
+        if (minOrderFilter === "small") return minOrderValue <= 10;
+        if (minOrderFilter === "medium") return minOrderValue >= 10 && minOrderValue <= 100;
+        if (minOrderFilter === "large") return minOrderValue > 100;
+        return true;
+      })();
+      
+      const matchesLocation = (() => {
+        if (locationFilter === "all") return true;
+        const seller = product.seller.toLowerCase();
+        switch (locationFilter) {
+          case "moscow": return seller.includes("мос") || seller.includes("мск");
+          case "spb": return seller.includes("спб") || seller.includes("питер");
+          case "ekb": return seller.includes("екатеринбург");
+          case "nsk": return seller.includes("новосибирск");
+          case "kzn": return seller.includes("казан");
+          case "nng": return seller.includes("нижний");
+          default: return true;
+        }
+      })();
 
-      return matchesSearch && matchesCategory && matchesVerified && matchesStock && matchesPrice;
+      return matchesSearch && matchesCategory && matchesVerified && matchesStock && matchesDiscount && matchesFastDelivery && matchesPrice && matchesRating && matchesMinOrder && matchesLocation;
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -84,7 +117,12 @@ const Catalog = () => {
     setCategoryFilter("all");
     setVerifiedOnly(false);
     setInStockOnly(false);
-    setPriceRange([0, 100000]);
+    setDiscountOnly(false);
+    setFastDelivery(false);
+    setPriceRange([0, 10000000]);
+    setRatingFilter(0);
+    setMinOrderFilter("all");
+    setLocationFilter("all");
     setSortBy("name");
   };
 
@@ -204,8 +242,18 @@ const Catalog = () => {
                 setVerifiedOnly={setVerifiedOnly}
                 inStockOnly={inStockOnly}
                 setInStockOnly={setInStockOnly}
+                discountOnly={discountOnly}
+                setDiscountOnly={setDiscountOnly}
+                fastDelivery={fastDelivery}
+                setFastDelivery={setFastDelivery}
                 priceRange={priceRange}
                 setPriceRange={setPriceRange}
+                ratingFilter={ratingFilter}
+                setRatingFilter={setRatingFilter}
+                minOrderFilter={minOrderFilter}
+                setMinOrderFilter={setMinOrderFilter}
+                locationFilter={locationFilter}
+                setLocationFilter={setLocationFilter}
                 categories={categories}
                 resetFilters={resetFilters}
                 totalProducts={productsData.length}
