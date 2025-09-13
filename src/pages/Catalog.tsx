@@ -12,7 +12,6 @@ import CatalogGrid from "@/components/catalog/CatalogGrid";
 import QuickViewModal from "@/components/catalog/QuickViewModal";
 import ProductComparison from "@/components/catalog/ProductComparison";
 import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
-import CatalogScrollToTop from "@/components/catalog/CatalogScrollToTop";
 import { Product } from "@/components/catalog/ProductCard";
 import { productsData } from "@/data/productsData";
 
@@ -335,8 +334,6 @@ const Catalog = () => {
         onOpenComparison={handleOpenComparison}
         onRemoveProduct={handleRemoveFromCompare}
       />
-
-      <CatalogScrollToTop />
     </div>
   );
 };

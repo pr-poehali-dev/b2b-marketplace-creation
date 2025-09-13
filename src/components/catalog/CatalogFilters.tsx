@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,6 +73,27 @@ const CatalogFilters = ({
   });
 
   const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
+  const [isScrollTopVisible, setIsScrollTopVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsScrollTopVisible(true);
+      } else {
+        setIsScrollTopVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({
@@ -401,6 +422,20 @@ const CatalogFilters = ({
             </div>
           </CollapsibleContent>
         </Collapsible>
+
+        {/* Кнопка "Вернуться вверх" */}
+        {isScrollTopVisible && (
+          <div className="mt-4">
+            <Button
+              onClick={scrollToTop}
+              className="w-full bg-green-600 hover:bg-green-700 text-white transition-all duration-200 shadow-md"
+              size="sm"
+            >
+              <Icon name="ArrowUp" size={16} className="mr-2" />
+              Вернуться вверх
+            </Button>
+          </div>
+        )}
         </CardContent>
       )}
     </Card>
