@@ -228,17 +228,14 @@ const ProductCard = ({
                   onClick={() => onAddToCompare(product)}
                   className={`flex-1 ${
                     isInCompare ? 'border-blue-500 text-blue-600' : 'border-gray-200 text-gray-700'
-                  } py-1.5 px-1 text-xs font-medium rounded overflow-hidden`}
+                  } py-1.5 px-2 text-xs font-medium rounded flex items-center justify-center`}
                   title={isInCompare ? 'Убрать из сравнения' : 'Добавить к сравнению'}
                 >
                   <Icon 
                     name="BarChart" 
-                    size={10} 
-                    className="mr-1 shrink-0"
+                    size={14} 
+                    className="shrink-0"
                   />
-                  <span className="truncate leading-none">
-                    {isInCompare ? 'В сравнении' : 'Сравнить'}
-                  </span>
                 </Button>
               )}
             </div>
