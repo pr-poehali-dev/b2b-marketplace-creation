@@ -87,8 +87,14 @@ const CatalogFilters = ({
             <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
             Фильтры
           </span>
-          <Button variant="ghost" size="sm" onClick={resetFilters} className="text-gray-600 hover:text-blue-600">
-            <Icon name="RotateCcw" size={16} />
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={resetFilters} 
+            className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm"
+          >
+            <Icon name="RotateCcw" size={16} className="mr-1" />
+            Сбросить
           </Button>
         </CardTitle>
       </CardHeader>
