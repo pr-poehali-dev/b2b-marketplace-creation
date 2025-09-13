@@ -226,7 +226,7 @@ const Catalog = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-64 overflow-y-auto">
+      <main className="ml-64">
         <div className="container mx-auto px-6 py-8">
           <CatalogHero />
 
@@ -289,7 +289,7 @@ const Catalog = () => {
         </div>
         
         <Footer />
-      </div>
+      </main>
 
       <ProductInquiryModal
         isOpen={isInquiryModalOpen}
