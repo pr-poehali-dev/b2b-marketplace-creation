@@ -72,6 +72,8 @@ const CatalogFilters = ({
     stats: true
   });
 
+  const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
+
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections(prev => ({
       ...prev,
@@ -94,25 +96,39 @@ const CatalogFilters = ({
     locationFilter !== "all";
 
   return (
-    <Card className="sticky top-4 shadow-lg border-0 max-h-[calc(100vh-2rem)]">
+    <Card className="sticky top-4 shadow-lg border-0 max-h-[calc(100vh-2rem)] w-80">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex-shrink-0">
-        <CardTitle className="flex items-center text-gray-800 mb-3">
-          <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
-          Фильтры
-        </CardTitle>
-        {hasActiveFilters && (
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center text-gray-800">
+            <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
+            Фильтры
+          </CardTitle>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setIsFiltersCollapsed(!isFiltersCollapsed)}
+            className="text-gray-600 hover:text-blue-600 p-1"
+          >
+            <Icon 
+              name={isFiltersCollapsed ? "ChevronDown" : "ChevronUp"} 
+              size={18} 
+            />
+          </Button>
+        </div>
+        {hasActiveFilters && !isFiltersCollapsed && (
           <Button 
             variant="outline" 
             size="sm" 
             onClick={resetFilters} 
-            className="w-full text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm"
+            className="w-full text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm mt-3"
           >
             <Icon name="RotateCcw" size={16} className="mr-2" />
             Сбросить все фильтры
           </Button>
         )}
       </CardHeader>
-      <CardContent className="space-y-4 p-6 overflow-y-auto max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
+      {!isFiltersCollapsed && (
+        <CardContent className="space-y-4 p-6 overflow-y-auto max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
         {/* Поиск */}
         <Collapsible open={openSections.search} onOpenChange={() => toggleSection('search')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
@@ -375,7 +391,8 @@ const CatalogFilters = ({
             </div>
           </CollapsibleContent>
         </Collapsible>
-      </CardContent>
+        </CardContent>
+      )}
     </Card>
   );
 };
