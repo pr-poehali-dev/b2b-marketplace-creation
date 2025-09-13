@@ -33,11 +33,11 @@ const ScrollToTop = () => {
     >
       <Button
         onClick={scrollToTop}
-        size="lg"
-        className="rounded-full w-14 h-14 shadow-lg bg-blue-600/60 hover:bg-blue-700/80 text-white border-2 border-blue-200/30 hover:border-blue-300/50 transition-all duration-200 backdrop-blur-sm"
+        size="sm"
+        className="rounded-full w-12 h-12 shadow-lg bg-blue-600/60 hover:bg-blue-600 text-white border-2 border-blue-200/30 hover:border-blue-400 transition-all duration-200 backdrop-blur-sm hover:opacity-100"
         title="Вернуться вверх"
       >
-        <Icon name="ChevronUp" size={24} />
+        <Icon name="ChevronUp" size={20} />
       </Button>
     </div>
   );
