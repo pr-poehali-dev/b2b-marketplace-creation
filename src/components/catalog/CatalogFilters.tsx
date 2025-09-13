@@ -80,8 +80,8 @@ const CatalogFilters = ({
   };
 
   return (
-    <Card className="sticky top-4 shadow-lg border-0">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg">
+    <Card className="sticky top-4 shadow-lg border-0 max-h-[calc(100vh-2rem)]">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex-shrink-0">
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center text-gray-800">
             <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
@@ -92,7 +92,7 @@ const CatalogFilters = ({
           </Button>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4 p-6">
+      <CardContent className="space-y-4 p-6 overflow-y-auto max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
         {/* Поиск */}
         <Collapsible open={openSections.search} onOpenChange={() => toggleSection('search')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
