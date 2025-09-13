@@ -79,24 +79,38 @@ const CatalogFilters = ({
     }));
   };
 
+  // Проверяем есть ли активные фильтры
+  const hasActiveFilters = 
+    searchQuery !== "" ||
+    categoryFilter !== "all" ||
+    verifiedOnly ||
+    inStockOnly ||
+    discountOnly ||
+    fastDelivery ||
+    priceRange[0] !== 0 ||
+    priceRange[1] !== 10000000 ||
+    ratingFilter !== 0 ||
+    minOrderFilter !== "all" ||
+    locationFilter !== "all";
+
   return (
     <Card className="sticky top-4 shadow-lg border-0 max-h-[calc(100vh-2rem)]">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex-shrink-0">
-        <CardTitle className="flex items-center justify-between">
-          <span className="flex items-center text-gray-800">
-            <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
-            Фильтры
-          </span>
+        <CardTitle className="flex items-center text-gray-800 mb-3">
+          <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
+          Фильтры
+        </CardTitle>
+        {hasActiveFilters && (
           <Button 
             variant="outline" 
             size="sm" 
             onClick={resetFilters} 
-            className="text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm"
+            className="w-full text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm"
           >
-            <Icon name="RotateCcw" size={16} className="mr-1" />
-            Сбросить
+            <Icon name="RotateCcw" size={16} className="mr-2" />
+            Сбросить все фильтры
           </Button>
-        </CardTitle>
+        )}
       </CardHeader>
       <CardContent className="space-y-4 p-6 overflow-y-auto max-h-[calc(100vh-8rem)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400">
         {/* Поиск */}
