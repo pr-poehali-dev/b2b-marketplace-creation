@@ -118,7 +118,7 @@ const CatalogFilters = ({
 
   return (
     <Card 
-      className="shadow-lg border-0 w-full max-w-sm" 
+      className="shadow-lg border-0 w-full max-w-sm relative" 
       style={{ 
         position: 'static',
         top: 'auto',
@@ -423,20 +423,22 @@ const CatalogFilters = ({
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Кнопка "Вернуться вверх" */}
-        {isScrollTopVisible && (
-          <div className="mt-4">
-            <Button
-              onClick={scrollToTop}
-              className="w-full bg-green-600 hover:bg-green-700 text-white transition-all duration-200 shadow-md"
-              size="sm"
-            >
-              <Icon name="ArrowUp" size={16} className="mr-2" />
-              Вернуться вверх
-            </Button>
-          </div>
-        )}
+
         </CardContent>
+      )}
+      
+      {/* Кнопка "Вернуться вверх" - фиксированная внизу панели */}
+      {isScrollTopVisible && (
+        <div className="absolute bottom-4 left-4 right-4">
+          <Button
+            onClick={scrollToTop}
+            className="w-full bg-green-600 hover:bg-green-700 text-white transition-all duration-300 shadow-lg animate-in fade-in slide-in-from-bottom-2"
+            size="sm"
+          >
+            <Icon name="ArrowUp" size={16} className="mr-2" />
+            Вернуться вверх
+          </Button>
+        </div>
       )}
     </Card>
   );
