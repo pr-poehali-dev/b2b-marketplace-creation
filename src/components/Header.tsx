@@ -1,14 +1,17 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import UserProfile from './header/UserProfile';
 import SidebarNavigation from './header/SidebarNavigation';
+import Icon from '@/components/ui/icon';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isPinned, setIsPinned] = useState(() => {
     const saved = localStorage.getItem('sidebar-pinned');
     return saved === 'true';
@@ -56,6 +59,27 @@ const Header = () => {
               <span className="text-base sm:text-lg font-bold text-gray-900">Business Market</span>
               <span className="hidden sm:inline text-sm text-gray-600 ml-2">платформа для бизнеса</span>
             </Link>
+            
+            {/* Поиск товаров */}
+            <div className="flex-1 max-w-md mx-8 hidden md:block">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Icon name="Search" size={20} className="text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Поиск товаров..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && searchQuery.trim()) {
+                      navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+                    }
+                  }}
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                />
+              </div>
+            </div>
             
             <UserProfile 
               isLoggedIn={isLoggedIn} 
