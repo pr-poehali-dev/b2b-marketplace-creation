@@ -197,7 +197,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.price} onOpenChange={() => toggleSection('price')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="DollarSign" size={16} className="mr-2 text-green-600" />
+              <Icon name="Ruble" fallback="DollarSign" size={16} className="mr-2 text-green-600" />
               Цена: {priceRange[0].toLocaleString('ru-RU')} - {priceRange[1] >= 10000000 ? '10М+' : priceRange[1].toLocaleString('ru-RU')} ₽
             </span>
             <Icon 
