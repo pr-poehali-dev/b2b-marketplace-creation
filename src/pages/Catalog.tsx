@@ -366,8 +366,6 @@ const Catalog = () => {
         isOpen={isQuickViewOpen}
         onClose={handleCloseQuickView}
         onSendInquiry={handleSendInquiry}
-        onAddToCompare={handleAddToCompare}
-        isInCompare={quickViewProduct ? compareProducts.some(p => p.id === quickViewProduct.id) : false}
       />
 
       <ProductComparison

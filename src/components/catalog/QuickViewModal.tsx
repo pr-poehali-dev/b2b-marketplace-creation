@@ -9,8 +9,6 @@ interface QuickViewModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSendInquiry: (product: Product) => void;
-  onToggleFavorite: (product: Product, event: React.MouseEvent<HTMLButtonElement>) => void;
-  isFavorite: boolean;
 }
 
 const QuickViewModal = ({
@@ -18,8 +16,6 @@ const QuickViewModal = ({
   isOpen,
   onClose,
   onSendInquiry,
-  onToggleFavorite,
-  isFavorite,
 }: QuickViewModalProps) => {
   if (!product) return null;
 
@@ -56,21 +52,7 @@ const QuickViewModal = ({
             )}
           </div>
 
-          {/* Быстрые действия поверх изображения */}
-          <div className="absolute bottom-3 right-3 flex gap-2">
-            <Button
-              size="icon"
-              variant="secondary"
-              className="bg-white/90 backdrop-blur-sm hover:bg-white h-8 w-8"
-              onClick={(e) => onToggleFavorite(product, e)}
-            >
-              <Icon 
-                name="Heart" 
-                size={14} 
-                className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"}
-              />
-            </Button>
-          </div>
+
         </div>
 
         {/* Контент */}
