@@ -16,11 +16,9 @@ interface ProductQuickViewProps {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
-  onSendInquiry: (product: Product) => void;
-  onToggleFavorite: (product: Product) => void;
-  isFavorite: boolean;
-  onAddToCompare: (product: Product) => void;
-  isInCompare: boolean;
+  onSendInquiry?: (product: Product) => void;
+  onAddToCompare?: (product: Product) => void;
+  isInCompare?: boolean;
 }
 
 const ProductQuickView = ({
@@ -28,10 +26,8 @@ const ProductQuickView = ({
   isOpen,
   onClose,
   onSendInquiry,
-  onToggleFavorite,
-  isFavorite,
   onAddToCompare,
-  isInCompare
+  isInCompare = false
 }: ProductQuickViewProps) => {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
@@ -187,14 +183,16 @@ const ProductQuickView = ({
             {/* Кнопки действий */}
             <div className="space-y-3 pt-2">
               <div className="flex gap-2">
-                <Button 
-                  className="flex-1 bg-blue-600 hover:bg-blue-700"
-                  onClick={() => onSendInquiry(product)}
-                  disabled={!product.inStock}
-                >
-                  <Icon name="Mail" size={16} className="mr-2" />
-                  Отправить заявку
-                </Button>
+                {onSendInquiry && (
+                  <Button 
+                    className="flex-1 bg-blue-600 hover:bg-blue-700"
+                    onClick={() => onSendInquiry(product)}
+                    disabled={!product.inStock}
+                  >
+                    <Icon name="Mail" size={16} className="mr-2" />
+                    Отправить заявку
+                  </Button>
+                )}
                 <Button 
                   className="flex-1 bg-green-600 hover:bg-green-700"
                   onClick={handleAddToCart}
@@ -205,22 +203,10 @@ const ProductQuickView = ({
                 </Button>
               </div>
 
-              <div className="flex gap-2">
+              {onAddToCompare && (
                 <Button 
                   variant="outline"
-                  className="flex-1"
-                  onClick={() => onToggleFavorite(product)}
-                >
-                  <Icon 
-                    name="Heart" 
-                    size={16} 
-                    className={`mr-2 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
-                  />
-                  {isFavorite ? "В избранном" : "В избранное"}
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="flex-1"
+                  className="w-full"
                   onClick={() => onAddToCompare(product)}
                 >
                   <Icon 
@@ -230,7 +216,7 @@ const ProductQuickView = ({
                   />
                   {isInCompare ? "В сравнении" : "Сравнить"}
                 </Button>
-              </div>
+              )}
             </div>
           </div>
         </div>

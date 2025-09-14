@@ -366,16 +366,8 @@ const Catalog = () => {
         isOpen={isQuickViewOpen}
         onClose={handleCloseQuickView}
         onSendInquiry={handleSendInquiry}
-        onToggleFavorite={(product, event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          if (favorites.includes(product.id)) {
-            setFavorites(prev => prev.filter(id => id !== product.id));
-          } else {
-            setFavorites(prev => [...prev, product.id]);
-          }
-        }}
-        isFavorite={quickViewProduct ? favorites.includes(quickViewProduct.id) : false}
+        onAddToCompare={handleAddToCompare}
+        isInCompare={quickViewProduct ? compareProducts.some(p => p.id === quickViewProduct.id) : false}
       />
 
       <ProductComparison
