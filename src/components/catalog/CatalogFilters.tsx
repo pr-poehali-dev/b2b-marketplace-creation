@@ -339,18 +339,7 @@ const CatalogFilters = ({
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-3">
             <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <Checkbox
-                  id="verified"
-                  checked={verifiedOnly}
-                  onCheckedChange={setVerifiedOnly}
-                />
-                <label htmlFor="verified" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
-                  <Icon name="ShieldCheck" size={16} className="mr-1 text-green-600" />
-                  Верифицированные поставщики
-                </label>
-              </div>
-              
+
               <div className="flex items-center space-x-3">
                 <Checkbox
                   id="inStock"
