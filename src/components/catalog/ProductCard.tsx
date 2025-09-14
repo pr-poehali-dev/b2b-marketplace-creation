@@ -101,26 +101,7 @@ const ProductCard = ({
             </Button>
           )}
           
-          {onAddToCompare && (
-            <Button 
-              variant="secondary"
-              size="icon"
-              className={`w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm ${
-                isInCompare ? 'ring-2 ring-blue-500' : ''
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onAddToCompare(product);
-              }}
-            >
-              <Icon 
-                name="BarChart" 
-                size={14} 
-                className={isInCompare ? "text-blue-600" : "text-gray-600"}
-              />
-            </Button>
-          )}
+
         </div>
       </div>
       
