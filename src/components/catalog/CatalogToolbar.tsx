@@ -87,6 +87,7 @@ const CatalogToolbar = ({
           </Select>
         </div>
       </div>
+      </div>
     </div>
   );
 };
