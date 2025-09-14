@@ -50,7 +50,7 @@ const Catalog = () => {
   const [sortBy, setSortBy] = useState(() => getFromLocalStorage('sortBy', 'name'));
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState<number[]>(() => getFromLocalStorage('favorites', []));
+
   const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => getFromLocalStorage('viewMode', 'grid'));
   const [flyingAnimation, setFlyingAnimation] = useState<{
     isActive: boolean;
@@ -115,9 +115,7 @@ const Catalog = () => {
     saveToLocalStorage('sortBy', sortBy);
   }, [sortBy]);
 
-  useEffect(() => {
-    saveToLocalStorage('favorites', favorites);
-  }, [favorites]);
+
 
   useEffect(() => {
     saveToLocalStorage('viewMode', viewMode);
@@ -219,39 +217,7 @@ const Catalog = () => {
     setSortBy("name");
   };
 
-  // Обработка добавления в избранное
-  const handleToggleFavorite = (productId: number, event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
 
-    if (favorites.includes(productId)) {
-      setFavorites(prev => prev.filter(id => id !== productId));
-    } else {
-      setFavorites(prev => [...prev, productId]);
-      
-      const product = productsData.find(p => p.id === productId);
-      if (product) {
-        const cardElement = event.currentTarget.closest('[data-product-card]') as HTMLElement;
-        
-        // Запускаем анимацию полета в корзину от карточки товара
-        setFlyingAnimation({
-          isActive: true,
-          startElement: cardElement || event.currentTarget,
-          productImage: product.image
-        });
-        
-        // Добавляем товар в корзину при добавлении в избранное
-        addItem({
-          id: product.id.toString(),
-          title: product.name,
-          price: product.price,
-          image: product.image,
-          category: product.category,
-          company: product.seller
-        });
-      }
-    }
-  };
 
   const handleAnimationComplete = () => {
     setFlyingAnimation(prev => ({
@@ -368,8 +334,6 @@ const Catalog = () => {
               <CatalogGrid
                 products={filteredProducts}
                 viewMode={viewMode}
-                favorites={favorites}
-                onToggleFavorite={handleToggleFavorite}
                 onSendInquiry={handleSendInquiry}
                 onResetFilters={resetFilters}
                 onQuickView={handleQuickView}

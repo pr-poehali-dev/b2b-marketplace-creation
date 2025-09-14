@@ -6,8 +6,6 @@ import ProductCard, { Product } from "./ProductCard";
 interface CatalogGridProps {
   products: Product[];
   viewMode: 'grid' | 'list';
-  favorites: number[];
-  onToggleFavorite: (product: Product, event: React.MouseEvent<HTMLButtonElement>) => void;
   onSendInquiry: (product: Product) => void;
   onResetFilters: () => void;
   onQuickView?: (product: Product) => void;
@@ -19,8 +17,6 @@ interface CatalogGridProps {
 const CatalogGrid = ({
   products,
   viewMode,
-  favorites,
-  onToggleFavorite,
   onSendInquiry,
   onResetFilters,
   onQuickView,
@@ -58,8 +54,6 @@ const CatalogGrid = ({
           key={product.id}
           product={product}
           viewMode={viewMode}
-          isFavorite={favorites.includes(product.id)}
-          onToggleFavorite={onToggleFavorite}
           onSendInquiry={onSendInquiry}
           onQuickView={onQuickView}
           onAddToCompare={onAddToCompare}

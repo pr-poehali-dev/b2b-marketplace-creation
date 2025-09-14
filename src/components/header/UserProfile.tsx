@@ -30,15 +30,7 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
     <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
       {isLoggedIn && (
         <>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="relative"
-            onClick={() => navigate('/favorites')}
-            data-favorites-icon
-          >
-            <Icon name="Heart" size={20} />
-          </Button>
+
           <Button
             variant="ghost"
             size="sm"

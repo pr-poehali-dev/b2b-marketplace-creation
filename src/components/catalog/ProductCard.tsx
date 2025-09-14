@@ -27,8 +27,6 @@ export interface Product {
 interface ProductCardProps {
   product: Product;
   viewMode: 'grid' | 'list';
-  isFavorite: boolean;
-  onToggleFavorite: (product: Product, event: React.MouseEvent<HTMLButtonElement>) => void;
   onSendInquiry: (product: Product) => void;
   onQuickView?: (product: Product) => void;
   onAddToCompare?: (product: Product) => void;
@@ -39,8 +37,6 @@ interface ProductCardProps {
 const ProductCard = ({
   product,
   viewMode,
-  isFavorite,
-  onToggleFavorite,
   onSendInquiry,
   onQuickView,
   onAddToCompare,
@@ -88,19 +84,6 @@ const ProductCard = ({
 
         {/* Кнопки действий */}
         <div className="absolute top-3 right-3 flex flex-col gap-2">
-          <Button 
-            variant="secondary"
-            size="icon"
-            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
-            onClick={(e) => onToggleFavorite(product, e)}
-          >
-            <Icon 
-              name="Heart"
-              size={14} 
-              className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"}
-            />
-          </Button>
-          
           {onQuickView && (
             <Button 
               variant="secondary"
