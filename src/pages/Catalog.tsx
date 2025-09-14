@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,21 +17,41 @@ import { productsData } from "@/data/productsData";
 
 const Catalog = () => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [verifiedOnly, setVerifiedOnly] = useState(false);
-  const [inStockOnly, setInStockOnly] = useState(false);
-  const [discountOnly, setDiscountOnly] = useState(false);
-  const [fastDelivery, setFastDelivery] = useState(false);
-  const [priceRange, setPriceRange] = useState([0, 10000000]);
-  const [ratingFilter, setRatingFilter] = useState(0);
-  const [minOrderFilter, setMinOrderFilter] = useState("all");
-  const [locationFilter, setLocationFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("name");
+
+  // Функции для работы с localStorage
+  const saveToLocalStorage = (key: string, value: any) => {
+    try {
+      localStorage.setItem(`catalog_${key}`, JSON.stringify(value));
+    } catch (error) {
+      console.warn('Failed to save to localStorage:', error);
+    }
+  };
+
+  const getFromLocalStorage = (key: string, defaultValue: any) => {
+    try {
+      const saved = localStorage.getItem(`catalog_${key}`);
+      return saved ? JSON.parse(saved) : defaultValue;
+    } catch (error) {
+      console.warn('Failed to load from localStorage:', error);
+      return defaultValue;
+    }
+  };
+
+  const [searchQuery, setSearchQuery] = useState(() => getFromLocalStorage('searchQuery', ''));
+  const [categoryFilter, setCategoryFilter] = useState(() => getFromLocalStorage('categoryFilter', 'all'));
+  const [verifiedOnly, setVerifiedOnly] = useState(() => getFromLocalStorage('verifiedOnly', false));
+  const [inStockOnly, setInStockOnly] = useState(() => getFromLocalStorage('inStockOnly', false));
+  const [discountOnly, setDiscountOnly] = useState(() => getFromLocalStorage('discountOnly', false));
+  const [fastDelivery, setFastDelivery] = useState(() => getFromLocalStorage('fastDelivery', false));
+  const [priceRange, setPriceRange] = useState(() => getFromLocalStorage('priceRange', [0, 10000000]));
+  const [ratingFilter, setRatingFilter] = useState(() => getFromLocalStorage('ratingFilter', 0));
+  const [minOrderFilter, setMinOrderFilter] = useState(() => getFromLocalStorage('minOrderFilter', 'all'));
+  const [locationFilter, setLocationFilter] = useState(() => getFromLocalStorage('locationFilter', 'all'));
+  const [sortBy, setSortBy] = useState(() => getFromLocalStorage('sortBy', 'name'));
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState<number[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [favorites, setFavorites] = useState<number[]>(() => getFromLocalStorage('favorites', []));
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => getFromLocalStorage('viewMode', 'grid'));
   const [flyingAnimation, setFlyingAnimation] = useState<{
     isActive: boolean;
     startElement: HTMLElement | null;
@@ -49,6 +69,79 @@ const Catalog = () => {
   const [isComparisonOpen, setIsComparisonOpen] = useState(false);
   
   const { addItem } = useCart();
+
+  // useEffect для автосохранения состояний в localStorage
+  useEffect(() => {
+    saveToLocalStorage('searchQuery', searchQuery);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    saveToLocalStorage('categoryFilter', categoryFilter);
+  }, [categoryFilter]);
+
+  useEffect(() => {
+    saveToLocalStorage('verifiedOnly', verifiedOnly);
+  }, [verifiedOnly]);
+
+  useEffect(() => {
+    saveToLocalStorage('inStockOnly', inStockOnly);
+  }, [inStockOnly]);
+
+  useEffect(() => {
+    saveToLocalStorage('discountOnly', discountOnly);
+  }, [discountOnly]);
+
+  useEffect(() => {
+    saveToLocalStorage('fastDelivery', fastDelivery);
+  }, [fastDelivery]);
+
+  useEffect(() => {
+    saveToLocalStorage('priceRange', priceRange);
+  }, [priceRange]);
+
+  useEffect(() => {
+    saveToLocalStorage('ratingFilter', ratingFilter);
+  }, [ratingFilter]);
+
+  useEffect(() => {
+    saveToLocalStorage('minOrderFilter', minOrderFilter);
+  }, [minOrderFilter]);
+
+  useEffect(() => {
+    saveToLocalStorage('locationFilter', locationFilter);
+  }, [locationFilter]);
+
+  useEffect(() => {
+    saveToLocalStorage('sortBy', sortBy);
+  }, [sortBy]);
+
+  useEffect(() => {
+    saveToLocalStorage('favorites', favorites);
+  }, [favorites]);
+
+  useEffect(() => {
+    saveToLocalStorage('viewMode', viewMode);
+  }, [viewMode]);
+
+  // Сохранение позиции скролла при уходе со страницы
+  useEffect(() => {
+    const handleScroll = () => {
+      saveToLocalStorage('scrollPosition', window.pageYOffset);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Восстановление позиции скролла при возврате
+  useEffect(() => {
+    const savedScrollPosition = getFromLocalStorage('scrollPosition', 0);
+    if (savedScrollPosition > 0) {
+      setTimeout(() => {
+        window.scrollTo(0, savedScrollPosition);
+      }, 100);
+    }
+  }, []);
 
   // Фильтрация и сортировка товаров
   const filteredProducts = productsData

@@ -89,7 +89,10 @@ const ProductDetail = () => {
           {/* Хлебные крошки */}
           <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
             <button 
-              onClick={() => navigate('/catalog')}
+              onClick={() => {
+                // Восстанавливаем предыдущее состояние каталога
+                navigate('/catalog');
+              }}
               className="hover:text-blue-600 transition-colors"
             >
               Каталог
