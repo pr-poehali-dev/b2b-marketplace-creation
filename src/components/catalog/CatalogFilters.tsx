@@ -137,7 +137,7 @@ const CatalogFilters = ({
             className="w-full text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm mt-3"
           >
             <Icon name="RotateCcw" size={16} className="mr-2" />
-            Сбросить все фильтры
+            Сброс
           </Button>
         )}
       </CardHeader>
