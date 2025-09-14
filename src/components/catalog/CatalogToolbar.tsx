@@ -172,7 +172,7 @@ const CatalogToolbar = ({
       </div>
       
       {/* Панель инструментов */}
-      <div className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+      <div className="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm border border-gray-100">
         <div className="flex items-center gap-4">
           <p className="text-gray-700 font-medium">
             Показано <span className="text-blue-600 font-semibold">{filteredProductsCount}</span> из {totalProducts} товаров

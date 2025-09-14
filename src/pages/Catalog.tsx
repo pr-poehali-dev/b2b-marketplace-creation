@@ -303,10 +303,10 @@ const Catalog = () => {
       <Header />
       
       <main className="ml-64">
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-6 py-4">
           <CatalogHero />
 
-          <div className="flex gap-8">
+          <div className="flex gap-6">
             {/* Боковая панель с фильтрами */}
             <div className="w-1/4 flex-shrink-0">
               <CatalogFilters
@@ -354,8 +354,9 @@ const Catalog = () => {
                 setSearchQuery={setSearchQuery}
                 allProducts={productsData}
               />
-
-              <CatalogGrid
+              
+              <div className="mt-4">
+                <CatalogGrid
                 products={filteredProducts}
                 viewMode={viewMode}
                 onSendInquiry={handleSendInquiry}
@@ -364,7 +365,8 @@ const Catalog = () => {
                 onAddToCompare={handleAddToCompare}
                 compareProducts={compareProducts.map(p => p.id)}
                 onProductClick={handleProductClick}
-              />
+                />
+              </div>
             </div>
           </div>
         </div>

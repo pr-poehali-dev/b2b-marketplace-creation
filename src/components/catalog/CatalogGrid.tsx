@@ -46,8 +46,8 @@ const CatalogGrid = ({
 
   return (
     <div className={viewMode === 'grid' 
-      ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-6" 
-      : "space-y-4"
+      ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-4" 
+      : "space-y-3"
     } style={viewMode === 'grid' ? { gridAutoRows: '1fr' } : {}}>
       {products.map((product) => (
         <ProductCard

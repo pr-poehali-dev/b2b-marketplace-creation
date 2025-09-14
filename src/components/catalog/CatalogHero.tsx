@@ -2,10 +2,10 @@ import Icon from "@/components/ui/icon";
 
 const CatalogHero = () => {
   return (
-    <div className="mb-8 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-8 text-white relative overflow-hidden">
+    <div className="mb-4 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-6 text-white relative overflow-hidden">
       <div className="relative z-10">
-        <h1 className="text-4xl font-bold mb-3">Каталог товаров</h1>
-        <p className="text-xl text-blue-100 mb-6">Более 10,000 товаров от проверенных поставщиков</p>
+        <h1 className="text-3xl font-bold mb-2">Каталог товаров</h1>
+        <p className="text-lg text-blue-100 mb-4">Более 10,000 товаров от проверенных поставщиков</p>
         <div className="flex gap-6 text-sm">
           <div className="flex items-center gap-2">
             <Icon name="Shield" size={16} className="text-blue-200" />
