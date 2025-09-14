@@ -93,8 +93,8 @@ const CatalogFilters = ({
     inStockOnly ||
     discountOnly ||
     fastDelivery ||
-    priceRange[0] !== 0 ||
-    priceRange[1] !== 10000000 ||
+    priceFrom !== "" ||
+    priceTo !== "" ||
     ratingFilter !== 0 ||
     minOrderFilter !== "all" ||
     locationFilter !== "all";
