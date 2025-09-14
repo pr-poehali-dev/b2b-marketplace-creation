@@ -209,11 +209,10 @@ const CatalogToolbar = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="name">По названию</SelectItem>
-              <SelectItem value="price_asc">Сначала дешевые</SelectItem>
-              <SelectItem value="price_desc">Сначала дорогие</SelectItem>
+              <SelectItem value="price-asc">Сначала дешевые</SelectItem>
+              <SelectItem value="price-desc">Сначала дорогие</SelectItem>
               <SelectItem value="rating">По рейтингу</SelectItem>
-              <SelectItem value="popular">По популярности</SelectItem>
-              <SelectItem value="discount">По скидке</SelectItem>
+              <SelectItem value="reviews">По популярности</SelectItem>
             </SelectContent>
           </Select>
         </div>
