@@ -142,24 +142,8 @@ const ProductCard = ({
       <CardContent className={`p-5 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-between' : ''}`}>
         <div className="space-y-3 flex-1">
           {/* Название товара */}
-          <h3 
-            className={`font-semibold text-lg text-gray-900 group-hover:text-blue-600 transition-colors cursor-pointer ${
-              isExpanded ? '' : 'line-clamp-2'
-            }`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsExpanded(!isExpanded);
-            }}
-            title="Нажмите, чтобы развернуть/свернуть"
-          >
+          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-blue-600 transition-colors">
             {product.name}
-            {product.name.length > 50 && (
-              <Icon 
-                name={isExpanded ? "ChevronUp" : "ChevronDown"} 
-                size={16} 
-                className="inline ml-1 text-gray-400" 
-              />
-            )}
           </h3>
           
           {/* Продавец */}
