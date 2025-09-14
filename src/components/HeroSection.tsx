@@ -2,9 +2,27 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  
+  const images = [
+    { src: "/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg", alt: "Российские бизнес-партнеры заключают сделку" },
+    { src: "/img/967a43bb-bb29-400c-ae7e-cad802988407.jpg", alt: "Современный офис с командной работой" },
+    { src: "/img/a8a12200-5509-4746-826f-bafbbb74fb68.jpg", alt: "Современная логистика и склад" },
+    { src: "/img/13af019d-fd32-49c0-88e6-fbb18b518599.jpg", alt: "Цифровая торговая платформа" }
+  ];
+  
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
     <section className="pt-2 sm:pt-4 pb-16 sm:pb-20 bg-gradient-to-b from-slate-50 to-white">
@@ -55,11 +73,36 @@ const HeroSection = () => {
           </div>
 
           <div className="relative order-first lg:order-last mt-2 lg:translate-y-[-20%] w-full sm:w-5/6 lg:w-4/5 mx-auto">
-            <img 
-              src="/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg" 
-              alt="Российские бизнес-партнеры заключают сделку"
-              className="rounded-xl shadow-2xl w-full h-56 sm:h-72 lg:h-80 object-cover"
-            />
+            <div className="relative overflow-hidden rounded-xl shadow-2xl">
+              {images.map((image, index) => (
+                <img 
+                  key={index}
+                  src={image.src} 
+                  alt={image.alt}
+                  className={`w-full h-56 sm:h-72 lg:h-80 object-cover transition-all duration-1000 ease-in-out absolute top-0 left-0 ${
+                    index === currentImageIndex 
+                      ? 'opacity-100 transform scale-100' 
+                      : 'opacity-0 transform scale-105'
+                  }`}
+                />
+              ))}
+              
+              {/* Индикаторы слайдов */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex 
+                        ? 'bg-white scale-125' 
+                        : 'bg-white/60 hover:bg-white/80'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+            
             <div className="absolute top-4 right-4 bg-white px-3 py-2 rounded-lg shadow-lg">
               <div className="flex items-center space-x-2">
                 <Icon name="CheckCircle" size={20} className="text-green-500" />
