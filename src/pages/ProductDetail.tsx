@@ -193,7 +193,12 @@ const ProductDetail = () => {
                 {/* Продавец */}
                 <div className="flex items-center gap-3">
                   <Icon name="Store" size={16} className="text-gray-400" />
-                  <span className="text-gray-700">{product.seller}</span>
+                  <button 
+                    onClick={() => navigate('/suppliers')}
+                    className="text-gray-700 hover:text-blue-600 hover:underline transition-colors duration-200"
+                  >
+                    {product.seller}
+                  </button>
                   {product.verified && (
                     <Badge variant="outline" className="border-green-200 text-green-700">
                       <Icon name="CheckCircle" size={12} className="mr-1" />
