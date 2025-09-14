@@ -49,7 +49,7 @@ const ProductCard = ({
   return (
     <Card 
       className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 cursor-pointer ${
-        viewMode === 'list' ? 'flex flex-row h-48' : 'h-full'
+        viewMode === 'list' ? 'flex flex-row h-48' : 'flex flex-col min-h-[600px]'
       }`}
       data-product-card
       onClick={() => onProductClick?.(product.id)}
