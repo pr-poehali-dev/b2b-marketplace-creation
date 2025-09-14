@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
+
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Icon from "@/components/ui/icon";
 
@@ -21,8 +21,10 @@ interface CatalogFiltersProps {
   setDiscountOnly: (value: boolean) => void;
   fastDelivery: boolean;
   setFastDelivery: (value: boolean) => void;
-  priceRange: number[];
-  setPriceRange: (value: number[]) => void;
+  priceFrom: string;
+  setPriceFrom: (value: string) => void;
+  priceTo: string;
+  setPriceTo: (value: string) => void;
   ratingFilter: number;
   setRatingFilter: (value: number) => void;
   minOrderFilter: string;
@@ -48,8 +50,10 @@ const CatalogFilters = ({
   setDiscountOnly,
   fastDelivery,
   setFastDelivery,
-  priceRange,
-  setPriceRange,
+  priceFrom,
+  setPriceFrom,
+  priceTo,
+  setPriceTo,
   ratingFilter,
   setRatingFilter,
   minOrderFilter,
@@ -198,7 +202,7 @@ const CatalogFilters = ({
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
               <Icon name="RussianRuble" fallback="Coins" size={16} className="mr-2 text-green-600" />
-              Цена: {priceRange[0].toLocaleString('ru-RU')} - {priceRange[1] >= 10000000 ? '10М+' : priceRange[1].toLocaleString('ru-RU')} ₽
+              Цена
             </span>
             <Icon 
               name={openSections.price ? "ChevronUp" : "ChevronDown"} 
@@ -207,14 +211,28 @@ const CatalogFilters = ({
             />
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-3">
-            <Slider
-              value={priceRange}
-              onValueChange={setPriceRange}
-              max={10000000}
-              min={0}
-              step={10000}
-              className="w-full"
-            />
+            <div className="space-y-3">
+              <div className="flex gap-2 items-center">
+                <Input
+                  type="number"
+                  placeholder="От"
+                  value={priceFrom}
+                  onChange={(e) => setPriceFrom(e.target.value)}
+                  className="border-gray-200 focus:border-blue-500"
+                />
+                <span className="text-gray-500 text-sm">₽</span>
+              </div>
+              <div className="flex gap-2 items-center">
+                <Input
+                  type="number"
+                  placeholder="До"
+                  value={priceTo}
+                  onChange={(e) => setPriceTo(e.target.value)}
+                  className="border-gray-200 focus:border-blue-500"
+                />
+                <span className="text-gray-500 text-sm">₽</span>
+              </div>
+            </div>
           </CollapsibleContent>
         </Collapsible>
 

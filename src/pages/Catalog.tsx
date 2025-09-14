@@ -43,7 +43,8 @@ const Catalog = () => {
   const [inStockOnly, setInStockOnly] = useState(() => getFromLocalStorage('inStockOnly', false));
   const [discountOnly, setDiscountOnly] = useState(() => getFromLocalStorage('discountOnly', false));
   const [fastDelivery, setFastDelivery] = useState(() => getFromLocalStorage('fastDelivery', false));
-  const [priceRange, setPriceRange] = useState(() => getFromLocalStorage('priceRange', [0, 10000000]));
+  const [priceFrom, setPriceFrom] = useState(() => getFromLocalStorage('priceFrom', ''));
+  const [priceTo, setPriceTo] = useState(() => getFromLocalStorage('priceTo', ''));
   const [ratingFilter, setRatingFilter] = useState(() => getFromLocalStorage('ratingFilter', 0));
   const [minOrderFilter, setMinOrderFilter] = useState(() => getFromLocalStorage('minOrderFilter', 'all'));
   const [locationFilter, setLocationFilter] = useState(() => getFromLocalStorage('locationFilter', 'all'));
@@ -96,8 +97,12 @@ const Catalog = () => {
   }, [fastDelivery]);
 
   useEffect(() => {
-    saveToLocalStorage('priceRange', priceRange);
-  }, [priceRange]);
+    saveToLocalStorage('priceFrom', priceFrom);
+  }, [priceFrom]);
+
+  useEffect(() => {
+    saveToLocalStorage('priceTo', priceTo);
+  }, [priceTo]);
 
   useEffect(() => {
     saveToLocalStorage('ratingFilter', ratingFilter);
@@ -153,7 +158,11 @@ const Catalog = () => {
       const matchesStock = !inStockOnly || product.inStock;
       const matchesDiscount = !discountOnly || product.discount;
       const matchesFastDelivery = !fastDelivery || product.fastDelivery;
-      const matchesPrice = product.price >= priceRange[0] && (priceRange[1] >= 10000000 || product.price <= priceRange[1]);
+      const matchesPrice = (() => {
+        const fromPrice = priceFrom ? parseFloat(priceFrom) : 0;
+        const toPrice = priceTo ? parseFloat(priceTo) : Infinity;
+        return product.price >= fromPrice && product.price <= toPrice;
+      })();
       const matchesRating = ratingFilter === 0 || (product.rating && product.rating >= ratingFilter);
       
       const matchesMinOrder = (() => {
@@ -210,7 +219,8 @@ const Catalog = () => {
     setInStockOnly(false);
     setDiscountOnly(false);
     setFastDelivery(false);
-    setPriceRange([0, 10000000]);
+    setPriceFrom('');
+    setPriceTo('');
     setRatingFilter(0);
     setMinOrderFilter("all");
     setLocationFilter("all");
@@ -305,8 +315,10 @@ const Catalog = () => {
                 setDiscountOnly={setDiscountOnly}
                 fastDelivery={fastDelivery}
                 setFastDelivery={setFastDelivery}
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
+                priceFrom={priceFrom}
+                setPriceFrom={setPriceFrom}
+                priceTo={priceTo}
+                setPriceTo={setPriceTo}
                 ratingFilter={ratingFilter}
                 setRatingFilter={setRatingFilter}
                 minOrderFilter={minOrderFilter}
