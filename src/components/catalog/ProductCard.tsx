@@ -159,14 +159,13 @@ const ProductCard = ({
             )}
           </div>
 
-          {/* Рейтинг и отзывы */}
+          {/* Рейтинг */}
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600">Рейтинг:</span>
             <div className="flex items-center gap-1">
               <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
               <span className="text-sm font-medium">{product.rating}</span>
             </div>
-            <span className="text-xs text-gray-500">({product.reviews} отзывов)</span>
           </div>
 
           {/* Описание (только в режиме списка) */}
