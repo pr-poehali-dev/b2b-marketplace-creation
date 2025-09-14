@@ -286,6 +286,10 @@ const Catalog = () => {
     setCompareProducts(prev => prev.filter(p => p.id !== productId));
   };
 
+  const handleApplyFilters = () => {
+    console.log('Фильтры применены');
+  };
+
   const handleOpenComparison = () => {
     setIsComparisonOpen(true);
   };
@@ -338,6 +342,7 @@ const Catalog = () => {
                 resetFilters={resetFilters}
                 totalProducts={productsData.length}
                 filteredProducts={filteredProducts.length}
+                onApplyFilters={handleApplyFilters}
               />
             </div>
 
