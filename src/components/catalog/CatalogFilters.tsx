@@ -70,7 +70,6 @@ const CatalogFilters = ({
   filteredProducts
 }: CatalogFiltersProps) => {
   const [openSections, setOpenSections] = useState({
-    search: true,
     category: true,
     price: true,
     rating: true,
@@ -147,32 +146,6 @@ const CatalogFilters = ({
       </CardHeader>
       {!isFiltersCollapsed && (
         <CardContent className="space-y-4 p-6">
-        {/* Поиск */}
-        <Collapsible open={openSections.search} onOpenChange={() => toggleSection('search')}>
-          <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
-            <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="Search" size={16} className="mr-2 text-blue-600" />
-              Поиск товаров
-            </span>
-            <Icon 
-              name={openSections.search ? "ChevronUp" : "ChevronDown"} 
-              size={16} 
-              className="text-gray-400 transition-transform duration-200" 
-            />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="mt-3">
-            <div className="relative">
-              <Icon name="Search" size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <Input
-                placeholder="Название, категория..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 border-gray-200 focus:border-blue-500"
-              />
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-
         {/* Категория */}
         <Collapsible open={openSections.category} onOpenChange={() => toggleSection('category')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">

@@ -350,6 +350,8 @@ const Catalog = () => {
                 setViewMode={setViewMode}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
               />
 
               <CatalogGrid

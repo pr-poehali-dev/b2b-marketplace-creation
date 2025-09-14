@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
 
@@ -9,6 +10,8 @@ interface CatalogToolbarProps {
   setViewMode: (mode: 'grid' | 'list') => void;
   sortBy: string;
   setSortBy: (value: string) => void;
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
 }
 
 const CatalogToolbar = ({
@@ -17,15 +20,33 @@ const CatalogToolbar = ({
   viewMode,
   setViewMode,
   sortBy,
-  setSortBy
+  setSortBy,
+  searchQuery,
+  setSearchQuery
 }: CatalogToolbarProps) => {
   return (
-    <div className="flex items-center justify-between mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-      <div className="flex items-center gap-4">
-        <p className="text-gray-700 font-medium">
-          Показано <span className="text-blue-600 font-semibold">{filteredProductsCount}</span> из {totalProducts} товаров
-        </p>
+    <div className="space-y-4">
+      {/* Поиск товаров */}
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+        <div className="relative">
+          <Icon name="Search" size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Поиск товаров, поставщиков, категорий..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 pr-4 py-3 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 text-base"
+          />
+        </div>
       </div>
+      
+      {/* Панель инструментов */}
+      <div className="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+        <div className="flex items-center gap-4">
+          <p className="text-gray-700 font-medium">
+            Показано <span className="text-blue-600 font-semibold">{filteredProductsCount}</span> из {totalProducts} товаров
+          </p>
+        </div>
       
       <div className="flex items-center gap-4">
         {/* Переключатель вида */}
