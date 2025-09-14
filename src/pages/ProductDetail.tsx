@@ -20,7 +20,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
+
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
@@ -65,9 +65,7 @@ const ProductDetail = () => {
     }
   };
 
-  const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+
 
   const handleSendInquiry = () => {
     setIsInquiryModalOpen(true);
@@ -316,23 +314,11 @@ const ProductDetail = () => {
                     </Button>
                   </div>
 
-                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
-                    <Button 
-                      variant="outline"
-                      className="w-full text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-sm py-3 px-4 min-h-[40px]"
-                      onClick={handleToggleFavorite}
-                    >
-                      <Icon 
-                        name="Heart" 
-                        size={16} 
-                        className={`mr-2 shrink-0 ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-500"}`}
-                      />
-                      <span className="whitespace-nowrap">{isFavorite ? "В избранном" : "В избранное"}</span>
-                    </Button>
+                  <div className="flex justify-center">
                     <Button 
                       variant="outline"
                       onClick={() => navigate('/catalog')}
-                      className="w-full text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-xs py-2 px-3 h-10"
+                      className="w-full max-w-sm text-gray-700 border-gray-300 hover:bg-gray-50 font-medium text-sm py-3 px-4 min-h-[40px]"
                     >
                       <div className="flex items-center justify-center gap-1 w-full min-w-0">
                         <Icon name="ArrowLeft" size={12} className="shrink-0" />
