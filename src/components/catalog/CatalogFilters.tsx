@@ -85,9 +85,8 @@ const CatalogFilters = ({
     }));
   };
 
-  // Проверяем есть ли активные фильтры
+  // Проверяем есть ли активные фильтры (исключая поиск)
   const hasActiveFilters = 
-    searchQuery !== "" ||
     categoryFilter !== "all" ||
     verifiedOnly ||
     inStockOnly ||
