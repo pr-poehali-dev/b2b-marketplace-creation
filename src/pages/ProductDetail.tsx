@@ -95,7 +95,12 @@ const ProductDetail = () => {
               Каталог
             </button>
             <Icon name="ChevronRight" size={14} />
-            <span className="text-blue-600">{product.category}</span>
+            <button 
+              onClick={() => navigate(`/catalog?category=${encodeURIComponent(product.category)}`)}
+              className="text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              {product.category}
+            </button>
             <Icon name="ChevronRight" size={14} />
             <span className="text-gray-900 font-medium truncate max-w-[200px] sm:max-w-xs">
               {product.name}
