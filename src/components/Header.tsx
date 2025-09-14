@@ -109,8 +109,9 @@ const Header = () => {
               <span className="hidden sm:inline text-sm text-gray-600 ml-2">платформа для бизнеса</span>
             </Link>
             
-            {/* Поиск товаров */}
-            <div className="flex-1 max-w-md mx-8 hidden md:block relative">
+            {/* Поиск товаров - только на главной странице */}
+            {location.pathname === '/' && (
+              <div className="flex-1 max-w-md mx-8 hidden md:block relative">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Icon name="Search" size={20} className="text-gray-400" />
@@ -177,7 +178,8 @@ const Header = () => {
                   Товары не найдены
                 </div>
               )}
-            </div>
+              </div>
+            )}
             
             <UserProfile 
               isLoggedIn={isLoggedIn} 
