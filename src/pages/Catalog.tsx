@@ -352,6 +352,7 @@ const Catalog = () => {
                 setSortBy={setSortBy}
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
+                allProducts={productsData}
               />
 
               <CatalogGrid

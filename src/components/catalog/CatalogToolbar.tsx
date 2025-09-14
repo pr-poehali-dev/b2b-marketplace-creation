@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -12,6 +13,7 @@ interface CatalogToolbarProps {
   setSortBy: (value: string) => void;
   searchQuery: string;
   setSearchQuery: (value: string) => void;
+  allProducts: any[];
 }
 
 const CatalogToolbar = ({
@@ -22,8 +24,105 @@ const CatalogToolbar = ({
   sortBy,
   setSortBy,
   searchQuery,
-  setSearchQuery
+  setSearchQuery,
+  allProducts
 }: CatalogToolbarProps) => {
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(-1);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  // Генерация подсказок на основе данных товаров
+  const generateSuggestions = (query: string): string[] => {
+    if (!query || query.length < 2) return [];
+    
+    const lowercaseQuery = query.toLowerCase();
+    const suggestionSet = new Set<string>();
+    
+    allProducts.forEach(product => {
+      // Подсказки из названий товаров
+      if (product.name.toLowerCase().includes(lowercaseQuery)) {
+        suggestionSet.add(product.name);
+      }
+      
+      // Подсказки из категорий
+      if (product.category.toLowerCase().includes(lowercaseQuery)) {
+        suggestionSet.add(product.category);
+      }
+      
+      // Подсказки из названий поставщиков
+      if (product.seller.toLowerCase().includes(lowercaseQuery)) {
+        suggestionSet.add(product.seller);
+      }
+    });
+    
+    return Array.from(suggestionSet).slice(0, 5); // Ограничиваем до 5 подсказок
+  };
+
+  // Обновление подсказок при изменении поискового запроса
+  useEffect(() => {
+    const newSuggestions = generateSuggestions(searchQuery);
+    setSuggestions(newSuggestions);
+    setShowSuggestions(newSuggestions.length > 0 && searchQuery.length >= 2);
+    setSelectedSuggestion(-1);
+  }, [searchQuery, allProducts]);
+
+  // Обработка клавиш для навигации по подсказкам
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!showSuggestions) return;
+    
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedSuggestion(prev => 
+          prev < suggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedSuggestion(prev => prev > 0 ? prev - 1 : -1);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (selectedSuggestion >= 0) {
+          setSearchQuery(suggestions[selectedSuggestion]);
+          setShowSuggestions(false);
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setSelectedSuggestion(-1);
+        break;
+    }
+  };
+
+  // Выбор подсказки кликом
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearchQuery(suggestion);
+    setShowSuggestions(false);
+    setSelectedSuggestion(-1);
+    searchRef.current?.focus();
+  };
+
+  // Скрытие подсказок при клике вне элемента
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current && 
+        !searchRef.current.contains(event.target as Node) &&
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+        setSelectedSuggestion(-1);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <div className="space-y-4">
       {/* Поиск товаров */}
@@ -31,12 +130,44 @@ const CatalogToolbar = ({
         <div className="relative">
           <Icon name="Search" size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
+            ref={searchRef}
             type="text"
             placeholder="Поиск товаров, поставщиков, категорий..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onFocus={() => {
+              if (searchQuery.length >= 2) {
+                setShowSuggestions(suggestions.length > 0);
+              }
+            }}
             className="pl-10 pr-4 py-3 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 text-base"
           />
+          
+          {/* Выпадающий список подсказок */}
+          {showSuggestions && suggestions.length > 0 && (
+            <div
+              ref={suggestionsRef}
+              className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto"
+            >
+              {suggestions.map((suggestion, index) => (
+                <div
+                  key={suggestion}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className={`px-4 py-3 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
+                    index === selectedSuggestion 
+                      ? 'bg-blue-50 text-blue-700' 
+                      : 'hover:bg-gray-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon name="Search" size={14} className="text-gray-400" />
+                    <span className="text-sm">{suggestion}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       
