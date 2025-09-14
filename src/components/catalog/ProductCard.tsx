@@ -22,6 +22,7 @@ export interface Product {
   discount?: number;
   description: string;
   detailedDescription?: string;
+  fastDelivery?: boolean;
 }
 
 interface ProductCardProps {

@@ -152,7 +152,7 @@ const Catalog = () => {
       const matchesVerified = !verifiedOnly || product.verified;
       const matchesStock = !inStockOnly || product.inStock;
       const matchesDiscount = !discountOnly || product.discount;
-      const matchesFastDelivery = !fastDelivery; // Пока все товары подходят
+      const matchesFastDelivery = !fastDelivery || product.fastDelivery;
       const matchesPrice = product.price >= priceRange[0] && (priceRange[1] >= 10000000 || product.price <= priceRange[1]);
       const matchesRating = ratingFilter === 0 || (product.rating && product.rating >= ratingFilter);
       
