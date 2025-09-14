@@ -50,7 +50,7 @@ const CatalogGrid = ({
 
   return (
     <div className={viewMode === 'grid' 
-      ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-6" 
+      ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-6 items-start" 
       : "space-y-4"
     }>
       {products.map((product) => (
