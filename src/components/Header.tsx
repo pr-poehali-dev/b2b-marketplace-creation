@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import UserProfile from './header/UserProfile';
 import SidebarNavigation from './header/SidebarNavigation';
@@ -52,10 +52,10 @@ const Header = () => {
       }`}>
         <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
+            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity cursor-pointer">
               <span className="text-base sm:text-lg font-bold text-gray-900">Business Market</span>
               <span className="hidden sm:inline text-sm text-gray-600 ml-2">платформа для бизнеса</span>
-            </div>
+            </Link>
             
             <UserProfile 
               isLoggedIn={isLoggedIn} 
