@@ -23,6 +23,7 @@ export interface Product {
   description: string;
   detailedDescription?: string;
   fastDelivery?: boolean;
+  region?: string;
 }
 
 interface ProductCardProps {
@@ -142,6 +143,12 @@ const ProductCard = ({
                   <Icon name="CheckCircle" size={8} className="mr-0.5" />
                   <span className="text-[10px] font-medium">Верифицирован</span>
                 </Badge>
+              </div>
+            )}
+            {product.region && (
+              <div className="flex items-center gap-2 ml-6">
+                <Icon name="MapPin" size={14} className="text-gray-400" />
+                <span className="text-sm text-gray-600">{product.region}</span>
               </div>
             )}
           </div>

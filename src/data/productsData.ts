@@ -18,6 +18,7 @@ export const productsData: Product[] = [
     inStock: true,
     discount: 5,
     fastDelivery: true,
+    region: "Москва и МО",
     description: "Высококачественная стальная труба для промышленного использования",
     detailedDescription: "Труба стальная бесшовная горячедеформированная диаметром 108 мм с толщиной стенки 4 мм. Изготовлена в соответствии с ГОСТ 8732-78 из углеродистой стали марки Ст20. Предназначена для строительства трубопроводов, работающих под давлением до 10 МПа, а также для изготовления металлоконструкций и машиностроения.\\n\\nОсновные характеристики:\\n• Диаметр наружный: 108 мм\\n• Толщина стенки: 4 мм\\n• Материал: углеродистая сталь Ст20\\n• Длина: 4-12 метров (мерная)\\n• Предел прочности: не менее 410 МПа\\n• Относительное удлинение: не менее 21%\\n\\nОбладает высокой прочностью, коррозионной стойкостью и долговечностью. Поставляется с сертификатами качества и соответствия ГОСТ. Возможна доставка автотранспортом или железнодорожным транспортом по всей России."
   },
@@ -35,6 +36,7 @@ export const productsData: Product[] = [
     rating: 4.8,
     reviews: 89,
     inStock: true,
+    region: "Санкт-Петербург",
     description: "Портландцемент высокого качества для строительных работ"
   },
   {
@@ -54,6 +56,7 @@ export const productsData: Product[] = [
     inStock: true,
     discount: 11,
     fastDelivery: true,
+    region: "Екатеринбург",
     description: "Полный стартовый набор для изучения Arduino с документацией"
   },
   {
@@ -70,6 +73,7 @@ export const productsData: Product[] = [
     rating: 4.7,
     reviews: 156,
     inStock: true,
+    region: "Новосибирск",
     description: "Долговечный профнастил с полимерным покрытием"
   },
   {
@@ -86,6 +90,7 @@ export const productsData: Product[] = [
     rating: 4.4,
     reviews: 203,
     inStock: true,
+    region: "Казань",
     description: "Прочная гофрированная упаковка для транспортировки"
   },
   {
@@ -102,6 +107,7 @@ export const productsData: Product[] = [
     rating: 4.8,
     reviews: 94,
     inStock: true,
+    region: "Нижний Новгород",
     description: "Негорючий кабель с низким дымо- и газовыделением"
   },
   {
@@ -121,6 +127,7 @@ export const productsData: Product[] = [
     inStock: true,
     discount: 12,
     fastDelivery: true,
+    region: "Ростов-на-Дону",
     description: "Высококачественная офисная бумага для печати"
   },
   {
@@ -137,6 +144,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 142,
     inStock: false,
+    region: "Краснодар",
     description: "Оцинкованный крепеж повышенной прочности"
   },
   {
@@ -155,6 +163,7 @@ export const productsData: Product[] = [
     reviews: 98,
     inStock: true,
     discount: 13,
+    region: "Воронеж",
     description: "Яркая светодиодная лента с возможностью смены цвета"
   },
   {
@@ -171,6 +180,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 89,
     inStock: true,
+    region: "Самара",
     description: "Износостойкая керамическая плитка для стен и пола"
   },
   {
@@ -187,6 +197,7 @@ export const productsData: Product[] = [
     rating: 4.1,
     reviews: 67,
     inStock: true,
+    region: "Пермь",
     description: "Прочная полиэтиленовая пленка для технических нужд"
   },
   {
@@ -205,6 +216,7 @@ export const productsData: Product[] = [
     reviews: 124,
     inStock: true,
     discount: 11,
+    region: "Челябинск",
     description: "Высокоточный электронный штангенциркуль с цифровым дисплеем"
   },
   {
@@ -221,6 +233,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 89,
     inStock: true,
+    region: "Уфа",
     description: "Качественный смеситель с керамическим картриджем"
   },
   {
@@ -239,6 +252,7 @@ export const productsData: Product[] = [
     reviews: 112,
     inStock: true,
     discount: 8,
+    region: "Волгоград",
     description: "Унитаз из сантехнического фарфора с микролифтом"
   },
   {
@@ -255,6 +269,7 @@ export const productsData: Product[] = [
     rating: 4.7,
     reviews: 156,
     inStock: true,
+    region: "Красноярск",
     description: "Эффективный алюминиевый радиатор с высокой теплоотдачей"
   },
   {
@@ -271,6 +286,7 @@ export const productsData: Product[] = [
     rating: 4.4,
     reviews: 78,
     inStock: false,
+    region: "Саратов",
     description: "Бесшумный вентилятор с функцией отложенного выключения"
   },
   {
@@ -287,6 +303,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 234,
     inStock: true,
+    region: "Тюмень",
     description: "Качественные тормозные колодки для легковых автомобилей"
   },
   {
@@ -305,6 +322,7 @@ export const productsData: Product[] = [
     reviews: 345,
     inStock: true,
     discount: 11,
+    region: "Кемерово",
     description: "Высококачественное синтетическое моторное масло"
   },
   {
@@ -321,6 +339,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 89,
     inStock: true,
+    region: "Иркутск",
     description: "Современный офисный стол с регулировкой высоты"
   },
   {
@@ -339,6 +358,7 @@ export const productsData: Product[] = [
     reviews: 124,
     inStock: true,
     discount: 9,
+    region: "Барнаул",
     description: "Эргономичное офисное кресло с поясничной поддержкой"
   },
   {
@@ -355,6 +375,7 @@ export const productsData: Product[] = [
     rating: 4.3,
     reviews: 167,
     inStock: true,
+    region: "Хабаровск",
     description: "Прочный рабочий костюм из хлопчатобумажной ткани"
   },
   {
@@ -371,6 +392,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 87,
     inStock: true,
+    region: "Владивосток",
     description: "Ударопрочная каска с регулируемым размером"
   },
   {
@@ -389,6 +411,7 @@ export const productsData: Product[] = [
     reviews: 94,
     inStock: true,
     discount: 8,
+    region: "Ульяновск",
     description: "Профессиональная мотокоса для больших участков"
   },
   {
@@ -405,6 +428,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 67,
     inStock: true,
+    region: "Ижевск",
     description: "Легкая и мощная газонокосилка с мульчированием"
   },
   {
@@ -421,6 +445,7 @@ export const productsData: Product[] = [
     rating: 4.4,
     reviews: 123,
     inStock: true,
+    region: "Ярославль",
     description: "Экономичное моющее средство с антибактериальным эффектом"
   },
   {
@@ -437,6 +462,7 @@ export const productsData: Product[] = [
     rating: 4.2,
     reviews: 78,
     inStock: false,
+    region: "Томск",
     description: "Универсальный стиральный порошок для всех типов тканей"
   },
   {
@@ -453,6 +479,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 167,
     inStock: true,
+    region: "Оренбург",
     description: "Высококачественная пшеничная мука для хлебопекарен"
   },
   {
@@ -471,6 +498,7 @@ export const productsData: Product[] = [
     reviews: 134,
     inStock: true,
     discount: 8,
+    region: "Новокузнецк",
     description: "Качественный белый сахар-песок для пищевой промышленности"
   },
   {
@@ -487,6 +515,7 @@ export const productsData: Product[] = [
     rating: 4.3,
     reviews: 89,
     inStock: true,
+    region: "Рязань",
     description: "Натуральная хлопчатобумажная ткань высокого качества"
   },
   {
@@ -505,6 +534,7 @@ export const productsData: Product[] = [
     reviews: 156,
     inStock: true,
     discount: 11,
+    region: "Пенза",
     description: "Прочные полиэстеровые нитки для промышленного шитья"
   },
   {
@@ -521,6 +551,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 145,
     inStock: true,
+    region: "Липецк",
     description: "Точный автоматический тонометр с памятью измерений"
   },
   {
@@ -539,6 +570,7 @@ export const productsData: Product[] = [
     reviews: 98,
     inStock: true,
     discount: 12,
+    region: "Набережные Челны",
     description: "Профессиональный стетоскоп с алюминиевой грудной частью"
   },
   {
@@ -555,6 +587,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 187,
     inStock: true,
+    region: "Астрахань",
     description: "Качественный футбольный мяч для профессиональных игр"
   },
   {
@@ -573,6 +606,7 @@ export const productsData: Product[] = [
     reviews: 124,
     inStock: true,
     discount: 10,
+    region: "Магнитогорск",
     description: "Профессиональные разборные гантели с чугунными дисками"
   },
   {
@@ -591,6 +625,7 @@ export const productsData: Product[] = [
     reviews: 89,
     inStock: true,
     discount: 8,
+    region: "Курск",
     description: "Энергоэффективный холодильник с системой No Frost"
   },
   {
@@ -607,6 +642,7 @@ export const productsData: Product[] = [
     rating: 4.4,
     reviews: 156,
     inStock: false,
+    region: "Тверь",
     description: "Многофункциональная микроволновая печь с грилем и конвекцией"
   },
   {
@@ -623,6 +659,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 245,
     inStock: true,
+    region: "Брянск",
     description: "Развивающий конструктор из безопасного пластика"
   },
   {
@@ -641,6 +678,7 @@ export const productsData: Product[] = [
     reviews: 167,
     inStock: true,
     discount: 10,
+    region: "Иваново",
     description: "Интерактивная кукла с голосовыми функциями и набором одежды"
   },
   {
@@ -657,6 +695,7 @@ export const productsData: Product[] = [
     rating: 4.3,
     reviews: 198,
     inStock: true,
+    region: "Белгород",
     description: "Увлажняющий крем с натуральными экстрактами"
   },
   {
@@ -675,6 +714,7 @@ export const productsData: Product[] = [
     reviews: 234,
     inStock: true,
     discount: 13,
+    region: "Архангельск",
     description: "Профессиональный шампунь с натуральными экстрактами"
   },
   {
@@ -691,6 +731,7 @@ export const productsData: Product[] = [
     rating: 4.7,
     reviews: 145,
     inStock: true,
+    region: "Владимир",
     description: "Профессиональная дрель с двумя аккумуляторами"
   },
   {
@@ -709,6 +750,7 @@ export const productsData: Product[] = [
     reviews: 89,
     inStock: true,
     discount: 12,
+    region: "Сочи",
     description: "Качественный набор отверток с эргономичными ручками"
   },
   {
@@ -725,6 +767,7 @@ export const productsData: Product[] = [
     rating: 4.8,
     reviews: 234,
     inStock: true,
+    region: "Калуга",
     description: "Сбалансированный корм для собак с натуральными ингредиентами"
   },
   {
@@ -743,6 +786,7 @@ export const productsData: Product[] = [
     reviews: 167,
     inStock: true,
     discount: 13,
+    region: "Смоленск",
     description: "Впитывающий наполнитель без запаха с антибактериальными добавками"
   },
   {
@@ -759,6 +803,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 98,
     inStock: true,
+    region: "Тула",
     description: "Комплект учебников по математике с рабочими тетрадями"
   },
   {
@@ -777,6 +822,7 @@ export const productsData: Product[] = [
     reviews: 167,
     inStock: true,
     discount: 13,
+    region: "Киров",
     description: "Подробный географический атлас с контурными картами"
   },
   {
@@ -795,6 +841,7 @@ export const productsData: Product[] = [
     reviews: 89,
     inStock: true,
     discount: 6,
+    region: "Чебоксары",
     description: "Производительный ноутбук для офиса и учебы"
   },
   {
@@ -811,6 +858,7 @@ export const productsData: Product[] = [
     rating: 4.5,
     reviews: 156,
     inStock: true,
+    region: "Калининград",
     description: "Профессиональный монитор с IPS-матрицей"
   },
   {
@@ -829,6 +877,7 @@ export const productsData: Product[] = [
     reviews: 45,
     inStock: true,
     discount: 8,
+    region: "Новосибирск",
     description: "Гусеничный экскаватор массой 33 тонны для тяжелых земляных работ",
     detailedDescription: "Экскаватор JCB JS330LC – это надежная и производительная машина для выполнения сложных строительных и земляных работ. Оснащен мощным двигателем JCB DieselMax мощностью 200 л.с. и современной гидравлической системой.\n\nОсновные характеристики:\n• Рабочая масса: 33 000 кг\n• Мощность двигателя: 200 л.с. (149 кВт)\n• Глубина копания: 7,41 м\n• Радиус копания: 11,78 м\n• Высота выгрузки: 7,90 м\n• Вместимость ковша: 1,54 м³\n\nПреимущества:\n• Экономичный расход топлива\n• Комфортная кабина с системой климат-контроля\n• Интеллектуальная система управления JCB LiveLink\n• Надежная гидравлика с защитой от перегрузок\n• Легкое техническое обслуживание\n\nИдеально подходит для строительства, дорожных работ, разработки карьеров и коммунального хозяйства."
   },
@@ -846,6 +895,7 @@ export const productsData: Product[] = [
     rating: 4.8,
     reviews: 32,
     inStock: true,
+    region: "Казань",
     description: "Колесный фронтальный погрузчик для погрузочно-разгрузочных работ"
   },
   {
@@ -864,6 +914,7 @@ export const productsData: Product[] = [
     reviews: 28,
     inStock: true,
     discount: 12,
+    region: "Нижний Новгород",
     description: "Универсальный токарно-винторезный станок повышенной точности",
     detailedDescription: "Токарный станок модели 16К20 предназначен для обработки различных деталей из стали, чугуна, цветных металлов и их сплавов в условиях единичного и серийного производства.\n\nТехнические характеристики:\n• Наибольший диаметр обрабатываемой заготовки: 400 мм\n• Наибольшая длина обрабатываемой заготовки: 1000 мм\n• Частота вращения шпинделя: 12,5-1600 об/мин\n• Мощность главного привода: 10 кВт\n• Класс точности: Н\n• Габариты станка: 2805×1410×1500 мм\n• Масса станка: 2800 кг\n\nВозможности обработки:\n• Точение наружных и внутренних поверхностей\n• Торцевание и подрезание уступов\n• Сверление, зенкерование, развертывание\n• Нарезание резьбы резцом и плашками\n• Нарезание метрической, дюймовой, модульной резьбы\n\nВключает трехкулачковый патрон, люнет, набор резцов."
   },
@@ -881,6 +932,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 19,
     inStock: true,
+    region: "Ростов-на-Дону",
     description: "Универсальный горизонтально-фрезерный станок для металлообработки"
   },
   {
@@ -899,6 +951,7 @@ export const productsData: Product[] = [
     reviews: 67,
     inStock: true,
     discount: 10,
+    region: "Краснодар",
     description: "Бетономешалка принудительного действия объемом 500 литров"
   },
   {
@@ -915,6 +968,7 @@ export const productsData: Product[] = [
     rating: 4.8,
     reviews: 41,
     inStock: true,
+    region: "Воронеж",
     description: "Виброплита с двигателем Honda для уплотнения грунта и асфальта"
   },
   {
@@ -933,6 +987,7 @@ export const productsData: Product[] = [
     reviews: 25,
     inStock: true,
     discount: 8,
+    region: "Самара",
     description: "Стационарная дизельная электростанция мощностью 130 кВт",
     detailedDescription: "Дизельная электростанция SDMO J130K предназначена для автономного электроснабжения промышленных объектов, строительных площадок и аварийного резервирования.\n\nТехнические характеристики:\n• Номинальная мощность: 130 кВт (163 кВА)\n• Двигатель: John Deere 4045TF270\n• Расход топлива: 23,8 л/ч при 75% нагрузки\n• Объем топливного бака: 315 л\n• Автономная работа: до 13 часов\n• Габариты: 2400×850×1450 мм\n• Масса: 1580 кг\n\nОсобенности:\n• Система автоматического запуска\n• Цифровой контроллер InteliLite AMF25\n• Синхронный генератор Leroy Somer\n• Защита от перегрузки и короткого замыкания\n• Система подогрева охлаждающей жидкости\n• Шумозащитный кожух\n\nИдеально подходит для непрерывной работы в тяжелых условиях."
   },
@@ -950,6 +1005,7 @@ export const productsData: Product[] = [
     rating: 4.7,
     reviews: 89,
     inStock: true,
+    region: "Пермь",
     description: "Инверторный генератор мощностью 3 кВт для чувствительной техники"
   },
   {
@@ -966,6 +1022,7 @@ export const productsData: Product[] = [
     rating: 4.6,
     reviews: 34,
     inStock: true,
+    region: "Челябинск",
     description: "Электрический погрузчик грузоподъемностью 1,6 тонны для складских работ"
   },
   {
@@ -984,6 +1041,7 @@ export const productsData: Product[] = [
     reviews: 112,
     inStock: true,
     discount: 13,
+    region: "Уфа",
     description: "Гидравлическая тележка для перемещения грузов на поддонах"
   },
   {
@@ -1000,6 +1058,7 @@ export const productsData: Product[] = [
     rating: 4.9,
     reviews: 15,
     inStock: true,
+    region: "Волгоград",
     description: "Профессиональный исследовательский микроскоп с оптикой Carl Zeiss"
   },
   {
@@ -1018,6 +1077,7 @@ export const productsData: Product[] = [
     reviews: 23,
     inStock: true,
     discount: 10,
+    region: "Красноярск",
     description: "Прецизионные аналитические весы с дискретностью 0.1 мг"
   }
 ];
