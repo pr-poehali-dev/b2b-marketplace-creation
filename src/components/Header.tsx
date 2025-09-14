@@ -141,12 +141,12 @@ const Header = () => {
               
               {/* Выпадающий список результатов */}
               {showSearchDropdown && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-2xl z-[9999] max-h-80 overflow-y-auto">
                   {searchResults.map((product) => (
                     <button
                       key={product.id}
                       onClick={() => handleProductClick(product.id)}
-                      className="w-full px-4 py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors"
+                      className="w-full px-4 py-3 text-left hover:bg-white/80 hover:backdrop-blur-md border-b border-gray-100/50 last:border-b-0 transition-all duration-200"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
@@ -164,7 +164,7 @@ const Header = () => {
                       navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
                       setShowSearchDropdown(false);
                     }}
-                    className="w-full px-4 py-3 text-center text-blue-600 hover:bg-blue-50 font-medium text-sm border-t border-gray-200"
+                    className="w-full px-4 py-3 text-center text-blue-600 hover:bg-blue-50/80 font-medium text-sm border-t border-gray-200/50 backdrop-blur-sm"
                   >
                     Показать все результаты поиска
                   </button>
@@ -173,7 +173,7 @@ const Header = () => {
               
               {/* Нет результатов */}
               {showSearchDropdown && searchResults.length === 0 && searchQuery && !searchLoading && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4 text-center text-gray-500 text-sm">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-2xl z-[9999] p-4 text-center text-gray-500 text-sm">
                   Товары не найдены
                 </div>
               )}
