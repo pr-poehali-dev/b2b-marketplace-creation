@@ -364,17 +364,7 @@ const CatalogFilters = ({
                 </label>
               </div>
 
-              <div className="flex items-center space-x-3">
-                <Checkbox
-                  id="fastDelivery"
-                  checked={fastDelivery}
-                  onCheckedChange={setFastDelivery}
-                />
-                <label htmlFor="fastDelivery" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
-                  <Icon name="Zap" size={16} className="mr-1 text-orange-600" />
-                  Быстрая доставка
-                </label>
-              </div>
+
             </div>
           </CollapsibleContent>
         </Collapsible>
