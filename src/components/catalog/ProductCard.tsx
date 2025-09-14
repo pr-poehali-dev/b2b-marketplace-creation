@@ -144,14 +144,18 @@ const ProductCard = ({
           </h3>
           
           {/* Продавец */}
-          <div className="flex items-center gap-2 min-w-0">
-            <Icon name="Store" size={14} className="text-gray-400 shrink-0" />
-            <span className="text-sm text-gray-600 flex-1 truncate">{product.seller}</span>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Icon name="Store" size={14} className="text-gray-400" />
+              <span className="text-sm text-gray-600">{product.seller}</span>
+            </div>
             {product.verified && (
-              <Badge variant="outline" className="text-xs h-5 border-green-200 text-green-700 shrink-0 px-1.5 py-0.5">
-                <Icon name="CheckCircle" size={8} className="mr-0.5" />
-                <span className="text-[10px] font-medium">Верифицирован</span>
-              </Badge>
+              <div className="flex items-center gap-1 ml-6">
+                <Badge variant="outline" className="text-xs h-5 border-green-200 text-green-700 px-1.5 py-0.5">
+                  <Icon name="CheckCircle" size={8} className="mr-0.5" />
+                  <span className="text-[10px] font-medium">Верифицирован</span>
+                </Badge>
+              </div>
             )}
           </div>
 
