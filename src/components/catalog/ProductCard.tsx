@@ -136,8 +136,8 @@ const ProductCard = ({
         </div>
       </div>
       
-      <CardContent className={`p-5 flex-1 ${viewMode === 'list' ? 'flex flex-col justify-between' : ''}`}>
-        <div className="space-y-3">
+      <CardContent className={`p-5 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-between' : ''}`}>
+        <div className="space-y-3 flex-1">
           {/* Название товара */}
           <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
             {product.name}
@@ -196,8 +196,10 @@ const ProductCard = ({
             </div>
           </div>
 
-          {/* Кнопки действий */}
-          <div className="space-y-2 pt-2">
+        </div>
+        
+        {/* Кнопки действий - всегда внизу */}
+        <div className="space-y-2 pt-2 mt-auto">
             <Button 
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 text-sm h-9"
               onClick={() => onSendInquiry(product)}
@@ -239,7 +241,6 @@ const ProductCard = ({
                 </Button>
               )}
             </div>
-          </div>
         </div>
       </CardContent>
     </Card>
