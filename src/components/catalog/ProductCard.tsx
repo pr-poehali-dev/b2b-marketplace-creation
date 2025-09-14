@@ -147,8 +147,8 @@ const ProductCard = ({
             )}
             {product.region && (
               <div className="flex items-center gap-2 ml-6">
-                <Icon name="MapPin" size={14} className="text-gray-400" />
-                <span className="text-sm text-gray-600">{product.region}</span>
+                <Icon name="Truck" size={14} className="text-gray-400" />
+                <span className="text-sm text-gray-600">Доставка из г. {product.region}</span>
               </div>
             )}
           </div>
