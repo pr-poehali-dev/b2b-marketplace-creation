@@ -43,6 +43,7 @@ const Catalog = () => {
   const [inStockOnly, setInStockOnly] = useState(() => getFromLocalStorage('inStockOnly', false));
   const [discountOnly, setDiscountOnly] = useState(() => getFromLocalStorage('discountOnly', false));
   const [fastDelivery, setFastDelivery] = useState(() => getFromLocalStorage('fastDelivery', false));
+  const [customOrderOnly, setCustomOrderOnly] = useState(() => getFromLocalStorage('customOrderOnly', false));
   const [priceFrom, setPriceFrom] = useState(() => getFromLocalStorage('priceFrom', ''));
   const [priceTo, setPriceTo] = useState(() => getFromLocalStorage('priceTo', ''));
   const [ratingFilter, setRatingFilter] = useState(() => getFromLocalStorage('ratingFilter', 0));
@@ -95,6 +96,10 @@ const Catalog = () => {
   useEffect(() => {
     saveToLocalStorage('fastDelivery', fastDelivery);
   }, [fastDelivery]);
+
+  useEffect(() => {
+    saveToLocalStorage('customOrderOnly', customOrderOnly);
+  }, [customOrderOnly]);
 
   useEffect(() => {
     saveToLocalStorage('priceFrom', priceFrom);
@@ -158,6 +163,7 @@ const Catalog = () => {
       const matchesStock = !inStockOnly || product.inStock;
       const matchesDiscount = !discountOnly || product.discount;
       const matchesFastDelivery = !fastDelivery || product.fastDelivery;
+      const matchesCustomOrder = !customOrderOnly || !product.inStock;
       const matchesPrice = (() => {
         const fromPrice = priceFrom ? parseFloat(priceFrom) : 0;
         const toPrice = priceTo ? parseFloat(priceTo) : Infinity;
@@ -190,7 +196,7 @@ const Catalog = () => {
         }
       })();
 
-      return matchesSearch && matchesCategory && matchesVerified && matchesStock && matchesDiscount && matchesFastDelivery && matchesPrice && matchesRating && matchesMinOrder && matchesLocation;
+      return matchesSearch && matchesCategory && matchesVerified && matchesStock && matchesDiscount && matchesFastDelivery && matchesCustomOrder && matchesPrice && matchesRating && matchesMinOrder && matchesLocation;
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -219,6 +225,7 @@ const Catalog = () => {
     setInStockOnly(false);
     setDiscountOnly(false);
     setFastDelivery(false);
+    setCustomOrderOnly(false);
     setPriceFrom('');
     setPriceTo('');
     setRatingFilter(0);
@@ -315,6 +322,8 @@ const Catalog = () => {
                 setDiscountOnly={setDiscountOnly}
                 fastDelivery={fastDelivery}
                 setFastDelivery={setFastDelivery}
+                customOrderOnly={customOrderOnly}
+                setCustomOrderOnly={setCustomOrderOnly}
                 priceFrom={priceFrom}
                 setPriceFrom={setPriceFrom}
                 priceTo={priceTo}

@@ -21,6 +21,8 @@ interface CatalogFiltersProps {
   setDiscountOnly: (value: boolean) => void;
   fastDelivery: boolean;
   setFastDelivery: (value: boolean) => void;
+  customOrderOnly: boolean;
+  setCustomOrderOnly: (value: boolean) => void;
   priceFrom: string;
   setPriceFrom: (value: string) => void;
   priceTo: string;
@@ -50,6 +52,8 @@ const CatalogFilters = ({
   setDiscountOnly,
   fastDelivery,
   setFastDelivery,
+  customOrderOnly,
+  setCustomOrderOnly,
   priceFrom,
   setPriceFrom,
   priceTo,
@@ -92,6 +96,7 @@ const CatalogFilters = ({
     inStockOnly ||
     discountOnly ||
     fastDelivery ||
+    customOrderOnly ||
     priceFrom !== "" ||
     priceTo !== "" ||
     ratingFilter !== 0 ||
@@ -355,8 +360,8 @@ const CatalogFilters = ({
               <div className="flex items-center space-x-3">
                 <Checkbox
                   id="customOrder"
-                  checked={false}
-                  onCheckedChange={() => {}}
+                  checked={customOrderOnly}
+                  onCheckedChange={setCustomOrderOnly}
                 />
                 <label htmlFor="customOrder" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
                   <Icon name="Clock" size={16} className="mr-1 text-purple-600" />
