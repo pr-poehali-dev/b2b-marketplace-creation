@@ -37,7 +37,6 @@ interface CatalogFiltersProps {
   resetFilters: () => void;
   totalProducts: number;
   filteredProducts: number;
-  onApplyFilters?: () => void;
 }
 
 const CatalogFilters = ({
@@ -68,8 +67,7 @@ const CatalogFilters = ({
   categories,
   resetFilters,
   totalProducts,
-  filteredProducts,
-  onApplyFilters
+  filteredProducts
 }: CatalogFiltersProps) => {
   const [openSections, setOpenSections] = useState({
     category: true,
@@ -390,25 +388,7 @@ const CatalogFilters = ({
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Кнопка применения фильтров */}
-        <div className="pt-4 border-t border-gray-200">
-          <div className="flex gap-2">
-            <Button 
-              onClick={() => onApplyFilters?.()}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              <Icon name="Filter" size={16} className="mr-2" />
-              Показать ({filteredProducts})
-            </Button>
-            <Button 
-              onClick={resetFilters}
-              variant="outline"
-              className="px-3"
-            >
-              <Icon name="X" size={16} />
-            </Button>
-          </div>
-        </div>
+
 
         </CardContent>
       )}
