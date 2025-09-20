@@ -41,7 +41,8 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
       contact_person: formData.contactPerson,
       website: formData.website,
       supplier_business_type: formData.businessType,
-      description: formData.description
+      description: formData.description,
+      trial_months: 3
     });
     
     if (result.success) {
@@ -265,6 +266,44 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
                 <p className="text-gray-600 text-sm">
                   Создайте надежный пароль для защиты аккаунта
                 </p>
+              </div>
+
+              {/* Бонус для новых поставщиков */}
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl border border-green-200 mb-6">
+                <div className="flex items-start">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <Icon name="Gift" size={24} className="text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                      🎉 Специальное предложение для новых поставщиков!
+                    </h4>
+                    <p className="text-gray-700 mb-3">
+                      <strong className="text-green-600">3 месяца бесплатно</strong> — полный доступ ко всем функциям платформы без оплаты!
+                    </p>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li className="flex items-center">
+                        <Icon name="Check" size={16} className="text-green-500 mr-2" />
+                        Размещение неограниченного количества товаров
+                      </li>
+                      <li className="flex items-center">
+                        <Icon name="Check" size={16} className="text-green-500 mr-2" />
+                        Продвижение в поиске и каталогах
+                      </li>
+                      <li className="flex items-center">
+                        <Icon name="Check" size={16} className="text-green-500 mr-2" />
+                        Аналитика продаж и статистика просмотров
+                      </li>
+                      <li className="flex items-center">
+                        <Icon name="Check" size={16} className="text-green-500 mr-2" />
+                        Приоритетная поддержка клиентов
+                      </li>
+                    </ul>
+                    <div className="mt-3 text-xs text-gray-500">
+                      * После окончания пробного периода автоматически активируется базовый тариф
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
