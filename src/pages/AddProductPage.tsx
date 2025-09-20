@@ -8,11 +8,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import ProductImageUploader from '@/components/product/ProductImageUploader';
 
 interface Category {
   id: number;
   name: string;
   slug: string;
+}
+
+interface ProductImage {
+  id: string;
+  url: string;
+  file?: File;
+  isMain: boolean;
+  isUploading?: boolean;
 }
 
 interface ProductFormData {
@@ -28,8 +37,7 @@ interface ProductFormData {
   min_order_quantity: string;
   max_order_quantity: string;
   weight_kg: string;
-  main_image_url: string;
-  gallery_images: string[];
+  images: ProductImage[];
   meta_title: string;
   meta_description: string;
   tags: string[];
@@ -60,8 +68,7 @@ const AddProductPage: React.FC = () => {
     min_order_quantity: '1',
     max_order_quantity: '',
     weight_kg: '',
-    main_image_url: '',
-    gallery_images: [],
+    images: [],
     meta_title: '',
     meta_description: '',
     tags: [],
@@ -154,6 +161,10 @@ const AddProductPage: React.FC = () => {
         throw new Error('Укажите корректную цену');
       }
 
+      // Prepare images data
+      const mainImage = formData.images.find(img => img.isMain);
+      const galleryImages = formData.images.filter(img => !img.isMain).map(img => img.url);
+
       // Prepare data for API
       const productData = {
         name: formData.name.trim(),
@@ -168,8 +179,8 @@ const AddProductPage: React.FC = () => {
         min_order_quantity: parseInt(formData.min_order_quantity) || 1,
         max_order_quantity: formData.max_order_quantity ? parseInt(formData.max_order_quantity) : null,
         weight_kg: formData.weight_kg ? parseFloat(formData.weight_kg) : null,
-        main_image_url: formData.main_image_url.trim() || null,
-        gallery_images: formData.gallery_images.filter(url => url.trim()),
+        main_image_url: mainImage?.url || null,
+        gallery_images: galleryImages,
         meta_title: formData.meta_title.trim() || null,
         meta_description: formData.meta_description.trim() || null,
         tags: formData.tags,
@@ -412,24 +423,11 @@ const AddProductPage: React.FC = () => {
         </Card>
 
         {/* Images */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Изображения</CardTitle>
-            <CardDescription>URL-адреса изображений товара</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="main_image_url">Главное изображение</Label>
-              <Input
-                id="main_image_url"
-                type="url"
-                value={formData.main_image_url}
-                onChange={(e) => handleInputChange('main_image_url', e.target.value)}
-                placeholder="https://example.com/image.jpg"
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <ProductImageUploader
+          images={formData.images}
+          onImagesChange={(images) => handleInputChange('images', images)}
+          maxImages={10}
+        />
 
         {/* Tags */}
         <Card>
