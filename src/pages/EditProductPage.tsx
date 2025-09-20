@@ -440,13 +440,24 @@ const EditProductPage: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex items-center gap-4 mb-8">
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/supplier/products')}
-          className="p-2"
-        >
-          <Icon name="ArrowLeft" size={20} />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => navigate('/')}
+            className="text-gray-600 hover:text-gray-900"
+          >
+            <Icon name="Home" size={16} />
+          </Button>
+          <span className="text-gray-400">•</span>
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/supplier/products')}
+            className="p-2"
+          >
+            <Icon name="ArrowLeft" size={20} />
+          </Button>
+        </div>
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-gray-900">Редактировать товар</h1>
           <p className="text-gray-600 mt-2">
