@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import ProductRating from "@/components/product/ProductRating";
+import ProductBadges from "@/components/product/ProductBadges";
 import { useState } from 'react';
 
 export interface Product {
