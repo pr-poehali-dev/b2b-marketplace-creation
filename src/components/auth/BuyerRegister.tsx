@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface BuyerRegisterProps {
   onClose: () => void;
 }
 
 export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
+  const { register, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,6 +24,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
   });
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [error, setError] = useState('');
   const totalSteps = 3;
 
   const interestOptions = [
@@ -37,11 +40,30 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
     'Промышленное оборудование'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Логика регистрации покупателя
-    console.log('Buyer registration:', formData);
-    onClose();
+    setError('');
+    
+    const result = await register({
+      email: formData.email,
+      password: formData.password,
+      confirm_password: formData.confirmPassword,
+      user_type: 'buyer',
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      phone: formData.phone,
+      company_name: formData.companyName,
+      position: formData.position,
+      business_type: formData.businessType,
+      purchase_volume: formData.purchaseVolume,
+      interests: formData.interests
+    });
+    
+    if (result.success) {
+      onClose();
+    } else {
+      setError(result.error || 'Ошибка регистрации');
+    }
   };
 
   const toggleInterest = (interest: string) => {

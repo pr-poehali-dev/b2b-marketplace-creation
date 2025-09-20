@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface SupplierRegisterProps {
   onClose: () => void;
 }
 
 export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
+  const { register, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',
@@ -20,13 +22,33 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
   });
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [error, setError] = useState('');
   const totalSteps = 3;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Логика регистрации поставщика
-    console.log('Supplier registration:', formData);
-    onClose();
+    setError('');
+    
+    const result = await register({
+      email: formData.email,
+      password: formData.password,
+      confirm_password: formData.confirmPassword,
+      user_type: 'supplier',
+      first_name: formData.contactPerson.split(' ')[0] || formData.contactPerson,
+      last_name: formData.contactPerson.split(' ').slice(1).join(' ') || '',
+      phone: formData.phone,
+      company_name: formData.companyName,
+      contact_person: formData.contactPerson,
+      website: formData.website,
+      supplier_business_type: formData.businessType,
+      description: formData.description
+    });
+    
+    if (result.success) {
+      onClose();
+    } else {
+      setError(result.error || 'Ошибка регистрации');
+    }
   };
 
   const nextStep = () => {
@@ -54,6 +76,11 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
 
         {/* Прогресс */}
         <div className="p-6 border-b border-gray-100">
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              {error}
+            </div>
+          )}
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-gray-900">
               Регистрация поставщика
@@ -332,9 +359,10 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
               ) : (
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                  disabled={isLoading}
+                  className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Создать аккаунт
+                  {isLoading ? 'Создание аккаунта...' : 'Создать аккаунт'}
                 </button>
               )}
             </div>
