@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from '@/components/ui/icon';
 import TrialExpirationNotice from '@/components/notifications/TrialExpirationNotice';
 import EmailNotificationTester from '@/components/admin/EmailNotificationTester';
+import SchedulerManager from '@/components/admin/SchedulerManager';
 import { useNavigate } from 'react-router-dom';
 
 export default function SupplierDashboard() {
@@ -201,6 +202,9 @@ export default function SupplierDashboard() {
 
       {/* Email-уведомления (только для демонстрации) */}
       <EmailNotificationTester />
+
+      {/* Планировщик уведомлений */}
+      <SchedulerManager />
 
       {/* График или дополнительная информация */}
       <div className="bg-white rounded-xl p-6 shadow-sm">
