@@ -18,6 +18,8 @@ import Pricing from "./components/Pricing";
 import PricingPage from "./pages/PricingPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import SupplierRegisterPage from "./pages/SupplierRegisterPage";
+import BuyerRegisterPage from "./pages/BuyerRegisterPage";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import ProfileCompany from "./pages/ProfileCompany";
@@ -51,6 +53,8 @@ const App = () => (
           <Route path="/help" element={<Help />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register/supplier" element={<SupplierRegisterPage />} />
+          <Route path="/register/buyer" element={<BuyerRegisterPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCart } from '@/contexts/CartContext';
+import UserTypeSelector from '@/components/auth/UserTypeSelector';
 
 interface UserProfileProps {
   isLoggedIn: boolean;
@@ -15,6 +16,7 @@ interface UserProfileProps {
 const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
+  const [showUserTypeSelector, setShowUserTypeSelector] = useState(false);
   
   // Симуляция данных профиля
   const [profileData] = useState({
@@ -162,13 +164,18 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
           <Button 
             size="sm" 
             className="text-xs md:text-sm px-2 md:px-3"
-            onClick={() => navigate('/register')}
+            onClick={() => setShowUserTypeSelector(true)}
           >
             <Icon name="UserPlus" size={14} className="mr-1 md:mr-2 flex-shrink-0" />
             <span className="hidden sm:inline">Регистрация</span>
             <span className="sm:hidden">Рег.</span>
           </Button>
         </>
+      )}
+      
+      {/* Селектор типа пользователя */}
+      {showUserTypeSelector && (
+        <UserTypeSelector onClose={() => setShowUserTypeSelector(false)} />
       )}
     </div>
   );
