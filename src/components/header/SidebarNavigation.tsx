@@ -44,6 +44,11 @@ const SidebarNavigation = ({
     { href: "/contracts", icon: "FileText", label: "Договоры" }
   ];
 
+  const supplierProductsItems = [
+    { href: "/supplier/products", icon: "Package", label: "Мои товары" },
+    { href: "/supplier/products/new", icon: "Plus", label: "Добавить товар" }
+  ];
+
   return (
     <nav 
       className={`fixed left-0 top-0 bottom-0 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col transition-all duration-300 ${
@@ -137,6 +142,23 @@ const SidebarNavigation = ({
             items={suppliersItems}
             isCollapsible={true}
             onToggle={() => toggleSection('suppliers')}
+            checkIsActive={isActive}
+          />
+
+          {/* Мои товары (для поставщиков) */}
+          <NavigationSection
+            title="Мои товары"
+            icon="Package"
+            isExpanded={openSection === 'supplier-products'}
+            isActive={isActive('/supplier/products')}
+            isMenuExpanded={isMenuExpanded}
+            openSection={openSection}
+            sectionKey="supplier-products"
+            badge="Новое"
+            badgeColor="bg-purple-100 text-purple-600"
+            items={supplierProductsItems}
+            isCollapsible={true}
+            onToggle={() => toggleSection('supplier-products')}
             checkIsActive={isActive}
           />
 

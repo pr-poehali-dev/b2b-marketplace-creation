@@ -1,4 +1,6 @@
 {
+  "categories": "https://functions.poehali.dev/a07998f6-4bc3-4ea6-9df6-a92d86541323",
+  "products": "https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39",
   "trial-scheduler": "https://functions.poehali.dev/a810a2b1-9e5a-4db1-b56a-8e116e1eb89a",
   "trial-notifications": "https://functions.poehali.dev/9e8e77f5-a732-4a04-8834-4c01eaab689b",
   "auth": "https://functions.poehali.dev/57d19a8a-e379-48c7-9f57-2ce118c81647"
