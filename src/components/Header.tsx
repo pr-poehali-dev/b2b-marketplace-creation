@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react';
 import UserProfile from './header/UserProfile';
 import SidebarNavigation from './header/SidebarNavigation';
 import Icon from '@/components/ui/icon';
+import TrialExpirationNotice from '@/components/notifications/TrialExpirationNotice';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -98,11 +101,12 @@ const Header = () => {
   const isMenuExpanded = isMobile || isHovered || isPinned;
 
   return (
-    <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
-      <div className={`transition-all duration-300 overflow-hidden ${
-        isMenuExpanded ? 'ml-56' : 'ml-16'
-      }`}>
-        <div className="container mx-auto px-4 py-4 max-w-none">
+    <>
+      <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
+        <div className={`transition-all duration-300 overflow-hidden ${
+          isMenuExpanded ? 'ml-56' : 'ml-16'
+        }`}>
+          <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center hover:opacity-80 transition-opacity cursor-pointer">
               <span className="text-base sm:text-lg font-bold text-gray-900">Business Market</span>
@@ -186,20 +190,35 @@ const Header = () => {
               setIsLoggedIn={setIsLoggedIn} 
             />
           </div>
+          </div>
         </div>
-      </div>
-      
-      <SidebarNavigation
-        isMenuExpanded={isMenuExpanded}
-        isMobile={isMobile}
-        openSection={openSection}
-        toggleSection={toggleSection}
-        isActive={isActive}
-        setIsHovered={setIsHovered}
-        isPinned={isPinned}
-        setIsPinned={handlePinToggle}
-      />
-    </header>
+        
+        <SidebarNavigation
+          isMenuExpanded={isMenuExpanded}
+          isMobile={isMobile}
+          openSection={openSection}
+          toggleSection={toggleSection}
+          isActive={isActive}
+          setIsHovered={setIsHovered}
+          isPinned={isPinned}
+          setIsPinned={handlePinToggle}
+        />
+      </header>
+
+      {/* Уведомления о пробном периоде */}
+      {user && user.user_type === 'supplier' && (
+        <div className={`transition-all duration-300 ${
+          isMenuExpanded ? 'ml-56' : 'ml-16'
+        }`}>
+          <div className="container mx-auto px-4 pt-4 max-w-none">
+            <TrialExpirationNotice 
+              onUpgrade={() => navigate('/pricing')}
+              onDismiss={() => {}}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
