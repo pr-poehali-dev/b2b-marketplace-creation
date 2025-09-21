@@ -206,13 +206,16 @@ const SidebarNavigation = ({
           {/* Тарифы */}
           <NavigationSection
             title="Тарифы"
-            icon="CreditCard"
+            icon="Crown"
             isExpanded={false}
             isActive={isActive('/pricing')}
             isMenuExpanded={isMenuExpanded}
             openSection={openSection}
             sectionKey="pricing"
-            items={[{ href: "/pricing", icon: "CreditCard", label: "Тарифы" }]}
+            badge="Premium"
+            badgeColor="bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold"
+            isPremium={true}
+            items={[{ href: "/pricing", icon: "Crown", label: "Тарифы" }]}
             checkIsActive={isActive}
           />
 

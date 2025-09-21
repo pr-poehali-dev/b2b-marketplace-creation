@@ -18,6 +18,7 @@ interface NavigationSectionProps {
   badgeColor?: string;
   items?: NavigationItem[];
   isCollapsible?: boolean;
+  isPremium?: boolean;
   onToggle?: () => void;
   checkIsActive: (path: string) => boolean;
 }
@@ -34,6 +35,7 @@ const NavigationSection = ({
   badgeColor = "bg-blue-100 text-blue-600",
   items = [],
   isCollapsible = false,
+  isPremium = false,
   onToggle,
   checkIsActive
 }: NavigationSectionProps) => {
@@ -42,7 +44,9 @@ const NavigationSection = ({
     <button 
       onClick={onToggle}
       className={`w-full flex items-center ${isMenuExpanded ? 'px-3 py-2.5' : 'p-2 justify-center'} rounded-lg transition-colors ${
-        isActive || openSection === sectionKey
+        isPremium 
+          ? 'bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 border border-orange-200 text-orange-800 hover:from-yellow-200 hover:to-orange-200 shadow-sm'
+          : isActive || openSection === sectionKey
           ? 'bg-primary text-white' 
           : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
       }`}
@@ -78,7 +82,9 @@ const NavigationSection = ({
     <a 
       href={items[0]?.href || "#"}
       className={`flex items-center ${isMenuExpanded ? 'px-3 py-2.5' : 'p-2 justify-center'} rounded-lg transition-colors ${
-        isActive
+        isPremium 
+          ? 'bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 border border-orange-200 text-orange-800 hover:from-yellow-200 hover:to-orange-200 shadow-sm'
+          : isActive
           ? 'bg-primary text-white' 
           : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
       }`}
