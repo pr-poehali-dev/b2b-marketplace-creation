@@ -9,11 +9,13 @@ import ProductsSection from "@/components/ProductsSection";
 import RecommendedProducts from "@/components/product/RecommendedProducts";
 import DeliverySection from "@/components/DeliverySection";
 import Footer from "@/components/Footer";
+import WelcomeModal from "@/components/WelcomeModal";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
+      <WelcomeModal />
       <div className="ml-56 transition-all duration-300">
         <HeroSection />
         <SearchSection />

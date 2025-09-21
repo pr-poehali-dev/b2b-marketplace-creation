@@ -77,7 +77,7 @@ const SearchSection = () => {
   };
 
   return (
-    <section className="py-10 sm:py-16 bg-gray-50">
+    <section id="search-section" className="py-10 sm:py-16 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-8 sm:mb-10 px-2">
