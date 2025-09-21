@@ -50,7 +50,6 @@ const SidebarNavigation = ({
     { href: "/profile/analytics", icon: "BarChart3", label: "Статистика продаж" },
     { href: "/profile/earnings", icon: "TrendingUp", label: "Доходы" },
     { href: "/profile/orders", icon: "ShoppingBag", label: "Мои заказы" },
-    { href: "/profile/vip-advertising", icon: "Crown", label: "VIP реклама" },
     { href: "/profile/settings", icon: "Settings", label: "Настройки профиля" }
   ];
 

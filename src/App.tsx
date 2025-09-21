@@ -24,7 +24,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import ProfileCompany from "./pages/ProfileCompany";
 import Profile from "./pages/Profile";
-import ProfileVIPAdvertising from "./pages/ProfileVIPAdvertising";
+
 import NewsPublish from "./pages/NewsPublish";
 import News from "./pages/News";
 import Cart from "./pages/Cart";
@@ -67,7 +67,6 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/company" element={<ProfileCompany />} />
-          <Route path="/profile/vip-advertising" element={<ProfileVIPAdvertising />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/publish" element={<NewsPublish />} />
           <Route path="/cart" element={<Cart />} />
