@@ -46,40 +46,53 @@ const SidebarNavigation = ({
 
   return (
     <nav 
-      className={`fixed left-0 top-0 bottom-0 bg-white border-r border-gray-200 shadow-lg z-[9999] flex flex-col transition-all duration-300 ease-out ${
-        isMenuExpanded ? 'w-52' : 'w-12'
-      }`}
-      style={{ minHeight: '100vh' }}
+      className={`fixed left-0 top-0 bottom-0 bg-white/95 backdrop-blur-xl border-r border-gray-200/50 shadow-2xl z-[9999] flex flex-col transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] transform ${
+        isMenuExpanded ? 'w-52 translate-x-0' : 'w-12 translate-x-0'
+      } hover:shadow-3xl`}
+      style={{ 
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%)'
+      }}
       onMouseEnter={() => !isMobile && !isPinned && setIsHovered(true)}
       onMouseLeave={() => !isMobile && !isPinned && setIsHovered(false)}
     >
       {/* Заголовок */}
-      <div className="py-3 px-3 border-b border-gray-200 flex items-center justify-center bg-gray-50 relative">
-        <Logo isCollapsed={!isMenuExpanded} />
-        {isMenuExpanded && (
+      <div className="py-3 px-3 border-b border-gray-200/30 flex items-center justify-center bg-gradient-to-r from-gray-50/80 to-white/60 relative backdrop-blur-sm">
+        <div className="transition-transform duration-500 ease-out">
+          <Logo isCollapsed={!isMenuExpanded} />
+        </div>
+        <div className={`absolute right-2 transition-all duration-500 ease-out ${
+          isMenuExpanded 
+            ? 'opacity-100 translate-x-0 scale-100' 
+            : 'opacity-0 translate-x-4 scale-75 pointer-events-none'
+        }`}>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsPinned(!isPinned)}
-            className={`absolute right-2 p-1.5 rounded-md transition-colors ${
+            className={`p-1.5 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95 ${
               isPinned 
-                ? 'bg-blue-100 text-blue-600 hover:bg-blue-200' 
-                : 'text-gray-500 hover:bg-gray-100'
+                ? 'bg-blue-100/80 text-blue-600 hover:bg-blue-200/80 shadow-sm border border-blue-200/50' 
+                : 'text-gray-500 hover:bg-gray-100/80 hover:text-gray-700'
             }`}
             title={isPinned ? 'Открепить меню' : 'Закрепить меню'}
           >
             <Icon 
               name={isPinned ? "PinOff" : "Pin"} 
               size={14}
-              className={`transition-transform duration-300 ${isPinned ? "rotate-45" : ""}`}
+              className={`transition-all duration-500 ease-out ${
+                isPinned ? "rotate-45 scale-110" : "rotate-0 scale-100"
+              }`}
             />
           </Button>
-        )}
+        </div>
       </div>
       
       {/* Основное меню */}
-      <div className="px-2 py-2 flex-1 overflow-y-auto">
-        <div className="space-y-1">
+      <div className="px-2 py-2 flex-1 overflow-y-auto overflow-x-hidden">
+        <div className={`space-y-1 transition-all duration-500 ${
+          isMenuExpanded ? 'animate-fade-in-up' : 'opacity-70'
+        }`}>
           {/* Главная */}
           <NavigationSection
             title="Главная"
