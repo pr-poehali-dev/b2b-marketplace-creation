@@ -2,31 +2,16 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
 import Icon from '@/components/ui/icon';
 
-interface PremiumPromotion {
-  id: string;
-  name: string;
-  description: string;
-  tier: 'basic' | 'professional' | 'enterprise';
-  type: 'priority' | 'exclusive' | 'branding' | 'analytics';
-  price: number;
-  features: string[];
-  benefits: string[];
-  metrics: {
-    impressions?: number;
-    clicks?: number;
-    conversions?: number;
-    roi?: number;
-  };
-  active: boolean;
-}
+// Импорт созданных компонентов
+import PromotionStatsCard from './premium-promotion/PromotionStatsCard';
+import UpgradeRecommendationCard from './premium-promotion/UpgradeRecommendationCard';
+import PromotionCard from './premium-promotion/PromotionCard';
+import PerformanceTab from './premium-promotion/PerformanceTab';
+import UpgradeTab from './premium-promotion/UpgradeTab';
+import { PremiumPromotion, TierBenefits } from './premium-promotion/types';
 
 interface PremiumPromotionSystemProps {
   currentTier: 'starter' | 'basic' | 'professional' | 'enterprise';
@@ -38,9 +23,8 @@ export default function PremiumPromotionSystem({
   className = "" 
 }: PremiumPromotionSystemProps) {
   const [activeTab, setActiveTab] = useState('promotions');
-  const [selectedPromotion, setSelectedPromotion] = useState<string | null>(null);
 
-  const tierBenefits = {
+  const tierBenefits: Record<string, TierBenefits> = {
     starter: {
       name: 'Стартовый',
       color: 'bg-gray-100 text-gray-800',
@@ -70,7 +54,7 @@ export default function PremiumPromotionSystem({
       description: 'Ваши товары показываются первыми в результатах поиска',
       tier: 'basic',
       type: 'priority',
-      price: 0, // Включено в тариф
+      price: 0,
       features: [
         'Первые 3 позиции в поиске',
         'Выделение цветом',
@@ -278,14 +262,14 @@ export default function PremiumPromotionSystem({
   };
 
   const getTierUpgradePromotions = () => {
-    const nextTiers = {
+    const nextTiers: Record<string, string> = {
       starter: 'basic',
       basic: 'professional', 
       professional: 'enterprise',
       enterprise: 'enterprise'
     };
     
-    const nextTier = nextTiers[currentTier] as keyof typeof tierBenefits;
+    const nextTier = nextTiers[currentTier];
     if (nextTier === currentTier) return [];
     
     return premiumPromotions.filter(promo => 
@@ -317,109 +301,37 @@ export default function PremiumPromotionSystem({
 
       {/* Статистика эффективности */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Общие показы</p>
-                <p className="text-2xl font-bold text-blue-600">
-                  {availablePromotions.reduce((sum, p) => sum + (p.metrics.impressions || 0), 0).toLocaleString()}
-                </p>
-              </div>
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Icon name="Eye" size={20} className="text-blue-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Клики</p>
-                <p className="text-2xl font-bold text-green-600">
-                  {availablePromotions.reduce((sum, p) => sum + (p.metrics.clicks || 0), 0).toLocaleString()}
-                </p>
-              </div>
-              <div className="p-3 bg-green-100 rounded-lg">
-                <Icon name="MousePointer" size={20} className="text-green-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Конверсии</p>
-                <p className="text-2xl font-bold text-purple-600">
-                  {availablePromotions.reduce((sum, p) => sum + (p.metrics.conversions || 0), 0).toLocaleString()}
-                </p>
-              </div>
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <Icon name="ShoppingCart" size={20} className="text-purple-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Средний ROI</p>
-                <p className="text-2xl font-bold text-orange-600">
-                  {Math.round(
-                    availablePromotions.reduce((sum, p) => sum + (p.metrics.roi || 0), 0) / 
-                    availablePromotions.length
-                  )}%
-                </p>
-              </div>
-              <div className="p-3 bg-orange-100 rounded-lg">
-                <Icon name="TrendingUp" size={20} className="text-orange-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <PromotionStatsCard
+          title="Общие показы"
+          value={availablePromotions.reduce((sum, p) => sum + (p.metrics.impressions || 0), 0).toLocaleString()}
+          icon="Eye"
+          color="text-blue-600"
+        />
+        <PromotionStatsCard
+          title="Клики"
+          value={availablePromotions.reduce((sum, p) => sum + (p.metrics.clicks || 0), 0).toLocaleString()}
+          icon="MousePointer"
+          color="text-green-600"
+        />
+        <PromotionStatsCard
+          title="Конверсии"
+          value={availablePromotions.reduce((sum, p) => sum + (p.metrics.conversions || 0), 0).toLocaleString()}
+          icon="ShoppingCart"
+          color="text-purple-600"
+        />
+        <PromotionStatsCard
+          title="Средний ROI"
+          value={`${Math.round(
+            availablePromotions.reduce((sum, p) => sum + (p.metrics.roi || 0), 0) / 
+            availablePromotions.length
+          )}%`}
+          icon="TrendingUp"
+          color="text-orange-600"
+        />
       </div>
 
       {/* Рекомендация по апгрейду */}
-      {upgradePromotions.length > 0 && (
-        <Card className="border-yellow-300 bg-gradient-to-r from-yellow-50 to-orange-50">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-yellow-100 rounded-lg">
-                  <Icon name="Crown" size={24} className="text-yellow-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-yellow-900 text-lg">
-                    🚀 Получите {upgradePromotions.length} новых инструментов продвижения!
-                  </h3>
-                  <p className="text-yellow-700 mt-1">
-                    Повысьте тариф и получите доступ к эксклюзивным форматам рекламы
-                  </p>
-                  <div className="flex items-center gap-4 mt-2">
-                    {upgradePromotions.slice(0, 3).map((promo, index) => (
-                      <Badge key={index} className="bg-yellow-200 text-yellow-800">
-                        {promo.name}
-                      </Badge>
-                    ))}
-                    {upgradePromotions.length > 3 && (
-                      <span className="text-sm text-yellow-700">+{upgradePromotions.length - 3} еще</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <Button className="bg-yellow-600 hover:bg-yellow-700">
-                Повысить тариф
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <UpgradeRecommendationCard upgradePromotions={upgradePromotions} />
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList>
@@ -444,66 +356,13 @@ export default function PremiumPromotionSystem({
               <CardContent>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {availablePromotions.map((promotion) => (
-                    <Card key={promotion.id} className="border-2 border-green-200 bg-green-50">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className={`p-2 rounded-lg ${getTypeColor(promotion.type)}`}>
-                              <Icon name={getTypeIcon(promotion.type) as any} size={18} />
-                            </div>
-                            <div>
-                              <CardTitle className="text-lg">{promotion.name}</CardTitle>
-                              <Badge className="bg-green-100 text-green-800 mt-1">
-                                ✅ Активно
-                              </Badge>
-                            </div>
-                          </div>
-                          <Switch checked={promotion.active} />
-                        </div>
-                        <CardDescription>{promotion.description}</CardDescription>
-                      </CardHeader>
-
-                      <CardContent className="space-y-4">
-                        <div>
-                          <h4 className="font-medium text-gray-900 mb-2">Возможности:</h4>
-                          <ul className="space-y-1">
-                            {promotion.features.map((feature, index) => (
-                              <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                                <Icon name="Check" size={12} className="text-green-500" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h4 className="font-medium text-gray-900 mb-2">Результаты:</h4>
-                          <div className="grid grid-cols-2 gap-3 text-sm">
-                            <div className="text-center p-2 bg-blue-50 rounded">
-                              <div className="font-bold text-blue-600">{promotion.metrics.impressions?.toLocaleString()}</div>
-                              <div className="text-blue-700">показов</div>
-                            </div>
-                            <div className="text-center p-2 bg-green-50 rounded">
-                              <div className="font-bold text-green-600">{promotion.metrics.clicks?.toLocaleString()}</div>
-                              <div className="text-green-700">кликов</div>
-                            </div>
-                            <div className="text-center p-2 bg-purple-50 rounded">
-                              <div className="font-bold text-purple-600">{promotion.metrics.conversions}</div>
-                              <div className="text-purple-700">продаж</div>
-                            </div>
-                            <div className="text-center p-2 bg-orange-50 rounded">
-                              <div className="font-bold text-orange-600">{promotion.metrics.roi}%</div>
-                              <div className="text-orange-700">ROI</div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <Button variant="outline" className="w-full">
-                          <Icon name="Settings" size={16} className="mr-2" />
-                          Настроить
-                        </Button>
-                      </CardContent>
-                    </Card>
+                    <PromotionCard
+                      key={promotion.id}
+                      promotion={promotion}
+                      isAvailable={true}
+                      getTypeIcon={getTypeIcon}
+                      getTypeColor={getTypeColor}
+                    />
                   ))}
                 </div>
               </CardContent>
@@ -525,43 +384,13 @@ export default function PremiumPromotionSystem({
               <CardContent>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {lockedPromotions.map((promotion) => (
-                    <Card key={promotion.id} className="border-2 border-gray-200 bg-gray-50 opacity-75">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-gray-200">
-                              <Icon name="Lock" size={18} className="text-gray-500" />
-                            </div>
-                            <div>
-                              <CardTitle className="text-lg text-gray-700">{promotion.name}</CardTitle>
-                              <Badge className="bg-gray-200 text-gray-600 mt-1">
-                                Требует {promotion.tier === 'professional' ? 'Профессиональный' : 'Корпоративный'} тариф
-                              </Badge>
-                            </div>
-                          </div>
-                        </div>
-                        <CardDescription className="text-gray-600">{promotion.description}</CardDescription>
-                      </CardHeader>
-
-                      <CardContent className="space-y-4">
-                        <div>
-                          <h4 className="font-medium text-gray-700 mb-2">Что получите:</h4>
-                          <ul className="space-y-1">
-                            {promotion.benefits.map((benefit, index) => (
-                              <li key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                                <Icon name="Star" size={12} className="text-yellow-500" />
-                                {benefit}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <Button className="w-full">
-                          <Icon name="Crown" size={16} className="mr-2" />
-                          Повысить тариф
-                        </Button>
-                      </CardContent>
-                    </Card>
+                    <PromotionCard
+                      key={promotion.id}
+                      promotion={promotion}
+                      isAvailable={false}
+                      getTypeIcon={getTypeIcon}
+                      getTypeColor={getTypeColor}
+                    />
                   ))}
                 </div>
               </CardContent>
@@ -570,152 +399,17 @@ export default function PremiumPromotionSystem({
         </TabsContent>
 
         <TabsContent value="performance" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Icon name="BarChart3" size={20} />
-                Эффективность инструментов продвижения
-              </CardTitle>
-              <CardDescription>
-                Сравнение результативности различных форматов рекламы
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {availablePromotions.map((promotion, index) => (
-                  <div key={index} className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="font-medium text-gray-900">{promotion.name}</h4>
-                      <Badge className={getTypeColor(promotion.type)}>
-                        ROI: {promotion.metrics.roi}%
-                      </Badge>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">
-                          {promotion.metrics.impressions?.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-gray-600">Показы</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">
-                          {promotion.metrics.clicks?.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-gray-600">Клики</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-purple-600">
-                          {promotion.metrics.conversions}
-                        </div>
-                        <div className="text-sm text-gray-600">Продажи</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-orange-600">
-                          {promotion.metrics.roi}%
-                        </div>
-                        <div className="text-sm text-gray-600">ROI</div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>CTR (кликабельность)</span>
-                        <span>{((promotion.metrics.clicks! / promotion.metrics.impressions!) * 100).toFixed(2)}%</span>
-                      </div>
-                      <Progress 
-                        value={(promotion.metrics.clicks! / promotion.metrics.impressions!) * 100} 
-                        className="h-2"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <PerformanceTab 
+            availablePromotions={availablePromotions}
+            getTypeColor={getTypeColor}
+          />
         </TabsContent>
 
         <TabsContent value="upgrade" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Icon name="Crown" size={20} />
-                Что получите при повышении тарифа
-              </CardTitle>
-              <CardDescription>
-                Дополнительные инструменты продвижения на более высоких тарифах
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {upgradePromotions.length > 0 ? (
-                <div className="space-y-6">
-                  {upgradePromotions.map((promotion) => (
-                    <div key={promotion.id} className="border-2 border-yellow-300 rounded-lg p-4 bg-yellow-50">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-yellow-100 rounded-lg">
-                            <Icon name={getTypeIcon(promotion.type) as any} size={20} className="text-yellow-600" />
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-yellow-900">{promotion.name}</h4>
-                            <p className="text-sm text-yellow-700">{promotion.description}</p>
-                          </div>
-                        </div>
-                        <Badge className="bg-yellow-200 text-yellow-800">
-                          Новое!
-                        </Badge>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <h5 className="font-medium text-yellow-900 mb-2">Возможности:</h5>
-                          <ul className="space-y-1">
-                            {promotion.features.map((feature, index) => (
-                              <li key={index} className="flex items-center gap-2 text-sm text-yellow-700">
-                                <Icon name="Star" size={12} className="text-yellow-600" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <div>
-                          <h5 className="font-medium text-yellow-900 mb-2">Ожидаемые результаты:</h5>
-                          <ul className="space-y-1">
-                            {promotion.benefits.map((benefit, index) => (
-                              <li key={index} className="flex items-center gap-2 text-sm text-yellow-700">
-                                <Icon name="TrendingUp" size={12} className="text-yellow-600" />
-                                {benefit}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="text-center pt-4">
-                    <Button size="lg" className="bg-yellow-600 hover:bg-yellow-700">
-                      <Icon name="Crown" size={20} className="mr-2" />
-                      Повысить тариф и получить все инструменты
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <div className="p-4 bg-green-100 rounded-lg inline-block mb-4">
-                    <Icon name="Crown" size={48} className="text-green-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-green-900 mb-2">
-                    🎉 У вас максимальный тариф!
-                  </h3>
-                  <p className="text-green-700">
-                    Вы имеете доступ ко всем инструментам продвижения на платформе
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <UpgradeTab 
+            upgradePromotions={upgradePromotions}
+            getTypeIcon={getTypeIcon}
+          />
         </TabsContent>
       </Tabs>
     </div>
