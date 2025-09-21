@@ -52,7 +52,7 @@ const SidebarNavigation = ({
   return (
     <nav 
       className={`fixed left-0 top-0 bottom-0 bg-white border-r-2 border-gray-300 shadow-xl z-[9999] flex flex-col transition-all duration-300 ${
-        isMenuExpanded ? 'w-56' : 'w-16'
+        isMenuExpanded ? 'w-64' : 'w-16'
       }`}
       style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}
       onMouseEnter={() => !isMobile && !isPinned && setIsHovered(true)}

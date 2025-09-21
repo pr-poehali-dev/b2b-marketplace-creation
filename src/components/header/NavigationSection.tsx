@@ -52,7 +52,7 @@ const NavigationSection = ({
           <div className="w-6 flex justify-center">
             <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 flex-1 font-medium truncate mr-2">{title}</span>
+          <span className="ml-3 flex-1 font-medium mr-2 leading-tight">{title}</span>
         </>
       ) : (
         <Icon name={icon} size={16} className="font-medium" />
@@ -88,7 +88,7 @@ const NavigationSection = ({
           <div className="w-6 flex justify-center">
             <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 font-medium truncate">{title}</span>
+          <span className="ml-3 font-medium leading-tight">{title}</span>
         </>
       ) : (
         <Icon name={icon} size={16} className="font-medium" />
@@ -114,7 +114,7 @@ const NavigationSection = ({
                 }`}
               >
                 <Icon name={item.icon} size={14} />
-                {isMenuExpanded && <span className="text-sm font-normal truncate">{item.label}</span>}
+                {isMenuExpanded && <span className="text-sm font-normal leading-tight">{item.label}</span>}
               </a>
             ))}
           </div>
