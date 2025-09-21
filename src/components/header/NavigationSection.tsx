@@ -43,54 +43,37 @@ const NavigationSection = ({
   const renderButton = () => (
     <button 
       onClick={onToggle}
-      className={`group w-full flex items-center ${isMenuExpanded ? 'px-4 py-3' : 'p-3 justify-center'} rounded-xl transition-all duration-300 ease-out transform hover:scale-[1.02] ${
+      className={`w-full flex items-center ${isMenuExpanded ? 'px-3 py-2.5' : 'p-2 justify-center'} rounded-lg transition-colors ${
         isPremium 
-          ? 'bg-gradient-to-r from-yellow-50 via-amber-50 to-orange-50 border-2 border-orange-200/50 text-orange-800 hover:from-yellow-100 hover:to-orange-100 hover:border-orange-300 shadow-lg hover:shadow-xl backdrop-blur-sm'
+          ? 'bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 border border-orange-200 text-orange-800 hover:from-yellow-200 hover:to-orange-200 shadow-sm'
           : isActive || openSection === sectionKey
-          ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-indigo-700' 
-          : 'text-slate-700 hover:bg-gradient-to-r hover:from-slate-100 hover:to-slate-50 hover:text-blue-600 hover:shadow-md'
+          ? 'bg-primary text-white' 
+          : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
       }`}
     >
       {isMenuExpanded ? (
         <>
-          <div className="w-7 flex justify-center">
-            <Icon 
-              name={icon} 
-              size={18} 
-              className={`font-medium transition-transform duration-300 ${
-                isActive || openSection === sectionKey ? 'scale-110' : 'group-hover:scale-110'
-              }`} 
-            />
+          <div className="w-6 flex justify-center">
+            <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 flex-1 font-semibold mr-2 leading-tight text-sm tracking-wide">{title}</span>
+          <span className="ml-3 flex-1 font-medium mr-2 leading-tight">{title}</span>
         </>
       ) : (
-        <Icon 
-          name={icon} 
-          size={18} 
-          className={`font-medium transition-transform duration-300 ${
-            isActive || openSection === sectionKey ? 'scale-110' : 'group-hover:scale-110'
-          }`} 
-        />
+        <Icon name={icon} size={16} className="font-medium" />
       )}
       {isMenuExpanded && isCollapsible && (
-        <div className="flex items-center space-x-3 ml-2">
+        <div className="flex items-center space-x-2 ml-2">
           {badge && (
-            <span className={`text-xs px-2.5 py-1 rounded-full font-semibold whitespace-nowrap transition-all duration-300 ${badgeColor}`}>
-              {badge}
-            </span>
+            <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ${badgeColor}`}>{badge}</span>
           )}
           <Icon 
             name={openSection === sectionKey ? 'ChevronUp' : 'ChevronDown'} 
             size={16} 
-            className="transition-transform duration-300"
           />
         </div>
       )}
       {isMenuExpanded && !isCollapsible && badge && (
-        <span className={`text-xs px-2.5 py-1 rounded-full font-semibold whitespace-nowrap ml-2 transition-all duration-300 ${badgeColor}`}>
-          {badge}
-        </span>
+        <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ml-2 ${badgeColor}`}>{badge}</span>
       )}
     </button>
   );
@@ -98,38 +81,26 @@ const NavigationSection = ({
   const renderLink = () => (
     <a 
       href={items[0]?.href || "#"}
-      className={`group flex items-center ${isMenuExpanded ? 'px-4 py-3' : 'p-3 justify-center'} rounded-xl transition-all duration-300 ease-out transform hover:scale-[1.02] ${
+      className={`flex items-center ${isMenuExpanded ? 'px-3 py-2.5' : 'p-2 justify-center'} rounded-lg transition-colors ${
         isPremium 
-          ? 'bg-gradient-to-r from-yellow-50 via-amber-50 to-orange-50 border-2 border-orange-200/50 text-orange-800 hover:from-yellow-100 hover:to-orange-100 hover:border-orange-300 shadow-lg hover:shadow-xl backdrop-blur-sm'
+          ? 'bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 border border-orange-200 text-orange-800 hover:from-yellow-200 hover:to-orange-200 shadow-sm'
           : isActive
-          ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-indigo-700' 
-          : 'text-slate-700 hover:bg-gradient-to-r hover:from-slate-100 hover:to-slate-50 hover:text-blue-600 hover:shadow-md'
+          ? 'bg-primary text-white' 
+          : 'text-gray-800 hover:bg-primary/10 hover:text-primary'
       }`}
     >
       {isMenuExpanded ? (
         <>
-          <div className="w-7 flex justify-center">
-            <Icon 
-              name={icon} 
-              size={18} 
-              className={`font-medium transition-transform duration-300 ${
-                isActive ? 'scale-110' : 'group-hover:scale-110'
-              }`} 
-            />
+          <div className="w-6 flex justify-center">
+            <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 font-semibold leading-tight text-sm tracking-wide">{title}</span>
+          <span className="ml-3 font-medium leading-tight">{title}</span>
         </>
       ) : (
-        <Icon 
-          name={icon} 
-          size={18} 
-          className={`font-medium transition-transform duration-300 ${
-            isActive ? 'scale-110' : 'group-hover:scale-110'
-          }`} 
-        />
+        <Icon name={icon} size={16} className="font-medium" />
       )}
       {isMenuExpanded && badge && (
-        <span className={`text-xs px-2.5 py-1 rounded-full font-semibold whitespace-nowrap ml-auto transition-all duration-300 ${badgeColor}`}>
+        <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ml-auto ${badgeColor}`}>
           {badge}
         </span>
       )}
@@ -137,32 +108,24 @@ const NavigationSection = ({
   );
 
   return (
-    <div className="relative">
+    <div>
       <div className="space-y-1">
         {isCollapsible ? renderButton() : renderLink()}
         
         {isCollapsible && openSection === sectionKey && isMenuExpanded && (
-          <div className="space-y-1 ml-8 mt-2">
+          <div className="space-y-0.5 ml-6">
             {items.map((item, index) => (
               <a 
                 key={index}
                 href={item.href} 
-                className={`group flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-300 ease-out transform hover:scale-[1.02] ${
+                className={`flex items-center space-x-2.5 px-2 py-1.5 rounded-md transition-colors ${
                   checkIsActive(item.href) 
-                    ? 'bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border border-blue-200 shadow-sm' 
-                    : 'text-slate-600 hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-100 hover:text-blue-600 hover:shadow-sm'
+                    ? 'bg-primary/20 text-primary' 
+                    : 'text-gray-500 hover:bg-gray-100 hover:text-primary'
                 }`}
               >
-                <Icon 
-                  name={item.icon} 
-                  size={15} 
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
-                {isMenuExpanded && (
-                  <span className="text-sm font-medium leading-tight tracking-wide">
-                    {item.label}
-                  </span>
-                )}
+                <Icon name={item.icon} size={14} />
+                {isMenuExpanded && <span className="text-sm font-normal leading-tight">{item.label}</span>}
               </a>
             ))}
           </div>
