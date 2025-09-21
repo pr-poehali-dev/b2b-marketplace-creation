@@ -44,13 +44,16 @@ const WelcomeModal = () => {
             <Icon name="Sparkles" size={32} className="text-blue-600" />
           </div>
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Добро пожаловать в наш каталог!
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Добро пожаловать в
           </h2>
+          <h1 className="text-3xl font-black text-blue-600 mb-6">
+            Бизнес Маркет
+          </h1>
           
           <p className="text-gray-600 mb-8 leading-relaxed">
-            Откройте для себя тысячи качественных товаров от проверенных поставщиков. 
-            Специальные предложения для оптовых покупателей уже ждут вас.
+            Ваш надежный партнер в сфере B2B торговли. Тысячи качественных товаров 
+            от проверенных поставщиков с выгодными условиями для бизнеса.
           </p>
           
           <div className="space-y-3">
