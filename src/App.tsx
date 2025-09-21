@@ -23,6 +23,7 @@ import BuyerRegisterPage from "./pages/BuyerRegisterPage";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import ProfileCompany from "./pages/ProfileCompany";
+import Profile from "./pages/Profile";
 import NewsPublish from "./pages/NewsPublish";
 import News from "./pages/News";
 import Cart from "./pages/Cart";
@@ -63,6 +64,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/profile/company" element={<ProfileCompany />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/publish" element={<NewsPublish />} />

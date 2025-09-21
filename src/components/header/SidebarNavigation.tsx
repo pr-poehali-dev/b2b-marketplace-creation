@@ -44,9 +44,13 @@ const SidebarNavigation = ({
     { href: "/contracts", icon: "FileText", label: "Договоры" }
   ];
 
-  const supplierProductsItems = [
-    { href: "/supplier/products", icon: "Package", label: "Мои товары" },
-    { href: "/supplier/products/new", icon: "Plus", label: "Добавить товар" }
+  const profileItems = [
+    { href: "/profile/products", icon: "Package", label: "Мои товары" },
+    { href: "/profile/products/new", icon: "Plus", label: "Добавить товар" },
+    { href: "/profile/analytics", icon: "BarChart3", label: "Статистика продаж" },
+    { href: "/profile/earnings", icon: "TrendingUp", label: "Доходы" },
+    { href: "/profile/orders", icon: "ShoppingBag", label: "Мои заказы" },
+    { href: "/profile/settings", icon: "Settings", label: "Настройки профиля" }
   ];
 
   return (
@@ -130,6 +134,23 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
+          {/* Профиль клиента */}
+          <NavigationSection
+            title="Мой профиль"
+            icon="User"
+            isExpanded={openSection === 'profile'}
+            isActive={isActive('/profile')}
+            isMenuExpanded={isMenuExpanded}
+            openSection={openSection}
+            sectionKey="profile"
+            badge="Новое"
+            badgeColor="bg-emerald-100 text-emerald-600"
+            items={profileItems}
+            isCollapsible={true}
+            onToggle={() => toggleSection('profile')}
+            checkIsActive={isActive}
+          />
+
           {/* Поставщики */}
           <NavigationSection
             title="Поставщики"
@@ -142,23 +163,6 @@ const SidebarNavigation = ({
             items={suppliersItems}
             isCollapsible={true}
             onToggle={() => toggleSection('suppliers')}
-            checkIsActive={isActive}
-          />
-
-          {/* Мои товары (для поставщиков) */}
-          <NavigationSection
-            title="Мои товары"
-            icon="Package"
-            isExpanded={openSection === 'supplier-products'}
-            isActive={isActive('/supplier/products')}
-            isMenuExpanded={isMenuExpanded}
-            openSection={openSection}
-            sectionKey="supplier-products"
-            badge="Новое"
-            badgeColor="bg-purple-100 text-purple-600"
-            items={supplierProductsItems}
-            isCollapsible={true}
-            onToggle={() => toggleSection('supplier-products')}
             checkIsActive={isActive}
           />
 
