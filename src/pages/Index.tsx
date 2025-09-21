@@ -9,17 +9,11 @@ import ProductsSection from "@/components/ProductsSection";
 import RecommendedProducts from "@/components/product/RecommendedProducts";
 import DeliverySection from "@/components/DeliverySection";
 import Footer from "@/components/Footer";
-import CallToActionBanner from "@/components/CallToActionBanner";
-import WelcomeModal from "@/components/WelcomeModal";
-import FloatingActionButton from "@/components/FloatingActionButton";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <CallToActionBanner />
-      <WelcomeModal />
-      <FloatingActionButton />
       <div className="ml-56 transition-all duration-300">
         <HeroSection />
         <SearchSection />
