@@ -52,15 +52,15 @@ const NavigationSection = ({
           <div className="w-6 flex justify-center">
             <Icon name={icon} size={16} className="font-medium" />
           </div>
-          <span className="ml-3 flex-1 font-medium truncate">{title}</span>
+          <span className="ml-3 flex-1 font-medium truncate mr-2">{title}</span>
         </>
       ) : (
         <Icon name={icon} size={16} className="font-medium" />
       )}
       {isMenuExpanded && isCollapsible && (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 ml-2">
           {badge && (
-            <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${badgeColor}`}>{badge}</span>
+            <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ${badgeColor}`}>{badge}</span>
           )}
           <Icon 
             name={openSection === sectionKey ? 'ChevronUp' : 'ChevronDown'} 
@@ -69,7 +69,7 @@ const NavigationSection = ({
         </div>
       )}
       {isMenuExpanded && !isCollapsible && badge && (
-        <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${badgeColor}`}>{badge}</span>
+        <span className={`text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ml-2 ${badgeColor}`}>{badge}</span>
       )}
     </button>
   );
