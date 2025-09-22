@@ -73,8 +73,8 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative order-first lg:order-last mt-2 lg:translate-y-[-20%] w-full sm:w-5/6 lg:w-4/5 mx-auto">
-            <div className="relative overflow-hidden rounded-xl shadow-2xl h-56 sm:h-72 lg:h-80">
+          <div className="relative order-first lg:order-last mt-2 lg:translate-y-[-20%] w-full mx-auto">
+            <div className="relative overflow-hidden rounded-xl shadow-2xl h-64 sm:h-80 lg:h-96">
               {images.map((image, index) => (
                 <img 
                   key={index}
@@ -82,7 +82,7 @@ const HeroSection = () => {
                   alt={image.alt}
                   className={`w-full h-full transition-all duration-1000 ease-in-out absolute top-0 left-0 ${
                     index === 0 
-                      ? 'object-contain bg-teal-800' 
+                      ? 'object-contain bg-teal-800 p-4 sm:p-6 lg:p-8' 
                       : 'object-cover'
                   } ${
                     index === currentImageIndex 
