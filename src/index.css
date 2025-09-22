@@ -198,3 +198,20 @@
 .glow-hover:hover {
   box-shadow: 0 8px 32px rgba(56, 178, 172, 0.4);
 }
+
+/* Анимация для логотипа */
+@keyframes logoGlow {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.15) drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+  }
+}
+
+.logo-animate {
+  animation: logoGlow 3s ease-in-out infinite;
+}

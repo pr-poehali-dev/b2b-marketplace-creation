@@ -86,7 +86,9 @@ const HeroSection = () => {
                       : 'object-cover'
                   } ${
                     index === currentImageIndex 
-                      ? 'opacity-100 transform scale-100' 
+                      ? index === 0 
+                        ? 'opacity-100 transform scale-100 logo-animate' 
+                        : 'opacity-100 transform scale-100'
                       : 'opacity-0 transform scale-105'
                   }`}
                 />
