@@ -6,18 +6,18 @@ const WelcomeModal = () => {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
   useEffect(() => {
-    const hasSeenModal = localStorage.getItem('welcomeModalSeen');
-    if (!hasSeenModal) {
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
+    // Временно очищаем localStorage для тестирования
+    localStorage.removeItem('welcomeModalSeen');
+    localStorage.removeItem('userRole');
+    
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    localStorage.setItem('welcomeModalSeen', 'true');
   };
 
   const handleRoleSelect = (role: 'supplier' | 'buyer') => {
