@@ -52,9 +52,12 @@ const WelcomeModal = () => {
           </div>
           
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Добро пожаловать в DM Business Market!
+            Добро пожаловать в Business Market!
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-lg mb-4">
+            Современная B2B площадка для прямых поставок товаров и услуг
+          </p>
+          <p className="text-gray-500 text-base">
             Выберите вашу роль для персонализированного опыта
           </p>
         </div>
