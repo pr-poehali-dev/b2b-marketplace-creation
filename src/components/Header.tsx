@@ -20,8 +20,15 @@ const Header = () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [isPinned, setIsPinned] = useState(() => {
     const saved = localStorage.getItem('sidebar-pinned');
-    return saved === 'true';
+    // По умолчанию боковая панель закреплена, если не задано иное
+    return saved !== null ? saved === 'true' : true;
   });
+
+  // Сохранение состояния закрепления по умолчанию
+  useEffect(() => {
+    // Принудительно устанавливаем закрепленное состояние для демонстрации
+    localStorage.setItem('sidebar-pinned', 'true');
+  }, []);
 
   // Определение мобильного устройства
   useEffect(() => {
