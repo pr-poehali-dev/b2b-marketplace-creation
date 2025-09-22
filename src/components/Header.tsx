@@ -18,16 +18,12 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
-  const [isPinned, setIsPinned] = useState(() => {
-    const saved = localStorage.getItem('sidebar-pinned');
-    // По умолчанию боковая панель закреплена, если не задано иное
-    return saved !== null ? saved === 'true' : true;
-  });
+  const [isPinned, setIsPinned] = useState(true);
 
-  // Сохранение состояния закрепления по умолчанию
+  // Принудительно устанавливаем закрепленное состояние
   useEffect(() => {
-    // Принудительно устанавливаем закрепленное состояние для демонстрации
     localStorage.setItem('sidebar-pinned', 'true');
+    setIsPinned(true);
   }, []);
 
   // Определение мобильного устройства
@@ -105,7 +101,8 @@ const Header = () => {
   };
 
   // Определяем, должно ли меню быть развернутым
-  const isMenuExpanded = isMobile || isHovered || isPinned;
+  // Принудительно разворачиваем меню при загрузке
+  const isMenuExpanded = true;
 
   return (
     <>
