@@ -14,6 +14,7 @@ import ProductComparison from "@/components/catalog/ProductComparison";
 import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
 import { Product } from "@/components/catalog/ProductCard";
 import { productsData } from "@/data/productsData";
+import AuthGate from "./AuthGate";
 
 const Catalog = () => {
   const navigate = useNavigate();
@@ -299,115 +300,117 @@ const Catalog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <main className="ml-64">
-        <div className="container mx-auto px-6 py-4">
-          <CatalogHero />
+    <AuthGate>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        <main className="ml-64">
+          <div className="container mx-auto px-6 py-4">
+            <CatalogHero />
 
-          <div className="flex gap-6">
-            {/* Боковая панель с фильтрами */}
-            <div className="w-1/4 flex-shrink-0">
-              <CatalogFilters
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                categoryFilter={categoryFilter}
-                setCategoryFilter={setCategoryFilter}
-                verifiedOnly={verifiedOnly}
-                setVerifiedOnly={setVerifiedOnly}
-                inStockOnly={inStockOnly}
-                setInStockOnly={setInStockOnly}
-                discountOnly={discountOnly}
-                setDiscountOnly={setDiscountOnly}
-                fastDelivery={fastDelivery}
-                setFastDelivery={setFastDelivery}
-                customOrderOnly={customOrderOnly}
-                setCustomOrderOnly={setCustomOrderOnly}
-                priceFrom={priceFrom}
-                setPriceFrom={setPriceFrom}
-                priceTo={priceTo}
-                setPriceTo={setPriceTo}
-                ratingFilter={ratingFilter}
-                setRatingFilter={setRatingFilter}
-                minOrderFilter={minOrderFilter}
-                setMinOrderFilter={setMinOrderFilter}
-                locationFilter={locationFilter}
-                setLocationFilter={setLocationFilter}
-                categories={categories}
-                resetFilters={resetFilters}
-                totalProducts={productsData.length}
-                filteredProducts={filteredProducts.length}
-              />
-            </div>
-
-            {/* Основной контент */}
-            <div className="flex-1">
-              <CatalogToolbar
-                filteredProductsCount={filteredProducts.length}
-                totalProducts={productsData.length}
-                viewMode={viewMode}
-                setViewMode={setViewMode}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                allProducts={productsData}
-              />
-              
-              <div className="mt-4">
-                <CatalogGrid
-                products={filteredProducts}
-                viewMode={viewMode}
-                onSendInquiry={handleSendInquiry}
-                onResetFilters={resetFilters}
-                onQuickView={handleQuickView}
-                onAddToCompare={handleAddToCompare}
-                compareProducts={compareProducts.map(p => p.id)}
-                onProductClick={handleProductClick}
+            <div className="flex gap-6">
+              {/* Боковая панель с фильтрами */}
+              <div className="w-1/4 flex-shrink-0">
+                <CatalogFilters
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  categoryFilter={categoryFilter}
+                  setCategoryFilter={setCategoryFilter}
+                  verifiedOnly={verifiedOnly}
+                  setVerifiedOnly={setVerifiedOnly}
+                  inStockOnly={inStockOnly}
+                  setInStockOnly={setInStockOnly}
+                  discountOnly={discountOnly}
+                  setDiscountOnly={setDiscountOnly}
+                  fastDelivery={fastDelivery}
+                  setFastDelivery={setFastDelivery}
+                  customOrderOnly={customOrderOnly}
+                  setCustomOrderOnly={setCustomOrderOnly}
+                  priceFrom={priceFrom}
+                  setPriceFrom={setPriceFrom}
+                  priceTo={priceTo}
+                  setPriceTo={setPriceTo}
+                  ratingFilter={ratingFilter}
+                  setRatingFilter={setRatingFilter}
+                  minOrderFilter={minOrderFilter}
+                  setMinOrderFilter={setMinOrderFilter}
+                  locationFilter={locationFilter}
+                  setLocationFilter={setLocationFilter}
+                  categories={categories}
+                  resetFilters={resetFilters}
+                  totalProducts={productsData.length}
+                  filteredProducts={filteredProducts.length}
                 />
+              </div>
+
+              {/* Основной контент */}
+              <div className="flex-1">
+                <CatalogToolbar
+                  filteredProductsCount={filteredProducts.length}
+                  totalProducts={productsData.length}
+                  viewMode={viewMode}
+                  setViewMode={setViewMode}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  allProducts={productsData}
+                />
+                
+                <div className="mt-4">
+                  <CatalogGrid
+                  products={filteredProducts}
+                  viewMode={viewMode}
+                  onSendInquiry={handleSendInquiry}
+                  onResetFilters={resetFilters}
+                  onQuickView={handleQuickView}
+                  onAddToCompare={handleAddToCompare}
+                  compareProducts={compareProducts.map(p => p.id)}
+                  onProductClick={handleProductClick}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <Footer />
-      </main>
+          
+          <Footer />
+        </main>
 
-      <ProductInquiryModal
-        isOpen={isInquiryModalOpen}
-        onClose={handleCloseInquiry}
-        product={selectedProduct}
-      />
+        <ProductInquiryModal
+          isOpen={isInquiryModalOpen}
+          onClose={handleCloseInquiry}
+          product={selectedProduct}
+        />
 
-      <FlyToCartAnimation
-        isActive={flyingAnimation.isActive}
-        startElement={flyingAnimation.startElement}
-        productImage={flyingAnimation.productImage}
-        onAnimationComplete={handleAnimationComplete}
-      />
+        <FlyToCartAnimation
+          isActive={flyingAnimation.isActive}
+          startElement={flyingAnimation.startElement}
+          productImage={flyingAnimation.productImage}
+          onAnimationComplete={handleAnimationComplete}
+        />
 
-      <QuickViewModal
-        product={quickViewProduct}
-        isOpen={isQuickViewOpen}
-        onClose={handleCloseQuickView}
-        onSendInquiry={handleSendInquiry}
-      />
+        <QuickViewModal
+          product={quickViewProduct}
+          isOpen={isQuickViewOpen}
+          onClose={handleCloseQuickView}
+          onSendInquiry={handleSendInquiry}
+        />
 
-      <ProductComparison
-        products={compareProducts}
-        isOpen={isComparisonOpen}
-        onClose={handleCloseComparison}
-        onRemoveProduct={handleRemoveFromCompare}
-        onSendInquiry={handleSendInquiry}
-      />
+        <ProductComparison
+          products={compareProducts}
+          isOpen={isComparisonOpen}
+          onClose={handleCloseComparison}
+          onRemoveProduct={handleRemoveFromCompare}
+          onSendInquiry={handleSendInquiry}
+        />
 
-      <CompareFloatingButton
-        compareProducts={compareProducts}
-        onOpenComparison={handleOpenComparison}
-        onRemoveProduct={handleRemoveFromCompare}
-      />
-    </div>
+        <CompareFloatingButton
+          compareProducts={compareProducts}
+          onOpenComparison={handleOpenComparison}
+          onRemoveProduct={handleRemoveFromCompare}
+        />
+      </div>
+    </AuthGate>
   );
 };
 
