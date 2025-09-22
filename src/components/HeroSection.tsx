@@ -4,7 +4,12 @@ import Icon from "@/components/ui/icon";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  isModalOpen?: boolean;
+  shouldRestart?: boolean;
+}
+
+const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSectionProps) => {
   const navigate = useNavigate();
   
   const images = [
@@ -18,12 +23,26 @@ const HeroSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   useEffect(() => {
+    // Сбрасываем на логотип при перезапуске
+    if (shouldRestart) {
+      setCurrentImageIndex(0);
+    }
+  }, [shouldRestart]);
+
+  useEffect(() => {
+    // Останавливаем слайд-шоу если модальное окно открыто
+    if (isModalOpen) {
+      // Останавливаем на логотипе когда модальное окно открыто
+      setCurrentImageIndex(0);
+      return;
+    }
+
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }, 4000);
     
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, [images.length, isModalOpen]);
 
   return (
     <section className="pt-2 sm:pt-4 pb-16 sm:pb-20 bg-gradient-to-b from-slate-50 to-white">

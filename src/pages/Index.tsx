@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from "@/components/Header";
 import BrandHeader from "@/components/BrandHeader";
 import HeroSection from "@/components/HeroSection";
@@ -13,12 +14,26 @@ import Footer from "@/components/Footer";
 import WelcomeModal from "@/components/WelcomeModal";
 
 const Index = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shouldRestartSlideshow, setShouldRestartSlideshow] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setShouldRestartSlideshow(true);
+    // Сбрасываем флаг перезапуска через небольшую задержку
+    setTimeout(() => setShouldRestartSlideshow(false), 100);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <WelcomeModal />
+      <WelcomeModal onOpen={handleModalOpen} onClose={handleModalClose} />
       <div className="ml-56 transition-all duration-300">
-        <HeroSection />
+        <HeroSection isModalOpen={isModalOpen} shouldRestart={shouldRestartSlideshow} />
         <SupplierSection />
         <SearchSection />
         <NewsSection />

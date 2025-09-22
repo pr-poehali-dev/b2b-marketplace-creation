@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 
-const WelcomeModal = () => {
+interface WelcomeModalProps {
+  onOpen?: () => void;
+  onClose?: () => void;
+}
+
+const WelcomeModal = ({ onOpen, onClose }: WelcomeModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
@@ -12,12 +17,14 @@ const WelcomeModal = () => {
     
     const timer = setTimeout(() => {
       setIsOpen(true);
+      onOpen?.();
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
+    onClose?.();
   };
 
   const handleRoleSelect = (role: 'supplier' | 'buyer') => {
