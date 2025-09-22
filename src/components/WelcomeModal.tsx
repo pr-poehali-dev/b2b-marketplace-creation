@@ -3,13 +3,14 @@ import Icon from '@/components/ui/icon';
 
 const WelcomeModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
   useEffect(() => {
     const hasSeenModal = localStorage.getItem('welcomeModalSeen');
     if (!hasSeenModal) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 2000);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -19,76 +20,121 @@ const WelcomeModal = () => {
     localStorage.setItem('welcomeModalSeen', 'true');
   };
 
-  const handleGetStarted = () => {
+  const handleRoleSelect = (role: 'supplier' | 'buyer') => {
+    setSelectedRole(role);
+    localStorage.setItem('userRole', role);
     handleClose();
-    const searchSection = document.getElementById('search-section');
-    if (searchSection) {
-      searchSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // Прокрутка к соответствующей секции
+    const targetSection = role === 'supplier' ? 'supplier-section' : 'search-section';
+    const element = document.getElementById(targetSection);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full mx-4 relative shadow-2xl">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl max-w-3xl w-full mx-4 relative shadow-2xl transform transition-all duration-300">
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10 p-2 hover:bg-gray-100 rounded-full"
         >
-          <Icon name="X" size={24} />
+          <Icon name="X" size={20} />
         </button>
         
-        <div className="p-8 text-center">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Icon name="Sparkles" size={32} className="text-blue-600" />
+        {/* Заголовок */}
+        <div className="text-center p-8 pb-6 border-b border-gray-100">
+          <div className="w-20 h-20 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="Users" size={36} className="text-teal-600" />
           </div>
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Добро пожаловать в
-          </h2>
-          <h1 className="text-3xl font-black text-blue-600 mb-6">
-            Бизнес Маркет
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Добро пожаловать в DM Business Market!
           </h1>
-          
-          <p className="text-gray-600 mb-8 leading-relaxed">
-            Ваш надежный партнер в сфере B2B торговли. Тысячи качественных товаров 
-            от проверенных поставщиков с выгодными условиями для бизнеса.
+          <p className="text-gray-600 text-lg">
+            Выберите вашу роль для персонализированного опыта
           </p>
-          
-          <div className="space-y-3">
-            <button
-              onClick={handleGetStarted}
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-            >
-              <Icon name="Search" size={20} />
-              Начать поиск товаров
-            </button>
+        </div>
+
+        {/* Выбор роли */}
+        <div className="p-8 grid md:grid-cols-2 gap-6">
+          {/* Поставщик */}
+          <button
+            onClick={() => handleRoleSelect('supplier')}
+            className="group p-6 border-2 border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-all duration-300 text-left hover:shadow-lg"
+          >
+            <div className="flex items-center mb-4">
+              <div className="w-14 h-14 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center transition-colors">
+                <Icon name="Package" size={28} className="text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 ml-4">
+                Я поставщик
+              </h3>
+            </div>
             
-            <button
-              onClick={handleClose}
-              className="w-full text-gray-500 py-2 px-6 rounded-xl hover:text-gray-700 transition-colors"
-            >
-              Посмотреть позже
-            </button>
-          </div>
-          
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
-              <div className="flex items-center gap-2">
-                <Icon name="Shield" size={16} />
-                <span>Безопасно</span>
+            <p className="text-gray-600 mb-4 text-base">
+              Предлагаю товары и услуги для бизнеса
+            </p>
+            
+            <div className="space-y-3">
+              <div className="flex items-center text-sm text-gray-500">
+                <Icon name="TrendingUp" size={16} className="mr-3 text-green-500" />
+                Размещение товаров и услуг
               </div>
-              <div className="flex items-center gap-2">
-                <Icon name="Truck" size={16} />
-                <span>Быстрая доставка</span>
+              <div className="flex items-center text-sm text-gray-500">
+                <Icon name="Users" size={16} className="mr-3 text-green-500" />
+                Поиск и привлечение клиентов
               </div>
-              <div className="flex items-center gap-2">
-                <Icon name="Star" size={16} />
-                <span>Качество</span>
+              <div className="flex items-center text-sm text-gray-500">
+                <Icon name="BarChart3" size={16} className="mr-3 text-green-500" />
+                Управление заказами и продажами
               </div>
             </div>
-          </div>
+          </button>
+
+          {/* Покупатель */}
+          <button
+            onClick={() => handleRoleSelect('buyer')}
+            className="group p-6 border-2 border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-all duration-300 text-left hover:shadow-lg"
+          >
+            <div className="flex items-center mb-4">
+              <div className="w-14 h-14 bg-orange-100 group-hover:bg-orange-200 rounded-xl flex items-center justify-center transition-colors">
+                <Icon name="ShoppingCart" size={28} className="text-orange-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 ml-4">
+                Я покупатель
+              </h3>
+            </div>
+            
+            <p className="text-gray-600 mb-4 text-base">
+              Ищу товары и услуги для своего бизнеса
+            </p>
+            
+            <div className="space-y-3">
+              <div className="flex items-center text-sm text-gray-500">
+                <Icon name="Search" size={16} className="mr-3 text-green-500" />
+                Поиск нужных товаров
+              </div>
+              <div className="flex items-center text-sm text-gray-500">
+                <Icon name="MessageCircle" size={16} className="mr-3 text-green-500" />
+                Прямая связь с поставщиками
+              </div>
+              <div className="flex items-center text-sm text-gray-500">
+                <Icon name="Star" size={16} className="mr-3 text-green-500" />
+                Выгодные предложения
+              </div>
+            </div>
+          </button>
+        </div>
+
+        {/* Подвал */}
+        <div className="px-8 pb-6 pt-2">
+          <p className="text-center text-sm text-gray-500">
+            💡 Вы сможете изменить роль в любое время в настройках профиля
+          </p>
         </div>
       </div>
     </div>

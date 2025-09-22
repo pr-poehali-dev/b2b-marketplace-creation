@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import BrandHeader from "@/components/BrandHeader";
 import HeroSection from "@/components/HeroSection";
 import SearchSection from "@/components/SearchSection";
+import SupplierSection from "@/components/SupplierSection";
 import NewsSection from "@/components/NewsSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import B2BAdvantagesSection from "@/components/B2BAdvantagesSection";
@@ -18,6 +19,7 @@ const Index = () => {
       <WelcomeModal />
       <div className="ml-56 transition-all duration-300">
         <HeroSection />
+        <SupplierSection />
         <SearchSection />
         <NewsSection />
         <FeaturesSection />
