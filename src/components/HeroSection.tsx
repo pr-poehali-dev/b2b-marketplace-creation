@@ -8,6 +8,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
   
   const images = [
+    { src: "https://cdn.poehali.dev/files/3695c329-17a5-435d-be4f-214ae724b86a.png", alt: "DM Business Market - Логотип компании" },
     { src: "/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg", alt: "Российские бизнес-партнеры заключают сделку" },
     { src: "/img/967a43bb-bb29-400c-ae7e-cad802988407.jpg", alt: "Современный офис с командной работой" },
     { src: "/img/a8a12200-5509-4746-826f-bafbbb74fb68.jpg", alt: "Современная логистика и склад" },
@@ -79,7 +80,11 @@ const HeroSection = () => {
                   key={index}
                   src={image.src} 
                   alt={image.alt}
-                  className={`w-full h-full object-cover transition-all duration-1000 ease-in-out absolute top-0 left-0 ${
+                  className={`w-full h-full transition-all duration-1000 ease-in-out absolute top-0 left-0 ${
+                    index === 0 
+                      ? 'object-contain bg-teal-800' 
+                      : 'object-cover'
+                  } ${
                     index === currentImageIndex 
                       ? 'opacity-100 transform scale-100' 
                       : 'opacity-0 transform scale-105'
