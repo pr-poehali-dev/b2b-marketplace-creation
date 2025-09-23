@@ -74,6 +74,9 @@ const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSection
                 <Icon name="Store" size={18} className="mr-2" />
                 Подключить поставщика
               </Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate('/logos')} className="text-sm text-gray-600">
+                🎨 Показать логотипы
+              </Button>
             </div>
 
             <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6">
