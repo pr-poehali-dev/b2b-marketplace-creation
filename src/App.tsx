@@ -71,10 +71,10 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/news/publish" element={<NewsPublish />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/logos" element={<LogoShowcase />} />
           <Route path="/supplier/products" element={<SupplierProductsPage />} />
           <Route path="/supplier/products/new" element={<AddProductPage />} />
           <Route path="/supplier/products/:id/edit" element={<EditProductPage />} />
-          <Route path="/logos" element={<LogoShowcase />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
