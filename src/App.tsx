@@ -24,6 +24,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import ProfileCompany from "./pages/ProfileCompany";
 import Profile from "./pages/Profile";
+import CompanyDetail from "./pages/CompanyDetail";
 
 import NewsPublish from "./pages/NewsPublish";
 import News from "./pages/News";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/orders" element={<Orders />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/company/:id" element={<CompanyDetail />} />
           <Route path="/catalog/categories" element={<Categories />} />
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/settings" element={<Settings />} />

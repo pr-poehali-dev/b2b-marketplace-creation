@@ -194,7 +194,7 @@ const ProductDetail = () => {
                 <div className="flex items-center gap-3">
                   <Icon name="Store" size={16} className="text-gray-400" />
                   <button 
-                    onClick={() => navigate('/suppliers')}
+                    onClick={() => navigate('/company/1')}
                     className="text-gray-700 hover:text-blue-600 hover:underline transition-colors duration-200"
                   >
                     {product.seller}
