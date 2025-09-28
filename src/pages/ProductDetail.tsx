@@ -84,6 +84,22 @@ const ProductDetail = () => {
       
       <div className="ml-0 lg:ml-64">
         <div className="container mx-auto px-4 sm:px-6 py-8 max-w-7xl">
+          {/* Кнопка назад */}
+          <Button 
+            variant="outline" 
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate('/catalog');
+              }
+            }}
+            className="mb-6"
+          >
+            <Icon name="ArrowLeft" size={16} className="mr-2" />
+            Назад
+          </Button>
+
           {/* Хлебные крошки */}
           <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
             <button 
