@@ -41,17 +41,6 @@ const ProductDetail = () => {
     }
   }, [id, navigate]);
 
-  if (!product) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Icon name="Loader2" size={48} className="mx-auto text-blue-600 animate-spin mb-4" />
-          <p className="text-gray-600">Загрузка товара...</p>
-        </div>
-      </div>
-    );
-  }
-
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       addItem({
@@ -74,6 +63,17 @@ const ProductDetail = () => {
   const handleCloseInquiry = () => {
     setIsInquiryModalOpen(false);
   };
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Icon name="Loader2" size={48} className="mx-auto text-blue-600 animate-spin mb-4" />
+          <p className="text-gray-600">Загрузка товара...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Создаем массив изображений (для демонстрации - используем одно и то же изображение)
   const productImages = Array(4).fill(product.image);
