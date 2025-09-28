@@ -32,7 +32,6 @@ import SupplierProductsPage from "./pages/SupplierProductsPage";
 import AddProductPage from "./pages/AddProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import NotFound from "./pages/NotFound";
-import LogoShowcase from "./pages/LogoShowcase";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ScrollToTop from "./components/ScrollToTop";
@@ -71,7 +70,6 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/news/publish" element={<NewsPublish />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/logos" element={<LogoShowcase />} />
           <Route path="/supplier/products" element={<SupplierProductsPage />} />
           <Route path="/supplier/products/new" element={<AddProductPage />} />
           <Route path="/supplier/products/:id/edit" element={<EditProductPage />} />

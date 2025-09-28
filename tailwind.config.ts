@@ -122,10 +122,10 @@ export default {
 				},
 				'glow': {
 					'0%, 100%': {
-						boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)'
+						boxShadow: '0 0 20px rgba(56, 178, 172, 0.3)'
 					},
 					'50%': {
-						boxShadow: '0 0 40px rgba(34, 197, 94, 0.6)'
+						boxShadow: '0 0 40px rgba(56, 178, 172, 0.6)'
 					}
 				}
 			},

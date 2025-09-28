@@ -74,7 +74,6 @@ const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSection
                 <Icon name="Store" size={18} className="mr-2" />
                 Подключить поставщика
               </Button>
-
             </div>
 
             <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6">
