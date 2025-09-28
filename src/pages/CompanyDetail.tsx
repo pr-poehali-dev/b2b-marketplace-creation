@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,6 +37,7 @@ interface Product {
 
 const CompanyDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   
   // Моковые данные компании
   const company: Company = {
@@ -108,6 +109,16 @@ const CompanyDetail = () => {
       <Header />
       <div className="ml-56 transition-all duration-300">
         <div className="container mx-auto px-6 py-8">
+          
+          {/* Кнопка назад */}
+          <Button 
+            variant="outline" 
+            onClick={() => navigate(-1)}
+            className="mb-6"
+          >
+            <Icon name="ArrowLeft" size={16} className="mr-2" />
+            Назад
+          </Button>
           
           {/* Информация о компании */}
           <Card className="mb-8">
