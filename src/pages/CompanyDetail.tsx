@@ -113,8 +113,11 @@ const CompanyDetail = () => {
           {/* Кнопка назад */}
           <Button 
             variant="outline" 
-            onClick={() => navigate(-1)}
-            className="mb-6"
+            onClick={() => {
+              console.log('Кнопка назад нажата');
+              navigate(-1);
+            }}
+            className="mb-6 cursor-pointer"
           >
             <Icon name="ArrowLeft" size={16} className="mr-2" />
             Назад
