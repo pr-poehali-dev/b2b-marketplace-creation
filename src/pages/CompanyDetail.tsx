@@ -105,7 +105,7 @@ const CompanyDetail = () => {
     : companyProducts.filter(product => product.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <Header />
       <div className="ml-56 transition-all duration-300">
         <div className="container mx-auto px-6 py-8">
@@ -115,7 +115,11 @@ const CompanyDetail = () => {
             variant="outline" 
             onClick={() => {
               console.log('Кнопка назад нажата');
-              navigate(-1);
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate('/');
+              }
             }}
             className="mb-6 cursor-pointer"
           >
