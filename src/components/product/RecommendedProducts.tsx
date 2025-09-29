@@ -18,7 +18,7 @@ interface Product {
   gallery_images?: string[];
   stock_quantity: number;
   supplier_name?: string;
-  rating?: number;
+
 
   is_featured?: boolean;
   created_at: string;
@@ -81,10 +81,7 @@ export default function RecommendedProducts({
         if (a.is_featured && !b.is_featured) return -1;
         if (!a.is_featured && b.is_featured) return 1;
 
-        // По рейтингу
-        const aRating = a.rating || 0;
-        const bRating = b.rating || 0;
-        if (bRating !== aRating) return bRating - aRating;
+
 
         // По дате создания (новые первыми)
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -93,8 +90,7 @@ export default function RecommendedProducts({
       // Добавляем моковые данные для демонстрации
       const enhancedProducts = filteredProducts.slice(0, limit).map((product: Product) => ({
         ...product,
-        rating: product.rating || (4.0 + Math.random() * 1.0), // 4.0-5.0
-        review_count: product.review_count || Math.floor(Math.random() * 100) + 10, // 10-110
+
         supplier_name: product.supplier_name || 'ООО "Поставщик"'
       }));
 
@@ -242,12 +238,7 @@ export default function RecommendedProducts({
 
                 {/* Информация о товаре */}
                 <div className="space-y-2">
-                  {/* Рейтинг */}
-                  <ProductRating 
-                    rating={product.rating || 0} 
-                    reviewCount={product.review_count}
-                    size="sm"
-                  />
+
 
                   {/* Название */}
                   <h3 className="font-medium text-sm line-clamp-2 text-gray-900 group-hover:text-blue-600 transition-colors">

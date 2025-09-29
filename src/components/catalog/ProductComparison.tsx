@@ -58,12 +58,7 @@ const ProductComparison = ({
     if (attribute === 'price') {
       return Math.min(...products.map(p => p.price));
     }
-    if (attribute === 'rating') {
-      return Math.max(...products.map(p => p.rating));
-    }
-    if (attribute === 'reviews') {
-      return Math.max(...products.map(p => p.reviews));
-    }
+
     return null;
   };
 
@@ -130,15 +125,7 @@ const ProductComparison = ({
                       <span className="text-xs text-gray-500">{product.unit}</span>
                     </div>
                     
-                    <div className="flex items-center gap-1">
-                      <Icon name="Star" size={12} className="text-yellow-400 fill-current" />
-                      <span className={`text-sm ${isHighlighted('rating', product.rating, products) ? 'font-bold text-green-600' : ''}`}>
-                        {product.rating}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        ({product.reviews})
-                      </span>
-                    </div>
+
 
                     <Button 
                       size="sm" 

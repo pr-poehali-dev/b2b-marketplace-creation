@@ -11,7 +11,7 @@ interface Supplier {
   category: string;
   region: string;
   verified: boolean;
-  rating: number;
+
   phone: string;
   email: string;
   coordinates: {
@@ -327,10 +327,7 @@ const SuppliersMap = ({ suppliers }: SuppliersMapProps) => {
                         <Icon name="MapPin" size={14} className="mr-2" />
                         {selectedSupplier.region}
                       </span>
-                      <div className="flex items-center gap-1">
-                        <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
-                        <span className="text-sm font-medium">{selectedSupplier.rating}</span>
-                      </div>
+
                     </div>
 
                     <div className="space-y-2 text-sm">

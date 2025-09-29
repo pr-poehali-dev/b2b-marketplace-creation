@@ -39,15 +39,7 @@ const SupplierDetailModal = ({ supplier, onClose }: SupplierDetailModalProps) =>
             
             <TabsContent value="overview" className="space-y-6">
               <div className="grid md:grid-cols-3 gap-6">
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon name="Star" size={20} className="text-yellow-500" />
-                      <span className="font-semibold text-lg">{supplier.rating}</span>
-                    </div>
-                    <p className="text-sm text-gray-600">{supplier.reviewsCount} отзывов</p>
-                  </CardContent>
-                </Card>
+
                 
                 <Card>
                   <CardContent className="p-4">

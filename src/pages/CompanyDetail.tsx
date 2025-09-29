@@ -19,8 +19,7 @@ interface Company {
   founded: string;
   employees: string;
   categories: string[];
-  rating: number;
-  reviewsCount: number;
+
   verified: boolean;
   certifications: string[];
 }
@@ -52,8 +51,7 @@ const CompanyDetail = () => {
     founded: '2008',
     employees: '50-100',
     categories: ['Подъемное оборудование', 'Краны', 'Лебедки', 'Запчасти'],
-    rating: 4.8,
-    reviewsCount: 127,
+
     verified: true,
     certifications: ['ISO 9001', 'ГОСТ Р', 'СРО']
   };
@@ -149,19 +147,6 @@ const CompanyDetail = () => {
                   </div>
                   
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Icon 
-                          key={i}
-                          name="Star" 
-                          size={16} 
-                          className={`${i < Math.floor(company.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
-                        />
-                      ))}
-                      <span className="text-sm text-gray-600 ml-1">
-                        {company.rating} ({company.reviewsCount} отзывов)
-                      </span>
-                    </div>
                     
                     <div className="flex gap-2">
                       {company.certifications.map((cert, index) => (
@@ -219,7 +204,7 @@ const CompanyDetail = () => {
             <TabsList>
               <TabsTrigger value="products">Товары ({companyProducts.length})</TabsTrigger>
               <TabsTrigger value="about">О компании</TabsTrigger>
-              <TabsTrigger value="reviews">Отзывы ({company.reviewsCount})</TabsTrigger>
+              <TabsTrigger value="reviews">Отзывы</TabsTrigger>
             </TabsList>
 
             <TabsContent value="products" className="space-y-4">

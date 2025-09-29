@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Slider } from "@/components/ui/slider";
+
 import Icon from "@/components/ui/icon";
 
 interface SupplierFiltersProps {
@@ -13,8 +13,7 @@ interface SupplierFiltersProps {
   setCategoryFilter: (value: string) => void;
   verifiedOnly: boolean;
   setVerifiedOnly: (value: boolean) => void;
-  ratingRange: number[];
-  setRatingRange: (value: number[]) => void;
+
   regionFilter: string;
   setRegionFilter: (value: string) => void;
   categories: string[];
@@ -29,8 +28,7 @@ const SupplierFilters = ({
   setCategoryFilter,
   verifiedOnly,
   setVerifiedOnly,
-  ratingRange,
-  setRatingRange,
+
   regionFilter,
   setRegionFilter,
   categories,
@@ -93,20 +91,7 @@ const SupplierFilters = ({
           </Select>
         </div>
 
-        {/* Рейтинг */}
-        <div>
-          <label className="text-sm font-medium mb-2 block">
-            Рейтинг: {ratingRange[0]} - {ratingRange[1]}
-          </label>
-          <Slider
-            value={ratingRange}
-            onValueChange={setRatingRange}
-            max={5}
-            min={0}
-            step={0.1}
-            className="w-full"
-          />
-        </div>
+
 
         {/* Верифицированные */}
         <div className="flex items-center space-x-2">

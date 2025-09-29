@@ -27,8 +27,7 @@ interface CatalogFiltersProps {
   setPriceFrom: (value: string) => void;
   priceTo: string;
   setPriceTo: (value: string) => void;
-  ratingFilter: number;
-  setRatingFilter: (value: number) => void;
+
   minOrderFilter: string;
   setMinOrderFilter: (value: string) => void;
   locationFilter: string;
@@ -58,8 +57,7 @@ const CatalogFilters = ({
   setPriceFrom,
   priceTo,
   setPriceTo,
-  ratingFilter,
-  setRatingFilter,
+
   minOrderFilter,
   setMinOrderFilter,
   locationFilter,
@@ -72,7 +70,7 @@ const CatalogFilters = ({
   const [openSections, setOpenSections] = useState({
     category: true,
     price: true,
-    rating: true,
+
     order: true,
     location: true,
     options: true,
@@ -98,7 +96,7 @@ const CatalogFilters = ({
     customOrderOnly ||
     priceFrom !== "" ||
     priceTo !== "" ||
-    ratingFilter !== 0 ||
+
     minOrderFilter !== "all" ||
     locationFilter !== "all";
 
@@ -213,33 +211,7 @@ const CatalogFilters = ({
           </CollapsibleContent>
         </Collapsible>
 
-        {/* Рейтинг */}
-        <Collapsible open={openSections.rating} onOpenChange={() => toggleSection('rating')}>
-          <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
-            <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="Star" size={16} className="mr-2 text-yellow-600" />
-              Минимальный рейтинг
-            </span>
-            <Icon 
-              name={openSections.rating ? "ChevronUp" : "ChevronDown"} 
-              size={16} 
-              className="text-gray-400 transition-transform duration-200" 
-            />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="mt-3">
-            <Select value={ratingFilter.toString()} onValueChange={(value) => setRatingFilter(Number(value))}>
-              <SelectTrigger className="border-gray-200 focus:border-blue-500">
-                <SelectValue placeholder="Любой рейтинг" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">Любой рейтинг</SelectItem>
-                <SelectItem value="4">⭐ 4.0 и выше</SelectItem>
-                <SelectItem value="4.5">⭐ 4.5 и выше</SelectItem>
-                <SelectItem value="4.8">⭐ 4.8 и выше</SelectItem>
-              </SelectContent>
-            </Select>
-          </CollapsibleContent>
-        </Collapsible>
+
 
         {/* Минимальный заказ */}
         <Collapsible open={openSections.order} onOpenChange={() => toggleSection('order')}>

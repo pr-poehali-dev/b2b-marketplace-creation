@@ -13,8 +13,8 @@ export const productsData: Product[] = [
     unit: "за тонну",
     minOrder: "5 тонн",
     available: "120 тонн",
-    rating: 4.9,
-    reviews: 127,
+
+
     inStock: true,
     discount: 5,
     fastDelivery: true,
@@ -33,8 +33,8 @@ export const productsData: Product[] = [
     unit: "за тонну",
     minOrder: "20 тонн",
     available: "500+ тонн",
-    rating: 4.8,
-    reviews: 89,
+
+
     inStock: true,
     region: "Санкт-Петербург",
     description: "Портландцемент высокого качества для строительных работ"
@@ -51,8 +51,8 @@ export const productsData: Product[] = [
     unit: "за комплект",
     minOrder: "50 комплектов",
     available: "2,000+ шт",
-    rating: 4.6,
-    reviews: 234,
+
+
     inStock: true,
     discount: 11,
     fastDelivery: true,
@@ -70,8 +70,8 @@ export const productsData: Product[] = [
     unit: "за м²",
     minOrder: "200 м²",
     available: "5,000+ м²",
-    rating: 4.7,
-    reviews: 156,
+
+
     inStock: true,
     region: "Новосибирск",
     description: "Долговечный профнастил с полимерным покрытием"
@@ -88,7 +88,7 @@ export const productsData: Product[] = [
     minOrder: "1,000 штук",
     available: "50,000+ штук",
     rating: 4.4,
-    reviews: 203,
+
     inStock: true,
     region: "Казань",
     description: "Прочная гофрированная упаковка для транспортировки"
@@ -104,7 +104,7 @@ export const productsData: Product[] = [
     unit: "за бухту",
     minOrder: "10 бухт",
     available: "300+ бухт",
-    rating: 4.8,
+
     reviews: 94,
     inStock: true,
     region: "Нижний Новгород",
@@ -141,7 +141,7 @@ export const productsData: Product[] = [
     unit: "за комплект (50 шт)",
     minOrder: "100 комплектов",
     available: "2,000+ комплектов",
-    rating: 4.6,
+
     reviews: 142,
     inStock: false,
     region: "Краснодар",
@@ -160,7 +160,7 @@ export const productsData: Product[] = [
     minOrder: "50 катушек",
     available: "1,000+ катушек",
     rating: 4.3,
-    reviews: 98,
+
     inStock: true,
     discount: 13,
     region: "Воронеж",
@@ -177,8 +177,8 @@ export const productsData: Product[] = [
     unit: "за м²",
     minOrder: "100 м²",
     available: "1,500+ м²",
-    rating: 4.5,
-    reviews: 89,
+
+
     inStock: true,
     region: "Самара",
     description: "Износостойкая керамическая плитка для стен и пола"
@@ -195,7 +195,7 @@ export const productsData: Product[] = [
     minOrder: "20 рулонов",
     available: "200+ рулонов",
     rating: 4.1,
-    reviews: 67,
+
     inStock: true,
     region: "Пермь",
     description: "Прочная полиэтиленовая пленка для технических нужд"
@@ -212,7 +212,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "10 штук",
     available: "80+ штук",
-    rating: 4.7,
+
     reviews: 124,
     inStock: true,
     discount: 11,
@@ -230,8 +230,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "10 штук",
     available: "150+ штук",
-    rating: 4.5,
-    reviews: 89,
+
+
     inStock: true,
     region: "Уфа",
     description: "Качественный смеситель с керамическим картриджем"
@@ -248,7 +248,7 @@ export const productsData: Product[] = [
     unit: "за комплект",
     minOrder: "5 комплектов",
     available: "60+ комплектов",
-    rating: 4.6,
+
     reviews: 112,
     inStock: true,
     discount: 8,
@@ -266,8 +266,8 @@ export const productsData: Product[] = [
     unit: "за радиатор",
     minOrder: "20 радиаторов",
     available: "300+ радиаторов",
-    rating: 4.7,
-    reviews: 156,
+
+
     inStock: true,
     region: "Красноярск",
     description: "Эффективный алюминиевый радиатор с высокой теплоотдачей"
@@ -300,8 +300,8 @@ export const productsData: Product[] = [
     unit: "за комплект",
     minOrder: "50 комплектов",
     available: "500+ комплектов",
-    rating: 4.6,
-    reviews: 234,
+
+
     inStock: true,
     region: "Тюмень",
     description: "Качественные тормозные колодки для легковых автомобилей"
@@ -318,7 +318,7 @@ export const productsData: Product[] = [
     unit: "за канистру",
     minOrder: "30 канистр",
     available: "800+ канистр",
-    rating: 4.8,
+
     reviews: 345,
     inStock: true,
     discount: 11,
@@ -336,8 +336,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "10 штук",
     available: "100+ штук",
-    rating: 4.5,
-    reviews: 89,
+
+
     inStock: true,
     region: "Иркутск",
     description: "Современный офисный стол с регулировкой высоты"
@@ -354,7 +354,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "5 штук",
     available: "80+ штук",
-    rating: 4.7,
+
     reviews: 124,
     inStock: true,
     discount: 9,
@@ -389,7 +389,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "100 штук",
     available: "1,000+ штук",
-    rating: 4.6,
+
     reviews: 87,
     inStock: true,
     region: "Владивосток",
@@ -407,7 +407,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "5 штук",
     available: "60+ штук",
-    rating: 4.7,
+
     reviews: 94,
     inStock: true,
     discount: 8,
@@ -425,8 +425,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "3 штуки",
     available: "40+ штук",
-    rating: 4.5,
-    reviews: 67,
+
+
     inStock: true,
     region: "Ижевск",
     description: "Легкая и мощная газонокосилка с мульчированием"
@@ -476,7 +476,7 @@ export const productsData: Product[] = [
     unit: "за мешок",
     minOrder: "50 мешков",
     available: "1,000+ мешков",
-    rating: 4.6,
+
     reviews: 167,
     inStock: true,
     region: "Оренбург",
@@ -494,8 +494,8 @@ export const productsData: Product[] = [
     unit: "за мешок",
     minOrder: "40 мешков",
     available: "800+ мешков",
-    rating: 4.5,
-    reviews: 134,
+
+
     inStock: true,
     discount: 8,
     region: "Новокузнецк",
@@ -513,7 +513,7 @@ export const productsData: Product[] = [
     minOrder: "500 метров",
     available: "5,000+ метров",
     rating: 4.3,
-    reviews: 89,
+
     inStock: true,
     region: "Рязань",
     description: "Натуральная хлопчатобумажная ткань высокого качества"
@@ -531,7 +531,7 @@ export const productsData: Product[] = [
     minOrder: "200 катушек",
     available: "2,000+ катушек",
     rating: 4.4,
-    reviews: 156,
+
     inStock: true,
     discount: 11,
     region: "Пенза",
@@ -548,7 +548,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "20 штук",
     available: "100+ штук",
-    rating: 4.6,
+
     reviews: 145,
     inStock: true,
     region: "Липецк",
@@ -566,8 +566,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "50 штук",
     available: "300+ штук",
-    rating: 4.7,
-    reviews: 98,
+
+
     inStock: true,
     discount: 12,
     region: "Набережные Челны",
@@ -584,7 +584,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "30 штук",
     available: "500+ штук",
-    rating: 4.5,
+
     reviews: 187,
     inStock: true,
     region: "Астрахань",
@@ -602,7 +602,7 @@ export const productsData: Product[] = [
     unit: "за комплект",
     minOrder: "10 комплектов",
     available: "80+ комплектов",
-    rating: 4.6,
+
     reviews: 124,
     inStock: true,
     discount: 10,
@@ -621,8 +621,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "3 штуки",
     available: "25+ штук",
-    rating: 4.7,
-    reviews: 89,
+
+
     inStock: true,
     discount: 8,
     region: "Курск",
@@ -640,7 +640,7 @@ export const productsData: Product[] = [
     minOrder: "10 штук",
     available: "60+ штук",
     rating: 4.4,
-    reviews: 156,
+
     inStock: false,
     region: "Тверь",
     description: "Многофункциональная микроволновая печь с грилем и конвекцией"
@@ -656,7 +656,7 @@ export const productsData: Product[] = [
     unit: "за набор",
     minOrder: "50 наборов",
     available: "300+ наборов",
-    rating: 4.6,
+
     reviews: 245,
     inStock: true,
     region: "Брянск",
@@ -674,7 +674,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "20 штук",
     available: "150+ штук",
-    rating: 4.5,
+
     reviews: 167,
     inStock: true,
     discount: 10,
@@ -711,7 +711,7 @@ export const productsData: Product[] = [
     minOrder: "50 флаконов",
     available: "2,000+ флаконов",
     rating: 4.4,
-    reviews: 234,
+
     inStock: true,
     discount: 13,
     region: "Архангельск",
@@ -728,7 +728,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "5 штук",
     available: "120+ штук",
-    rating: 4.7,
+
     reviews: 145,
     inStock: true,
     region: "Владимир",
@@ -746,8 +746,8 @@ export const productsData: Product[] = [
     unit: "за набор",
     minOrder: "20 наборов",
     available: "300+ наборов",
-    rating: 4.6,
-    reviews: 89,
+
+
     inStock: true,
     discount: 12,
     region: "Сочи",
@@ -764,8 +764,8 @@ export const productsData: Product[] = [
     unit: "за мешок",
     minOrder: "20 мешков",
     available: "400+ мешков",
-    rating: 4.8,
-    reviews: 234,
+
+
     inStock: true,
     region: "Калуга",
     description: "Сбалансированный корм для собак с натуральными ингредиентами"
@@ -800,8 +800,8 @@ export const productsData: Product[] = [
     unit: "за комплект",
     minOrder: "200 комплектов",
     available: "5,000+ комплектов",
-    rating: 4.5,
-    reviews: 98,
+
+
     inStock: true,
     region: "Тула",
     description: "Комплект учебников по математике с рабочими тетрадями"
@@ -837,8 +837,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "3 штуки",
     available: "50+ штук",
-    rating: 4.7,
-    reviews: 89,
+
+
     inStock: true,
     discount: 6,
     region: "Чебоксары",
@@ -855,8 +855,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "10 штук",
     available: "150+ штук",
-    rating: 4.5,
-    reviews: 156,
+
+
     inStock: true,
     region: "Калининград",
     description: "Профессиональный монитор с IPS-матрицей"
@@ -873,8 +873,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "3 штуки",
-    rating: 4.9,
-    reviews: 45,
+
+
     inStock: true,
     discount: 8,
     region: "Новосибирск",
@@ -892,7 +892,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "2 штуки",
-    rating: 4.8,
+
     reviews: 32,
     inStock: true,
     region: "Казань",
@@ -910,7 +910,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "5 штук",
-    rating: 4.7,
+
     reviews: 28,
     inStock: true,
     discount: 12,
@@ -929,7 +929,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "3 штуки",
-    rating: 4.6,
+
     reviews: 19,
     inStock: true,
     region: "Ростов-на-Дону",
@@ -947,8 +947,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "2 штуки",
     available: "15 штук",
-    rating: 4.5,
-    reviews: 67,
+
+
     inStock: true,
     discount: 10,
     region: "Краснодар",
@@ -965,7 +965,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "8 штук",
-    rating: 4.8,
+
     reviews: 41,
     inStock: true,
     region: "Воронеж",
@@ -983,7 +983,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "4 штуки",
-    rating: 4.9,
+
     reviews: 25,
     inStock: true,
     discount: 8,
@@ -1002,8 +1002,8 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "12 штук",
-    rating: 4.7,
-    reviews: 89,
+
+
     inStock: true,
     region: "Пермь",
     description: "Инверторный генератор мощностью 3 кВт для чувствительной техники"
@@ -1019,7 +1019,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "6 штук",
-    rating: 4.6,
+
     reviews: 34,
     inStock: true,
     region: "Челябинск",
@@ -1055,7 +1055,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "2 штуки",
-    rating: 4.9,
+
     reviews: 15,
     inStock: true,
     region: "Волгоград",
@@ -1073,7 +1073,7 @@ export const productsData: Product[] = [
     unit: "за штуку",
     minOrder: "1 штука",
     available: "4 штуки",
-    rating: 4.8,
+
     reviews: 23,
     inStock: true,
     discount: 10,

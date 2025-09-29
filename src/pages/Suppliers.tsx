@@ -18,7 +18,7 @@ const Suppliers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [verifiedOnly, setVerifiedOnly] = useState(false);
-  const [ratingRange, setRatingRange] = useState([0, 5]);
+
   const [regionFilter, setRegionFilter] = useState("all");
   const [sortBy, setSortBy] = useState("name");
   const [selectedSupplier, setSelectedSupplier] = useState(null);
@@ -31,7 +31,7 @@ const Suppliers = () => {
     verified: suppliers.filter(s => s.verified).length,
     categories: [...new Set(suppliers.map(s => s.category))].length,
     regions: [...new Set(suppliers.map(s => s.region))].length,
-    averageRating: (suppliers.reduce((sum, s) => sum + s.rating, 0) / suppliers.length).toFixed(1),
+
     totalProducts: suppliers.reduce((sum, s) => sum + s.products, 0)
   };
 
@@ -42,21 +42,19 @@ const Suppliers = () => {
                            supplier.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = categoryFilter === "all" || supplier.category === categoryFilter;
       const matchesVerified = !verifiedOnly || supplier.verified;
-      const matchesRating = supplier.rating >= ratingRange[0] && supplier.rating <= ratingRange[1];
+      const matchesRating = true;
       const matchesRegion = regionFilter === "all" || supplier.region === regionFilter;
       
       return matchesSearch && matchesCategory && matchesVerified && matchesRating && matchesRegion;
     })
     .sort((a, b) => {
       switch (sortBy) {
-        case "rating":
-          return b.rating - a.rating;
+
         case "products":
           return b.products - a.products;
         case "experience":
           return b.experience - a.experience;
-        case "reviews":
-          return b.reviewsCount - a.reviewsCount;
+
         case "name":
         default:
           return a.name.localeCompare(b.name);
@@ -71,7 +69,7 @@ const Suppliers = () => {
     setSearchQuery("");
     setCategoryFilter("all");
     setVerifiedOnly(false);
-    setRatingRange([0, 5]);
+
     setRegionFilter("all");
     setSortBy("name");
   };
@@ -107,10 +105,7 @@ const Suppliers = () => {
                 <div className="text-2xl font-bold">{supplierStats.regions}</div>
                 <div className="text-sm text-blue-100">Регионов</div>
               </div>
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                <div className="text-2xl font-bold">{supplierStats.averageRating}</div>
-                <div className="text-sm text-blue-100">Средний рейтинг</div>
-              </div>
+
             </div>
           </div>
 
@@ -146,8 +141,7 @@ const Suppliers = () => {
                     setCategoryFilter={setCategoryFilter}
                     verifiedOnly={verifiedOnly}
                     setVerifiedOnly={setVerifiedOnly}
-                    ratingRange={ratingRange}
-                    setRatingRange={setRatingRange}
+
                     regionFilter={regionFilter}
                     setRegionFilter={setRegionFilter}
                     categories={categories}
@@ -172,10 +166,10 @@ const Suppliers = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="name">По названию</SelectItem>
-                          <SelectItem value="rating">По рейтингу</SelectItem>
+
                           <SelectItem value="products">По количеству товаров</SelectItem>
                           <SelectItem value="experience">По опыту работы</SelectItem>
-                          <SelectItem value="reviews">По отзывам</SelectItem>
+
                         </SelectContent>
                       </Select>
                     </div>

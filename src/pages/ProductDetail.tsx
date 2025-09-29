@@ -186,25 +186,7 @@ const ProductDetail = () => {
                   {product.name}
                 </h1>
                 
-                {/* Рейтинг и отзывы */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Icon 
-                        key={i}
-                        name="Star" 
-                        size={16} 
-                        className={`${
-                          i < Math.floor(product.rating) 
-                            ? 'text-yellow-400 fill-current' 
-                            : 'text-gray-300'
-                        }`}
-                      />
-                    ))}
-                    <span className="font-medium ml-2">{product.rating}</span>
-                  </div>
-                  <span className="text-gray-500">({product.reviews} отзывов)</span>
-                </div>
+
 
                 {/* Продавец */}
                 <div className="flex items-center gap-3">
@@ -379,11 +361,7 @@ const ProductDetail = () => {
                       <h3 className="font-semibold mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
                         {relatedProduct.name}
                       </h3>
-                      <div className="flex items-center gap-1 mb-2">
-                        <Icon name="Star" size={12} className="text-yellow-400 fill-current" />
-                        <span className="text-sm">{relatedProduct.rating}</span>
-                        <span className="text-xs text-gray-500">({relatedProduct.reviews})</span>
-                      </div>
+
                       <div className="flex items-baseline gap-2">
                         <span className="text-lg font-bold text-blue-600">
                           {relatedProduct.price.toLocaleString('ru-RU')} ₽

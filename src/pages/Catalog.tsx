@@ -46,7 +46,7 @@ const Catalog = () => {
   const [customOrderOnly, setCustomOrderOnly] = useState(() => getFromLocalStorage('customOrderOnly', false));
   const [priceFrom, setPriceFrom] = useState(() => getFromLocalStorage('priceFrom', ''));
   const [priceTo, setPriceTo] = useState(() => getFromLocalStorage('priceTo', ''));
-  const [ratingFilter, setRatingFilter] = useState(() => getFromLocalStorage('ratingFilter', 0));
+
   const [minOrderFilter, setMinOrderFilter] = useState(() => getFromLocalStorage('minOrderFilter', 'all'));
   const [locationFilter, setLocationFilter] = useState(() => getFromLocalStorage('locationFilter', 'all'));
   const [sortBy, setSortBy] = useState(() => getFromLocalStorage('sortBy', 'name'));
@@ -110,7 +110,7 @@ const Catalog = () => {
   }, [priceTo]);
 
   useEffect(() => {
-    saveToLocalStorage('ratingFilter', ratingFilter);
+
   }, [ratingFilter]);
 
   useEffect(() => {
@@ -228,7 +228,7 @@ const Catalog = () => {
     setCustomOrderOnly(false);
     setPriceFrom('');
     setPriceTo('');
-    setRatingFilter(0);
+
     setMinOrderFilter("all");
     setLocationFilter("all");
     setSortBy("name");

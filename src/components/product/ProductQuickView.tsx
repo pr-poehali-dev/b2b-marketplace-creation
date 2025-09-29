@@ -18,7 +18,7 @@ interface Product {
   gallery_images?: string[];
   stock_quantity: number;
   supplier_name?: string;
-  rating?: number;
+
 
   is_featured?: boolean;
   created_at: string;
@@ -130,14 +130,7 @@ export default function ProductQuickView({
 
           {/* Информация о товаре */}
           <div className="space-y-4">
-            {/* Рейтинг */}
-            {product.rating && (
-              <ProductRating 
-                rating={product.rating} 
-                reviewCount={product.review_count}
-                size="md"
-              />
-            )}
+
 
             {/* Цена */}
             <div className="space-y-2">

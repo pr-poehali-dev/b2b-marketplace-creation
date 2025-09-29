@@ -24,7 +24,7 @@ const ProductsSection = () => {
       unit: "за тонну",
       minOrder: "5 тонн",
       available: "120 тонн",
-      rating: 4.9
+
     },
     {
       id: 2,
@@ -37,7 +37,7 @@ const ProductsSection = () => {
       unit: "за тонну",
       minOrder: "20 тонн",
       available: "500+ тонн",
-      rating: 4.8
+
     },
     {
       id: 3,
@@ -63,7 +63,7 @@ const ProductsSection = () => {
       unit: "за м²",
       minOrder: "200 м²",
       available: "5,000+ м²",
-      rating: 4.7
+
     },
     {
       id: 5,
@@ -89,7 +89,7 @@ const ProductsSection = () => {
       unit: "за бухту",
       minOrder: "10 бухт",
       available: "200+ бухт",
-      rating: 4.9
+
     }
   ];
 
@@ -99,14 +99,14 @@ const ProductsSection = () => {
       verified: true,
       category: "Металлургия",
       products: "150+ товаров",
-      rating: 4.8
+
     },
     {
       name: "АО \"СтройМатериалы Регион\"",
       verified: true,
       category: "Строительство",
       products: "320+ товаров",
-      rating: 4.9
+
     },
     {
       name: "ИП Петров А.В.\"",
@@ -176,10 +176,7 @@ const ProductsSection = () => {
                           )}
                         </div>
                         <p className="text-sm text-gray-600">{supplier.category} • {supplier.products}</p>
-                        <div className="flex items-center gap-1">
-                          <Icon name="Star" size={16} className="text-yellow-400 fill-current" />
-                          <span className="text-sm font-medium">{supplier.rating}</span>
-                        </div>
+
                       </div>
                       <Button variant="outline" size="sm">
                         Связаться
@@ -317,12 +314,7 @@ const ProductsSection = () => {
                         )}
                       </div>
 
-                      {/* Rating */}
-                      <div className="flex items-center gap-1 mb-3">
-                        <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
-                        <span className="text-sm font-medium">{product.rating}</span>
-                        <span className="text-xs text-gray-500">(отзывы)</span>
-                      </div>
+
                     </div>
 
                     {/* Price */}

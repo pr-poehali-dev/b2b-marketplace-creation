@@ -8,8 +8,8 @@ export const suppliersData = [
     category: "Металлопрокат",
     region: "Москва",
     verified: true,
-    rating: 4.9,
-    reviewsCount: 156,
+
+
     products: 350,
     experience: 12,
     foundedYear: 2012,
@@ -42,7 +42,7 @@ export const suppliersData = [
     category: "Стройматериалы",
     region: "Санкт-Петербург",
     verified: true,
-    rating: 4.8,
+
     reviewsCount: 203,
     products: 520,
     experience: 8,
@@ -76,8 +76,8 @@ export const suppliersData = [
     category: "Электроника",
     region: "Новосибирск",
     verified: false,
-    rating: 4.6,
-    reviewsCount: 89,
+
+
     products: 180,
     experience: 5,
     foundedYear: 2019,
@@ -109,8 +109,8 @@ export const suppliersData = [
     category: "Стройматериалы",
     region: "Екатеринбург",
     verified: true,
-    rating: 4.7,
-    reviewsCount: 134,
+
+
     products: 280,
     experience: 15,
     foundedYear: 2009,
