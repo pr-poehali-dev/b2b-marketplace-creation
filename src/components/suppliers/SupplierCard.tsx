@@ -52,11 +52,6 @@ const SupplierCard = ({ supplier, onViewDetails }: SupplierCardProps) => {
               </div>
               
               <div className="text-right">
-                <div className="flex items-center gap-1 mb-2">
-                  <Icon name="Star" size={16} className="text-yellow-400 fill-current" />
-                  <span className="font-semibold">{supplier.rating}</span>
-                  <span className="text-sm text-gray-500">({supplier.reviewsCount})</span>
-                </div>
                 <p className="text-sm text-gray-600">{supplier.products} товаров</p>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import ProductRating from './ProductRating';
+
 import ProductBadges from './ProductBadges';
 import ProductQuickView from './ProductQuickView';
 
@@ -19,7 +19,7 @@ interface Product {
   stock_quantity: number;
   supplier_name?: string;
   rating?: number;
-  review_count?: number;
+
   is_featured?: boolean;
   created_at: string;
   category_name?: string;
@@ -54,7 +54,7 @@ export default function RecommendedProducts({
       setLoading(true);
       
       // Получаем рекомендованные товары
-      let url = 'https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39';
+      const url = 'https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39';
       const params = new URLSearchParams({
         status: 'active',
         limit: (limit * 2).toString() // Загружаем больше для фильтрации

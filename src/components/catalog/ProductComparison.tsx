@@ -46,8 +46,7 @@ const ProductComparison = ({
 
   const comparisonAttributes = [
     { key: 'price', label: 'Цена', format: (value: any) => `${value.toLocaleString('ru-RU')} ₽` },
-    { key: 'rating', label: 'Рейтинг', format: (value: any) => `${value}/5` },
-    { key: 'reviews', label: 'Отзывы', format: (value: any) => `${value} отзывов` },
+
     { key: 'category', label: 'Категория', format: (value: any) => value },
     { key: 'seller', label: 'Продавец', format: (value: any) => value },
     { key: 'minOrder', label: 'Мин. заказ', format: (value: any) => value },

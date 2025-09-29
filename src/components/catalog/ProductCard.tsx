@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import ProductRating from "@/components/product/ProductRating";
+
 import ProductBadges from "@/components/product/ProductBadges";
 import { useState } from 'react';
 
@@ -18,8 +18,8 @@ export interface Product {
   unit: string;
   minOrder: string;
   available: string;
-  rating: number;
-  reviews: number;
+
+
   inStock: boolean;
   discount?: number;
   description: string;
@@ -136,14 +136,7 @@ const ProductCard = ({
             )}
           </div>
 
-          {/* Рейтинг */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600">Рейтинг:</span>
-            <div className="flex items-center gap-1">
-              <Icon name="Star" size={14} className="text-yellow-400 fill-current" />
-              <span className="text-sm font-medium">{product.rating}</span>
-            </div>
-          </div>
+
 
           {/* Описание (только в режиме списка) */}
           {viewMode === 'list' && (

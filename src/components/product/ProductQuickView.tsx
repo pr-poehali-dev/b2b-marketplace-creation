@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
-import ProductRating from './ProductRating';
+
 import ProductBadges from './ProductBadges';
 
 interface Product {
@@ -19,7 +19,7 @@ interface Product {
   stock_quantity: number;
   supplier_name?: string;
   rating?: number;
-  review_count?: number;
+
   is_featured?: boolean;
   created_at: string;
 }

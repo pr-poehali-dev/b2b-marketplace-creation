@@ -80,15 +80,7 @@ const QuickViewModal = ({
 
           {/* Ключевые факты в виде тегов */}
           <div className="flex flex-wrap gap-2">
-            <div className="flex items-center gap-1 bg-gray-50 rounded-full px-2 py-1">
-              <Icon name="Star" size={12} className="text-yellow-400 fill-current" />
-              <span className="text-xs font-medium">{product.rating}</span>
-            </div>
-            
-            <div className="flex items-center gap-1 bg-gray-50 rounded-full px-2 py-1">
-              <Icon name="MessageCircle" size={12} className="text-gray-400" />
-              <span className="text-xs">{product.reviews} отзывов</span>
-            </div>
+
 
             {product.verified && (
               <div className="flex items-center gap-1 bg-green-50 rounded-full px-2 py-1">
