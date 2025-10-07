@@ -111,16 +111,11 @@ const CompanyDetail = () => {
           {/* Кнопка назад */}
           <Button 
             variant="outline" 
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              window.history.length > 2 ? navigate(-1) : navigate('/suppliers');
-            }}
+            onClick={() => navigate('/suppliers')}
             className="mb-6"
-            type="button"
           >
             <Icon name="ArrowLeft" size={16} className="mr-2" />
-            Назад
+            К списку поставщиков
           </Button>
           
           {/* Информация о компании */}
