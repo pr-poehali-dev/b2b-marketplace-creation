@@ -13,6 +13,8 @@ const RegistrationForm = () => {
   const [inn, setInn] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [companyLogo, setCompanyLogo] = useState<string | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
 
   const handleSendCode = () => {
     setStep(2);
@@ -22,13 +24,38 @@ const RegistrationForm = () => {
     setStep(3);
   };
 
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setLogoFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCompanyLogo(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Пароли не совпадают!');
       return;
     }
-    console.log('Регистрация:', { phone, fullName, email, inn, password });
+    
+    if (companyLogo) {
+      localStorage.setItem('companyLogo', companyLogo);
+    }
+    
+    const userData = {
+      phone,
+      fullName,
+      email,
+      inn,
+      companyLogo: companyLogo ? 'uploaded' : 'none'
+    };
+    
+    console.log('Регистрация:', userData);
     alert('Регистрация завершена! (демо-версия)');
   };
 
@@ -201,6 +228,53 @@ const RegistrationForm = () => {
                 maxLength={12}
               />
               <Icon name="FileText" size={18} className="absolute left-3 top-3 text-gray-400" />
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="logo" className="text-sm font-medium text-gray-700">
+              Логотип компании <span className="text-gray-400">(необязательно)</span>
+            </Label>
+            <div className="mt-2">
+              {companyLogo ? (
+                <div className="flex items-center gap-4">
+                  <img 
+                    src={companyLogo} 
+                    alt="Логотип компании" 
+                    className="w-20 h-20 rounded-lg object-cover border-2 border-gray-200"
+                  />
+                  <div className="flex-1">
+                    <p className="text-sm text-gray-600 mb-2">{logoFile?.name}</p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setCompanyLogo(null);
+                        setLogoFile(null);
+                      }}
+                    >
+                      <Icon name="Trash2" size={14} className="mr-1" />
+                      Удалить
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <label htmlFor="logo" className="flex items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary hover:bg-gray-50 transition-colors">
+                  <div className="text-center">
+                    <Icon name="Upload" size={24} className="mx-auto text-gray-400 mb-1" />
+                    <p className="text-sm text-gray-600">Нажмите для загрузки</p>
+                    <p className="text-xs text-gray-400">PNG, JPG до 5MB</p>
+                  </div>
+                  <input
+                    id="logo"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoChange}
+                    className="hidden"
+                  />
+                </label>
+              )}
             </div>
           </div>
 

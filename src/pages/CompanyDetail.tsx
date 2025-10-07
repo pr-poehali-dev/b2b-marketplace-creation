@@ -42,7 +42,7 @@ const CompanyDetail = () => {
   const company: Company = {
     id: id || '1',
     name: 'ООО «СтиллЛифт»',
-    logo: '/api/placeholder/120/120',
+    logo: localStorage.getItem('companyLogo') || '/api/placeholder/120/120',
     description: 'Ведущий поставщик подъемного оборудования и технических решений для промышленности. Более 15 лет опыта на рынке.',
     address: 'г. Москва, ул. Промышленная, д. 45, стр. 2',
     phone: '+7 (495) 123-45-67',
