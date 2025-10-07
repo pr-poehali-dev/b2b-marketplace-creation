@@ -62,7 +62,7 @@ const CompanyDetail = () => {
       id: '1',
       name: 'Кран мостовой электрический',
       price: 2850000,
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop',
       category: 'Краны',
       inStock: true,
       description: 'Электрический мостовой кран грузоподъемностью 10 тонн'
@@ -71,7 +71,7 @@ const CompanyDetail = () => {
       id: '2',
       name: 'Лебедка электрическая 5т',
       price: 180000,
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop',
       category: 'Лебедки',
       inStock: true,
       description: 'Электрическая лебедка грузоподъемностью 5 тонн'
@@ -80,7 +80,7 @@ const CompanyDetail = () => {
       id: '3',
       name: 'Таль электрическая 2т',
       price: 95000,
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1513828583688-c52646db42da?w=400&h=300&fit=crop',
       category: 'Подъемное оборудование',
       inStock: true,
       description: 'Электрическая таль грузоподъемностью 2 тонны'
@@ -89,7 +89,7 @@ const CompanyDetail = () => {
       id: '4',
       name: 'Кран козловой',
       price: 1250000,
-      image: '/api/placeholder/300/200',
+      image: 'https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=400&h=300&fit=crop',
       category: 'Краны',
       inStock: false,
       description: 'Козловой кран для открытых площадок'
