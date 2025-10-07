@@ -187,7 +187,6 @@ const CompanyDetail = () => {
             <TabsList>
               <TabsTrigger value="products">Товары ({companyProducts.length})</TabsTrigger>
               <TabsTrigger value="about">О компании</TabsTrigger>
-              <TabsTrigger value="reviews">Отзывы</TabsTrigger>
             </TabsList>
 
             <TabsContent value="products" className="space-y-4">
@@ -291,18 +290,7 @@ const CompanyDetail = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="reviews" className="space-y-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Отзывы покупателей</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 text-center py-8">
-                    Отзывы временно недоступны
-                  </p>
-                </CardContent>
-              </Card>
-            </TabsContent>
+
           </Tabs>
         </div>
       </div>
