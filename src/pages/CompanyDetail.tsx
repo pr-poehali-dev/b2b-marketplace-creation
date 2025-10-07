@@ -176,10 +176,6 @@ const CompanyDetail = () => {
                       <Icon name="Calendar" size={16} className="text-gray-500" />
                       <span>Основана в {company.founded} году</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Icon name="Users" size={16} className="text-gray-500" />
-                      <span>{company.employees} сотрудников</span>
-                    </div>
                   </div>
                 </div>
                 
