@@ -178,17 +178,6 @@ const CompanyDetail = () => {
                     </div>
                   </div>
                 </div>
-                
-                <div className="flex flex-col gap-2">
-                  <Button>
-                    <Icon name="MessageSquare" size={16} className="mr-2" />
-                    Написать
-                  </Button>
-                  <Button variant="outline">
-                    <Icon name="Phone" size={16} className="mr-2" />
-                    Позвонить
-                  </Button>
-                </div>
               </div>
             </CardContent>
           </Card>
