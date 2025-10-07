@@ -204,10 +204,7 @@ const Catalog = () => {
           return a.price - b.price;
         case "price-desc":
           return b.price - a.price;
-        case "rating":
-          return (b.rating || 0) - (a.rating || 0);
-        case "reviews":
-          return (b.reviews || 0) - (a.reviews || 0);
+
         case "name":
         default:
           return a.name.localeCompare(b.name);
@@ -328,8 +325,6 @@ const Catalog = () => {
                 setPriceFrom={setPriceFrom}
                 priceTo={priceTo}
                 setPriceTo={setPriceTo}
-                ratingFilter={ratingFilter}
-                setRatingFilter={setRatingFilter}
                 minOrderFilter={minOrderFilter}
                 setMinOrderFilter={setMinOrderFilter}
                 locationFilter={locationFilter}
