@@ -109,9 +109,7 @@ const Catalog = () => {
     saveToLocalStorage('priceTo', priceTo);
   }, [priceTo]);
 
-  useEffect(() => {
 
-  }, [ratingFilter]);
 
   useEffect(() => {
     saveToLocalStorage('minOrderFilter', minOrderFilter);
@@ -169,7 +167,7 @@ const Catalog = () => {
         const toPrice = priceTo ? parseFloat(priceTo) : Infinity;
         return product.price >= fromPrice && product.price <= toPrice;
       })();
-      const matchesRating = ratingFilter === 0 || (product.rating && product.rating >= ratingFilter);
+
       
       const matchesMinOrder = (() => {
         if (minOrderFilter === "all") return true;
@@ -196,7 +194,7 @@ const Catalog = () => {
         }
       })();
 
-      return matchesSearch && matchesCategory && matchesVerified && matchesStock && matchesDiscount && matchesFastDelivery && matchesCustomOrder && matchesPrice && matchesRating && matchesMinOrder && matchesLocation;
+      return matchesSearch && matchesCategory && matchesVerified && matchesStock && matchesDiscount && matchesFastDelivery && matchesCustomOrder && matchesPrice && matchesMinOrder && matchesLocation;
     })
     .sort((a, b) => {
       switch (sortBy) {
