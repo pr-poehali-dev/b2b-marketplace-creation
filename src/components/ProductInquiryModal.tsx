@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,6 +29,7 @@ interface ProductInquiryModalProps {
 
 const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalProps) => {
   const { addItem } = useCart();
+  const navigate = useNavigate();
   const [inquiryData, setInquiryData] = useState({
     companyName: 'ООО "Торговый дом"',
     contactName: 'Иван Иванов',
@@ -128,7 +130,13 @@ Email: ${inquiryData.email}
                   {product.name}
                 </h3>
                 <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
-                  <span className="flex items-center gap-1">
+                  <span 
+                    className="flex items-center gap-1 cursor-pointer hover:text-primary transition-colors"
+                    onClick={() => {
+                      onClose();
+                      navigate('/company/1');
+                    }}
+                  >
                     <Icon name="Building2" size={14} />
                     {product.seller}
                   </span>
