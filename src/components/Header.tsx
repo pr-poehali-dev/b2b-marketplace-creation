@@ -116,8 +116,11 @@ const Header = () => {
           <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center hover:opacity-80 transition-opacity cursor-pointer">
-              <span className="text-base sm:text-lg font-bold text-gray-900">Business Market</span>
-              <span className="hidden sm:inline text-sm text-gray-600 ml-2">платформа для бизнеса</span>
+              <img 
+                src="https://cdn.poehali.dev/files/d390678f-9197-41fb-be63-1a4fd3b285dc.png" 
+                alt="Business Market" 
+                className="h-8 sm:h-10"
+              />
             </Link>
             
             {/* Поиск товаров - только на главной странице */}
