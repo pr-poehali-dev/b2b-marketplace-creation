@@ -119,7 +119,7 @@ const Header = () => {
               <img 
                 src="https://cdn.poehali.dev/files/d390678f-9197-41fb-be63-1a4fd3b285dc.png" 
                 alt="Business Market" 
-                className="h-8 sm:h-10"
+                className="h-12 sm:h-14 w-auto"
               />
             </Link>
             
