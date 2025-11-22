@@ -13,7 +13,7 @@ const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSection
   const navigate = useNavigate();
   
   const images = [
-    { src: "https://cdn.poehali.dev/files/3695c329-17a5-435d-be4f-214ae724b86a.png", alt: "DM Business Market - Логотип компании" },
+    { src: "https://cdn.poehali.dev/files/d22951be-6be2-40b1-acbb-ff5ca41180d8.png", alt: "Business Market - Логотип компании" },
     { src: "/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg", alt: "Российские бизнес-партнеры заключают сделку" },
     { src: "/img/967a43bb-bb29-400c-ae7e-cad802988407.jpg", alt: "Современный офис с командной работой" },
     { src: "/img/a8a12200-5509-4746-826f-bafbbb74fb68.jpg", alt: "Современная логистика и склад" },
