@@ -7,20 +7,20 @@ const Logo = ({ isCollapsed = false }: LogoProps) => {
     return (
       <a href="/" className="flex items-center justify-center group">
         <img 
-          src="https://cdn.poehali.dev/files/d390678f-9197-41fb-be63-1a4fd3b285dc.png" 
+          src="https://cdn.poehali.dev/files/d22951be-6be2-40b1-acbb-ff5ca41180d8.png" 
           alt="Business Market" 
-          className="h-8 w-auto object-contain"
+          className="h-10 w-auto object-contain"
         />
       </a>
     );
   }
 
   return (
-    <a href="/" className="flex items-center justify-center">
+    <a href="/" className="flex items-center justify-center px-2">
       <img 
-        src="https://cdn.poehali.dev/files/d390678f-9197-41fb-be63-1a4fd3b285dc.png" 
+        src="https://cdn.poehali.dev/files/d22951be-6be2-40b1-acbb-ff5ca41180d8.png" 
         alt="Business Market" 
-        className="h-14 w-auto object-contain"
+        className="h-12 w-auto object-contain"
       />
     </a>
   );

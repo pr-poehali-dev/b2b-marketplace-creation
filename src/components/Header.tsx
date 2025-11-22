@@ -117,9 +117,9 @@ const Header = () => {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center hover:opacity-80 transition-opacity cursor-pointer">
               <img 
-                src="https://cdn.poehali.dev/files/d390678f-9197-41fb-be63-1a4fd3b285dc.png" 
+                src="https://cdn.poehali.dev/files/d22951be-6be2-40b1-acbb-ff5ca41180d8.png" 
                 alt="Business Market" 
-                className="h-12 sm:h-14 w-auto"
+                className="h-10 sm:h-12 w-auto"
               />
             </Link>
             
