@@ -175,7 +175,7 @@ const ProductCard = ({
         {/* Кнопки действий - всегда внизу */}
         <div className="space-y-2 pt-2 mt-auto">
             <Button 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 text-sm h-9"
+              className="w-full bg-[#0d5e3c] hover:bg-[#0a4a2f] text-white font-medium py-2 px-3 text-sm h-9"
               onClick={() => onSendInquiry(product)}
               disabled={!product.inStock}
             >
