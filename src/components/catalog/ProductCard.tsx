@@ -110,7 +110,7 @@ const ProductCard = ({
       <CardContent className={`p-5 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-between' : ''}`}>
         <div className="space-y-3 flex-1">
           {/* Название товара */}
-          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#0d5e3c] transition-colors">
             {product.name}
           </h3>
           
@@ -146,7 +146,7 @@ const ProductCard = ({
           <div className="border-t pt-3">
             {/* Цена */}
             <div className="flex items-baseline gap-2 mb-3">
-              <span className="text-2xl font-bold text-blue-600">
+              <span className="text-2xl font-bold text-[#0d5e3c]">
                 {product.price.toLocaleString('ru-RU')} ₽
               </span>
               <span className="text-sm text-gray-500">{product.unit}</span>
