@@ -192,7 +192,7 @@ const Header = () => {
           isActive={isActive}
           setIsHovered={setIsHovered}
           isPinned={isPinned}
-          setIsPinned={handlePinToggle}
+          setIsPinned={setIsPinned}
         />
       </header>
 
