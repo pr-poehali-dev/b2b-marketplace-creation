@@ -20,7 +20,7 @@ const Logo = ({ isCollapsed = false }: LogoProps) => {
       <img 
         src="https://cdn.poehali.dev/files/47ce7a0d-d1f6-4559-a5a7-93e3193062da.png" 
         alt="Business Market" 
-        className="h-16 w-auto object-contain"
+        className="h-24 w-auto object-contain"
       />
     </a>
   );
