@@ -115,13 +115,6 @@ const Header = () => {
         }`}>
           <div className="container mx-auto px-4 py-4 max-w-none">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity cursor-pointer">
-              <img 
-                src="https://cdn.poehali.dev/files/47ce7a0d-d1f6-4559-a5a7-93e3193062da.png" 
-                alt="Business Market" 
-                className="h-10 sm:h-12 w-auto"
-              />
-            </Link>
             
             {/* Поиск товаров - только на главной странице */}
             {location.pathname === '/' && (
