@@ -10,111 +10,86 @@ interface SupplierCardProps {
 
 const SupplierCard = ({ supplier, onViewDetails }: SupplierCardProps) => {
   return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardContent className="p-6">
-        <div className="flex items-start gap-6">
+    <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.01] border-l-4 border-l-primary/30">
+      <CardContent className="p-5">
+        <div className="flex items-start gap-4">
           <img 
             src={supplier.logo} 
             alt={supplier.name}
-            className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+            className="w-16 h-16 object-cover rounded-xl flex-shrink-0 ring-2 ring-gray-100"
           />
           
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-xl font-bold text-gray-900">{supplier.name}</h3>
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-lg font-bold text-gray-900">{supplier.name}</h3>
                   {supplier.verified && (
-                    <Badge variant="default" className="text-xs bg-green-100 text-green-700">
+                    <Badge variant="default" className="text-xs bg-primary/10 text-primary border-primary/20">
                       <Icon name="CheckCircle" size={12} className="mr-1" />
                       Верифицирован
                     </Badge>
                   )}
+                  <Badge variant="outline" className="text-xs ml-auto">
+                    {supplier.products} товаров
+                  </Badge>
                 </div>
-                <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                <div className="flex items-center gap-3 text-xs text-gray-500">
                   <span className="flex items-center">
-                    <Icon name="MapPin" size={14} className="mr-1" />
+                    <Icon name="MapPin" size={12} className="mr-1" />
                     {supplier.region}
                   </span>
                   <span className="flex items-center">
-                    <Icon name="Tag" size={14} className="mr-1" />
+                    <Icon name="Tag" size={12} className="mr-1" />
                     {supplier.category}
                   </span>
                   <span className="flex items-center">
-                    <Icon name="Calendar" size={14} className="mr-1" />
-                    {supplier.experience} лет опыта
+                    <Icon name="Calendar" size={12} className="mr-1" />
+                    {supplier.experience} лет
                   </span>
-                  <span className="flex items-center">
-                    <Icon name="Users" size={14} className="mr-1" />
-                    {supplier.employeesCount} сотрудников
-                  </span>
-                </div>
-              </div>
-              
-              <div className="text-right">
-                <p className="text-sm text-gray-600">{supplier.products} товаров</p>
-              </div>
-            </div>
-
-            <p className="text-gray-700 mb-4">{supplier.description}</p>
-
-            <div className="grid md:grid-cols-3 gap-4 mb-4">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Специализация:</h4>
-                <div className="flex flex-wrap gap-2">
-                  {supplier.specializations.slice(0, 3).map((spec: string) => (
-                    <Badge key={spec} variant="outline" className="text-xs">
-                      {spec}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Минимальный заказ:</h4>
-                <p className="text-sm text-gray-600">
-                  {supplier.minOrder.toLocaleString('ru-RU')} ₽
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Сертификаты:</h4>
-                <div className="flex flex-wrap gap-1">
-                  {supplier.certifications.slice(0, 2).map((cert: string) => (
-                    <Badge key={cert} variant="secondary" className="text-xs">
-                      {cert}
-                    </Badge>
-                  ))}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t">
-              <div className="flex items-center gap-4 text-sm text-gray-600">
+            <p className="text-sm text-gray-600 mb-3 line-clamp-2">{supplier.description}</p>
+
+            <div className="flex items-center gap-6 mb-3 text-xs">
+              <div className="flex items-center gap-1 text-gray-600">
+                <Icon name="Package" size={14} className="text-primary" />
+                <span className="font-medium">От {supplier.minOrder.toLocaleString('ru-RU')} ₽</span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {supplier.specializations.slice(0, 2).map((spec: string) => (
+                  <Badge key={spec} variant="secondary" className="text-xs">
+                    {spec}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-3 border-t">
+              <div className="flex items-center gap-3 text-xs text-gray-500">
                 <span className="flex items-center">
-                  <Icon name="Phone" size={14} className="mr-1" />
+                  <Icon name="Phone" size={12} className="mr-1" />
                   {supplier.phone}
                 </span>
                 <span className="flex items-center">
-                  <Icon name="Mail" size={14} className="mr-1" />
+                  <Icon name="Mail" size={12} className="mr-1" />
                   {supplier.email}
-                </span>
-                <span className="flex items-center">
-                  <Icon name="Warehouse" size={14} className="mr-1" />
-                  {supplier.warehouse}
                 </span>
               </div>
               
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
-                  <Icon name="MessageCircle" size={16} className="mr-2" />
+                <Button variant="outline" size="sm" className="h-8 text-xs">
+                  <Icon name="MessageCircle" size={14} className="mr-1" />
                   Написать
                 </Button>
                 <Button 
                   size="sm"
                   onClick={() => onViewDetails(supplier)}
+                  className="h-8 text-xs bg-primary hover:bg-primary/90"
                 >
-                  <Icon name="Eye" size={16} className="mr-2" />
+                  <Icon name="Eye" size={14} className="mr-1" />
                   Подробнее
                 </Button>
               </div>

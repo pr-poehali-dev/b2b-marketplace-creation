@@ -85,27 +85,30 @@ const Suppliers = () => {
       <div className="ml-56 transition-all duration-300">
         <div className="container mx-auto px-4 py-8">
           {/* Hero Section */}
-          <div className="bg-gradient-to-r from-primary to-primary/80 text-white rounded-2xl p-8 mb-8">
-            <h1 className="text-4xl font-bold mb-4">База поставщиков Business Market</h1>
-            <p className="text-xl mb-6 text-white/80">
-              Найдите надежных партнеров среди {supplierStats.total} проверенных поставщиков
-            </p>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                <div className="text-2xl font-bold">{supplierStats.verified}</div>
-                <div className="text-sm text-white/80">Верифицированных</div>
+          <div className="bg-gradient-to-r from-primary to-primary/80 text-white rounded-xl p-6 mb-6 shadow-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold mb-2">База поставщиков Business Market</h1>
+                <p className="text-base text-white/80">
+                  Найдите надежных партнеров среди {supplierStats.total} проверенных поставщиков
+                </p>
               </div>
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                <div className="text-2xl font-bold">{supplierStats.categories}</div>
-                <div className="text-sm text-white/80">Категорий товаров</div>
+              
+              {/* Stats */}
+              <div className="flex gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{supplierStats.verified}</div>
+                  <div className="text-xs text-white/70">Верифицированных</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{supplierStats.categories}</div>
+                  <div className="text-xs text-white/70">Категорий</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{supplierStats.regions}</div>
+                  <div className="text-xs text-white/70">Регионов</div>
+                </div>
               </div>
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                <div className="text-2xl font-bold">{supplierStats.regions}</div>
-                <div className="text-sm text-white/80">Регионов</div>
-              </div>
-
             </div>
           </div>
 
