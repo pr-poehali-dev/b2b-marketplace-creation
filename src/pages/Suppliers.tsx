@@ -85,9 +85,9 @@ const Suppliers = () => {
       <div className="ml-56 transition-all duration-300">
         <div className="container mx-auto px-4 py-8">
           {/* Hero Section */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl p-8 mb-8">
+          <div className="bg-gradient-to-r from-primary to-primary/80 text-white rounded-2xl p-8 mb-8">
             <h1 className="text-4xl font-bold mb-4">База поставщиков Business Market</h1>
-            <p className="text-xl mb-6 text-blue-100">
+            <p className="text-xl mb-6 text-white/80">
               Найдите надежных партнеров среди {supplierStats.total} проверенных поставщиков
             </p>
             
@@ -95,15 +95,15 @@ const Suppliers = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
                 <div className="text-2xl font-bold">{supplierStats.verified}</div>
-                <div className="text-sm text-blue-100">Верифицированных</div>
+                <div className="text-sm text-white/80">Верифицированных</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
                 <div className="text-2xl font-bold">{supplierStats.categories}</div>
-                <div className="text-sm text-blue-100">Категорий товаров</div>
+                <div className="text-sm text-white/80">Категорий товаров</div>
               </div>
               <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
                 <div className="text-2xl font-bold">{supplierStats.regions}</div>
-                <div className="text-sm text-blue-100">Регионов</div>
+                <div className="text-sm text-white/80">Регионов</div>
               </div>
 
             </div>
