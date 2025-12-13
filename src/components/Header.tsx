@@ -113,7 +113,7 @@ const Header = () => {
           <div className="flex items-center justify-between">
             
             {/* Поиск товаров - только на главной странице */}
-            {location.pathname === '/' && (
+            {location.pathname === '/' ? (
               <div className="flex-1 max-w-2xl mx-8 hidden md:block relative">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -189,6 +189,8 @@ const Header = () => {
                 </div>
               )}
               </div>
+            ) : (
+              <div className="flex-1"></div>
             )}
             
             <UserProfile 
