@@ -16,6 +16,7 @@ const PricingPage = () => {
       monthlyPrice: 990,
       annualPrice: 9900,
       features: [
+        "3 месяца бесплатно",
         "До 100 товаров в каталоге",
         "До 50 заказов в месяц",
         "Базовая аналитика",
@@ -32,6 +33,7 @@ const PricingPage = () => {
       monthlyPrice: 2490,
       annualPrice: 24900,
       features: [
+        "3 месяца бесплатно",
         "До 1000 товаров в каталоге",
         "Неограниченное количество заказов",
         "Расширенная аналитика",
@@ -43,28 +45,7 @@ const PricingPage = () => {
         "API доступ"
       ],
       popular: true,
-      color: "border-blue-500 ring-2 ring-blue-200"
-    },
-    {
-      name: "Корпоративный",
-      description: "Для крупных компаний",
-      monthlyPrice: 4990,
-      annualPrice: 49900,
-      features: [
-        "Неограниченное количество товаров",
-        "Неограниченное количество заказов",
-        "Полная аналитика и отчетность",
-        "24/7 поддержка",
-        "Мобильное приложение",
-        "Интеграция с 1С",
-        "CRM система",
-        "Автоматизация процессов",
-        "API доступ",
-        "Персональный менеджер",
-        "Настройка под ваши потребности"
-      ],
-      popular: false,
-      color: "border-gray-200"
+      color: "border-primary ring-2 ring-primary/20"
     }
   ];
 
@@ -95,7 +76,7 @@ const PricingPage = () => {
               <button
                 onClick={() => setIsAnnual(!isAnnual)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  isAnnual ? 'bg-blue-600' : 'bg-gray-200'
+                  isAnnual ? 'bg-primary' : 'bg-gray-200'
                 }`}
               >
                 <span
@@ -116,12 +97,12 @@ const PricingPage = () => {
           </div>
 
           {/* Тарифные планы */}
-          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {plans.map((plan, index) => (
               <Card key={index} className={`relative ${plan.color} ${plan.popular ? 'scale-105' : ''}`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <Badge className="bg-blue-600 text-white px-4 py-1">
+                    <Badge className="bg-primary text-white px-4 py-1">
                       Популярный
                     </Badge>
                   </div>
@@ -159,7 +140,7 @@ const PricingPage = () => {
                   <Button 
                     className={`w-full ${
                       plan.popular 
-                        ? 'bg-blue-600 hover:bg-blue-700' 
+                        ? 'bg-primary hover:bg-primary/90' 
                         : 'bg-gray-900 hover:bg-gray-800'
                     }`}
                   >
@@ -220,23 +201,23 @@ const PricingPage = () => {
           </div>
 
           {/* Призыв к действию */}
-          <div className="mt-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-center text-white">
+          <div className="mt-16 bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 text-center text-white">
             <h2 className="text-3xl font-bold mb-4">
               Готовы начать?
             </h2>
-            <p className="text-xl mb-6 text-blue-100">
+            <p className="text-xl mb-6 text-white/80">
               Присоединяйтесь к тысячам успешных предпринимателей
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 variant="secondary" 
-                className="bg-white text-blue-600 hover:bg-gray-100"
+                className="bg-white text-primary hover:bg-gray-100"
               >
                 Попробовать бесплатно
               </Button>
               <Button 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-blue-600"
+                className="border-white text-white hover:bg-white hover:text-primary"
               >
                 Связаться с нами
               </Button>
