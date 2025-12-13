@@ -106,14 +106,14 @@ const Header = () => {
             
             {/* Поиск товаров - только на главной странице */}
             {location.pathname === '/' && (
-              <div className="flex-1 max-w-md mx-8 hidden md:block relative">
+              <div className="flex-1 max-w-2xl mx-8 hidden md:block relative">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Icon name="Search" size={20} className="text-gray-400" />
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Icon name="Search" size={22} className="text-gray-400" />
                 </div>
                 <input
                   type="text"
-                  placeholder="Поиск товаров..."
+                  placeholder="Найти товары, бренды, категории..."
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onKeyPress={(e) => {
@@ -124,32 +124,32 @@ const Header = () => {
                   }}
                   onFocus={() => searchQuery && setShowSearchDropdown(true)}
                   onBlur={() => setTimeout(() => setShowSearchDropdown(false), 200)}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="block w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl leading-5 bg-white/80 backdrop-blur-sm placeholder-gray-400 focus:outline-none focus:placeholder-gray-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-base transition-all duration-200 shadow-sm hover:shadow-md hover:border-gray-300"
                 />
                 
                 {/* Загрузчик */}
                 {searchLoading && (
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                    <Icon name="Loader2" size={16} className="text-gray-400 animate-spin" />
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                    <Icon name="Loader2" size={20} className="text-blue-500 animate-spin" />
                   </div>
                 )}
               </div>
               
               {/* Выпадающий список результатов */}
               {showSearchDropdown && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-2xl z-[9999] max-h-80 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] max-h-96 overflow-y-auto">
                   {searchResults.map((product) => (
                     <button
                       key={product.id}
                       onClick={() => handleProductClick(product.id)}
-                      className="w-full px-4 py-3 text-left hover:bg-white/80 hover:backdrop-blur-md border-b border-gray-100/50 last:border-b-0 transition-all duration-200"
+                      className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-transparent border-b border-gray-100/60 last:border-b-0 transition-all duration-200 group"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="font-medium text-gray-900 text-sm">{product.name}</div>
-                          <div className="text-xs text-gray-500 mt-1">{product.category}</div>
+                          <div className="font-semibold text-gray-900 text-base group-hover:text-blue-600 transition-colors">{product.name}</div>
+                          <div className="text-sm text-gray-500 mt-1.5">{product.category}</div>
                         </div>
-                        <div className="text-sm font-semibold text-blue-600 ml-4">{product.price}</div>
+                        <div className="text-base font-bold text-blue-600 ml-6">{product.price}</div>
                       </div>
                     </button>
                   ))}
@@ -160,7 +160,7 @@ const Header = () => {
                       navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
                       setShowSearchDropdown(false);
                     }}
-                    className="w-full px-4 py-3 text-center text-blue-600 hover:bg-blue-50/80 font-medium text-sm border-t border-gray-200/50 backdrop-blur-sm"
+                    className="w-full px-5 py-4 text-center text-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-50/50 font-semibold text-base border-t-2 border-gray-200/50 backdrop-blur-sm rounded-b-2xl transition-all duration-200"
                   >
                     Показать все результаты поиска
                   </button>
@@ -169,7 +169,7 @@ const Header = () => {
               
               {/* Нет результатов */}
               {showSearchDropdown && searchResults.length === 0 && searchQuery && !searchLoading && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-2xl z-[9999] p-4 text-center text-gray-500 text-sm">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] p-6 text-center text-gray-500 text-base">
                   Товары не найдены
                 </div>
               )}
