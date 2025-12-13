@@ -137,12 +137,13 @@ const Header = () => {
               
               {/* Выпадающий список результатов */}
               {showSearchDropdown && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] max-h-96 overflow-y-auto">
-                  {searchResults.map((product) => (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] max-h-96 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+                  {searchResults.map((product, index) => (
                     <button
                       key={product.id}
                       onClick={() => handleProductClick(product.id)}
-                      className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-transparent border-b border-gray-100/60 last:border-b-0 transition-all duration-200 group"
+                      style={{ animationDelay: `${index * 30}ms` }}
+                      className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-transparent border-b border-gray-100/60 last:border-b-0 transition-all duration-200 group animate-in fade-in slide-in-from-left-1"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
@@ -169,7 +170,7 @@ const Header = () => {
               
               {/* Нет результатов */}
               {showSearchDropdown && searchResults.length === 0 && searchQuery && !searchLoading && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] p-6 text-center text-gray-500 text-base">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] p-6 text-center text-gray-500 text-base animate-in fade-in slide-in-from-top-2 duration-200">
                   Товары не найдены
                 </div>
               )}
