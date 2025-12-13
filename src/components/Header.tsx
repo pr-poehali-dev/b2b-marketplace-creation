@@ -132,13 +132,13 @@ const Header = () => {
                   }}
                   onFocus={() => searchQuery && setShowSearchDropdown(true)}
                   onBlur={() => setTimeout(() => setShowSearchDropdown(false), 200)}
-                  className="block w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl leading-5 bg-white/80 backdrop-blur-sm placeholder-gray-400 focus:outline-none focus:placeholder-gray-300 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-base transition-all duration-200 shadow-sm hover:shadow-md hover:border-gray-300"
+                  className="block w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl leading-5 bg-white/80 backdrop-blur-sm placeholder-gray-400 focus:outline-none focus:placeholder-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary text-base transition-all duration-200 shadow-sm hover:shadow-md hover:border-gray-300"
                 />
                 
                 {/* Загрузчик */}
                 {searchLoading && (
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
-                    <Icon name="Loader2" size={20} className="text-blue-500 animate-spin" />
+                    <Icon name="Loader2" size={20} className="text-primary animate-spin" />
                   </div>
                 )}
               </div>
@@ -151,14 +151,14 @@ const Header = () => {
                       key={product.id}
                       onClick={() => handleProductClick(product.id)}
                       style={{ animationDelay: `${index * 30}ms` }}
-                      className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-blue-50/50 hover:to-transparent border-b border-gray-100/60 last:border-b-0 transition-all duration-200 group animate-in fade-in slide-in-from-left-1"
+                      className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-primary/5 hover:to-transparent border-b border-gray-100/60 last:border-b-0 transition-all duration-200 group animate-in fade-in slide-in-from-left-1"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <div className="font-semibold text-gray-900 text-base group-hover:text-blue-600 transition-colors">{product.name}</div>
+                          <div className="font-semibold text-gray-900 text-base group-hover:text-primary transition-colors">{product.name}</div>
                           <div className="text-sm text-gray-500 mt-1.5">{product.category}</div>
                         </div>
-                        <div className="text-base font-bold text-blue-600 ml-6">{product.price}</div>
+                        <div className="text-base font-bold text-primary ml-6">{product.price}</div>
                       </div>
                     </button>
                   ))}
@@ -169,7 +169,7 @@ const Header = () => {
                       navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
                       setShowSearchDropdown(false);
                     }}
-                    className="w-full px-5 py-4 text-center text-blue-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-50/50 font-semibold text-base border-t-2 border-gray-200/50 backdrop-blur-sm rounded-b-2xl transition-all duration-200"
+                    className="w-full px-5 py-4 text-center text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 font-semibold text-base border-t-2 border-gray-200/50 backdrop-blur-sm rounded-b-2xl transition-all duration-200"
                   >
                     Показать все результаты поиска
                   </button>
