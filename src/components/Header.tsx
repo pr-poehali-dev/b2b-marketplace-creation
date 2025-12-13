@@ -97,7 +97,15 @@ const Header = () => {
 
   return (
     <>
-      <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-40">
+      {/* Оверлей при открытом поиске */}
+      {showSearchDropdown && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[45] animate-in fade-in duration-200"
+          onClick={() => setShowSearchDropdown(false)}
+        />
+      )}
+      
+      <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50">
         <div className={`transition-all duration-300 overflow-hidden ${
           isMenuExpanded ? 'ml-56' : 'ml-16'
         }`}>
@@ -137,7 +145,7 @@ const Header = () => {
               
               {/* Выпадающий список результатов */}
               {showSearchDropdown && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] max-h-96 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="fixed left-1/2 -translate-x-1/2 top-[72px] w-full max-w-2xl mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[60] max-h-96 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
                   {searchResults.map((product, index) => (
                     <button
                       key={product.id}
@@ -170,7 +178,7 @@ const Header = () => {
               
               {/* Нет результатов */}
               {showSearchDropdown && searchResults.length === 0 && searchQuery && !searchLoading && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white/98 backdrop-blur-md border-2 border-gray-200/50 rounded-2xl shadow-2xl z-[9999] p-6 text-center text-gray-500 text-base animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="fixed left-1/2 -translate-x-1/2 top-[72px] w-full max-w-2xl mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[60] p-6 text-center text-gray-500 text-base animate-in fade-in slide-in-from-top-2 duration-200">
                   Товары не найдены
                 </div>
               )}
