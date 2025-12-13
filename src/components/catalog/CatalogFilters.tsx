@@ -115,7 +115,7 @@ const CatalogFilters = ({
       <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex-shrink-0">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center text-gray-800">
-            <Icon name="Filter" size={20} className="mr-2 text-blue-600" />
+            <Icon name="Filter" size={20} className="mr-2 text-primary" />
             Фильтры
           </CardTitle>
           <Button 
