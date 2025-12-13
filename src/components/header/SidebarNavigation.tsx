@@ -39,9 +39,7 @@ const SidebarNavigation = ({
   ];
 
   const suppliersItems = [
-    { href: "/suppliers", icon: "Users", label: "Все поставщики" },
-    { href: "/purchases", icon: "ShoppingCart", label: "Закупки" },
-    { href: "/contracts", icon: "FileText", label: "Договоры" }
+    { href: "/suppliers", icon: "Users", label: "Поставщики" }
   ];
 
   return (
@@ -118,14 +116,12 @@ const SidebarNavigation = ({
           <NavigationSection
             title="Поставщики"
             icon="Users"
-            isExpanded={openSection === 'suppliers'}
+            isExpanded={false}
             isActive={isActive('/suppliers')}
             isMenuExpanded={isMenuExpanded}
             openSection={openSection}
             sectionKey="suppliers"
             items={suppliersItems}
-            isCollapsible={true}
-            onToggle={() => toggleSection('suppliers')}
             checkIsActive={isActive}
           />
 
