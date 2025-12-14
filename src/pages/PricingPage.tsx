@@ -11,18 +11,17 @@ const PricingPage = () => {
 
   const plans = [
     {
-      name: "Стартовый",
+      name: "Базовый",
       description: "Для начинающих предпринимателей",
-      monthlyPrice: 10000,
-      annualPrice: 120000,
+      monthlyPrice: 5000,
+      annualPrice: 60000,
       features: [
         "3 месяца бесплатно",
         "До 100 товаров в каталоге",
         "До 50 заказов в месяц",
         "Базовая аналитика",
         "Email поддержка",
-        "Мобильное приложение",
-        "Интеграция с 1С"
+        "Мобильное приложение"
       ],
       popular: false,
       color: "border-gray-200"
@@ -33,19 +32,35 @@ const PricingPage = () => {
       monthlyPrice: 15000,
       annualPrice: 180000,
       features: [
-        "3 месяца бесплатно",
+        "Всё из Базового",
         "До 1000 товаров в каталоге",
         "Неограниченное количество заказов",
         "Расширенная аналитика",
         "Приоритетная поддержка",
-        "Мобильное приложение",
         "Интеграция с 1С",
         "CRM система",
-        "Автоматизация процессов",
-        "API доступ"
+        "Автоматизация процессов"
       ],
       popular: true,
       color: "border-primary ring-2 ring-primary/20"
+    },
+    {
+      name: "Корпоративный",
+      description: "Для крупного бизнеса",
+      monthlyPrice: 30000,
+      annualPrice: 360000,
+      features: [
+        "Всё из Профессионального",
+        "Неограниченное количество товаров",
+        "Полная аналитика и BI",
+        "24/7 поддержка",
+        "API доступ",
+        "Индивидуальные настройки",
+        "Выделенный менеджер",
+        "SLA гарантии"
+      ],
+      popular: false,
+      color: "border-gray-200"
     }
   ];
 
@@ -97,7 +112,7 @@ const PricingPage = () => {
           </div>
 
           {/* Тарифные планы */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
               <Card key={index} className={`relative ${plan.color} ${plan.popular ? 'scale-105' : ''}`}>
                 {plan.popular && (
