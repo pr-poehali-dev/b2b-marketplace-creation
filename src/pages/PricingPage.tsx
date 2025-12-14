@@ -13,8 +13,8 @@ const PricingPage = () => {
     {
       name: "Стартовый",
       description: "Для начинающих предпринимателей",
-      monthlyPrice: 990,
-      annualPrice: 9900,
+      monthlyPrice: 15000,
+      annualPrice: 180000,
       features: [
         "3 месяца бесплатно",
         "До 100 товаров в каталоге",
@@ -89,8 +89,8 @@ const PricingPage = () => {
                 Ежегодно
               </span>
               {isAnnual && (
-                <Badge variant="secondary" className="bg-green-100 text-green-700">
-                  -17% скидка
+                <Badge variant="secondary" className="bg-emerald-100 text-emerald-700">
+                  +1 месяц бесплатно
                 </Badge>
               )}
             </div>
@@ -121,7 +121,7 @@ const PricingPage = () => {
                     </div>
                     {isAnnual && (
                       <p className="text-sm text-gray-500 mt-1">
-                        {formatPrice(plan.annualPrice)} ₽ в год
+                        {formatPrice(plan.annualPrice)} ₽ в год <span className="text-emerald-600 font-semibold">(13 месяцев)</span>
                       </p>
                     )}
                   </div>
