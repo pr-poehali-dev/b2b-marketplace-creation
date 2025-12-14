@@ -19,7 +19,7 @@ interface CategoryCardProps {
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <Card 
-      className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+      className="group overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 ring-1 ring-gray-100 hover:ring-primary/20"
     >
       <div className="relative h-48 overflow-hidden">
         <img 
@@ -29,16 +29,16 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
         />
         <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-80`}></div>
         
-        <div className="absolute top-4 left-4 p-3 bg-white/20 backdrop-blur-sm rounded-full">
+        <div className="absolute top-4 left-4 p-3 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 shadow-lg">
           <Icon name={category.icon} size={24} className="text-white" />
         </div>
 
-        <Badge className="absolute top-4 right-4 bg-white/90 text-gray-800">
+        <Badge className="absolute top-4 right-4 bg-gradient-to-r from-primary to-emerald-600 text-white border-0 shadow-lg">
           {category.productCount.toLocaleString('ru-RU')} товаров
         </Badge>
 
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-          <h3 className="text-lg font-bold text-white mb-1 group-hover:text-yellow-200 transition-colors">
+          <h3 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-200 transition-colors">
             {category.name}
           </h3>
           <p className="text-sm text-gray-200 line-clamp-2">
@@ -47,9 +47,9 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
         </div>
       </div>
 
-      <CardContent className="p-4">
+      <CardContent className="p-4 bg-gradient-to-br from-gray-50 to-white">
         <Button 
-          className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+          className="w-full bg-gradient-to-r from-primary via-primary/90 to-emerald-600 hover:from-emerald-700 hover:to-primary shadow-md hover:shadow-lg transition-all"
           onClick={() => window.location.href = category.href}
         >
           <Icon name="ArrowRight" size={16} className="mr-2" />
