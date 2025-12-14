@@ -112,7 +112,7 @@ const CatalogFilters = ({
         transform: 'none'
       }}
     >
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-lg flex-shrink-0">
+      <CardHeader className="bg-gradient-to-r from-primary/5 to-emerald-50 rounded-t-lg flex-shrink-0">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center text-gray-800">
             <Icon name="Filter" size={20} className="mr-2 text-primary" />
@@ -122,7 +122,7 @@ const CatalogFilters = ({
             variant="ghost" 
             size="sm" 
             onClick={() => setIsFiltersCollapsed(!isFiltersCollapsed)}
-            className="text-gray-600 hover:text-blue-600 p-1"
+            className="text-gray-600 hover:text-primary p-1"
           >
             <Icon 
               name={isFiltersCollapsed ? "ChevronDown" : "ChevronUp"} 
@@ -135,7 +135,7 @@ const CatalogFilters = ({
             variant="outline" 
             size="sm" 
             onClick={resetFilters} 
-            className="w-full text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 transition-all duration-200 shadow-sm mt-3"
+            className="w-full text-primary border-primary/30 hover:bg-primary/5 hover:border-primary active:bg-primary/10 transition-all duration-200 shadow-sm mt-3"
           >
             <Icon name="RotateCcw" size={16} className="mr-2" />
             Сброс
@@ -148,7 +148,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.category} onOpenChange={() => toggleSection('category')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="Grid3X3" size={16} className="mr-2 text-purple-600" />
+              <Icon name="Grid3X3" size={16} className="mr-2 text-primary" />
               Категория
             </span>
             <Icon 
@@ -176,7 +176,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.price} onOpenChange={() => toggleSection('price')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="RussianRuble" fallback="Coins" size={16} className="mr-2 text-green-600" />
+              <Icon name="RussianRuble" fallback="Coins" size={16} className="mr-2 text-emerald-600" />
               Цена
             </span>
             <Icon 
@@ -193,7 +193,7 @@ const CatalogFilters = ({
                   placeholder="От"
                   value={priceFrom}
                   onChange={(e) => setPriceFrom(e.target.value)}
-                  className="border-gray-200 focus:border-blue-500"
+                  className="border-gray-200 focus:border-primary focus:ring-primary/20"
                 />
                 <span className="text-gray-500 text-sm">₽</span>
               </div>
@@ -203,7 +203,7 @@ const CatalogFilters = ({
                   placeholder="До"
                   value={priceTo}
                   onChange={(e) => setPriceTo(e.target.value)}
-                  className="border-gray-200 focus:border-blue-500"
+                  className="border-gray-200 focus:border-primary focus:ring-primary/20"
                 />
                 <span className="text-gray-500 text-sm">₽</span>
               </div>
@@ -217,7 +217,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.order} onOpenChange={() => toggleSection('order')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="ShoppingCart" size={16} className="mr-2 text-orange-600" />
+              <Icon name="ShoppingCart" size={16} className="mr-2 text-emerald-600" />
               Минимальный заказ
             </span>
             <Icon 
@@ -246,7 +246,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.location} onOpenChange={() => toggleSection('location')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="MapPin" size={16} className="mr-2 text-red-600" />
+              <Icon name="MapPin" size={16} className="mr-2 text-primary" />
               Регион поставщика
             </span>
             <Icon 
@@ -278,7 +278,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.options} onOpenChange={() => toggleSection('options')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="Settings" size={16} className="mr-2 text-indigo-600" />
+              <Icon name="Settings" size={16} className="mr-2 text-primary" />
               Дополнительные опции
             </span>
             <Icon 
@@ -297,7 +297,7 @@ const CatalogFilters = ({
                   onCheckedChange={setInStockOnly}
                 />
                 <label htmlFor="inStock" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
-                  <Icon name="Package" size={16} className="mr-1 text-blue-600" />
+                  <Icon name="Package" size={16} className="mr-1 text-emerald-600" />
                   Товары в наличии
                 </label>
               </div>
@@ -309,7 +309,7 @@ const CatalogFilters = ({
                   onCheckedChange={setCustomOrderOnly}
                 />
                 <label htmlFor="customOrder" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
-                  <Icon name="Clock" size={16} className="mr-1 text-purple-600" />
+                  <Icon name="Clock" size={16} className="mr-1 text-primary" />
                   Под заказ
                 </label>
               </div>
@@ -321,7 +321,7 @@ const CatalogFilters = ({
                   onCheckedChange={setDiscountOnly}
                 />
                 <label htmlFor="discount" className="text-sm font-medium text-gray-700 cursor-pointer flex items-center">
-                  <Icon name="Percent" size={16} className="mr-1 text-red-600" />
+                  <Icon name="Percent" size={16} className="mr-1 text-emerald-600" />
                   Товары со скидкой
                 </label>
               </div>
@@ -335,7 +335,7 @@ const CatalogFilters = ({
         <Collapsible open={openSections.stats} onOpenChange={() => toggleSection('stats')}>
           <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded-md transition-colors">
             <span className="text-sm font-semibold text-gray-700 flex items-center">
-              <Icon name="BarChart3" size={16} className="mr-2 text-teal-600" />
+              <Icon name="BarChart3" size={16} className="mr-2 text-primary" />
               Статистика каталога
             </span>
             <Icon 
@@ -353,7 +353,7 @@ const CatalogFilters = ({
                 </div>
                 <div className="flex justify-between">
                   <span>Найдено:</span>
-                  <span className="font-medium text-blue-600">{filteredProducts}</span>
+                  <span className="font-medium text-primary">{filteredProducts}</span>
                 </div>
               </div>
             </div>
