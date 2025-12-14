@@ -74,6 +74,7 @@ const Pricing = () => {
             <span>Назад в меню</span>
           </Button>
         </div>
+        
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Выберите подходящий тариф
