@@ -14,7 +14,7 @@ const PricingPage = () => {
       name: "Стартовый",
       description: "Для начинающих предпринимателей",
       monthlyPrice: 15000,
-      annualPrice: 180000,
+      annualPrice: 117000,
       features: [
         "3 месяца бесплатно",
         "До 100 товаров в каталоге",
