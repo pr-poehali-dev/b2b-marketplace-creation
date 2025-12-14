@@ -1,14 +1,17 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Pricing = () => {
   const navigate = useNavigate();
+  const [isYearly, setIsYearly] = useState(false);
   
   const plans = [
     {
       name: 'Базовый',
-      price: '2,990',
+      priceMonthly: '15,000',
+      priceYearly: '180,000',
       period: 'мес',
       description: 'Для малого бизнеса',
       features: [
@@ -23,7 +26,8 @@ const Pricing = () => {
     },
     {
       name: 'Профессиональный',
-      price: '7,990',
+      priceMonthly: '7,990',
+      priceYearly: '95,880',
       period: 'мес',
       description: 'Для растущего бизнеса',
       features: [
@@ -39,7 +43,8 @@ const Pricing = () => {
     },
     {
       name: 'Корпоративный',
-      price: '15,990',
+      priceMonthly: '15,990',
+      priceYearly: '191,880',
       period: 'мес',
       description: 'Для крупного бизнеса',
       features: [
@@ -73,9 +78,35 @@ const Pricing = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Выберите подходящий тариф
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
             Масштабируйте свой бизнес с нашими гибкими тарифными планами
           </p>
+          
+          <div className="inline-flex items-center bg-white rounded-full p-1 shadow-md">
+            <button
+              onClick={() => setIsYearly(false)}
+              className={`px-6 py-2 rounded-full font-medium transition-all ${
+                !isYearly 
+                  ? 'bg-primary text-white shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Помесячно
+            </button>
+            <button
+              onClick={() => setIsYearly(true)}
+              className={`px-6 py-2 rounded-full font-medium transition-all relative ${
+                isYearly 
+                  ? 'bg-primary text-white shadow-sm' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Годовой
+              <span className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
+                +1 месяц
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
@@ -107,9 +138,18 @@ const Pricing = () => {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
                 <p className="text-gray-600 mb-4">{plan.description}</p>
                 <div className="flex items-baseline justify-center">
-                  <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                  <span className="text-gray-600 ml-1">₽/{plan.period}</span>
+                  <span className="text-4xl font-bold text-gray-900">
+                    {isYearly ? plan.priceYearly : plan.priceMonthly}
+                  </span>
+                  <span className="text-gray-600 ml-1">
+                    ₽/{isYearly ? 'год' : plan.period}
+                  </span>
                 </div>
+                {isYearly && (
+                  <p className="text-sm text-emerald-600 font-semibold mt-2">
+                    13 месяцев по цене 12
+                  </p>
+                )}
               </div>
 
               <ul className="space-y-4 mb-8">
