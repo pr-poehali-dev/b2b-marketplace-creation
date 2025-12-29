@@ -341,7 +341,7 @@ const ProductsSection = () => {
 
                     {/* Actions */}
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 text-sm h-9">
+                      <Button className="flex-1 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-3 text-sm h-9">
                         <div className="flex items-center justify-center gap-1.5 w-full min-w-0">
                           <Icon name="ShoppingCart" size={14} className="shrink-0" />
                           <span className="truncate">В корзину</span>
