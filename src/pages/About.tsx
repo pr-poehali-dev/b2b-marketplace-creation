@@ -81,13 +81,13 @@ const About = () => {
       <div className="ml-56 transition-all duration-300">
         
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 О компании Business Market
               </h1>
-              <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
+              <p className="text-xl md:text-2xl text-primary-foreground/80 max-w-3xl mx-auto mb-8">
                 Лидер в области корпоративных B2B закупок в России с 2018 года
               </p>
               <div className="inline-flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full backdrop-blur-sm">
@@ -104,7 +104,7 @@ const About = () => {
             <div className="grid md:grid-cols-2 gap-12">
               <div className="bg-white rounded-2xl p-8 border shadow-sm">
                 <div className="flex items-center gap-3 mb-6">
-                  <Icon name="Target" size={28} className="text-blue-600" />
+                  <Icon name="Target" size={28} className="text-primary" />
                   <h2 className="text-2xl font-bold text-gray-900">Наша миссия</h2>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-lg">
@@ -116,7 +116,7 @@ const About = () => {
               
               <div className="bg-white rounded-2xl p-8 border shadow-sm">
                 <div className="flex items-center gap-3 mb-6">
-                  <Icon name="Eye" size={28} className="text-green-600" />
+                  <Icon name="Eye" size={28} className="text-secondary" />
                   <h2 className="text-2xl font-bold text-gray-900">Наше видение</h2>
                 </div>
                 <p className="text-gray-600 leading-relaxed text-lg">
@@ -140,8 +140,8 @@ const About = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((value, index) => (
                 <div key={index} className="bg-white rounded-xl p-6 border shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
-                    <Icon name={value.icon as any} size={24} className="text-blue-600" />
+                  <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4">
+                    <Icon name={value.icon as any} size={24} className="text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">{value.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{value.description}</p>
@@ -161,12 +161,12 @@ const About = () => {
             
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200"></div>
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/30"></div>
               
               <div className="space-y-8">
                 {milestones.map((milestone, index) => (
                   <div key={index} className="relative flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                    <div className="flex-shrink-0 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-lg">
                       <span className="text-sm">{milestone.year}</span>
                     </div>
                     <div className="bg-white rounded-xl p-6 border shadow-sm flex-1">
