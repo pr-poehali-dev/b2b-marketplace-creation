@@ -411,17 +411,17 @@ const Contacts = () => {
         </section>
 
         {/* CTA */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-primary text-white">
           <div className="container mx-auto px-6 max-w-4xl text-center">
             <h2 className="text-3xl font-bold mb-6">Не нашли ответ на свой вопрос?</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Свяжитесь с нами любым удобным способом — мы обязательно поможем!
             </p>
             
             <div className="flex flex-wrap gap-4 justify-center">
               <a
                 href="tel:+78001234567"
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2"
+                className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-primary-foreground/90 transition-colors flex items-center gap-2"
               >
                 <Icon name="Phone" size={20} />
                 Позвонить
@@ -437,7 +437,7 @@ const Contacts = () => {
                 href="https://t.me/bmmarket"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-400 transition-colors flex items-center gap-2"
+                className="bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-2"
               >
                 <Icon name="MessageCircle" size={20} />
                 Telegram
