@@ -65,7 +65,7 @@ const Contacts = () => {
       email: "sales@bmmarket.ru",
       description: "Консультации по продуктам, тарифам и подключению",
       icon: "ShoppingCart",
-      color: "text-blue-600"
+      color: "text-primary"
     },
     {
       name: "Техническая поддержка", 
@@ -73,7 +73,7 @@ const Contacts = () => {
       email: "support@bmmarket.ru",
       description: "Помощь с платформой, интеграциями и техническими вопросами",
       icon: "Headphones",
-      color: "text-green-600"
+      color: "text-secondary"
     },
     {
       name: "Финансовый отдел",
@@ -81,7 +81,7 @@ const Contacts = () => {
       email: "finance@bmmarket.ru", 
       description: "Вопросы по оплате, документооборот, реквизиты",
       icon: "CreditCard",
-      color: "text-purple-600"
+      color: "text-accent"
     },
     {
       name: "Отдел партнерств",
@@ -89,7 +89,7 @@ const Contacts = () => {
       email: "partners@bmmarket.ru",
       description: "Сотрудничество, интеграции, B2B партнерство",
       icon: "Handshake",
-      color: "text-orange-600"
+      color: "text-primary"
     }
   ];
 
@@ -106,13 +106,13 @@ const Contacts = () => {
       <div className="ml-56 transition-all duration-300">
         
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 Свяжитесь с нами
               </h1>
-              <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
+              <p className="text-xl md:text-2xl text-primary-foreground/80 max-w-3xl mx-auto mb-8">
                 Готовы ответить на ваши вопросы и помочь с интеграцией Business Market
               </p>
               <div className="flex flex-wrap justify-center gap-4">
@@ -188,13 +188,13 @@ const Contacts = () => {
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <Icon name="Phone" size={14} className="text-gray-400" />
-                          <a href={`tel:${dept.phone}`} className="text-blue-600 hover:underline">
+                          <a href={`tel:${dept.phone}`} className="text-primary hover:underline">
                             {dept.phone}
                           </a>
                         </div>
                         <div className="flex items-center gap-2">
                           <Icon name="Mail" size={14} className="text-gray-400" />
-                          <a href={`mailto:${dept.email}`} className="text-blue-600 hover:underline">
+                          <a href={`mailto:${dept.email}`} className="text-primary hover:underline">
                             {dept.email}
                           </a>
                         </div>
@@ -227,7 +227,7 @@ const Contacts = () => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                         placeholder="Иван Петров"
                       />
                     </div>
@@ -241,7 +241,7 @@ const Contacts = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                         placeholder="ivan@company.ru"
                       />
                     </div>
@@ -257,7 +257,7 @@ const Contacts = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                         placeholder="+7 (999) 123-45-67"
                       />
                     </div>
@@ -270,7 +270,7 @@ const Contacts = () => {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                         placeholder="ООО «Ромашка»"
                       />
                     </div>
@@ -304,14 +304,14 @@ const Contacts = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                       placeholder="Опишите ваш вопрос или предложение..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
                   >
                     <Icon name="Send" size={18} />
                     Отправить сообщение
@@ -346,20 +346,20 @@ const Contacts = () => {
                         
                         <div className="flex items-center gap-3">
                           <Icon name="Phone" size={16} className="text-gray-400" />
-                          <a href={`tel:${office.phone}`} className="text-blue-600 hover:underline">
+                          <a href={`tel:${office.phone}`} className="text-primary hover:underline">
                             {office.phone}
                           </a>
                         </div>
                         
                         <div className="flex items-center gap-3">
                           <Icon name="Mail" size={16} className="text-gray-400" />
-                          <a href={`mailto:${office.email}`} className="text-blue-600 hover:underline">
+                          <a href={`mailto:${office.email}`} className="text-primary hover:underline">
                             {office.email}
                           </a>
                         </div>
                       </div>
                       
-                      <button className="mt-4 w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                      <button className="mt-4 w-full bg-primary/10 text-primary py-2 px-4 rounded-lg hover:bg-primary/20 transition-colors flex items-center justify-center gap-2">
                         <Icon name="Navigation" size={16} />
                         Показать на карте
                       </button>
