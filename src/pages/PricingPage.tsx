@@ -69,98 +69,122 @@ const PricingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary/5">
       <Header />
       
       <div className="ml-56 transition-all duration-300">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-12">
           {/* Заголовок */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Выберите подходящий тариф
+          <div className="text-center mb-16 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+              <Icon name="Zap" size={16} />
+              Специальное предложение
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Выберите свой тариф
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Гибкие тарифные планы для бизнеса любого размера
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              Начните с 3 месяцами бесплатно и масштабируйте бизнес без ограничений
             </p>
             
             {/* Переключатель месяц/год */}
-            <div className="flex items-center justify-center space-x-4 mb-8">
-              <span className={`text-sm ${!isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-                Ежемесячно
-              </span>
+            <div className="inline-flex items-center bg-white shadow-lg rounded-full p-2 border border-gray-200">
               <button
-                onClick={() => setIsAnnual(!isAnnual)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  isAnnual ? 'bg-primary' : 'bg-gray-200'
+                onClick={() => setIsAnnual(false)}
+                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all ${
+                  !isAnnual ? 'bg-primary text-white shadow-md' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    isAnnual ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
+                Ежемесячно
               </button>
-              <span className={`text-sm ${isAnnual ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+              <button
+                onClick={() => setIsAnnual(true)}
+                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all relative ${
+                  isAnnual ? 'bg-primary text-white shadow-md' : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
                 Ежегодно
-              </span>
-              {isAnnual && (
-                <Badge variant="secondary" className="bg-emerald-100 text-emerald-700">
-                  +1 месяц бесплатно
-                </Badge>
-              )}
+                {isAnnual && (
+                  <Badge className="absolute -top-2 -right-2 bg-secondary text-white text-xs px-2 py-0.5 shadow-md animate-bounce-gentle">
+                    -8%
+                  </Badge>
+                )}
+              </button>
             </div>
           </div>
 
           {/* Тарифные планы */}
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto mt-12">
             {plans.map((plan, index) => (
-              <Card key={index} className={`relative ${plan.color} ${plan.popular ? 'scale-105' : ''}`}>
+              <Card key={index} className={`relative transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                plan.popular 
+                  ? 'border-primary ring-2 ring-primary/30 shadow-xl bg-gradient-to-br from-white to-primary/5' 
+                  : 'border-gray-200 bg-white hover:border-primary/50'
+              }`}>
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <Badge className="bg-primary text-white px-4 py-1">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <Badge className="bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 shadow-lg text-sm font-bold">
+                      <Icon name="Star" size={14} className="mr-1 inline" />
                       Популярный
                     </Badge>
                   </div>
                 )}
                 
-                <CardHeader className="text-center pb-4">
-                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                  <p className="text-gray-600">{plan.description}</p>
+                <CardHeader className="text-center pb-6 pt-8">
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center ${
+                    plan.popular ? 'bg-gradient-to-br from-primary to-secondary' : 'bg-gray-100'
+                  }`}>
+                    <Icon name={plan.popular ? 'Rocket' : index === 0 ? 'Package' : 'Building2'} size={32} className={plan.popular ? 'text-white' : 'text-gray-600'} />
+                  </div>
+                  <CardTitle className="text-3xl font-bold mb-2">{plan.name}</CardTitle>
+                  <p className="text-gray-600 text-sm mb-6">{plan.description}</p>
                   
-                  <div className="mt-4">
-                    <div className="flex items-center justify-center">
-                      <span className="text-4xl font-bold text-gray-900">
+                  <div className="py-6 px-4 bg-gray-50 rounded-xl">
+                    <div className="flex items-baseline justify-center gap-1">
+                      <span className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         {formatPrice(isAnnual ? Math.floor(plan.annualPrice / 12) : plan.monthlyPrice)}
                       </span>
-                      <span className="text-gray-600 ml-2">₽/мес</span>
+                      <span className="text-gray-600 text-lg font-semibold">₽</span>
                     </div>
+                    <div className="text-gray-500 text-sm mt-1">в месяц</div>
                     {isAnnual && (
-                      <p className="text-sm text-gray-500 mt-1">
-                        {formatPrice(plan.annualPrice)} ₽ в год <span className="text-emerald-600 font-semibold">(13 месяцев)</span>
-                      </p>
+                      <div className="mt-3 inline-flex items-center gap-1 text-xs text-secondary font-semibold bg-secondary/10 px-3 py-1 rounded-full">
+                        <Icon name="TrendingDown" size={12} />
+                        Экономия {formatPrice(plan.monthlyPrice * 12 - plan.annualPrice)} ₽/год
+                      </div>
                     )}
                   </div>
                 </CardHeader>
 
-                <CardContent className="pt-0">
-                  <ul className="space-y-3 mb-6">
+                <CardContent className="pt-0 pb-8">
+                  <ul className="space-y-4 mb-8">
                     {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start">
-                        <Icon name="Check" size={16} className="text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-700">{feature}</span>
+                      <li key={featureIndex} className="flex items-start group">
+                        <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mr-3 mt-0.5 ${
+                          plan.popular ? 'bg-primary/20' : 'bg-gray-100'
+                        } group-hover:scale-110 transition-transform`}>
+                          <Icon name="Check" size={14} className={plan.popular ? 'text-primary' : 'text-secondary'} />
+                        </div>
+                        <span className="text-sm text-gray-700 leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
                   
                   <Button 
-                    className={`w-full ${
+                    className={`w-full py-6 text-base font-semibold transition-all group ${
                       plan.popular 
-                        ? 'bg-primary hover:bg-primary/90' 
-                        : 'bg-gray-900 hover:bg-gray-800'
+                        ? 'bg-gradient-to-r from-primary to-secondary hover:shadow-lg hover:scale-105' 
+                        : 'bg-gray-900 hover:bg-primary text-white'
                     }`}
                   >
-                    Выбрать план
+                    <span>Начать работу</span>
+                    <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
+                  {plan.popular && (
+                    <p className="text-center text-xs text-gray-500 mt-3">
+                      Первые 3 месяца бесплатно
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             ))}
