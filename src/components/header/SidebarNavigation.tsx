@@ -140,16 +140,19 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* Настройки */}
+          {/* Тарифы */}
           <NavigationSection
-            title="Настройки"
-            icon="Settings"
+            title="Тарифы"
+            icon="Crown"
             isExpanded={false}
-            isActive={isActive('/settings')}
+            isActive={isActive('/pricing')}
             isMenuExpanded={isMenuExpanded}
             openSection={openSection}
-            sectionKey="settings"
-            items={[{ href: "/settings", icon: "Settings", label: "Настройки" }]}
+            sectionKey="pricing"
+            badge="Premium"
+            badgeColor="bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold"
+            isPremium={true}
+            items={[{ href: "/pricing", icon: "Crown", label: "Тарифы" }]}
             checkIsActive={isActive}
           />
 
@@ -166,19 +169,16 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* Тарифы */}
+          {/* Настройки */}
           <NavigationSection
-            title="Тарифы"
-            icon="Crown"
+            title="Настройки"
+            icon="Settings"
             isExpanded={false}
-            isActive={isActive('/pricing')}
+            isActive={isActive('/settings')}
             isMenuExpanded={isMenuExpanded}
             openSection={openSection}
-            sectionKey="pricing"
-            badge="Premium"
-            badgeColor="bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold"
-            isPremium={true}
-            items={[{ href: "/pricing", icon: "Crown", label: "Тарифы" }]}
+            sectionKey="settings"
+            items={[{ href: "/settings", icon: "Settings", label: "Настройки" }]}
             checkIsActive={isActive}
           />
 
