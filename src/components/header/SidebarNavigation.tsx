@@ -156,16 +156,16 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* О компании */}
+          {/* Контакты */}
           <NavigationSection
-            title="О компании"
-            icon="Info"
+            title="Контакты"
+            icon="Phone"
             isExpanded={false}
-            isActive={isActive('/about')}
+            isActive={isActive('/contacts')}
             isMenuExpanded={isMenuExpanded}
             openSection={openSection}
-            sectionKey="about"
-            items={[{ href: "/about", icon: "Info", label: "О компании" }]}
+            sectionKey="contacts"
+            items={[{ href: "/contacts", icon: "Phone", label: "Контакты" }]}
             checkIsActive={isActive}
           />
 
@@ -195,16 +195,16 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
 
-          {/* Контакты */}
+          {/* О компании */}
           <NavigationSection
-            title="Контакты"
-            icon="Phone"
+            title="О компании"
+            icon="Info"
             isExpanded={false}
-            isActive={isActive('/contacts')}
+            isActive={isActive('/about')}
             isMenuExpanded={isMenuExpanded}
             openSection={openSection}
-            sectionKey="contacts"
-            items={[{ href: "/contacts", icon: "Phone", label: "Контакты" }]}
+            sectionKey="about"
+            items={[{ href: "/about", icon: "Info", label: "О компании" }]}
             checkIsActive={isActive}
           />
         </div>
