@@ -6,7 +6,7 @@ import SearchSection from "@/components/SearchSection";
 import SupplierSection from "@/components/SupplierSection";
 import NewsSection from "@/components/NewsSection";
 import FeaturesSection from "@/components/FeaturesSection";
-import B2BAdvantagesSection from "@/components/B2BAdvantagesSection";
+
 import ProductsSection from "@/components/ProductsSection";
 import RecommendedProducts from "@/components/product/RecommendedProducts";
 import DeliverySection from "@/components/DeliverySection";
@@ -38,7 +38,6 @@ const Index = () => {
         <SearchSection />
         <NewsSection />
         <FeaturesSection />
-        <B2BAdvantagesSection />
         <ProductsSection />
         <div className="px-6 py-8">
           <RecommendedProducts 
