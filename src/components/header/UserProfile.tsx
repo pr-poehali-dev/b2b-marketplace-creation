@@ -32,6 +32,15 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
     <div className="flex items-center space-x-2 md:space-x-3 flex-shrink-0">
       {isLoggedIn && (
         <>
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-2"
+            onClick={() => navigate('/supplier-dashboard')}
+          >
+            <Icon name="LayoutDashboard" size={18} />
+            <span className="hidden lg:inline">Кабинет поставщика</span>
+          </Button>
 
           <Button
             variant="ghost"
