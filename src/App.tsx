@@ -32,6 +32,7 @@ import Cart from "./pages/Cart";
 import SupplierProductsPage from "./pages/SupplierProductsPage";
 import AddProductPage from "./pages/AddProductPage";
 import EditProductPage from "./pages/EditProductPage";
+import SupplierDashboard from "./pages/SupplierDashboard";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -75,6 +76,7 @@ const App = () => (
           <Route path="/supplier/products" element={<SupplierProductsPage />} />
           <Route path="/supplier/products/new" element={<AddProductPage />} />
           <Route path="/supplier/products/:id/edit" element={<EditProductPage />} />
+          <Route path="/supplier-dashboard" element={<SupplierDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
