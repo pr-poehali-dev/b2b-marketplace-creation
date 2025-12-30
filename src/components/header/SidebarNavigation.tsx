@@ -39,8 +39,7 @@ const SidebarNavigation = ({
   ];
 
   const suppliersItems = [
-    { href: "/suppliers", icon: "Users", label: "Поставщики" },
-    { href: "/supplier-dashboard", icon: "LayoutDashboard", label: "Кабинет поставщика" }
+    { href: "/suppliers", icon: "Users", label: "Поставщики" }
   ];
 
   return (
