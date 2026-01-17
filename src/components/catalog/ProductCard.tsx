@@ -12,6 +12,7 @@ export interface Product {
   id: number;
   name: string;
   image: string;
+  images?: string[];
   category: string;
   seller: string;
   verified: boolean;
@@ -45,8 +46,21 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addToCart } = useCart();
   const { toast } = useToast();
+
+  const images = product.images && product.images.length > 0 ? product.images : [product.image];
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -78,10 +92,50 @@ const ProductCard = ({
         viewMode === 'list' ? 'w-64 h-48' : 'aspect-video'
       }`}>
         <img 
-          src={product.image} 
+          src={images[currentImageIndex]} 
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
+        
+        {/* Кнопки листания фото */}
+        {images.length > 1 && (
+          <>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={handlePrevImage}
+            >
+              <Icon name="ChevronLeft" size={18} className="text-gray-700" />
+            </Button>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={handleNextImage}
+            >
+              <Icon name="ChevronRight" size={18} className="text-gray-700" />
+            </Button>
+            
+            {/* Индикаторы */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-1.5 h-1.5 rounded-full transition-all ${
+                    index === currentImageIndex 
+                      ? 'bg-white w-4' 
+                      : 'bg-white/60 hover:bg-white/80'
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentImageIndex(index);
+                  }}
+                />
+              ))}
+            </div>
+          </>
+        )}
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
