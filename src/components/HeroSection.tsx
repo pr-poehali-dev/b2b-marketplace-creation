@@ -101,7 +101,7 @@ const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSection
                   alt={image.alt}
                   className={`w-full h-full absolute top-0 left-0 ${
                     index === 0 
-                      ? 'object-cover bg-[#0d5e3c]' 
+                      ? 'object-contain bg-white p-8' 
                       : 'object-cover transition-all duration-1000 ease-in-out'
                   } ${
                     index === currentImageIndex 
