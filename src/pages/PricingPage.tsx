@@ -5,9 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const PricingPage = () => {
   const [isAnnual, setIsAnnual] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const { toast } = useToast();
+  const { user } = useAuth();
 
   const plans = [
     {
@@ -66,6 +71,48 @@ const PricingPage = () => {
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ru-RU').format(price);
+  };
+
+  const handlePayment = async (plan: any) => {
+    setLoadingPlan(plan.name);
+
+    try {
+      const amount = isAnnual ? plan.annualPrice : plan.monthlyPrice;
+      const period = isAnnual ? 'annual' : 'monthly';
+
+      const response = await fetch('https://functions.poehali.dev/fe19231c-098a-4434-9153-878c8de41edf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planName: plan.name,
+          amount: amount,
+          period: period,
+          email: user?.email || ''
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.paymentUrl) {
+        window.location.href = data.paymentUrl;
+      } else {
+        toast({
+          title: "Ошибка",
+          description: data.error || "Не удалось создать платеж",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось подключиться к платежной системе",
+        variant: "destructive"
+      });
+    } finally {
+      setLoadingPlan(null);
+    }
   };
 
   return (
@@ -176,9 +223,20 @@ const PricingPage = () => {
                         ? 'bg-gradient-to-r from-primary to-secondary hover:shadow-lg hover:scale-105' 
                         : 'bg-gray-900 hover:bg-primary text-white'
                     }`}
+                    onClick={() => handlePayment(plan)}
+                    disabled={loadingPlan !== null}
                   >
-                    <span>Начать работу</span>
-                    <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                    {loadingPlan === plan.name ? (
+                      <>
+                        <Icon name="Loader2" size={18} className="mr-2 animate-spin" />
+                        <span>Загрузка...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Начать работу</span>
+                        <Icon name="ArrowRight" size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </Button>
                   {plan.popular && (
                     <p className="text-center text-xs text-gray-500 mt-3">

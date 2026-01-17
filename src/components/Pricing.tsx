@@ -2,11 +2,58 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Pricing = () => {
   const navigate = useNavigate();
   const [isYearly, setIsYearly] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const { toast } = useToast();
+  const { user } = useAuth();
   
+  const handlePayment = async (plan: any) => {
+    setLoadingPlan(plan.name);
+
+    try {
+      const amount = parseFloat(isYearly ? plan.priceYearly.replace(/,/g, '') : plan.priceMonthly.replace(/,/g, ''));
+      const period = isYearly ? 'annual' : 'monthly';
+
+      const response = await fetch('https://functions.poehali.dev/fe19231c-098a-4434-9153-878c8de41edf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planName: plan.name,
+          amount: amount,
+          period: period,
+          email: user?.email || ''
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.paymentUrl) {
+        window.location.href = data.paymentUrl;
+      } else {
+        toast({
+          title: "Ошибка",
+          description: data.error || "Не удалось создать платеж",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось подключиться к платежной системе",
+        variant: "destructive"
+      });
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
+
   const plans = [
     {
       name: 'Базовый',
@@ -169,8 +216,17 @@ const Pricing = () => {
                     : 'bg-gray-900 hover:bg-gray-800'
                 }`}
                 size="lg"
+                onClick={() => handlePayment(plan)}
+                disabled={loadingPlan !== null}
               >
-                Выбрать план
+                {loadingPlan === plan.name ? (
+                  <>
+                    <Icon name="Loader2" size={18} className="mr-2 animate-spin" />
+                    Загрузка...
+                  </>
+                ) : (
+                  'Выбрать план'
+                )}
               </Button>
             </div>
           ))}
