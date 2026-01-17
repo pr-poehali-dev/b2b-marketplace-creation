@@ -5,6 +5,8 @@ import Icon from "@/components/ui/icon";
 
 import ProductBadges from "@/components/product/ProductBadges";
 import { useState } from 'react';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/hooks/use-toast';
 
 export interface Product {
   id: number;
@@ -32,9 +34,6 @@ interface ProductCardProps {
   product: Product;
   viewMode: 'grid' | 'list';
   onSendInquiry: (product: Product) => void;
-  onQuickView?: (product: Product) => void;
-  onAddToCompare?: (product: Product) => void;
-  isInCompare?: boolean;
   onProductClick?: (productId: number) => void;
 }
 
@@ -42,12 +41,30 @@ const ProductCard = ({
   product,
   viewMode,
   onSendInquiry,
-  onQuickView,
-  onAddToCompare,
-  isInCompare = false,
   onProductClick
 }: ProductCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+    toast({
+      title: "Товар добавлен в корзину",
+      description: product.name,
+    });
+  };
+
+  const handleToggleLike = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsLiked(!isLiked);
+    toast({
+      title: isLiked ? "Удалено из избранного" : "Добавлено в избранное",
+      description: product.name,
+    });
+  };
 
   return (
     <Card 
@@ -88,22 +105,27 @@ const ProductCard = ({
 
         {/* Кнопки действий */}
         <div className="absolute top-3 right-3 flex flex-col gap-2">
-          {onQuickView && (
-            <Button 
-              variant="secondary"
-              size="icon"
-              className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onQuickView(product);
-              }}
-            >
-              <Icon name="Eye" size={14} className="text-gray-600" />
-            </Button>
-          )}
-          
-
+          <Button 
+            variant="secondary"
+            size="icon"
+            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
+            onClick={handleToggleLike}
+          >
+            <Icon 
+              name={isLiked ? "Heart" : "Heart"} 
+              size={14} 
+              className={isLiked ? "text-red-500 fill-red-500" : "text-gray-600"}
+            />
+          </Button>
+          <Button 
+            variant="secondary"
+            size="icon"
+            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
+            onClick={handleAddToCart}
+            disabled={!product.inStock}
+          >
+            <Icon name="ShoppingCart" size={14} className="text-gray-600" />
+          </Button>
         </div>
       </div>
       
@@ -176,7 +198,10 @@ const ProductCard = ({
         <div className="space-y-2 pt-2 mt-auto">
             <Button 
               className="w-full bg-[#0d5e3c] hover:bg-[#0a4a2f] text-white font-medium py-2 px-3 text-sm h-9"
-              onClick={() => onSendInquiry(product)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onSendInquiry(product);
+              }}
               disabled={!product.inStock}
             >
               <div className="flex items-center justify-center gap-1.5 w-full min-w-0">
@@ -187,33 +212,29 @@ const ProductCard = ({
             
             {/* Дополнительные действия */}
             <div className="flex gap-2">
-              {onQuickView && (
-                <Button 
-                  variant="outline"
-                  size="sm"
-                  className="flex-1 text-xs"
-                  onClick={() => onQuickView(product)}
-                >
-                  <Icon name="Eye" size={14} className="mr-1" />
-                  Быстрый просмотр
-                </Button>
-              )}
-              {onAddToCompare && (
-                <Button 
-                  variant="outline"
-                  onClick={() => onAddToCompare(product)}
-                  className={`flex-1 ${
-                    isInCompare ? 'border-blue-500 text-blue-600' : 'border-gray-200 text-gray-700'
-                  } py-1.5 px-2 text-xs font-medium rounded flex items-center justify-center`}
-                  title={isInCompare ? 'Убрать из сравнения' : 'Добавить к сравнению'}
-                >
-                  <Icon 
-                    name="BarChart" 
-                    size={14} 
-                    className="shrink-0"
-                  />
-                </Button>
-              )}
+              <Button 
+                variant="outline"
+                size="sm"
+                className="flex-1 text-xs"
+                onClick={handleToggleLike}
+              >
+                <Icon 
+                  name="Heart" 
+                  size={14} 
+                  className={`mr-1 ${isLiked ? 'text-red-500 fill-red-500' : ''}`}
+                />
+                Нравится
+              </Button>
+              <Button 
+                variant="outline"
+                size="sm"
+                className="flex-1 text-xs"
+                onClick={handleAddToCart}
+                disabled={!product.inStock}
+              >
+                <Icon name="ShoppingCart" size={14} className="mr-1" />
+                В корзину
+              </Button>
             </div>
         </div>
       </CardContent>
