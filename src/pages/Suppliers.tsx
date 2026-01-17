@@ -113,7 +113,7 @@ const Suppliers = () => {
           </div>
 
           <Tabs defaultValue="suppliers" className="space-y-6">
-            <TabsList className="grid w-full max-w-2xl grid-cols-4">
+            <TabsList className="grid w-full max-w-lg grid-cols-2">
               <TabsTrigger value="suppliers" className="flex items-center">
                 <Icon name="Users" size={16} className="mr-2" />
                 Поставщики
@@ -121,14 +121,6 @@ const Suppliers = () => {
               <TabsTrigger value="categories" className="flex items-center">
                 <Icon name="Grid3x3" size={16} className="mr-2" />
                 Категории
-              </TabsTrigger>
-              <TabsTrigger value="map" className="flex items-center">
-                <Icon name="MapPin" size={16} className="mr-2" />
-                Карта
-              </TabsTrigger>
-              <TabsTrigger value="analytics" className="flex items-center">
-                <Icon name="BarChart3" size={16} className="mr-2" />
-                Аналитика
               </TabsTrigger>
             </TabsList>
 
@@ -213,19 +205,6 @@ const Suppliers = () => {
                 suppliers={suppliers}
                 categories={categories}
                 onCategorySelect={handleCategorySelect}
-              />
-            </TabsContent>
-
-            {/* Map Tab */}
-            <TabsContent value="map">
-              <SuppliersMap suppliers={filteredSuppliers} />
-            </TabsContent>
-
-            {/* Analytics Tab */}
-            <TabsContent value="analytics">
-              <SupplierAnalytics
-                suppliers={suppliers}
-                regions={regions}
               />
             </TabsContent>
           </Tabs>
