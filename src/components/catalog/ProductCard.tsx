@@ -157,30 +157,7 @@ const ProductCard = ({
           </div>
         )}
 
-        {/* Кнопки действий */}
-        <div className="absolute top-3 right-3 flex flex-col gap-2">
-          <Button 
-            variant="secondary"
-            size="icon"
-            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
-            onClick={handleToggleLike}
-          >
-            <Icon 
-              name={isLiked ? "Heart" : "Heart"} 
-              size={14} 
-              className={isLiked ? "text-red-500 fill-red-500" : "text-gray-600"}
-            />
-          </Button>
-          <Button 
-            variant="secondary"
-            size="icon"
-            className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-sm"
-            onClick={handleAddToCart}
-            disabled={!product.inStock}
-          >
-            <Icon name="ShoppingCart" size={14} className="text-gray-600" />
-          </Button>
-        </div>
+
       </div>
       
       <CardContent className={`p-5 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-between' : ''}`}>
