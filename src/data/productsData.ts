@@ -5,6 +5,11 @@ export const productsData: Product[] = [
     id: 1,
     name: "Труба стальная бесшовная 108x4 мм ГОСТ 8732-78",
     image: "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
+    images: [
+      "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
+      "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
+      "/img/30071e99-054b-4aad-b22b-679e73394520.jpg"
+    ],
     category: "Металлопрокат",
     seller: "ООО «МетПром-Сталь»",
     verified: true,
@@ -26,6 +31,11 @@ export const productsData: Product[] = [
     id: 2,
     name: "Цемент ПЦ 400-Д20 навалом, М-400",
     image: "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
+    images: [
+      "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
+      "/img/43a9e543-590b-44fb-b286-827f5d9b1ef7.jpg",
+      "/img/1896fbdf-f98d-49a3-9193-25c98958adcf.jpg"
+    ],
     category: "Стройматериалы",
     seller: "АО «СтройБаза Регион»",
     verified: true,
@@ -43,6 +53,12 @@ export const productsData: Product[] = [
     id: 3,
     name: "Arduino Uno R3 + набор датчиков (комплект)",
     image: "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
+    images: [
+      "/img/eb347072-5079-42a8-9320-9ff8ccc544f5.jpg",
+      "/img/764d08a6-7946-4b1d-9c27-48e192211cc0.jpg",
+      "/img/d166a943-2618-4918-b162-2f653f5ae829.jpg",
+      "/img/30071e99-054b-4aad-b22b-679e73394520.jpg"
+    ],
     category: "Электроника",
     seller: "ТД «Электро-Компонент»",
     verified: true,
