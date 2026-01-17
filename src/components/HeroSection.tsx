@@ -99,14 +99,14 @@ const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSection
                   key={index}
                   src={image.src} 
                   alt={image.alt}
-                  className={`w-full h-full transition-all duration-1000 ease-in-out absolute top-0 left-0 ${
+                  className={`w-full h-full absolute top-0 left-0 ${
                     index === 0 
-                      ? 'object-contain bg-[#0d5e3c] p-4 sm:p-6 lg:p-8' 
-                      : 'object-cover'
+                      ? 'object-cover bg-[#0d5e3c]' 
+                      : 'object-cover transition-all duration-1000 ease-in-out'
                   } ${
                     index === currentImageIndex 
                       ? index === 0 
-                        ? 'opacity-100 transform scale-100 logo-animate' 
+                        ? 'opacity-100' 
                         : 'opacity-100 transform scale-100'
                       : 'opacity-0 transform scale-105'
                   }`}
