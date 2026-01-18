@@ -5,9 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SupplierStats from "@/components/supplier/SupplierStats";
+import SupplierProductsTable from "@/components/supplier/SupplierProductsTable";
+import SupplierAddProduct from "@/components/supplier/SupplierAddProduct";
 
 const ProfileCompany = () => {
   const [companyData, setCompanyData] = useState({
@@ -26,6 +30,7 @@ const ProfileCompany = () => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [activeTab, setActiveTab] = useState('info');
 
   const handleSave = () => {
     setIsEditing(false);
@@ -80,7 +85,32 @@ const ProfileCompany = () => {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+            <TabsList className="grid w-full max-w-3xl grid-cols-5">
+              <TabsTrigger value="info" className="flex items-center gap-2">
+                <Icon name="Building2" size={18} />
+                Информация
+              </TabsTrigger>
+              <TabsTrigger value="overview" className="flex items-center gap-2">
+                <Icon name="BarChart3" size={18} />
+                Статистика
+              </TabsTrigger>
+              <TabsTrigger value="products" className="flex items-center gap-2">
+                <Icon name="Package" size={18} />
+                Мои товары
+              </TabsTrigger>
+              <TabsTrigger value="add" className="flex items-center gap-2">
+                <Icon name="Plus" size={18} />
+                Добавить товар
+              </TabsTrigger>
+              <TabsTrigger value="documents" className="flex items-center gap-2">
+                <Icon name="FileText" size={18} />
+                Документы
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="info">
+              <div className="grid lg:grid-cols-3 gap-8">
             {/* Основная информация */}
             <div className="lg:col-span-2 space-y-6">
               <Card>
@@ -337,7 +367,79 @@ const ProfileCompany = () => {
                 </CardContent>
               </Card>
             </div>
-          </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="overview" className="space-y-6">
+              <SupplierStats />
+            </TabsContent>
+
+            <TabsContent value="products" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Мои товары</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <SupplierProductsTable />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="add" className="space-y-6">
+              <SupplierAddProduct />
+            </TabsContent>
+
+            <TabsContent value="documents" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Icon name="FileText" size={20} className="mr-2" />
+                    Документы компании
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                            <Icon name="FileText" size={20} className="text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Устав компании</p>
+                            <p className="text-sm text-gray-500">PDF • 2.4 MB</p>
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="sm">
+                          <Icon name="Download" size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+                            <Icon name="FileText" size={20} className="text-green-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">Свидетельство о регистрации</p>
+                            <p className="text-sm text-gray-500">PDF • 1.8 MB</p>
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="sm">
+                          <Icon name="Download" size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                    <Button className="w-full mt-4">
+                      <Icon name="Upload" size={16} className="mr-2" />
+                      Загрузить документ
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
         </div>
         
         <Footer />
