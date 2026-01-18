@@ -86,7 +86,7 @@ const ProfileCompany = () => {
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full max-w-3xl grid-cols-5">
+            <TabsList className="grid w-full max-w-4xl grid-cols-6">
               <TabsTrigger value="info" className="flex items-center gap-2">
                 <Icon name="Building2" size={18} />
                 Информация
@@ -102,6 +102,10 @@ const ProfileCompany = () => {
               <TabsTrigger value="add" className="flex items-center gap-2">
                 <Icon name="Plus" size={18} />
                 Добавить товар
+              </TabsTrigger>
+              <TabsTrigger value="requests" className="flex items-center gap-2">
+                <Icon name="MessageSquare" size={18} />
+                Запросы
               </TabsTrigger>
               <TabsTrigger value="documents" className="flex items-center gap-2">
                 <Icon name="FileText" size={18} />
@@ -387,6 +391,100 @@ const ProfileCompany = () => {
 
             <TabsContent value="add" className="space-y-6">
               <SupplierAddProduct />
+            </TabsContent>
+
+            <TabsContent value="requests" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Icon name="MessageSquare" size={20} className="mr-2" />
+                    Запросы от покупателей
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                            <Icon name="User" size={20} className="text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">ООО "СтройМонтаж"</p>
+                            <p className="text-sm text-gray-500">2 часа назад</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-green-100 text-green-800">Новый</Badge>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-3">
+                        Интересует Электродвигатель АИР 250M4. Возможна ли скидка при заказе от 10 шт? Какие сроки доставки в Екатеринбург?
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Button size="sm">
+                          <Icon name="Send" size={14} className="mr-2" />
+                          Ответить
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Icon name="Eye" size={14} className="mr-2" />
+                          Просмотреть профиль
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                            <Icon name="User" size={20} className="text-purple-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">ИП Петров А.С.</p>
+                            <p className="text-sm text-gray-500">5 часов назад</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-yellow-100 text-yellow-800">В обработке</Badge>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-3">
+                        Нужен насос центробежный КМ 80-50-200 срочно. Есть в наличии? Можем забрать самовывозом сегодня.
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Button size="sm">
+                          <Icon name="Send" size={14} className="mr-2" />
+                          Ответить
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <Icon name="Eye" size={14} className="mr-2" />
+                          Просмотреть профиль
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                            <Icon name="User" size={20} className="text-green-600" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">ООО "ПромТехника"</p>
+                            <p className="text-sm text-gray-500">1 день назад</p>
+                          </div>
+                        </div>
+                        <Badge className="bg-gray-100 text-gray-800">Закрыт</Badge>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-3">
+                        Спасибо за быстрый ответ! Оформили заказ на редуктор червячный Ч-160. Ожидаем доставку.
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Button size="sm" variant="outline">
+                          <Icon name="Eye" size={14} className="mr-2" />
+                          Просмотреть историю
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
 
             <TabsContent value="documents" className="space-y-6">

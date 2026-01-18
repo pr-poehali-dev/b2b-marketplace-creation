@@ -4,9 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
-import SupplierStats from '@/components/supplier/SupplierStats';
-import SupplierProductsTable from '@/components/supplier/SupplierProductsTable';
-import SupplierAddProduct from '@/components/supplier/SupplierAddProduct';
 
 interface ProfileDashboardProps {
   className?: string;
@@ -151,7 +148,6 @@ export default function ProfileDashboard({ className = "" }: ProfileDashboardPro
           <TabsTrigger value="overview">Обзор</TabsTrigger>
           <TabsTrigger value="products">Мои товары</TabsTrigger>
           <TabsTrigger value="orders">Заказы</TabsTrigger>
-          <TabsTrigger value="supplier">Кабинет поставщика</TabsTrigger>
           <TabsTrigger value="analytics">Аналитика</TabsTrigger>
           <TabsTrigger value="settings">Настройки</TabsTrigger>
         </TabsList>
@@ -266,45 +262,6 @@ export default function ProfileDashboard({ className = "" }: ProfileDashboardPro
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-
-        <TabsContent value="supplier" className="space-y-4">
-          <Tabs defaultValue="stats" className="space-y-6">
-            <TabsList className="grid w-full max-w-2xl grid-cols-3">
-              <TabsTrigger value="stats" className="flex items-center gap-2">
-                <Icon name="BarChart3" size={18} />
-                Статистика
-              </TabsTrigger>
-              <TabsTrigger value="products-list" className="flex items-center gap-2">
-                <Icon name="Package" size={18} />
-                Мои товары
-              </TabsTrigger>
-              <TabsTrigger value="add-product" className="flex items-center gap-2">
-                <Icon name="Plus" size={18} />
-                Добавить товар
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="stats">
-              <SupplierStats />
-            </TabsContent>
-
-            <TabsContent value="products-list">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Мои товары</CardTitle>
-                  <CardDescription>Управление выставленными товарами</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <SupplierProductsTable />
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="add-product">
-              <SupplierAddProduct />
-            </TabsContent>
-          </Tabs>
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4">
