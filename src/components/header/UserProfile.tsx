@@ -36,7 +36,7 @@ const UserProfile = ({ isLoggedIn, setIsLoggedIn }: UserProfileProps) => {
             variant="outline"
             size="sm"
             className="flex items-center gap-2"
-            onClick={() => navigate('/supplier-dashboard')}
+            onClick={() => navigate('/profile/company')}
           >
             <Icon name="LayoutDashboard" size={18} />
             <span className="hidden lg:inline">Кабинет поставщика</span>

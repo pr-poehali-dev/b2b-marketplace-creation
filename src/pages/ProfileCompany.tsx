@@ -30,7 +30,7 @@ const ProfileCompany = () => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
-  const [activeTab, setActiveTab] = useState('info');
+  const [activeTab, setActiveTab] = useState('overview');
 
   const handleSave = () => {
     setIsEditing(false);
