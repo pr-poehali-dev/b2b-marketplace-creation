@@ -1,0 +1,161 @@
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import Icon from '@/components/ui/icon'
+
+const Footer = () => {
+  return (
+    <>
+      {/* Registration CTA */}
+      <section id="buyers" className="py-20 bg-primary text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto space-y-8">
+            <h2 className="text-3xl font-bold">Повысьте эффективность закупок</h2>
+            <p className="text-lg opacity-90">
+              Интегрируйтесь с Business Market для оптимизации всех закупочных процессов. Консалтинг включен.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="text-base">
+                <Icon name="Building" size={18} className="mr-2" />
+                Стать клиентом
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-base border-white text-white hover:bg-white hover:text-primary"
+              >
+                <Icon name="Store" size={18} className="mr-2" />
+                Поставлять товары
+              </Button>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 pt-8">
+              <div className="text-center">
+                <Icon name="Shield" size={24} className="mx-auto mb-2 opacity-80" />
+                <div className="font-semibold">Комплаенс</div>
+                <div className="text-sm opacity-80">Полное соответствие</div>
+              </div>
+              <div className="text-center">
+                <Icon name="Clock" size={24} className="mx-auto mb-2 opacity-80" />
+                <div className="font-semibold">Автоматизация</div>
+                <div className="text-sm opacity-80">Оптимизация процессов</div>
+              </div>
+              <div className="text-center">
+                <Icon name="DollarSign" size={24} className="mx-auto mb-2 opacity-80" />
+                <div className="font-semibold">ROI</div>
+                <div className="text-sm opacity-80">Минимизация затрат</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer id="contacts" className="bg-gray-900 text-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Icon name="Building" size={24} className="text-primary" />
+                <span className="text-xl font-bold">Business Market</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                Корпоративная платформа для бизнес-закупок и продаж между компаниями.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Покупателям</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li>
+                  <Link href="/catalog" className="hover:text-white transition-colors">
+                    Поиск поставщиков
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/catalog" className="hover:text-white transition-colors">
+                    Каталог товаров
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/help" className="hover:text-white transition-colors">
+                    Как покупать
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/help" className="hover:text-white transition-colors">
+                    Безопасность сделок
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Поставщикам</h4>
+              <ul className="space-y-2 text-sm text-gray-400">
+                <li>
+                  <Link href="/register/supplier" className="hover:text-white transition-colors">
+                    Как стать поставщиком
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/pricing" className="hover:text-white transition-colors">
+                    Тарифы
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/help" className="hover:text-white transition-colors">
+                    Аналитика продаж
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/help" className="hover:text-white transition-colors">
+                    Поддержка
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Контакты</h4>
+              <ul className="space-y-3 text-sm text-gray-400">
+                <li className="flex items-center gap-2">
+                  <Icon name="Phone" size={16} />
+                  <span>+7 (800) 555-35-35</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon name="Mail" size={16} />
+                  <span>info@business-market.ru</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon name="MapPin" size={16} />
+                  <span>Москва, ул. Деловая, 1</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Icon name="Clock" size={16} />
+                  <span>Пн-Пт: 9:00 — 18:00</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-sm text-gray-400">
+              © 2024 Business Market. Все права защищены.
+            </div>
+            <div className="flex gap-6 text-sm text-gray-400">
+              <Link href="/terms" className="hover:text-white transition-colors">
+                Условия использования
+              </Link>
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                Политика конфиденциальности
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  )
+}
+
+export default Footer

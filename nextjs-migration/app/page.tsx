@@ -1,0 +1,49 @@
+'use client'
+
+import { useState } from 'react'
+import Header from '@/components/Header'
+import HeroSection from '@/components/HeroSection'
+import SupplierSection from '@/components/SupplierSection'
+import SearchSection from '@/components/SearchSection'
+import NewsSection from '@/components/NewsSection'
+import FeaturesSection from '@/components/FeaturesSection'
+import ProductsSection from '@/components/ProductsSection'
+import RecommendedProducts from '@/components/product/RecommendedProducts'
+import DeliverySection from '@/components/DeliverySection'
+import Footer from '@/components/Footer'
+import WelcomeModal from '@/components/WelcomeModal'
+
+export default function HomePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [shouldRestartSlideshow, setShouldRestartSlideshow] = useState(false)
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true)
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+    setShouldRestartSlideshow(true)
+    setTimeout(() => setShouldRestartSlideshow(false), 100)
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      <WelcomeModal onOpen={handleModalOpen} onClose={handleModalClose} />
+      <div className="ml-56 transition-all duration-300">
+        <HeroSection isModalOpen={isModalOpen} shouldRestart={shouldRestartSlideshow} />
+        <SupplierSection />
+        <SearchSection />
+        <NewsSection />
+        <FeaturesSection />
+        <ProductsSection />
+        <div className="px-6 py-8">
+          <RecommendedProducts title="Популярные товары" limit={8} className="mb-8" />
+        </div>
+        <DeliverySection />
+        <Footer />
+      </div>
+    </div>
+  )
+}
