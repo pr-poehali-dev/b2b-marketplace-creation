@@ -60,6 +60,15 @@ const Footer = () => {
               <p className="text-gray-400 text-sm">
                 Корпоративная платформа для бизнес-закупок и продаж между компаниями.
               </p>
+              <div className="text-sm text-gray-500 space-y-1 pt-2">
+                <div>ИП · ИНН 151208831603</div>
+                <div>
+                  <a href="mailto:isma1evlo1@gmail.com" className="hover:text-white transition-colors">isma1evlo1@gmail.com</a>
+                </div>
+                <div>
+                  <a href="tel:+79690611110" className="hover:text-white transition-colors">+7 969 061-11-10</a>
+                </div>
+              </div>
             </div>
             
             <div>
