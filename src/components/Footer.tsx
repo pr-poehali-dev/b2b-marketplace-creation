@@ -89,35 +89,7 @@ const Footer = () => {
               </ul>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4">Контакты</h4>
-              <div className="space-y-3 text-sm text-gray-400">
-                <div className="flex items-center gap-2">
-                  <Icon name="Phone" size={16} />
-                  <span>+7 (800) 123-45-67</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="Mail" size={16} />
-                  <span>info@bmmarket.ru</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Icon name="MapPin" size={16} className="mt-0.5" />
-                  <div>
-                    <div>Москва, ул. Деловая, 1</div>
-                    <div className="text-xs text-gray-500">Пн-Пт: 9:00-18:00 МСК</div>
-                  </div>
-                </div>
-                <div className="pt-2">
-                  <a 
-                    href="/contacts" 
-                    className="inline-flex items-center gap-2 text-primary hover:text-blue-400 transition-colors"
-                  >
-                    <Icon name="ArrowRight" size={14} />
-                    <span>Все контакты</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+
           </div>
           
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
