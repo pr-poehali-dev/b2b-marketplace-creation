@@ -392,11 +392,11 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     id="terms"
                   />
                   <label htmlFor="terms" className="text-sm text-gray-600">
-                    Я соглашаюсь с{' '}
+                    Я принимаю условия{' '}
                     <Link to="/terms" className="text-blue-600 hover:underline">
-                      Условиями использования
+                      Публичной оферты
                     </Link>{' '}
-                    и{' '}
+                    и даю согласие на обработку персональных данных в соответствии с{' '}
                     <Link to="/privacy" className="text-blue-600 hover:underline">
                       Политикой конфиденциальности
                     </Link>
