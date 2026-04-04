@@ -94,7 +94,7 @@ const Footer = () => {
           
           <div className="border-t border-gray-800 mt-12 pt-8 space-y-4">
             <div className="text-xs text-gray-600 leading-relaxed">
-              ИП Евлоев Исмаил Алаудинович · ИНН 151208831603 · ОГРНИП 322150000028427 · Тел.: <a href="tel:+79690611110" className="hover:text-gray-400 transition-colors">+7 969 061-11-10</a> · Email: <a href="mailto:info@bmmarket.ru" className="hover:text-gray-400 transition-colors">info@bmmarket.ru</a>. Использование сайта означает принятие условий <a href="/terms" className="hover:text-gray-400 transition-colors underline">Публичной оферты</a> и <a href="/privacy" className="hover:text-gray-400 transition-colors underline">Политики конфиденциальности</a>.
+              ИП Евлоев Исмаил Алаудинович · ИНН 151208831603 · ОГРНИП 322150000028427 · Тел.: <a href="tel:+79690611110" className="hover:text-gray-400 transition-colors">+7 969 061-11-10</a> · Email: <a href="mailto:bmbusinessmarket@yandex.ru" className="hover:text-gray-400 transition-colors">bmbusinessmarket@yandex.ru</a>. Использование сайта означает принятие условий <a href="/terms" className="hover:text-gray-400 transition-colors underline">Публичной оферты</a> и <a href="/privacy" className="hover:text-gray-400 transition-colors underline">Политики конфиденциальности</a>.
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
               <p>© 2026 Business Market. Все права защищены.</p>

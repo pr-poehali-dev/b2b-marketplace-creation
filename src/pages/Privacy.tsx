@@ -135,7 +135,7 @@ const Privacy = () => {
                   <p className="mb-1">ИНН: 151208831603</p>
                   <p className="mb-1">ОГРНИП: 322150000028427</p>
                   <p className="mb-1">Телефон: +7 969 061-11-10</p>
-                  <p className="mb-1">Email: info@bmmarket.ru</p>
+                  <p className="mb-1">Email: bmbusinessmarket@yandex.ru</p>
                 </div>
 
                 <div className="text-sm text-gray-500 pt-6 border-t">
