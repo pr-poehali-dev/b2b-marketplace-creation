@@ -92,8 +92,12 @@ const Footer = () => {
 
           </div>
           
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
-            <p>© 2024 Business Market. Все права защищены.</p>
+          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
+            <p>© 2026 Business Market. Все права защищены.</p>
+            <div className="flex gap-4">
+              <a href="/terms" className="hover:text-white transition-colors">Публичная оферта</a>
+              <a href="/privacy" className="hover:text-white transition-colors">Политика конфиденциальности</a>
+            </div>
           </div>
         </div>
       </footer>
