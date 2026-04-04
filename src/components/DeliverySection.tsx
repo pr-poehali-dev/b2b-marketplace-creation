@@ -24,7 +24,7 @@ const DeliverySection = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Icon name="Clock" size={20} className="text-blue-600 mt-1" />
+                  <Icon name="Clock" size={20} className="text-emerald-700 mt-1" />
                   <div>
                     <h4 className="font-semibold">Экспресс доставка</h4>
                     <p className="text-sm text-gray-600">1-2 дня, курьером до двери</p>

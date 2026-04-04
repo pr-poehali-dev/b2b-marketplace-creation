@@ -73,7 +73,7 @@ const ProductComparison = ({
         <DialogHeader>
           <DialogTitle className="flex items-center justify-between">
             <span className="flex items-center">
-              <Icon name="BarChart" size={20} className="mr-2 text-blue-600" />
+              <Icon name="BarChart" size={20} className="mr-2 text-emerald-700" />
               Сравнение товаров ({products.length})
             </span>
             <Button variant="ghost" size="sm" onClick={onClose}>
@@ -119,7 +119,7 @@ const ProductComparison = ({
                   
                   <div className="space-y-2">
                     <div className="flex items-baseline gap-2">
-                      <span className={`text-lg font-bold ${isHighlighted('price', product.price, products) ? 'text-green-600' : 'text-blue-600'}`}>
+                      <span className={`text-lg font-bold ${isHighlighted('price', product.price, products) ? 'text-green-600' : 'text-emerald-700'}`}>
                         {product.price.toLocaleString('ru-RU')} ₽
                       </span>
                       <span className="text-xs text-gray-500">{product.unit}</span>
@@ -129,7 +129,7 @@ const ProductComparison = ({
 
                     <Button 
                       size="sm" 
-                      className="w-full mt-3 bg-blue-600 hover:bg-blue-700"
+                      className="w-full mt-3 bg-emerald-700 hover:bg-emerald-800"
                       onClick={() => onSendInquiry(product)}
                       disabled={!product.inStock}
                     >
@@ -164,7 +164,7 @@ const ProductComparison = ({
                     {comparisonAttributes.map((attr) => (
                       <tr 
                         key={attr.key} 
-                        className={`border-b hover:bg-gray-50 ${selectedAttribute === attr.key ? 'bg-blue-50' : ''}`}
+                        className={`border-b hover:bg-gray-50 ${selectedAttribute === attr.key ? 'bg-emerald-50' : ''}`}
                         onClick={() => setSelectedAttribute(selectedAttribute === attr.key ? null : attr.key)}
                       >
                         <td className="py-3 px-2 font-medium text-gray-700 cursor-pointer">
@@ -213,7 +213,7 @@ const ProductComparison = ({
               <Button variant="outline" onClick={() => products.forEach(p => onRemoveProduct(p.id))}>
                 Очистить все
               </Button>
-              <Button onClick={onClose} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={onClose} className="bg-emerald-700 hover:bg-emerald-800">
                 Закрыть сравнение
               </Button>
             </div>

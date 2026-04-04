@@ -181,14 +181,14 @@ const NewsPublish = () => {
                   />
                 </div>
 
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h3 className="flex items-center text-sm font-medium text-blue-900 mb-2">
+                <div className="bg-emerald-50 p-4 rounded-lg">
+                  <h3 className="flex items-center text-sm font-medium text-emerald-900 mb-2">
                     <Icon name="Info" size={16} className="mr-2" />
                     Предварительный просмотр категории
                   </h3>
                   {formData.category && (
                     <Badge className={
-                      formData.category === 'economy' ? 'bg-blue-100 text-blue-800' :
+                      formData.category === 'economy' ? 'bg-emerald-100 text-emerald-800' :
                       formData.category === 'market' ? 'bg-green-100 text-green-800' :
                       formData.category === 'business' ? 'bg-purple-100 text-purple-800' :
                       formData.category === 'policy' ? 'bg-orange-100 text-orange-800' :

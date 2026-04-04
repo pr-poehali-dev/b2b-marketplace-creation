@@ -99,8 +99,8 @@ const B2BAdvantagesSection = () => {
             </div>
             
             <div className="space-y-3">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-                <Icon name="Clock" size={28} className="text-blue-600" />
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
+                <Icon name="Clock" size={28} className="text-emerald-700" />
               </div>
               <h4 className="font-semibold text-gray-900">Отсрочка платежа</h4>
               <p className="text-sm text-gray-600">

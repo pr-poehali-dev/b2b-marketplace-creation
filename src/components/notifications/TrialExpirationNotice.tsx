@@ -81,12 +81,12 @@ export default function TrialExpirationNotice({ onUpgrade, onDismiss }: TrialExp
     } else {
       return {
         type: 'info',
-        bgColor: 'bg-blue-50',
-        borderColor: 'border-blue-200',
-        iconColor: 'text-blue-600',
-        titleColor: 'text-blue-900',
-        textColor: 'text-blue-700',
-        buttonColor: 'bg-blue-600 hover:bg-blue-700',
+        bgColor: 'bg-emerald-50',
+        borderColor: 'border-emerald-200',
+        iconColor: 'text-emerald-700',
+        titleColor: 'text-emerald-900',
+        textColor: 'text-emerald-700',
+        buttonColor: 'bg-emerald-700 hover:bg-emerald-800',
         icon: 'Info',
         title: `Осталось ${daysLeft} дней пробного периода`,
         message: 'Изучайте возможности платформы и готовьтесь к выбору тарифа.'
@@ -143,7 +143,7 @@ export default function TrialExpirationNotice({ onUpgrade, onDismiss }: TrialExp
           {daysLeft > 7 && (
             <button
               onClick={onUpgrade}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline"
+              className="text-sm text-emerald-700 hover:text-emerald-800 font-medium hover:underline"
             >
               Посмотреть тарифы →
             </button>

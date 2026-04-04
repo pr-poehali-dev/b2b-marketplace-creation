@@ -131,8 +131,8 @@ export default function SupplierDashboard() {
               onClick={() => navigate('/supplier/products')}
               className="w-full flex items-center p-3 text-left hover:bg-gray-50 rounded-lg transition-colors"
             >
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                <Icon name="Package" size={20} className="text-blue-600" />
+              <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mr-3">
+                <Icon name="Package" size={20} className="text-emerald-700" />
               </div>
               <div>
                 <p className="font-medium text-gray-900">Мои товары</p>
@@ -220,7 +220,7 @@ export default function SupplierDashboard() {
         </div>
         
         {/* Простой график-заглушка */}
-        <div className="h-48 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg flex items-center justify-center">
+        <div className="h-48 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg flex items-center justify-center">
           <div className="text-center">
             <Icon name="TrendingUp" size={48} className="text-green-600 mx-auto mb-2" />
             <p className="text-gray-600">График статистики</p>

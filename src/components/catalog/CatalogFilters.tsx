@@ -159,7 +159,7 @@ const CatalogFilters = ({
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-3">
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="border-gray-200 focus:border-blue-500">
+              <SelectTrigger className="border-gray-200 focus:border-emerald-500">
                 <SelectValue placeholder="Все категории" />
               </SelectTrigger>
               <SelectContent>
@@ -228,7 +228,7 @@ const CatalogFilters = ({
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-3">
             <Select value={minOrderFilter} onValueChange={setMinOrderFilter}>
-              <SelectTrigger className="border-gray-200 focus:border-blue-500">
+              <SelectTrigger className="border-gray-200 focus:border-emerald-500">
                 <SelectValue placeholder="Любой объем" />
               </SelectTrigger>
               <SelectContent>
@@ -257,7 +257,7 @@ const CatalogFilters = ({
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-3">
             <Select value={locationFilter} onValueChange={setLocationFilter}>
-              <SelectTrigger className="border-gray-200 focus:border-blue-500">
+              <SelectTrigger className="border-gray-200 focus:border-emerald-500">
                 <SelectValue placeholder="Все регионы" />
               </SelectTrigger>
               <SelectContent>

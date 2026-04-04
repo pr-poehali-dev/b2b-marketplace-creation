@@ -34,7 +34,7 @@ const CatalogGrid = ({
             <p className="text-gray-600 mb-6">
               К сожалению, по вашему запросу ничего не найдено. Попробуйте изменить параметры поиска.
             </p>
-            <Button onClick={onResetFilters} className="bg-blue-600 hover:bg-blue-700">
+            <Button onClick={onResetFilters} className="bg-emerald-700 hover:bg-emerald-800">
               <Icon name="RotateCcw" size={16} className="mr-2" />
               Сбросить все фильтры
             </Button>

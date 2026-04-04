@@ -68,7 +68,7 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Icon name="Loader2" size={48} className="mx-auto text-blue-600 animate-spin mb-4" />
+          <Icon name="Loader2" size={48} className="mx-auto text-emerald-700 animate-spin mb-4" />
           <p className="text-gray-600">Загрузка товара...</p>
         </div>
       </div>
@@ -107,14 +107,14 @@ const ProductDetail = () => {
                 // Восстанавливаем предыдущее состояние каталога
                 navigate('/catalog');
               }}
-              className="hover:text-blue-600 transition-colors"
+              className="hover:text-emerald-700 transition-colors"
             >
               Каталог
             </button>
             <Icon name="ChevronRight" size={14} />
             <button 
               onClick={() => navigate(`/catalog?category=${encodeURIComponent(product.category)}`)}
-              className="text-blue-600 hover:text-blue-800 transition-colors"
+              className="text-emerald-700 hover:text-emerald-800 transition-colors"
             >
               {product.category}
             </button>
@@ -164,7 +164,7 @@ const ProductDetail = () => {
                     onClick={() => setSelectedImage(index)}
                     className={`aspect-square rounded-lg overflow-hidden border-2 transition-colors ${
                       selectedImage === index 
-                        ? 'border-blue-500' 
+                        ? 'border-emerald-500' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -193,7 +193,7 @@ const ProductDetail = () => {
                   <Icon name="Store" size={16} className="text-gray-400" />
                   <button 
                     onClick={() => navigate('/company/1')}
-                    className="text-gray-700 hover:text-blue-600 hover:underline transition-colors duration-200"
+                    className="text-gray-700 hover:text-emerald-700 hover:underline transition-colors duration-200"
                   >
                     {product.seller}
                   </button>
@@ -209,9 +209,9 @@ const ProductDetail = () => {
               <Separator />
 
               {/* Цена */}
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 sm:p-6">
+              <div className="bg-gradient-to-r from-emerald-50 to-purple-50 rounded-xl p-4 sm:p-6">
                 <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 mb-2">
-                  <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-700">
                     {product.price.toLocaleString('ru-RU')} ₽
                   </span>
                   <span className="text-gray-500 text-sm sm:text-base lg:text-lg">{product.unit}</span>
@@ -296,7 +296,7 @@ const ProductDetail = () => {
                     <Button 
                       onClick={handleSendInquiry}
                       disabled={!product.inStock}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium"
+                      className="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-3 px-4 rounded-lg font-medium"
                     >
                       <div className="flex items-center justify-center gap-2">
                         <Icon name="Mail" size={16} />
@@ -308,7 +308,7 @@ const ProductDetail = () => {
                       variant="outline"
                       onClick={handleAddToCart}
                       disabled={!product.inStock}
-                      className="w-full border-blue-600 text-blue-600 hover:bg-blue-50 py-3 px-4 rounded-lg font-medium border-2"
+                      className="w-full border-emerald-700 text-emerald-700 hover:bg-emerald-50 py-3 px-4 rounded-lg font-medium border-2"
                     >
                       <div className="flex items-center justify-center gap-2">
                         <Icon name="ShoppingCart" size={16} />
@@ -358,12 +358,12 @@ const ProductDetail = () => {
                       </Badge>
                     </div>
                     <CardContent className="p-4">
-                      <h3 className="font-semibold mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                      <h3 className="font-semibold mb-2 line-clamp-2 group-hover:text-emerald-700 transition-colors">
                         {relatedProduct.name}
                       </h3>
 
                       <div className="flex items-baseline gap-2">
-                        <span className="text-lg font-bold text-blue-600">
+                        <span className="text-lg font-bold text-emerald-700">
                           {relatedProduct.price.toLocaleString('ru-RU')} ₽
                         </span>
                         <span className="text-xs text-gray-500">{relatedProduct.unit}</span>

@@ -141,7 +141,7 @@ const CatalogToolbar = ({
                 setShowSuggestions(suggestions.length > 0);
               }
             }}
-            className="pl-10 pr-4 py-3 border-gray-200 focus:border-blue-500 focus:ring-blue-500/20 text-base"
+            className="pl-10 pr-4 py-3 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20 text-base"
           />
           
           {/* Выпадающий список подсказок */}
@@ -156,7 +156,7 @@ const CatalogToolbar = ({
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={`px-4 py-3 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
                     index === selectedSuggestion 
-                      ? 'bg-blue-50 text-blue-700' 
+                      ? 'bg-emerald-50 text-emerald-700' 
                       : 'hover:bg-gray-50'
                   }`}
                 >
@@ -175,7 +175,7 @@ const CatalogToolbar = ({
       <div className="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm border border-gray-100">
         <div className="flex items-center gap-4">
           <p className="text-gray-700 font-medium">
-            Показано <span className="text-blue-600 font-semibold">{filteredProductsCount}</span> из {totalProducts} товаров
+            Показано <span className="text-emerald-700 font-semibold">{filteredProductsCount}</span> из {totalProducts} товаров
           </p>
         </div>
       

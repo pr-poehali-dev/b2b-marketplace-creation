@@ -110,7 +110,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              className="bg-emerald-700 h-2 rounded-full transition-all duration-300"
               style={{ width: `${(currentStep / totalSteps) * 100}%` }}
             />
           </div>
@@ -121,8 +121,8 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
           {currentStep === 1 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon name="User" size={32} className="text-blue-600" />
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon name="User" size={32} className="text-emerald-700" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Личная информация
@@ -142,7 +142,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.firstName}
                     onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Иван"
                   />
                 </div>
@@ -156,7 +156,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.lastName}
                     onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Петров"
                   />
                 </div>
@@ -170,7 +170,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="ivan.petrov@company.ru"
                   />
                 </div>
@@ -184,7 +184,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="+7 (999) 123-45-67"
                   />
                 </div>
@@ -199,7 +199,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     type="text"
                     value={formData.companyName}
                     onChange={(e) => setFormData({...formData, companyName: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="ООО Торговая компания"
                   />
                 </div>
@@ -212,7 +212,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     type="text"
                     value={formData.position}
                     onChange={(e) => setFormData({...formData, position: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Менеджер по закупкам"
                   />
                 </div>
@@ -224,8 +224,8 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
           {currentStep === 2 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon name="Briefcase" size={32} className="text-blue-600" />
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Briefcase" size={32} className="text-emerald-700" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Бизнес-информация
@@ -244,7 +244,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.businessType}
                     onChange={(e) => setFormData({...formData, businessType: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   >
                     <option value="">Выберите тип</option>
                     <option value="retail">Розничная торговля</option>
@@ -265,7 +265,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                   <select
                     value={formData.purchaseVolume}
                     onChange={(e) => setFormData({...formData, purchaseVolume: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   >
                     <option value="">Выберите объем</option>
                     <option value="small">До 100 000 ₽</option>
@@ -286,7 +286,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                       key={interest}
                       className={`flex items-center p-3 rounded-lg border-2 cursor-pointer transition-all ${
                         formData.interests.includes(interest)
-                          ? 'border-blue-500 bg-blue-50'
+                          ? 'border-emerald-500 bg-emerald-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -307,12 +307,12 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                 </p>
               </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="bg-emerald-50 p-4 rounded-lg">
                 <div className="flex items-start">
-                  <Icon name="Info" size={20} className="text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
-                  <div className="text-sm text-blue-800">
+                  <Icon name="Info" size={20} className="text-emerald-700 mt-0.5 mr-3 flex-shrink-0" />
+                  <div className="text-sm text-emerald-800">
                     <p className="font-medium mb-1">Преимущества указания бизнес-информации:</p>
-                    <ul className="space-y-1 text-blue-700">
+                    <ul className="space-y-1 text-emerald-700">
                       <li>• Персональные рекомендации поставщиков</li>
                       <li>• Специальные предложения и скидки</li>
                       <li>• Приоритетная поддержка менеджеров</li>
@@ -327,8 +327,8 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
           {currentStep === 3 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon name="Shield" size={32} className="text-blue-600" />
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Shield" size={32} className="text-emerald-700" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Настройка безопасности
@@ -348,7 +348,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Создайте пароль"
                   />
                 </div>
@@ -362,7 +362,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     required
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Повторите пароль"
                   />
                 </div>
@@ -393,11 +393,11 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                   />
                   <label htmlFor="terms" className="text-sm text-gray-600">
                     Я принимаю условия{' '}
-                    <Link to="/terms" className="text-blue-600 hover:underline">
+                    <Link to="/terms" className="text-emerald-700 hover:underline">
                       Публичной оферты
                     </Link>{' '}
                     и даю согласие на обработку персональных данных в соответствии с{' '}
-                    <Link to="/privacy" className="text-blue-600 hover:underline">
+                    <Link to="/privacy" className="text-emerald-700 hover:underline">
                       Политикой конфиденциальности
                     </Link>
                   </label>
@@ -436,14 +436,14 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="px-8 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors font-medium"
                 >
                   Далее
                 </button>
               ) : (
                 <button
                   type="submit"
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="px-8 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors font-medium"
                 >
                   Создать аккаунт
                 </button>
@@ -458,7 +458,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
               <button
                 type="button"
                 onClick={() => {/* Открыть форму входа */}}
-                className="text-blue-600 hover:underline font-medium"
+                className="text-emerald-700 hover:underline font-medium"
               >
                 Войти
               </button>

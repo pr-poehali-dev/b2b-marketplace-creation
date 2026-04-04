@@ -21,9 +21,9 @@ const CompareFloatingButton = ({
       <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-4 max-w-sm">
         <div className="flex items-center justify-between mb-3">
           <h4 className="font-semibold text-gray-800 flex items-center">
-            <Icon name="BarChart" size={16} className="mr-2 text-blue-600" />
+            <Icon name="BarChart" size={16} className="mr-2 text-emerald-700" />
             Сравнение
-            <Badge className="ml-2 bg-blue-100 text-blue-800">{compareProducts.length}</Badge>
+            <Badge className="ml-2 bg-emerald-100 text-emerald-800">{compareProducts.length}</Badge>
           </h4>
         </div>
         
@@ -53,7 +53,7 @@ const CompareFloatingButton = ({
         <div className="flex gap-2">
           <Button 
             size="sm" 
-            className="flex-1 bg-blue-600 hover:bg-blue-700"
+            className="flex-1 bg-emerald-700 hover:bg-emerald-800"
             onClick={onOpenComparison}
           >
             Сравнить ({compareProducts.length})

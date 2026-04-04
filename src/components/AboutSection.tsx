@@ -23,7 +23,7 @@ const AboutSection = () => {
             <div className="space-y-6 md:space-y-8">
               <div>
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 flex items-center gap-2 md:gap-3 flex-wrap">
-                  <Icon name="Target" size={24} className="text-blue-600 flex-shrink-0" />
+                  <Icon name="Target" size={24} className="text-emerald-700 flex-shrink-0" />
                   <span>Наша миссия</span>
                 </h3>
                 <p className="text-gray-600 leading-relaxed text-sm md:text-base">
@@ -40,25 +40,25 @@ const AboutSection = () => {
                 </h3>
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex gap-3 md:gap-4">
-                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-emerald-700 bg-emerald-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2018
                     </div>
                     <p className="text-gray-600 text-sm md:text-base leading-relaxed">Основание компании и запуск MVP платформы</p>
                   </div>
                   <div className="flex gap-3 md:gap-4">
-                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-emerald-700 bg-emerald-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2020
                     </div>
                     <p className="text-gray-600 text-sm md:text-base leading-relaxed">Достигли отметки 500+ активных поставщиков</p>
                   </div>
                   <div className="flex gap-3 md:gap-4">
-                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-emerald-700 bg-emerald-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2022
                     </div>
                     <p className="text-gray-600 text-sm md:text-base leading-relaxed">Запуск ИИ-аналитики и автоматизации процессов</p>
                   </div>
                   <div className="flex gap-3 md:gap-4">
-                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-blue-600 bg-blue-50 rounded px-2 py-1 flex-shrink-0 text-center">
+                    <div className="w-16 md:w-20 text-xs md:text-sm font-semibold text-emerald-700 bg-emerald-50 rounded px-2 py-1 flex-shrink-0 text-center">
                       2024
                     </div>
                     <p className="text-gray-600 text-sm md:text-base leading-relaxed">Более 2500 поставщиков и 15000+ товарных позиций</p>
@@ -76,7 +76,7 @@ const AboutSection = () => {
                 </h3>
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
                   <div className="bg-white rounded-lg p-3 md:p-4 border min-w-0">
-                    <div className="text-xl md:text-2xl font-bold text-blue-600 mb-1 truncate">98%</div>
+                    <div className="text-xl md:text-2xl font-bold text-emerald-700 mb-1 truncate">98%</div>
                     <div className="text-xs md:text-sm text-gray-600 leading-tight">Довольных клиентов</div>
                   </div>
                   <div className="bg-white rounded-lg p-3 md:p-4 border min-w-0">
@@ -115,7 +115,7 @@ const AboutSection = () => {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Icon name="BarChart3" size={20} className="text-blue-600 mt-0.5" />
+                    <Icon name="BarChart3" size={20} className="text-emerald-700 mt-0.5" />
                     <div>
                       <h4 className="font-semibold text-gray-900">Аналитика</h4>
                       <p className="text-sm text-gray-600">Детальная отчетность и прогнозы</p>
@@ -143,7 +143,7 @@ const AboutSection = () => {
                 Свяжитесь с нашей командой экспертов для персональной консультации
               </p>
               <div className="flex flex-wrap gap-3 md:gap-4 justify-center px-2">
-                <button className="bg-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm md:text-base min-w-0">
+                <button className="bg-emerald-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium hover:bg-emerald-800 transition-colors flex items-center gap-2 text-sm md:text-base min-w-0">
                   <Icon name="Phone" size={18} className="flex-shrink-0" />
                   <span className="truncate">Позвонить</span>
                 </button>

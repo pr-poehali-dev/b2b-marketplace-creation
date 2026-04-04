@@ -65,7 +65,7 @@ const QuickViewModal = ({
             
             <div className="flex items-center justify-between">
               <div className="flex items-baseline gap-2">
-                <span className="text-lg font-bold text-blue-600">
+                <span className="text-lg font-bold text-emerald-700">
                   {product.price.toLocaleString('ru-RU')} ₽
                 </span>
                 {product.oldPrice && (
@@ -89,9 +89,9 @@ const QuickViewModal = ({
               </div>
             )}
 
-            <div className="flex items-center gap-1 bg-blue-50 rounded-full px-2 py-1">
-              <Icon name="Package" size={12} className="text-blue-600" />
-              <span className="text-xs text-blue-700">от {product.minOrder}</span>
+            <div className="flex items-center gap-1 bg-emerald-50 rounded-full px-2 py-1">
+              <Icon name="Package" size={12} className="text-emerald-700" />
+              <span className="text-xs text-emerald-700">от {product.minOrder}</span>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ const QuickViewModal = ({
 
           {/* Основное действие */}
           <Button 
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-medium"
+            className="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-2.5 rounded-xl font-medium"
             onClick={() => {
               onSendInquiry(product);
               onClose();

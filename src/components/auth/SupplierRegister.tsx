@@ -237,12 +237,12 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
                 />
               </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="bg-emerald-50 p-4 rounded-lg">
                 <div className="flex items-start">
-                  <Icon name="Info" size={20} className="text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
-                  <div className="text-sm text-blue-800">
+                  <Icon name="Info" size={20} className="text-emerald-700 mt-0.5 mr-3 flex-shrink-0" />
+                  <div className="text-sm text-emerald-800">
                     <p className="font-medium mb-1">Рекомендации:</p>
-                    <ul className="space-y-1 text-blue-700">
+                    <ul className="space-y-1 text-emerald-700">
                       <li>• Укажите основные категории товаров</li>
                       <li>• Опишите ваши конкурентные преимущества</li>
                       <li>• Укажите регионы работы</li>
@@ -269,7 +269,7 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
               </div>
 
               {/* Бонус для новых поставщиков */}
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl border border-green-200 mb-6">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200 mb-6">
                 <div className="flex items-start">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                     <Icon name="Gift" size={24} className="text-green-600" />

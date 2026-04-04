@@ -37,7 +37,7 @@ export default function ProfileDashboard({ className = "" }: ProfileDashboardPro
     switch (status) {
       case 'active': return 'bg-green-100 text-green-800';
       case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'completed': return 'bg-blue-100 text-blue-800';
+      case 'completed': return 'bg-emerald-100 text-emerald-800';
       case 'processing': return 'bg-orange-100 text-orange-800';
       case 'shipped': return 'bg-purple-100 text-purple-800';
       default: return 'bg-gray-100 text-gray-800';
@@ -82,11 +82,11 @@ export default function ProfileDashboard({ className = "" }: ProfileDashboardPro
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Всего товаров</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.totalProducts}</p>
+                <p className="text-2xl font-bold text-emerald-700">{stats.totalProducts}</p>
                 <p className="text-xs text-gray-500">{stats.activeProducts} активных</p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Icon name="Package" size={20} className="text-blue-600" />
+              <div className="p-3 bg-emerald-100 rounded-lg">
+                <Icon name="Package" size={20} className="text-emerald-700" />
               </div>
             </div>
           </CardContent>

@@ -49,7 +49,7 @@ const Categories = () => {
           {searchQuery && (
             <div className="mb-6">
               <p className="text-gray-600">
-                Найдено категорий: <span className="font-semibold text-indigo-600">{filteredCategories.length}</span>
+                Найдено категорий: <span className="font-semibold text-emerald-700">{filteredCategories.length}</span>
               </p>
             </div>
           )}
