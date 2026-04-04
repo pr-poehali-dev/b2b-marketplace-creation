@@ -134,6 +134,7 @@ const Privacy = () => {
                   <p className="mb-1"><strong>ИП Евлоев Исмаил Алаудинович</strong></p>
                   <p className="mb-1">ИНН: 151208831603</p>
                   <p className="mb-1">ОГРНИП: 322150000028427</p>
+                  <p className="mb-1">Телефон: +7 969 061-11-10</p>
                   <p className="mb-1">Email: info@bmmarket.ru</p>
                 </div>
 
