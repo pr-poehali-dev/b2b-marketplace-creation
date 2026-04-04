@@ -225,16 +225,16 @@ const About = () => {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-16 bg-blue-600 text-white">
+        <section className="py-16 bg-primary text-white">
           <div className="container mx-auto px-6 max-w-4xl text-center">
             <h2 className="text-3xl font-bold mb-6">Готовы начать сотрудничество?</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
               Свяжитесь с нашей командой экспертов для персональной консультации 
               и индивидуального предложения
             </p>
             
             <div className="flex flex-wrap gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2">
+              <button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-white/90 transition-colors flex items-center gap-2">
                 <Icon name="Phone" size={20} />
                 Позвонить нам
               </button>
@@ -242,25 +242,25 @@ const About = () => {
                 <Icon name="Mail" size={20} />
                 Написать письмо
               </button>
-              <button className="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-600 transition-colors flex items-center gap-2">
+              <button className="bg-white/20 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/30 transition-colors flex items-center gap-2">
                 <Icon name="MessageCircle" size={20} />
                 Telegram чат
               </button>
             </div>
             
-            <div className="mt-12 pt-8 border-t border-blue-500">
+            <div className="mt-12 pt-8 border-t border-white/20">
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
                   <Icon name="MapPin" size={24} className="mx-auto mb-2" />
-                  <p className="text-blue-100">Москва, Красная площадь, 1</p>
+                  <p className="text-white/80">Москва, Красная площадь, 1</p>
                 </div>
                 <div>
                   <Icon name="Clock" size={24} className="mx-auto mb-2" />
-                  <p className="text-blue-100">Пн-Пт: 9:00-18:00</p>
+                  <p className="text-white/80">Пн-Пт: 9:00-18:00</p>
                 </div>
                 <div>
                   <Icon name="Phone" size={24} className="mx-auto mb-2" />
-                  <p className="text-blue-100">+7 (495) 123-45-67</p>
+                  <p className="text-white/80">+7 (495) 123-45-67</p>
                 </div>
               </div>
             </div>
