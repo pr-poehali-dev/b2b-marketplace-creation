@@ -87,7 +87,7 @@ const RegistrationForm = () => {
           </div>
           <Button 
             onClick={handleSendCode}
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-emerald-700 hover:bg-emerald-800"
             disabled={!phone.trim()}
           >
             Отправить код
@@ -126,7 +126,7 @@ const RegistrationForm = () => {
             </Button>
             <Button 
               onClick={handleVerifyCode}
-              className="flex-1 bg-blue-600 hover:bg-blue-700"
+              className="flex-1 bg-emerald-700 hover:bg-emerald-800"
               disabled={code.length !== 4}
             >
               Подтвердить
@@ -306,7 +306,7 @@ const RegistrationForm = () => {
           <div
             key={stepNumber}
             className={`w-3 h-3 rounded-full ${
-              step >= stepNumber ? 'bg-blue-600' : 'bg-gray-300'
+              step >= stepNumber ? 'bg-emerald-700' : 'bg-gray-300'
             }`}
           />
         ))}

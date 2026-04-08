@@ -93,13 +93,13 @@ export default function EmailNotificationTester() {
       {/* Статистика */}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-blue-50 p-4 rounded-lg">
+          <div className="bg-emerald-50 p-4 rounded-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-blue-600 font-medium">Всего в пробном периоде</p>
-                <p className="text-2xl font-bold text-blue-900">{stats.total_trial_suppliers}</p>
+                <p className="text-sm text-emerald-700 font-medium">Всего в пробном периоде</p>
+                <p className="text-2xl font-bold text-emerald-900">{stats.total_trial_suppliers}</p>
               </div>
-              <Icon name="Users" size={24} className="text-blue-600" />
+              <Icon name="Users" size={24} className="text-emerald-700" />
             </div>
           </div>
 

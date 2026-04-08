@@ -115,7 +115,7 @@ export default function OrderManagement({ className = "" }: OrderManagementProps
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'new': return 'bg-blue-100 text-blue-800';
+      case 'new': return 'bg-emerald-100 text-emerald-800';
       case 'processing': return 'bg-yellow-100 text-yellow-800';
       case 'packed': return 'bg-purple-100 text-purple-800';
       case 'shipped': return 'bg-orange-100 text-orange-800';
@@ -202,10 +202,10 @@ export default function OrderManagement({ className = "" }: OrderManagementProps
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Новые заказы</p>
-                <p className="text-2xl font-bold text-blue-600">{orderStats.new}</p>
+                <p className="text-2xl font-bold text-emerald-700">{orderStats.new}</p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Icon name="ShoppingCart" size={20} className="text-blue-600" />
+              <div className="p-3 bg-emerald-100 rounded-lg">
+                <Icon name="ShoppingCart" size={20} className="text-emerald-700" />
               </div>
             </div>
           </CardContent>
@@ -389,7 +389,7 @@ export default function OrderManagement({ className = "" }: OrderManagementProps
                             <h4 className="font-medium text-gray-900 mb-2">Доставка:</h4>
                             <p className="text-sm text-gray-700">{order.shippingAddress}</p>
                             {order.trackingNumber && (
-                              <p className="text-sm text-blue-600 mt-1">
+                              <p className="text-sm text-emerald-700 mt-1">
                                 Трек-номер: {order.trackingNumber}
                               </p>
                             )}
@@ -410,7 +410,7 @@ export default function OrderManagement({ className = "" }: OrderManagementProps
 
                           <div className="flex items-center gap-2">
                             {order.status === 'new' && (
-                              <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                              <Button size="sm" className="bg-emerald-700 hover:bg-emerald-800">
                                 <Icon name="Check" size={14} className="mr-1" />
                                 Подтвердить
                               </Button>
@@ -522,9 +522,9 @@ export default function OrderManagement({ className = "" }: OrderManagementProps
                     />
                   </div>
 
-                  <div className="p-4 border rounded-lg bg-blue-50">
-                    <h4 className="font-medium text-blue-900 mb-2">💡 Совет по автоматизации</h4>
-                    <p className="text-sm text-blue-700">
+                  <div className="p-4 border rounded-lg bg-emerald-50">
+                    <h4 className="font-medium text-emerald-900 mb-2">💡 Совет по автоматизации</h4>
+                    <p className="text-sm text-emerald-700">
                       Включите автоподтверждение заказов и автоуведомления для экономии до 2 часов в день!
                     </p>
                   </div>

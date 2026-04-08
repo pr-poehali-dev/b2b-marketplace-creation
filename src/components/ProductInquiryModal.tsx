@@ -225,7 +225,7 @@ Email: ${inquiryData.email}
             />
           </div>
 
-          <div className="flex items-center space-x-2 p-3 bg-blue-50 rounded-lg">
+          <div className="flex items-center space-x-2 p-3 bg-emerald-50 rounded-lg">
             <input
               type="checkbox"
               id="includeInCart"

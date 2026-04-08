@@ -264,7 +264,7 @@ const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
                     key={image.id}
                     className={`relative group border-2 rounded-lg overflow-hidden transition-all ${
                       image.isMain 
-                        ? 'border-blue-500 ring-2 ring-blue-200' 
+                        ? 'border-emerald-600 ring-2 ring-emerald-200' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -317,7 +317,7 @@ const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
                       {/* Индикатор главного изображения */}
                       {image.isMain && (
                         <div className="absolute top-2 left-2">
-                          <div className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                          <div className="bg-emerald-600 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                             <Icon name="Star" size={12} />
                             Главное
                           </div>
@@ -357,7 +357,7 @@ const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
                 <Button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-emerald-700 hover:bg-emerald-800"
                 >
                   <Icon name="Upload" size={16} className="mr-2" />
                   Загрузить файлы

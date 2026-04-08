@@ -52,7 +52,7 @@ export default function PerformanceTab({ availablePromotions, getTypeColor }: Pe
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-2xl font-bold text-emerald-700">
                     {promotion.metrics.impressions?.toLocaleString()}
                   </div>
                   <div className="text-sm text-gray-600">Показы</div>

@@ -88,7 +88,7 @@ const SidebarNavigation = ({
             openSection={openSection}
             sectionKey="catalog"
             badge="2.5k"
-            badgeColor="bg-blue-100 text-blue-600"
+            badgeColor="bg-emerald-100 text-emerald-700"
             items={catalogItems}
             isCollapsible={true}
             onToggle={() => toggleSection('catalog')}

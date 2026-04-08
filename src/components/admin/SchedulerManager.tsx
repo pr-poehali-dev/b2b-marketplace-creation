@@ -155,7 +155,7 @@ export default function SchedulerManager() {
           <button
             onClick={executeScheduler}
             disabled={isExecuting}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+            className="px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors disabled:opacity-50 flex items-center gap-2"
           >
             <Icon name="Play" size={16} className={isExecuting ? 'animate-pulse' : ''} />
             Запустить сейчас
@@ -195,19 +195,19 @@ export default function SchedulerManager() {
           </div>
 
           {/* Расписание */}
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-            <h4 className="font-medium text-blue-900 mb-3 flex items-center">
+          <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+            <h4 className="font-medium text-emerald-900 mb-3 flex items-center">
               <Icon name="Calendar" size={16} className="mr-2" />
               Расписание выполнения
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-blue-700 font-medium">Частота:</span>
-                <span className="ml-2 text-blue-600">{status.schedule.frequency} в {status.schedule.time}</span>
+                <span className="text-emerald-700 font-medium">Частота:</span>
+                <span className="ml-2 text-emerald-700">{status.schedule.frequency} в {status.schedule.time}</span>
               </div>
               <div>
-                <span className="text-blue-700 font-medium">Следующий запуск:</span>
-                <span className="ml-2 text-blue-600">{formatDateTime(status.next_scheduled_run)}</span>
+                <span className="text-emerald-700 font-medium">Следующий запуск:</span>
+                <span className="ml-2 text-emerald-700">{formatDateTime(status.next_scheduled_run)}</span>
               </div>
             </div>
           </div>

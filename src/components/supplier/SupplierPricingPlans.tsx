@@ -205,23 +205,23 @@ export default function SupplierPricingPlans({
 
       {/* Рекомендация по апгрейду */}
       {recommendedPlan && (
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-emerald-200 bg-emerald-50">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Icon name="TrendingUp" size={20} className="text-blue-600" />
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <Icon name="TrendingUp" size={20} className="text-emerald-700" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-blue-900">
+                  <h3 className="font-medium text-emerald-900">
                     Рекомендуем перейти на план "{recommendedPlan.name}"
                   </h3>
-                  <p className="text-sm text-blue-700">
+                  <p className="text-sm text-emerald-700">
                     Снизите комиссию до {recommendedPlan.limits.commission}% и получите больше возможностей для роста
                   </p>
                 </div>
               </div>
-              <Button variant="outline" className="border-blue-300 text-blue-700 hover:bg-blue-100">
+              <Button variant="outline" className="border-emerald-300 text-emerald-700 hover:bg-emerald-100">
                 Узнать больше
               </Button>
             </div>
@@ -238,13 +238,13 @@ export default function SupplierPricingPlans({
           return (
             <Card 
               key={plan.id} 
-              className={`relative ${plan.popular ? 'border-blue-300 shadow-lg scale-105' : ''} ${
+              className={`relative ${plan.popular ? 'border-emerald-300 shadow-lg scale-105' : ''} ${
                 isCurrent ? 'border-green-300 bg-green-50' : ''
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-blue-600 hover:bg-blue-700">
+                  <Badge className="bg-emerald-700 hover:bg-emerald-800">
                     🔥 Популярный
                   </Badge>
                 </div>
@@ -302,7 +302,7 @@ export default function SupplierPricingPlans({
                   className={`w-full ${isCurrent 
                     ? 'bg-green-600 hover:bg-green-700' 
                     : plan.popular 
-                      ? 'bg-blue-600 hover:bg-blue-700' 
+                      ? 'bg-emerald-700 hover:bg-emerald-800' 
                       : ''
                   }`}
                   variant={isCurrent ? 'default' : plan.popular ? 'default' : 'outline'}

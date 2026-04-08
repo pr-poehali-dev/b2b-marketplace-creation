@@ -694,9 +694,9 @@ const EditProductPage: React.FC = () => {
             {formData.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {formData.tags.map((tag, index) => (
-                  <div key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                  <div key={index} className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm flex items-center gap-2">
                     {tag}
-                    <button type="button" onClick={() => removeTag(tag)} className="text-blue-600 hover:text-blue-800">
+                    <button type="button" onClick={() => removeTag(tag)} className="text-emerald-700 hover:text-emerald-900">
                       <Icon name="X" size={14} />
                     </button>
                   </div>

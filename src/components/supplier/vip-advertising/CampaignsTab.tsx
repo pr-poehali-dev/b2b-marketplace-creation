@@ -51,9 +51,9 @@ export default function CampaignsTab({ availableFormats }: CampaignsTabProps) {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                <div className="text-center p-3 bg-blue-50 rounded">
-                  <div className="font-bold text-blue-600">{format.performance.impressionsPerDay.toLocaleString()}</div>
-                  <div className="text-sm text-blue-700">показов/день</div>
+                <div className="text-center p-3 bg-emerald-50 rounded">
+                  <div className="font-bold text-emerald-700">{format.performance.impressionsPerDay.toLocaleString()}</div>
+                  <div className="text-sm text-emerald-700">показов/день</div>
                 </div>
                 <div className="text-center p-3 bg-green-50 rounded">
                   <div className="font-bold text-green-600">{format.performance.averageCTR}%</div>

@@ -32,7 +32,7 @@ const NavigationSection = ({
   openSection,
   sectionKey,
   badge,
-  badgeColor = "bg-blue-100 text-blue-600",
+  badgeColor = "bg-emerald-100 text-emerald-700",
   items = [],
   isCollapsible = false,
   isPremium = false,

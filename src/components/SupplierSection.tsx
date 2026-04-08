@@ -14,12 +14,12 @@ const SupplierSection = () => {
   if (userRole !== 'supplier') return null;
 
   return (
-    <section id="supplier-section" className="py-16 bg-gradient-to-br from-blue-50 to-teal-50">
+    <section id="supplier-section" className="py-16 bg-gradient-to-br from-emerald-50 to-teal-50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Заголовок */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6">
-            <Icon name="Package" size={32} className="text-blue-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6">
+            <Icon name="Package" size={32} className="text-emerald-700" />
           </div>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             Добро пожаловать, поставщик!
@@ -35,7 +35,7 @@ const SupplierSection = () => {
           {/* Добавить товар */}
           <Link
             to="/add-product"
-            className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200"
+            className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-emerald-200"
           >
             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-green-200 transition-colors">
               <Icon name="Plus" size={24} className="text-green-600" />
@@ -46,7 +46,7 @@ const SupplierSection = () => {
             <p className="text-gray-600 mb-4">
               Разместите ваши товары и услуги в каталоге
             </p>
-            <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
+            <div className="flex items-center text-emerald-700 font-semibold group-hover:text-emerald-800">
               Начать размещение
               <Icon name="ArrowRight" size={16} className="ml-2" />
             </div>
@@ -55,10 +55,10 @@ const SupplierSection = () => {
           {/* Мои товары */}
           <Link
             to="/supplier-products"
-            className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200"
+            className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-emerald-200"
           >
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-200 transition-colors">
-              <Icon name="Package" size={24} className="text-blue-600" />
+            <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-emerald-200 transition-colors">
+              <Icon name="Package" size={24} className="text-emerald-700" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-3">
               Мои товары
@@ -66,7 +66,7 @@ const SupplierSection = () => {
             <p className="text-gray-600 mb-4">
               Управляйте каталогом и отслеживайте продажи
             </p>
-            <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
+            <div className="flex items-center text-emerald-700 font-semibold group-hover:text-emerald-800">
               Открыть каталог
               <Icon name="ArrowRight" size={16} className="ml-2" />
             </div>
@@ -75,7 +75,7 @@ const SupplierSection = () => {
           {/* Заказы */}
           <Link
             to="/orders"
-            className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200"
+            className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-emerald-200"
           >
             <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-orange-200 transition-colors">
               <Icon name="ShoppingBag" size={24} className="text-orange-600" />
@@ -86,7 +86,7 @@ const SupplierSection = () => {
             <p className="text-gray-600 mb-4">
               Просматривайте и обрабатывайте заказы
             </p>
-            <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
+            <div className="flex items-center text-emerald-700 font-semibold group-hover:text-emerald-800">
               Посмотреть заказы
               <Icon name="ArrowRight" size={16} className="ml-2" />
             </div>
@@ -109,8 +109,8 @@ const SupplierSection = () => {
             </div>
 
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Icon name="Shield" size={24} className="text-blue-600" />
+              <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Icon name="Shield" size={24} className="text-emerald-700" />
               </div>
               <h4 className="font-semibold text-gray-900 mb-2">Безопасность</h4>
               <p className="text-sm text-gray-600">Защищенные платежи и гарантии сделок</p>

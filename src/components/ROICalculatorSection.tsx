@@ -37,7 +37,7 @@ const ROICalculatorSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-teal-50">
+    <section className="py-20 bg-gradient-to-br from-emerald-50 to-teal-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -53,7 +53,7 @@ const ROICalculatorSection = () => {
           <Card className="shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center text-xl">
-                <Icon name="Calculator" size={24} className="mr-3 text-blue-600" />
+                <Icon name="Calculator" size={24} className="mr-3 text-emerald-700" />
                 Калькулятор ROI
               </CardTitle>
             </CardHeader>
@@ -102,9 +102,9 @@ const ROICalculatorSection = () => {
               <div className="pt-6 border-t">
                 <h4 className="font-semibold text-gray-900 mb-4">Ваша экономия:</h4>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <p className="text-sm text-blue-600">Экономия времени</p>
-                    <p className="text-2xl font-bold text-blue-900">
+                  <div className="bg-emerald-50 p-4 rounded-lg">
+                    <p className="text-sm text-emerald-700">Экономия времени</p>
+                    <p className="text-2xl font-bold text-emerald-900">
                       {savings.monthlySavingsHours}ч/мес
                     </p>
                   </div>
@@ -138,18 +138,18 @@ const ROICalculatorSection = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-lg bg-gradient-to-br from-blue-50 to-sky-50 border-blue-200">
+            <Card className="shadow-lg bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200">
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
-                  <Icon name="DollarSign" size={32} className="text-blue-600 mr-4" />
+                  <Icon name="DollarSign" size={32} className="text-emerald-700 mr-4" />
                   <div>
-                    <h3 className="text-2xl font-bold text-blue-900">
+                    <h3 className="text-2xl font-bold text-emerald-900">
                       {formatCurrency(savings.annualRevenueIncrease)}
                     </h3>
-                    <p className="text-blue-700">Дополнительная выручка</p>
+                    <p className="text-emerald-700">Дополнительная выручка</p>
                   </div>
                 </div>
-                <p className="text-blue-800">
+                <p className="text-emerald-800">
                   Увеличение скорости обработки заказов на 25%
                 </p>
               </CardContent>
@@ -171,7 +171,7 @@ const ROICalculatorSection = () => {
             </Card>
 
             <div className="text-center">
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-lg px-8 py-4">
+              <Button size="lg" className="bg-gradient-to-r from-emerald-700 to-teal-600 hover:from-emerald-800 hover:to-teal-700 text-lg px-8 py-4">
                 <Icon name="Rocket" size={20} className="mr-2" />
                 Получить персональный расчет
               </Button>

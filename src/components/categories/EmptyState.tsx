@@ -19,7 +19,7 @@ const EmptyState = ({ searchQuery, onClearSearch }: EmptyStateProps) => {
           </p>
           <Button 
             onClick={onClearSearch}
-            className="bg-indigo-600 hover:bg-indigo-700"
+            className="bg-emerald-700 hover:bg-emerald-800"
           >
             <Icon name="RotateCcw" size={16} className="mr-2" />
             Показать все категории

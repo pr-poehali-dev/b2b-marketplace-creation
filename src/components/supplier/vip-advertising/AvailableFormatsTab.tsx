@@ -46,7 +46,7 @@ export default function AvailableFormatsTab({ availableFormats, lockedFormats }:
                             {getPriceDisplay(format)}
                           </Badge>
                           {format.active && (
-                            <Badge className="bg-blue-100 text-blue-800">
+                            <Badge className="bg-emerald-100 text-emerald-800">
                               ⚡ Активна
                             </Badge>
                           )}
@@ -71,9 +71,9 @@ export default function AvailableFormatsTab({ availableFormats, lockedFormats }:
                     <div>
                       <h4 className="font-medium text-gray-900 mb-2">Производительность:</h4>
                       <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div className="text-center p-2 bg-blue-100 rounded">
-                          <div className="font-bold text-blue-600">{format.performance.averageCTR}%</div>
-                          <div className="text-blue-700">CTR</div>
+                        <div className="text-center p-2 bg-emerald-100 rounded">
+                          <div className="font-bold text-emerald-700">{format.performance.averageCTR}%</div>
+                          <div className="text-emerald-700">CTR</div>
                         </div>
                         <div className="text-center p-2 bg-green-100 rounded">
                           <div className="font-bold text-green-600">{format.performance.averageROI}%</div>

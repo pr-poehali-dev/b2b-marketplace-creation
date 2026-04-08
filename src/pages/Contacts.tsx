@@ -94,9 +94,9 @@ const Contacts = () => {
   ];
 
   const socialLinks = [
-    { name: "Telegram", icon: "MessageCircle", link: "https://t.me/bmmarket", color: "hover:text-blue-500" },
+    { name: "Telegram", icon: "MessageCircle", link: "https://t.me/bmmarket", color: "hover:text-emerald-600" },
     { name: "WhatsApp", icon: "MessageSquare", link: "https://wa.me/78001234567", color: "hover:text-green-500" },
-    { name: "VK", icon: "Globe", link: "https://vk.com/bmmarket", color: "hover:text-blue-600" },
+    { name: "VK", icon: "Globe", link: "https://vk.com/bmmarket", color: "hover:text-emerald-700" },
     { name: "YouTube", icon: "Play", link: "https://youtube.com/bmmarket", color: "hover:text-red-500" }
   ];
 
@@ -284,7 +284,7 @@ const Contacts = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     >
                       <option value="general">Общий вопрос</option>
                       <option value="sales">Продажи и тарифы</option>

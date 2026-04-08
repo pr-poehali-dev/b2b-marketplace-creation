@@ -241,7 +241,7 @@ export default function RecommendedProducts({
 
 
                   {/* Название */}
-                  <h3 className="font-medium text-sm line-clamp-2 text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <h3 className="font-medium text-sm line-clamp-2 text-gray-900 group-hover:text-emerald-700 transition-colors">
                     {product.name}
                   </h3>
 

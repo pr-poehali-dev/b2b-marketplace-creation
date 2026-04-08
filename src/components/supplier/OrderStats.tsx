@@ -18,10 +18,10 @@ export default function OrderStats({ orderStats }: OrderStatsProps) {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Новые заказы</p>
-              <p className="text-2xl font-bold text-blue-600">{orderStats.new}</p>
+              <p className="text-2xl font-bold text-emerald-700">{orderStats.new}</p>
             </div>
-            <div className="p-3 bg-blue-100 rounded-lg">
-              <Icon name="ShoppingCart" size={20} className="text-blue-600" />
+            <div className="p-3 bg-emerald-100 rounded-lg">
+              <Icon name="ShoppingCart" size={20} className="text-emerald-700" />
             </div>
           </div>
         </CardContent>

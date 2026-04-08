@@ -133,7 +133,7 @@ const mockNews: NewsItem[] = [
 
 const getCategoryColor = (category: string) => {
   switch (category) {
-    case 'economy': return 'bg-blue-100 text-blue-800';
+    case 'economy': return 'bg-emerald-100 text-emerald-800';
     case 'market': return 'bg-green-100 text-green-800';
     case 'business': return 'bg-purple-100 text-purple-800';
     case 'policy': return 'bg-orange-100 text-orange-800';

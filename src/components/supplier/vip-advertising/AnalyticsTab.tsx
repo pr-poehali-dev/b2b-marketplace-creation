@@ -24,7 +24,7 @@ export default function AnalyticsTab({ availableFormats }: AnalyticsTabProps) {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 border rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">2.4M</div>
+              <div className="text-2xl font-bold text-emerald-700">2.4M</div>
               <div className="text-sm text-gray-600">Общие показы</div>
               <div className="text-xs text-green-600">+18% к прошлому месяцу</div>
             </div>
@@ -54,7 +54,7 @@ export default function AnalyticsTab({ availableFormats }: AnalyticsTabProps) {
                   
                   <div className="grid grid-cols-4 gap-3 text-sm">
                     <div>
-                      <div className="font-medium text-blue-600">
+                      <div className="font-medium text-emerald-700">
                         {format.performance.impressionsPerDay.toLocaleString()}
                       </div>
                       <div className="text-gray-600">показов</div>

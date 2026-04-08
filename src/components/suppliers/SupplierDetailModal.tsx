@@ -44,7 +44,7 @@ const SupplierDetailModal = ({ supplier, onClose }: SupplierDetailModalProps) =>
                 <Card>
                   <CardContent className="p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <Icon name="Package" size={20} className="text-blue-500" />
+                      <Icon name="Package" size={20} className="text-emerald-600" />
                       <span className="font-semibold text-lg">{supplier.products}</span>
                     </div>
                     <p className="text-sm text-gray-600">Товарных позиций</p>

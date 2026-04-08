@@ -34,11 +34,11 @@ export default function UserTypeSelector({ onClose }: UserTypeSelectorProps) {
           <Link
             to="/register/buyer"
             onClick={onClose}
-            className="group p-6 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all duration-200 cursor-pointer"
+            className="group p-6 border-2 border-gray-200 rounded-xl hover:border-emerald-600 hover:shadow-lg transition-all duration-200 cursor-pointer"
           >
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                <Icon name="ShoppingCart" size={32} className="text-blue-600" />
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-200 transition-colors">
+                <Icon name="ShoppingCart" size={32} className="text-emerald-700" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Покупатель

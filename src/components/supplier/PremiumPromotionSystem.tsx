@@ -32,7 +32,7 @@ export default function PremiumPromotionSystem({
     },
     basic: {
       name: 'Базовый', 
-      color: 'bg-blue-100 text-blue-800',
+      color: 'bg-emerald-100 text-emerald-800',
       promotions: ['priority-search', 'email-promotion']
     },
     professional: {
@@ -253,7 +253,7 @@ export default function PremiumPromotionSystem({
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'priority': return 'bg-blue-100 text-blue-800';
+      case 'priority': return 'bg-emerald-100 text-emerald-800';
       case 'exclusive': return 'bg-purple-100 text-purple-800';
       case 'branding': return 'bg-green-100 text-green-800';
       case 'analytics': return 'bg-orange-100 text-orange-800';
@@ -305,7 +305,7 @@ export default function PremiumPromotionSystem({
           title="Общие показы"
           value={availablePromotions.reduce((sum, p) => sum + (p.metrics.impressions || 0), 0).toLocaleString()}
           icon="Eye"
-          color="text-blue-600"
+          color="text-emerald-700"
         />
         <PromotionStatsCard
           title="Клики"

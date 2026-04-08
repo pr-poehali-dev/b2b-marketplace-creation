@@ -169,7 +169,7 @@ const SupplierProductsPage: React.FC = () => {
         </div>
         <Button 
           onClick={() => navigate('/supplier/products/new')}
-          className="bg-blue-600 hover:bg-blue-700"
+          className="bg-emerald-700 hover:bg-emerald-800"
         >
           <Icon name="Plus" size={20} className="mr-2" />
           Добавить товар

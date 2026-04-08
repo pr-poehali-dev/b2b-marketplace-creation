@@ -54,9 +54,9 @@ export default function BudgetCalculator({
             <p className="text-xs text-gray-600 mt-1">рублей</p>
           </div>
           
-          <div className="text-center p-3 bg-blue-100 rounded-lg">
-            <div className="text-lg font-bold text-blue-600">{getTotalBudget()} ₽</div>
-            <div className="text-sm text-blue-700">Бюджет</div>
+          <div className="text-center p-3 bg-emerald-100 rounded-lg">
+            <div className="text-lg font-bold text-emerald-700">{getTotalBudget()} ₽</div>
+            <div className="text-sm text-emerald-700">Бюджет</div>
           </div>
           
           <div className="text-center p-3 bg-green-100 rounded-lg">

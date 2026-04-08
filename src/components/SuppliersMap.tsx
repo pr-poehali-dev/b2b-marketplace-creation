@@ -95,7 +95,7 @@ const SuppliersMap = ({ suppliers }: SuppliersMapProps) => {
     const transform = `translate(${pan.x}, ${pan.y}) scale(${zoom})`;
     
     return (
-      <div className="relative overflow-hidden border rounded-lg bg-blue-50" style={{ height: '500px' }}>
+      <div className="relative overflow-hidden border rounded-lg bg-emerald-50" style={{ height: '500px' }}>
         {/* Элементы управления картой */}
         <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
           <Button size="sm" variant="outline" onClick={handleZoomIn}>

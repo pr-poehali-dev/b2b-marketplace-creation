@@ -3,21 +3,21 @@ import Icon from "@/components/ui/icon";
 
 const BusinessHeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-teal-50 py-20">
+    <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50 py-20">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="relative container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Левая часть - текст */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+              <div className="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
                 <Icon name="Zap" size={16} className="mr-2" />
                 №1 платформа для B2B торговли
               </div>
               
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Управляйте <br />
-                <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent">
                   бизнесом
                 </span> <br />
                 эффективно
@@ -30,7 +30,7 @@ const BusinessHeroSection = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4">
+              <Button size="lg" className="bg-emerald-700 hover:bg-emerald-800 text-lg px-8 py-4">
                 <Icon name="Rocket" size={20} className="mr-2" />
                 Начать бесплатно
               </Button>
@@ -74,13 +74,13 @@ const BusinessHeroSection = () => {
                 
                 {/* Метрики */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
+                  <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-4 rounded-lg">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-blue-600">Заказы</p>
-                        <p className="text-2xl font-bold text-blue-900">147</p>
+                        <p className="text-sm text-emerald-700">Заказы</p>
+                        <p className="text-2xl font-bold text-emerald-900">147</p>
                       </div>
-                      <Icon name="ShoppingBag" size={24} className="text-blue-600" />
+                      <Icon name="ShoppingBag" size={24} className="text-emerald-700" />
                     </div>
                   </div>
                   <div className="bg-gradient-to-r from-teal-50 to-teal-100 p-4 rounded-lg">
@@ -101,7 +101,7 @@ const BusinessHeroSection = () => {
                     {[40, 65, 45, 80, 55, 90, 75].map((height, index) => (
                       <div 
                         key={index}
-                        className="bg-gradient-to-t from-blue-500 to-blue-400 rounded-t flex-1"
+                        className="bg-gradient-to-t from-emerald-600 to-emerald-500 rounded-t flex-1"
                         style={{ height: `${height}%` }}
                       ></div>
                     ))}
@@ -128,7 +128,7 @@ const BusinessHeroSection = () => {
                       </div>
                       <div className={`px-2 py-1 rounded-full text-xs ${
                         order.status === 'completed' ? 'bg-green-100 text-green-700' :
-                        order.status === 'processing' ? 'bg-blue-100 text-blue-700' :
+                        order.status === 'processing' ? 'bg-emerald-100 text-emerald-700' :
                         'bg-yellow-100 text-yellow-700'
                       }`}>
                         {order.status === 'completed' ? 'Выполнен' :
@@ -141,8 +141,8 @@ const BusinessHeroSection = () => {
             </div>
             
             {/* Декоративные элементы */}
-            <div className="absolute -top-8 -right-8 w-72 h-72 bg-gradient-to-r from-blue-200 to-teal-200 rounded-full opacity-20 blur-3xl"></div>
-            <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-gradient-to-r from-teal-200 to-blue-200 rounded-full opacity-20 blur-3xl"></div>
+            <div className="absolute -top-8 -right-8 w-72 h-72 bg-gradient-to-r from-emerald-200 to-teal-200 rounded-full opacity-20 blur-3xl"></div>
+            <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-gradient-to-r from-teal-200 to-emerald-200 rounded-full opacity-20 blur-3xl"></div>
           </div>
         </div>
       </div>

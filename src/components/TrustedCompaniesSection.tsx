@@ -31,8 +31,8 @@ const TrustedCompaniesSection = () => {
               key={index}
               className="group flex flex-col items-center p-6 bg-white rounded-lg hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-teal-100 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <Icon name="Building2" size={24} className="text-blue-600" />
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <Icon name="Building2" size={24} className="text-emerald-700" />
               </div>
               <h3 className="font-semibold text-gray-900 text-center mb-1">{company.name}</h3>
               <p className="text-xs text-gray-500 text-center">{company.industry}</p>
@@ -47,7 +47,7 @@ const TrustedCompaniesSection = () => {
               100% безопасность данных
             </div>
             <div className="flex items-center">
-              <Icon name="Clock" size={16} className="text-blue-600 mr-2" />
+              <Icon name="Clock" size={16} className="text-emerald-700 mr-2" />
               Круглосуточная поддержка
             </div>
             <div className="flex items-center">

@@ -67,12 +67,12 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "2500+", label: "Поставщиков", icon: "Building2", color: "text-blue-600" },
+    { number: "2500+", label: "Поставщиков", icon: "Building2", color: "text-emerald-700" },
     { number: "15К+", label: "Товарных позиций", icon: "Package", color: "text-green-600" },
     { number: "98%", label: "Довольных клиентов", icon: "Star", color: "text-yellow-600" },
     { number: "24/7", label: "Поддержка клиентов", icon: "Clock", color: "text-purple-600" },
     { number: "99.9%", label: "Uptime платформы", icon: "Shield", color: "text-red-600" },
-    { number: "150+", label: "Городов России", icon: "MapPin", color: "text-indigo-600" }
+    { number: "150+", label: "Городов России", icon: "MapPin", color: "text-emerald-700" }
   ];
 
   return (

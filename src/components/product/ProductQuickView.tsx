@@ -110,7 +110,7 @@ export default function ProductQuickView({
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${
-                      selectedImage === index ? 'border-blue-500' : 'border-gray-200'
+                      selectedImage === index ? 'border-emerald-600' : 'border-gray-200'
                     }`}
                   >
                     <img

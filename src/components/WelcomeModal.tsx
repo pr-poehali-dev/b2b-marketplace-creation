@@ -54,7 +54,7 @@ const WelcomeModal = ({ onOpen, onClose }: WelcomeModalProps) => {
         
         {/* Заголовок */}
         <div className="text-center p-8 pb-6 border-b border-gray-100">
-          <div className="w-20 h-20 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 bg-gradient-to-br from-teal-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Icon name="Users" size={36} className="text-teal-600" />
           </div>
           
@@ -77,8 +77,8 @@ const WelcomeModal = ({ onOpen, onClose }: WelcomeModalProps) => {
             className="group p-6 border-2 border-gray-200 rounded-xl hover:border-teal-500 hover:bg-teal-50 transition-all duration-300 text-left hover:shadow-lg"
           >
             <div className="flex items-center mb-4">
-              <div className="w-14 h-14 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center transition-colors">
-                <Icon name="Package" size={28} className="text-blue-600" />
+              <div className="w-14 h-14 bg-emerald-100 group-hover:bg-emerald-200 rounded-xl flex items-center justify-center transition-colors">
+                <Icon name="Package" size={28} className="text-emerald-700" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 ml-4">
                 Я поставщик

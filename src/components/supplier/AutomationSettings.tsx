@@ -98,9 +98,9 @@ export default function AutomationSettings({
               />
             </div>
 
-            <div className="p-4 border rounded-lg bg-blue-50">
-              <h4 className="font-medium text-blue-900 mb-2">💡 Совет по автоматизации</h4>
-              <p className="text-sm text-blue-700">
+            <div className="p-4 border rounded-lg bg-emerald-50">
+              <h4 className="font-medium text-emerald-900 mb-2">💡 Совет по автоматизации</h4>
+              <p className="text-sm text-emerald-700">
                 Включите автоподтверждение заказов и автоуведомления для экономии до 2 часов в день!
               </p>
             </div>

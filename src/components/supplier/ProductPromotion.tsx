@@ -97,7 +97,7 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
       description: 'Приоритетный показ в результатах поиска',
       price: '3 руб/клик',
       icon: 'TrendingUp',
-      color: 'bg-blue-100 text-blue-800'
+      color: 'bg-emerald-100 text-emerald-800'
     },
     {
       type: 'banner' as const,
@@ -317,7 +317,7 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
 
       {/* Форма создания кампании */}
       {showCreateForm && (
-        <Card className="border-blue-200">
+        <Card className="border-emerald-200">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Icon name="Plus" size={20} />

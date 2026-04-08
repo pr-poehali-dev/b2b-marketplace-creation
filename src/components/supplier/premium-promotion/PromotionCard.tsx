@@ -73,9 +73,9 @@ export default function PromotionCard({
           <div>
             <h4 className="font-medium text-gray-900 mb-2">Результаты:</h4>
             <div className="grid grid-cols-2 gap-3 text-sm">
-              <div className="text-center p-2 bg-blue-50 rounded">
-                <div className="font-bold text-blue-600">{promotion.metrics.impressions?.toLocaleString()}</div>
-                <div className="text-blue-700">показов</div>
+              <div className="text-center p-2 bg-emerald-50 rounded">
+                <div className="font-bold text-emerald-700">{promotion.metrics.impressions?.toLocaleString()}</div>
+                <div className="text-emerald-700">показов</div>
               </div>
               <div className="text-center p-2 bg-green-50 rounded">
                 <div className="font-bold text-green-600">{promotion.metrics.clicks?.toLocaleString()}</div>

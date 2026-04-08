@@ -203,8 +203,8 @@ export default function SupplierAnalytics({ className = "" }: SupplierAnalyticsP
                   {Math.abs(analytics.orders.growth)}%
                 </div>
               </div>
-              <div className="p-3 bg-blue-100 rounded-full">
-                <Icon name="ShoppingBag" size={24} className="text-blue-600" />
+              <div className="p-3 bg-emerald-100 rounded-full">
+                <Icon name="ShoppingBag" size={24} className="text-emerald-700" />
               </div>
             </div>
           </CardContent>
@@ -349,9 +349,9 @@ export default function SupplierAnalytics({ className = "" }: SupplierAnalyticsP
       </Card>
 
       {/* Рекомендации по улучшению */}
-      <Card className="border-blue-200 bg-blue-50">
+      <Card className="border-emerald-200 bg-emerald-50">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-900">
+          <CardTitle className="flex items-center gap-2 text-emerald-900">
             <Icon name="Lightbulb" size={20} />
             Рекомендации для роста
           </CardTitle>
@@ -359,24 +359,24 @@ export default function SupplierAnalytics({ className = "" }: SupplierAnalyticsP
         <CardContent>
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <Icon name="ArrowUp" size={16} className="text-blue-600 mt-0.5" />
+              <Icon name="ArrowUp" size={16} className="text-emerald-700 mt-0.5" />
               <div>
-                <p className="font-medium text-blue-900">Увеличьте конверсию</p>
-                <p className="text-sm text-blue-700">Добавьте больше фотографий к товарам и улучшите описания</p>
+                <p className="font-medium text-emerald-900">Увеличьте конверсию</p>
+                <p className="text-sm text-emerald-700">Добавьте больше фотографий к товарам и улучшите описания</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Icon name="Star" size={16} className="text-blue-600 mt-0.5" />
+              <Icon name="Star" size={16} className="text-emerald-700 mt-0.5" />
               <div>
-                <p className="font-medium text-blue-900">Продвигайте топ-товары</p>
-                <p className="text-sm text-blue-700">Сделайте ваши лучшие товары "Рекомендованными" для большей видимости</p>
+                <p className="font-medium text-emerald-900">Продвигайте топ-товары</p>
+                <p className="text-sm text-emerald-700">Сделайте ваши лучшие товары "Рекомендованными" для большей видимости</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Icon name="TrendingUp" size={16} className="text-blue-600 mt-0.5" />
+              <Icon name="TrendingUp" size={16} className="text-emerald-700 mt-0.5" />
               <div>
-                <p className="font-medium text-blue-900">Запустите акции</p>
-                <p className="text-sm text-blue-700">Создайте скидки на медленно продающиеся товары</p>
+                <p className="font-medium text-emerald-900">Запустите акции</p>
+                <p className="text-sm text-emerald-700">Создайте скидки на медленно продающиеся товары</p>
               </div>
             </div>
           </div>

@@ -261,7 +261,7 @@ const ProfileCompany = () => {
                         href={companyData.website} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="mt-1 text-sm text-blue-600 hover:text-blue-800 block"
+                        className="mt-1 text-sm text-emerald-700 hover:text-emerald-900 block"
                       >
                         {companyData.website}
                       </a>
@@ -406,8 +406,8 @@ const ProfileCompany = () => {
                     <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                            <Icon name="User" size={20} className="text-blue-600" />
+                          <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                            <Icon name="User" size={20} className="text-emerald-700" />
                           </div>
                           <div>
                             <p className="font-medium text-gray-900">ООО "СтройМонтаж"</p>
@@ -500,8 +500,8 @@ const ProfileCompany = () => {
                     <div className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                            <Icon name="FileText" size={20} className="text-blue-600" />
+                          <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                            <Icon name="FileText" size={20} className="text-emerald-700" />
                           </div>
                           <div>
                             <p className="font-medium text-gray-900">Устав компании</p>

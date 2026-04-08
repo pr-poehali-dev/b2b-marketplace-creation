@@ -25,7 +25,7 @@ const SupplierAnalytics = ({ suppliers, regions }: SupplierAnalyticsProps) => {
                   <div className="flex items-center gap-3">
                     <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-blue-500 rounded-full"
+                        className="h-full bg-emerald-600 rounded-full"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>

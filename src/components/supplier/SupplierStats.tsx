@@ -8,8 +8,8 @@ const SupplierStats = () => {
       value: '24',
       change: '+3 за неделю',
       icon: 'Package',
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-100'
+      color: 'text-emerald-700',
+      bgColor: 'bg-emerald-100'
     },
     {
       title: 'Просмотры',
