@@ -62,34 +62,18 @@ const Contacts = () => {
     {
       name: "Отдел продаж",
       phone: "+7 (969) 061-11-10",
-      email: "sales@bmmarket.ru",
+      email: "bmbusinessmarket@yandex.ru",
       description: "Консультации по продуктам, тарифам и подключению",
       icon: "ShoppingCart",
       color: "text-primary"
     },
     {
       name: "Техническая поддержка", 
-      phone: "+7 (495) 987-65-43",
-      email: "support@bmmarket.ru",
+      phone: "+7 (969) 061-11-10",
+      email: "bmbusinessmarket@yandex.ru",
       description: "Помощь с платформой, интеграциями и техническими вопросами",
       icon: "Headphones",
       color: "text-secondary"
-    },
-    {
-      name: "Финансовый отдел",
-      phone: "+7 (495) 111-22-33",
-      email: "finance@bmmarket.ru", 
-      description: "Вопросы по оплате, документооборот, реквизиты",
-      icon: "CreditCard",
-      color: "text-accent"
-    },
-    {
-      name: "Отдел партнерств",
-      phone: "+7 (495) 444-55-66",
-      email: "partners@bmmarket.ru",
-      description: "Сотрудничество, интеграции, B2B партнерство",
-      icon: "Handshake",
-      color: "text-primary"
     }
   ];
 
