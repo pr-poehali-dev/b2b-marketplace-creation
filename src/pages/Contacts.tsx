@@ -122,7 +122,7 @@ const Contacts = () => {
                 </div>
                 <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                   <Icon name="Mail" size={16} />
-                  <span>info@bmmarket.ru</span>
+                  <span>bmbusinessmarket@yandex.ru</span>
                 </div>
                 <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                   <Icon name="Clock" size={16} />
@@ -427,7 +427,7 @@ const Contacts = () => {
                 Позвонить
               </a>
               <a
-                href="mailto:info@bmmarket.ru"
+                href="mailto:bmbusinessmarket@yandex.ru"
                 className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors flex items-center gap-2"
               >
                 <Icon name="Mail" size={20} />
