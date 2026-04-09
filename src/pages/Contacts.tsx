@@ -61,7 +61,7 @@ const Contacts = () => {
   const departments = [
     {
       name: "Отдел продаж",
-      phone: "+7 (800) 123-45-67",
+      phone: "+7 (969) 061-11-10",
       email: "sales@bmmarket.ru",
       description: "Консультации по продуктам, тарифам и подключению",
       icon: "ShoppingCart",
@@ -118,7 +118,7 @@ const Contacts = () => {
               <div className="flex flex-wrap justify-center gap-4">
                 <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                   <Icon name="Phone" size={16} />
-                  <span>+7 (800) 123-45-67</span>
+                  <span>+7 (969) 061-11-10</span>
                 </div>
                 <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
                   <Icon name="Mail" size={16} />
