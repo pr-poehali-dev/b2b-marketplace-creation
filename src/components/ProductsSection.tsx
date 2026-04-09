@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -95,25 +96,25 @@ const ProductsSection = () => {
 
   const suppliers = [
     {
+      id: 1,
       name: "ООО \"Промышленные решения\"",
       verified: true,
       category: "Металлургия",
       products: "150+ товаров",
-
     },
     {
+      id: 2,
       name: "АО \"СтройМатериалы Регион\"",
       verified: true,
       category: "Строительство",
       products: "320+ товаров",
-
     },
     {
-      name: "ИП Петров А.В.\"",
+      id: 3,
+      name: "ИП Петров А.В.",
       verified: false,
       category: "Продукты питания",
       products: "85+ товаров",
-      rating: 4.6
     }
   ];
 
@@ -167,7 +168,9 @@ const ProductsSection = () => {
                     <div className="flex items-start justify-between">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-semibold">{supplier.name}</h4>
+                          <Link to={`/company/${supplier.id}`} className="font-semibold hover:text-primary transition-colors">
+                            {supplier.name}
+                          </Link>
                           {supplier.verified && (
                             <Badge variant="default" className="text-xs">
                               <Icon name="CheckCircle" size={12} className="mr-1" />
@@ -176,20 +179,18 @@ const ProductsSection = () => {
                           )}
                         </div>
                         <p className="text-sm text-gray-600">{supplier.category} • {supplier.products}</p>
-
                       </div>
-                      <Button variant="outline" size="sm">
-                        Связаться
-                      </Button>
                     </div>
                   </Card>
                 ))}
               </div>
 
-              <Button size="lg" className="w-full">
-                <Icon name="Users" size={18} className="mr-2" />
-                Посмотреть всех поставщиков
-              </Button>
+              <Link to="/suppliers">
+                <Button size="lg" className="w-full">
+                  <Icon name="Users" size={18} className="mr-2" />
+                  Посмотреть всех поставщиков
+                </Button>
+              </Link>
             </div>
 
             <div className="relative">
