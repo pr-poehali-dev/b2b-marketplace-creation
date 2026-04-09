@@ -194,7 +194,7 @@ const Contacts = () => {
         {/* Contact Form and Offices */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div>
               
               {/* Contact Form */}
               <div className="bg-white rounded-2xl p-8 shadow-sm">
@@ -303,54 +303,6 @@ const Contacts = () => {
                 </form>
               </div>
 
-              {/* Offices */}
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Наши офисы</h2>
-                <div className="space-y-6">
-                  {offices.map((office, index) => (
-                    <div key={index} className="bg-white rounded-xl p-6 border shadow-sm">
-                      <div className="flex justify-between items-start mb-4">
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900">{office.city}</h3>
-                          <p className="text-sm text-gray-500">{office.description}</p>
-                        </div>
-                        <div className="text-right text-sm text-gray-500">
-                          <div>{office.hours}</div>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-3 text-sm">
-                        <div className="flex items-start gap-3">
-                          <Icon name="MapPin" size={16} className="text-gray-400 mt-0.5" />
-                          <div>
-                            <div>{office.address}</div>
-                            <div className="text-gray-500">{office.postcode}</div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center gap-3">
-                          <Icon name="Phone" size={16} className="text-gray-400" />
-                          <a href={`tel:${office.phone}`} className="text-primary hover:underline">
-                            {office.phone}
-                          </a>
-                        </div>
-                        
-                        <div className="flex items-center gap-3">
-                          <Icon name="Mail" size={16} className="text-gray-400" />
-                          <a href={`mailto:${office.email}`} className="text-primary hover:underline">
-                            {office.email}
-                          </a>
-                        </div>
-                      </div>
-                      
-                      <button className="mt-4 w-full bg-primary/10 text-primary py-2 px-4 rounded-lg hover:bg-primary/20 transition-colors flex items-center justify-center gap-2">
-                        <Icon name="Navigation" size={16} />
-                        Показать на карте
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </section>
