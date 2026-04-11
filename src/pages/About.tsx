@@ -248,22 +248,7 @@ const About = () => {
               </button>
             </div>
             
-            <div className="mt-12 pt-8 border-t border-white/20">
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <Icon name="MapPin" size={24} className="mx-auto mb-2" />
-                  <p className="text-white/80">Москва, Красная площадь, 1</p>
-                </div>
-                <div>
-                  <Icon name="Clock" size={24} className="mx-auto mb-2" />
-                  <p className="text-white/80">Пн-Пт: 9:00-18:00</p>
-                </div>
-                <div>
-                  <Icon name="Phone" size={24} className="mx-auto mb-2" />
-                  <p className="text-white/80">+7 (495) 123-45-67</p>
-                </div>
-              </div>
-            </div>
+
           </div>
         </section>
 
