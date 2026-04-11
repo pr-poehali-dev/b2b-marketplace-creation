@@ -369,15 +369,7 @@ const Contacts = () => {
                 <Icon name="Mail" size={20} />
                 Написать email
               </a>
-              <a
-                href="https://t.me/bmmarket"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-secondary/90 transition-colors flex items-center gap-2"
-              >
-                <Icon name="MessageCircle" size={20} />
-                Telegram
-              </a>
+
             </div>
           </div>
         </section>
