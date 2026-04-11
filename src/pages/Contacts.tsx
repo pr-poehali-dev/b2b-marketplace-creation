@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Icon from '@/components/ui/icon';
 import { useState } from 'react';
 
+const SEND_CONTACT_URL = 'https://functions.poehali.dev/14bcaf3e-704a-4e96-8020-8c5e45125c5f';
+
 const Contacts = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -11,11 +13,26 @@ const Contacts = () => {
     subject: 'general',
     message: ''
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Здесь будет логика отправки формы
+    setStatus('sending');
+    try {
+      const res = await fetch(SEND_CONTACT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', phone: '', company: '', subject: 'general', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -295,11 +312,25 @@ const Contacts = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                    disabled={status === 'sending'}
+                    className="w-full bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <Icon name="Send" size={18} />
-                    Отправить сообщение
+                    <Icon name={status === 'sending' ? 'Loader' : 'Send'} size={18} className={status === 'sending' ? 'animate-spin' : ''} />
+                    {status === 'sending' ? 'Отправляем...' : 'Отправить сообщение'}
                   </button>
+
+                  {status === 'success' && (
+                    <div className="flex items-center gap-2 text-green-600 bg-green-50 border border-green-200 rounded-lg px-4 py-3">
+                      <Icon name="CheckCircle" size={18} />
+                      <span>Сообщение отправлено! Мы свяжемся с вами в ближайшее время.</span>
+                    </div>
+                  )}
+                  {status === 'error' && (
+                    <div className="flex items-center gap-2 text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                      <Icon name="AlertCircle" size={18} />
+                      <span>Ошибка отправки. Пожалуйста, напишите нам напрямую на почту.</span>
+                    </div>
+                  )}
                 </form>
               </div>
 
