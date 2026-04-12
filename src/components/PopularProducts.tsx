@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
@@ -35,6 +36,7 @@ function getSlice(categoryIndex: number, limit: number): { products: ProductClic
 }
 
 export default function PopularProducts({ limit = 8, className = "" }: PopularProductsProps) {
+  const navigate = useNavigate();
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [products, setProducts] = useState<ProductClickData[]>([]);
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
@@ -113,7 +115,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
       <CardContent>
         <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}>
           {products.map((product) => (
-            <div key={product.id} className="group border rounded-xl overflow-hidden hover:shadow-md transition-all duration-200">
+            <div key={product.id} className="group border rounded-xl overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer" onClick={() => { localStorage.setItem('catalog_searchQuery', JSON.stringify(product.name)); navigate('/catalog'); }}>
               <div className="aspect-video relative overflow-hidden bg-gray-100">
                 <img
                   src={product.image}
