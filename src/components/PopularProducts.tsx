@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +21,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
   const [lastUpdated, setLastUpdated] = useState(Date.now());
   const [animating, setAnimating] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const hoveredRef = useRef(false);
 
   const loadProducts = (catIdx: number) => {
     const topClicks = getTopProducts(limit);
@@ -48,7 +49,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (hovered) return;
+      if (hoveredRef.current) return;
       const topClicks = getTopProducts(1);
       if (topClicks.length >= 3) {
         loadProducts(categoryIndex);
@@ -102,8 +103,8 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
       <CardContent>
         <div
           className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+          onMouseEnter={() => { setHovered(true); hoveredRef.current = true; }}
+          onMouseLeave={() => { setHovered(false); hoveredRef.current = false; }}
         >
           {displayProducts.map((product) => (
             <div
