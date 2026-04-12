@@ -35,8 +35,8 @@ const Index = () => {
       <div className="ml-56 transition-all duration-300">
         <HeroSection isModalOpen={isModalOpen} shouldRestart={shouldRestartSlideshow} />
         <SupplierSection />
-        <div className="px-6 py-8">
-          <PopularProducts limit={8} className="mb-8" />
+        <div className="px-6 py-12">
+          <PopularProducts limit={7} className="mb-8" />
         </div>
         <FeaturesSection />
         <NewsSection />

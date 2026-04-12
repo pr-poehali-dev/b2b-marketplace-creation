@@ -98,42 +98,42 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}>
           {displayProducts.map((product) => (
             <div
               key={product.id}
-              className="group border rounded-xl overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer"
+              className="group border-2 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all duration-200 cursor-pointer"
               onClick={() => navigate(`/product/${product.id}`)}
             >
-              <div className="aspect-video relative overflow-hidden bg-gray-100">
+              <div className="aspect-[4/3] relative overflow-hidden bg-gray-100">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <Badge className="absolute top-2 left-2 bg-white/90 text-gray-700 text-xs">
+                <Badge className="absolute top-3 left-3 bg-white/90 text-gray-700 text-xs px-2 py-1">
                   {product.category}
                 </Badge>
                 {product.discount && (
-                  <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                  <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                     -{product.discount}%
                   </div>
                 )}
               </div>
-              <div className="p-3">
-                <h3 className="font-medium text-sm text-gray-900 line-clamp-2 mb-1">{product.name}</h3>
-                <div className="flex items-center gap-1 mb-2">
-                  <span className="text-xs text-gray-500 truncate">{product.seller}</span>
-                  {product.verified && <Icon name="CheckCircle" size={12} className="text-primary shrink-0" />}
+              <div className="p-4">
+                <h3 className="font-semibold text-base text-gray-900 line-clamp-2 mb-2">{product.name}</h3>
+                <div className="flex items-center gap-1 mb-3">
+                  <span className="text-sm text-gray-500 truncate">{product.seller}</span>
+                  {product.verified && <Icon name="CheckCircle" size={14} className="text-primary shrink-0" />}
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-base font-bold text-primary">{product.price.toLocaleString('ru-RU')} ₽</span>
+                    <span className="text-lg font-bold text-primary">{product.price.toLocaleString('ru-RU')} ₽</span>
                     <span className="text-xs text-gray-500">{product.unit}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200 font-medium">
+                  <div className="flex items-center gap-1 text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200 font-medium">
                     <span>Смотреть</span>
-                    <Icon name="ArrowRight" size={12} />
+                    <Icon name="ArrowRight" size={14} />
                   </div>
                 </div>
               </div>
