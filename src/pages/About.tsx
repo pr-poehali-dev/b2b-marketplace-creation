@@ -88,7 +88,7 @@ const About = () => {
                 О компании Business Market
               </h1>
               <p className="text-xl md:text-2xl text-primary-foreground/80 max-w-3xl mx-auto mb-8">
-                Лидер в области корпоративных B2B закупок в России с 2018 года
+                Лидер в области корпоративных B2B закупок в России с 2025 года
               </p>
               <div className="inline-flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full backdrop-blur-sm">
                 <Icon name="Award" size={20} />
