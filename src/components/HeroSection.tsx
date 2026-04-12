@@ -14,7 +14,7 @@ const HeroSection = ({ isModalOpen = false, shouldRestart = false }: HeroSection
   
   const images = [
     { src: "https://cdn.poehali.dev/files/3dd3af2d-1667-46a5-a4f1-273d18dcf9df.png", alt: "Business Market - Логотип компании" },
-    { src: "/img/8b7fccbc-5aa7-4f7b-82e2-aabfd14263ff.jpg", alt: "Российские бизнес-партнеры заключают сделку" },
+    { src: "https://cdn.poehali.dev/projects/e441383d-23aa-4b30-be15-b5f7551ad503/files/19f8b490-1173-481d-beef-1778174271d2.jpg", alt: "Деловые переговоры и заключение сделки" },
     { src: "/img/967a43bb-bb29-400c-ae7e-cad802988407.jpg", alt: "Современный офис с командной работой" },
     { src: "/img/a8a12200-5509-4746-826f-bafbbb74fb68.jpg", alt: "Современная логистика и склад" },
     { src: "/img/13af019d-fd32-49c0-88e6-fbb18b518599.jpg", alt: "Цифровая торговая платформа" }
