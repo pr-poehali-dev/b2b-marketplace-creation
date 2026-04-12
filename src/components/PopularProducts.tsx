@@ -138,9 +138,15 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
                   <span className="text-xs text-gray-500 truncate">{product.seller}</span>
                   {product.verified && <Icon name="CheckCircle" size={12} className="text-primary shrink-0" />}
                 </div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-base font-bold text-primary">{product.price} ₽</span>
-                  <span className="text-xs text-gray-500">{product.unit}</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-base font-bold text-primary">{product.price} ₽</span>
+                    <span className="text-xs text-gray-500">{product.unit}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200 font-medium">
+                    <span>Смотреть</span>
+                    <Icon name="ArrowRight" size={12} />
+                  </div>
                 </div>
               </div>
             </div>
