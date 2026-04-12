@@ -42,9 +42,9 @@ const Index = () => {
             className="mb-8"
           />
         </div>
-        <SearchSection />
-        <NewsSection />
         <FeaturesSection />
+        <NewsSection />
+        <SearchSection />
         <ProductsSection />
         <DeliverySection />
         <Footer />
