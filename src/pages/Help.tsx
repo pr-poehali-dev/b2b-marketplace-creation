@@ -1,10 +1,11 @@
 import Header from "@/components/Header";
 import Icon from '@/components/ui/icon';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const Help = () => {
   const [activeCategory, setActiveCategory] = useState('getting-started');
   const [searchQuery, setSearchQuery] = useState('');
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const categories = [
     { id: 'getting-started', name: 'Начало работы', icon: 'PlayCircle' },
@@ -186,9 +187,19 @@ const Help = () => {
                     type="text"
                     placeholder="Поиск по базе знаний..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 text-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      if (e.target.value.trim()) {
+                        setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+                      }
+                    }}
+                    className="w-full pl-12 pr-10 py-4 rounded-xl text-gray-900 text-lg focus:ring-2 focus:ring-green-300 focus:outline-none"
                   />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                      <Icon name="X" size={20} />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -196,7 +207,7 @@ const Help = () => {
         </section>
 
         {/* Quick Actions */}
-        <section className="py-16 bg-gray-50">
+        <section className={`py-16 bg-gray-50 ${searchQuery.trim() ? 'hidden' : ''}`}>
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Быстрые действия</h2>
@@ -223,7 +234,7 @@ const Help = () => {
         </section>
 
         {/* Main Content */}
-        <section className="py-16">
+        <section className="py-16" ref={resultsRef}>
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="grid lg:grid-cols-4 gap-8">
               
