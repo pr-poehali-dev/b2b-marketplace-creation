@@ -150,11 +150,17 @@ const Help = () => {
     ]
   };
 
-  const filteredArticles = articles[activeCategory as keyof typeof articles].filter(article =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+  const allArticles = Object.entries(articles).flatMap(([categoryId, items]) =>
+    items.map(article => ({ ...article, categoryId }))
   );
+
+  const filteredArticles = searchQuery.trim()
+    ? allArticles.filter(article =>
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    : articles[activeCategory as keyof typeof articles].map(a => ({ ...a, categoryId: activeCategory }));
 
   return (
     <div className="min-h-screen bg-white">
@@ -248,10 +254,10 @@ const Help = () => {
               <div className="lg:col-span-3">
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    {categories.find(cat => cat.id === activeCategory)?.name}
+                    {searchQuery.trim() ? 'Результаты поиска' : categories.find(cat => cat.id === activeCategory)?.name}
                   </h2>
                   <p className="text-gray-600">
-                    {filteredArticles.length} статей найдено
+                    {filteredArticles.length} {filteredArticles.length === 1 ? 'статья' : 'статей'} найдено
                     {searchQuery && ` по запросу "${searchQuery}"`}
                   </p>
                 </div>
