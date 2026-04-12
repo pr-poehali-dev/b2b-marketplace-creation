@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
+import { trackProductClick } from "@/utils/productClicks";
 
 const ProductsSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -284,7 +285,7 @@ const ProductsSection = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product) => (
-              <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow" onClick={() => trackProductClick({ id: product.id, name: product.name, image: product.image, category: product.category, seller: product.seller, verified: product.verified, price: product.price, unit: product.unit, minOrder: product.minOrder, available: product.available })}>
                 <div className="aspect-video relative overflow-hidden">
                   <img 
                     src={product.image} 

@@ -8,7 +8,7 @@ import NewsSection from "@/components/NewsSection";
 import FeaturesSection from "@/components/FeaturesSection";
 
 import ProductsSection from "@/components/ProductsSection";
-import RecommendedProducts from "@/components/product/RecommendedProducts";
+import PopularProducts from "@/components/PopularProducts";
 import DeliverySection from "@/components/DeliverySection";
 import Footer from "@/components/Footer";
 import WelcomeModal from "@/components/WelcomeModal";
@@ -36,11 +36,7 @@ const Index = () => {
         <HeroSection isModalOpen={isModalOpen} shouldRestart={shouldRestartSlideshow} />
         <SupplierSection />
         <div className="px-6 py-8">
-          <RecommendedProducts 
-            title="Популярные товары" 
-            limit={8} 
-            className="mb-8"
-          />
+          <PopularProducts limit={8} className="mb-8" />
         </div>
         <FeaturesSection />
         <NewsSection />
