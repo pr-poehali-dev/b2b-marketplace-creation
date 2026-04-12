@@ -202,28 +202,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* Team */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Команда</h2>
-              <p className="text-xl text-gray-600">Люди, которые делают платформу лучше каждый день</p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 border shadow-sm hover:shadow-md transition-shadow text-center">
-                  <div className="text-4xl mb-4">{member.avatar}</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-blue-600 font-medium mb-2">{member.position}</p>
-                  <p className="text-sm text-gray-500 mb-3">{member.experience}</p>
-                  <p className="text-sm text-gray-600 leading-relaxed">{member.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Contact CTA */}
         <section className="py-16 bg-primary text-white">
           <div className="container mx-auto px-6 max-w-4xl text-center">
