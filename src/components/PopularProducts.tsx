@@ -20,6 +20,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
   const [lastUpdated, setLastUpdated] = useState(Date.now());
   const [animating, setAnimating] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const loadProducts = (catIdx: number) => {
     const topClicks = getTopProducts(limit);
@@ -47,6 +48,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (hovered) return;
       const topClicks = getTopProducts(1);
       if (topClicks.length >= 3) {
         loadProducts(categoryIndex);
@@ -98,7 +100,11 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}>
+        <div
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
           {displayProducts.map((product) => (
             <div
               key={product.id}
