@@ -12,7 +12,7 @@ const Pricing = () => {
   const { toast } = useToast();
   const { user } = useAuth();
   
-  const handlePayment = async (plan: any) => {
+  const handlePayment = async (plan: { name: string; priceMonthly: string; priceYearly: string }) => {
     setLoadingPlan(plan.name);
 
     try {
@@ -56,55 +56,39 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: 'Базовый',
-      priceMonthly: '15,000',
-      priceYearly: '180,000',
+      name: 'Старт',
+      priceMonthly: '5,000',
+      priceYearly: '55,000',
       period: 'мес',
-      description: 'Для малого бизнеса',
+      description: 'Для малого бизнеса и старта',
       features: [
-        'До 100 заказов в месяц',
+        'До 10 товаров в каталоге',
+        'До 30 показов в месяц',
         'Базовая аналитика',
         'Email поддержка',
-        '10 поставщиков',
-        'Стандартные отчёты'
+        'Мобильное приложение'
       ],
       icon: 'Package',
       popular: false
     },
     {
-      name: 'Профессиональный',
-      priceMonthly: '7,990',
-      priceYearly: '95,880',
+      name: 'Бизнес',
+      priceMonthly: '15,000',
+      priceYearly: '165,000',
       period: 'мес',
       description: 'Для растущего бизнеса',
       features: [
-        'До 1000 заказов в месяц',
+        'Всё из тарифа Старт',
+        'До 500 товаров в каталоге',
+        'Неограниченные показы',
         'Расширенная аналитика',
         'Приоритетная поддержка',
-        'Неограниченно поставщиков',
-        'Автоматизация процессов',
-        'Персональный менеджер'
+        'Интеграция с 1С',
+        'CRM система',
+        'Автоматизация процессов'
       ],
       icon: 'TrendingUp',
       popular: true
-    },
-    {
-      name: 'Корпоративный',
-      priceMonthly: '15,990',
-      priceYearly: '191,880',
-      period: 'мес',
-      description: 'Для крупного бизнеса',
-      features: [
-        'Неограниченное количество заказов',
-        'Полная аналитика и BI',
-        '24/7 поддержка',
-        'API интеграции',
-        'Индивидуальные настройки',
-        'Выделенный сервер',
-        'Обучение команды'
-      ],
-      icon: 'Building2',
-      popular: false
     }
   ];
 
@@ -157,7 +141,7 @@ const Pricing = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 max-w-4xl mx-auto">
           {plans.map((plan, index) => (
             <div
               key={index}
@@ -178,7 +162,7 @@ const Pricing = () => {
                   plan.popular ? 'bg-primary/10' : 'bg-gray-100'
                 }`}>
                   <Icon 
-                    name={plan.icon as any} 
+                    name={plan.icon} 
                     size={32} 
                     className={plan.popular ? 'text-primary' : 'text-gray-600'} 
                   />

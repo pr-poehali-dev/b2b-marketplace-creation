@@ -16,14 +16,13 @@ const PricingPage = () => {
 
   const plans = [
     {
-      name: "Базовый",
-      description: "Для начинающих предпринимателей",
+      name: "Старт",
+      description: "Для малого бизнеса и старта",
       monthlyPrice: 5000,
-      annualPrice: 60000,
+      annualPrice: 55000,
       features: [
-        "3 месяца бесплатно",
-        "До 100 товаров в каталоге",
-        "До 50 заказов в месяц",
+        "До 10 товаров в каталоге",
+        "До 30 показов в месяц",
         "Базовая аналитика",
         "Email поддержка",
         "Мобильное приложение"
@@ -32,14 +31,14 @@ const PricingPage = () => {
       color: "border-gray-200"
     },
     {
-      name: "Профессиональный",
+      name: "Бизнес",
       description: "Для растущего бизнеса",
       monthlyPrice: 15000,
-      annualPrice: 180000,
+      annualPrice: 165000,
       features: [
-        "Всё из Базового",
-        "До 1000 товаров в каталоге",
-        "Неограниченное количество заказов",
+        "Всё из тарифа Старт",
+        "До 500 товаров в каталоге",
+        "Неограниченные показы",
         "Расширенная аналитика",
         "Приоритетная поддержка",
         "Интеграция с 1С",
@@ -48,24 +47,6 @@ const PricingPage = () => {
       ],
       popular: true,
       color: "border-primary ring-2 ring-primary/20"
-    },
-    {
-      name: "Корпоративный",
-      description: "Для крупного бизнеса",
-      monthlyPrice: 30000,
-      annualPrice: 360000,
-      features: [
-        "Всё из Профессионального",
-        "Неограниченное количество товаров",
-        "Полная аналитика и BI",
-        "24/7 поддержка",
-        "API доступ",
-        "Индивидуальные настройки",
-        "Выделенный менеджер",
-        "SLA гарантии"
-      ],
-      popular: false,
-      color: "border-gray-200"
     }
   ];
 
@@ -73,7 +54,7 @@ const PricingPage = () => {
     return new Intl.NumberFormat('ru-RU').format(price);
   };
 
-  const handlePayment = async (plan: any) => {
+  const handlePayment = async (plan: { name: string; monthlyPrice: number; annualPrice: number }) => {
     setLoadingPlan(plan.name);
 
     try {
@@ -161,7 +142,7 @@ const PricingPage = () => {
           </div>
 
           {/* Тарифные планы */}
-          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto mt-12">
+          <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12">
             {plans.map((plan, index) => (
               <Card key={index} className={`relative transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
                 plan.popular 
