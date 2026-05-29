@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const APK_URL = "/app-release.apk";
 
@@ -46,6 +47,7 @@ const features = [
 
 const DownloadApp = () => {
   const [downloaded, setDownloaded] = useState(false);
+  const navigate = useNavigate();
 
   const handleDownload = () => {
     setDownloaded(true);
@@ -83,6 +85,15 @@ const DownloadApp = () => {
                 >
                   <Icon name="Download" size={20} />
                   Скачать APK
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => navigate('/build-instructions')}
+                  className="border-white/30 text-white hover:bg-white/10 gap-2"
+                >
+                  <Icon name="BookOpen" size={18} />
+                  Инструкция по сборке
                 </Button>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
                   <Icon name="Info" size={14} />

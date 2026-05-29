@@ -41,6 +41,7 @@ import AddProductPage from "./pages/AddProductPage";
 import EditProductPage from "./pages/EditProductPage";
 
 import DownloadApp from "./pages/DownloadApp";
+import BuildInstructions from "./pages/BuildInstructions";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -86,6 +87,7 @@ const App = () => (
           <Route path="/supplier/products/new" element={<AddProductPage />} />
           <Route path="/supplier/products/:id/edit" element={<EditProductPage />} />
           <Route path="/download" element={<DownloadApp />} />
+          <Route path="/build-instructions" element={<BuildInstructions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
