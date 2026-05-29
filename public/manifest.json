@@ -1,0 +1,43 @@
+{
+  "name": "B2B Маркетплейс",
+  "short_name": "B2B Маркет",
+  "description": "Платформа для оптовых закупок и B2B торговли — каталог, поставщики, заказы",
+  "theme_color": "#1a6b3c",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "lang": "ru",
+  "categories": ["business", "shopping"],
+  "icons": [
+    {
+      "src": "https://cdn.poehali.dev/projects/e441383d-23aa-4b30-be15-b5f7551ad503/files/368758df-7503-4cf2-83a7-2c2ce1337e25.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Каталог товаров",
+      "short_name": "Каталог",
+      "description": "Открыть каталог товаров",
+      "url": "/catalog"
+    },
+    {
+      "name": "Корзина",
+      "short_name": "Корзина",
+      "description": "Перейти в корзину",
+      "url": "/cart"
+    },
+    {
+      "name": "Поставщики",
+      "short_name": "Поставщики",
+      "description": "Список поставщиков",
+      "url": "/suppliers"
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}
