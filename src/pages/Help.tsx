@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import Icon from '@/components/ui/icon';
 import { useState, useRef } from 'react';
 
@@ -166,7 +167,7 @@ const Help = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-r from-green-600 to-green-800 text-white">
@@ -393,7 +394,7 @@ const Help = () => {
           </div>
         </section>
 
-      </div>
+      </PageLayout>
     </div>
   );
 };

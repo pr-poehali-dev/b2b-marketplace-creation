@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import Icon from '@/components/ui/icon';
 import { useState } from 'react';
 
@@ -104,7 +105,7 @@ const Contacts = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
@@ -405,7 +406,7 @@ const Contacts = () => {
           </div>
         </section>
 
-      </div>
+      </PageLayout>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageLayout from '@/components/layout/PageLayout';
 
 const SITE_URL = "https://businessmarket.poehali.dev";
 
@@ -58,7 +59,7 @@ const BuildInstructions = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
 
         {/* Hero */}
         <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-14 px-6">
@@ -392,7 +393,7 @@ bubblewrap init --manifest=${SITE_URL}/manifest.json`} />
         </div>
 
         <Footer />
-      </div>
+      </PageLayout>
     </div>
   );
 };

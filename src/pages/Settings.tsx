@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageLayout from '@/components/layout/PageLayout';
 
 interface SettingsData {
   notifications: boolean;
@@ -101,7 +102,7 @@ const Settings = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <section className="py-16 sm:py-20 bg-gray-50 min-h-screen">
           <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
             <div className="text-center mb-12">
@@ -362,7 +363,7 @@ const Settings = () => {
           </div>
         </section>
         <Footer />
-      </div>
+      </PageLayout>
     </div>
   );
 };

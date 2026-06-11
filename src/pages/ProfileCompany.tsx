@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageLayout from '@/components/layout/PageLayout';
 import SupplierStats from "@/components/supplier/SupplierStats";
 import SupplierProductsTable from "@/components/supplier/SupplierProductsTable";
 import SupplierAddProduct from "@/components/supplier/SupplierAddProduct";
@@ -46,7 +47,7 @@ const ProfileCompany = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-4 py-8">
           {/* Заголовок */}
           <div className="mb-8">
@@ -541,7 +542,7 @@ const ProfileCompany = () => {
         </div>
         
         <Footer />
-      </div>
+      </PageLayout>
     </div>
   );
 };

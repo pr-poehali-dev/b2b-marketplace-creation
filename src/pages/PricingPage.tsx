@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageLayout from '@/components/layout/PageLayout';
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -100,7 +101,7 @@ const PricingPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary/5">
       <Header />
       
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-4 py-12">
           {/* Заголовок */}
           <div className="text-center mb-16 animate-fade-in-up">
@@ -304,7 +305,7 @@ const PricingPage = () => {
         </div>
         
         <Footer />
-      </div>
+      </PageLayout>
     </div>
   );
 };

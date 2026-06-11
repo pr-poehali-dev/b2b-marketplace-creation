@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import Icon from "@/components/ui/icon";
 import { useNavigate } from 'react-router-dom';
 
@@ -211,7 +212,7 @@ const News = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl py-8">
           <div className="mb-8">
             <div className="flex items-center justify-between mb-6">
@@ -472,7 +473,7 @@ const News = () => {
             </div>
           )}
         </div>
-      </div>
+      </PageLayout>
     </div>
   );
 };

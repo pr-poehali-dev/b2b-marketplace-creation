@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageLayout from '@/components/layout/PageLayout';
 import { useNavigate } from "react-router-dom";
 
 const APK_URL = "/app-release.apk";
@@ -60,7 +61,7 @@ const DownloadApp = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
 
         {/* Hero */}
         <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-primary/80 text-white py-20 px-6">
@@ -206,7 +207,7 @@ const DownloadApp = () => {
         </section>
 
         <Footer />
-      </div>
+      </PageLayout>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -105,7 +106,7 @@ const CompanyDetail = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-6 py-8">
           
           {/* Кнопка назад */}
@@ -288,7 +289,7 @@ const CompanyDetail = () => {
 
           </Tabs>
         </div>
-      </div>
+      </PageLayout>
     </div>
   );
 };

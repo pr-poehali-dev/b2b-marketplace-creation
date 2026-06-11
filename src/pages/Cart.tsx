@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import Icon from "@/components/ui/icon";
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
@@ -45,7 +46,7 @@ const Cart = () => {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
-        <div className="ml-56 transition-all duration-300">
+        <PageLayout>
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl py-8">
             <Card className="text-center py-12">
               <CardContent>
@@ -63,7 +64,7 @@ const Cart = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </PageLayout>
       </div>
     );
   }
@@ -71,7 +72,7 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl py-8">
           <div className="mb-8">
             <div className="flex items-center justify-between mb-6">
@@ -294,7 +295,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </div>
+      </PageLayout>
     </div>
   );
 };

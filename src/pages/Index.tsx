@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import BrandHeader from "@/components/BrandHeader";
 import HeroSection from "@/components/HeroSection";
 import SearchSection from "@/components/SearchSection";
@@ -31,7 +32,7 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <WelcomeModal onOpen={handleModalOpen} onClose={handleModalClose} />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <HeroSection isModalOpen={isModalOpen} shouldRestart={shouldRestartSlideshow} />
         <SupplierSection />
         <div className="px-6 py-12">
@@ -42,7 +43,7 @@ const Index = () => {
         <SearchSection />
         <DeliverySection />
         <Footer />
-      </div>
+      </PageLayout>
     </div>
   );
 };

@@ -45,6 +45,7 @@ import BuildInstructions from "./pages/BuildInstructions";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LayoutProvider } from "./contexts/LayoutContext";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
+        <LayoutProvider>
         <CartProvider>
           <Toaster />
           <Sonner />
@@ -93,6 +95,7 @@ const App = () => (
           </Routes>
           </BrowserRouter>
         </CartProvider>
+        </LayoutProvider>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>

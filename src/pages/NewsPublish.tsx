@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
+import PageLayout from '@/components/layout/PageLayout';
 import Icon from "@/components/ui/icon";
 import { useNavigate } from 'react-router-dom';
 
@@ -43,7 +44,7 @@ const NewsPublish = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl py-8">
           <div className="mb-8">
             <Button 
@@ -212,7 +213,7 @@ const NewsPublish = () => {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </PageLayout>
     </div>
   );
 };

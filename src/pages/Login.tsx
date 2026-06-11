@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
+import PageLayout from '@/components/layout/PageLayout';
 import LoginForm from '@/components/LoginForm';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -11,7 +12,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 flex items-center justify-center p-8">
           <div className="w-full max-w-lg">
             {/* Кнопка возврата */}
@@ -64,7 +65,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>
+      </PageLayout>
     </div>
   );
 };

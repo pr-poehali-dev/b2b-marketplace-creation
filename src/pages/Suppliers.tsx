@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Icon from "@/components/ui/icon";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageLayout from '@/components/layout/PageLayout';
 import SuppliersMap from "@/components/SuppliersMap";
 import SupplierFilters from "@/components/suppliers/SupplierFilters";
 import SupplierCard from "@/components/suppliers/SupplierCard";
@@ -82,7 +83,7 @@ const Suppliers = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-56 transition-all duration-300">
+      <PageLayout>
         <div className="container mx-auto px-4 py-8">
           {/* Hero Section */}
           <div className="bg-gradient-to-r from-primary to-primary/80 text-white rounded-xl p-6 mb-6 shadow-lg">
@@ -211,7 +212,7 @@ const Suppliers = () => {
         </div>
         
         <Footer />
-      </div>
+      </PageLayout>
       
       {/* Supplier Detail Modal */}
       {selectedSupplier && (
