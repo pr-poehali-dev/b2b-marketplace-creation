@@ -115,8 +115,8 @@ const DownloadApp = () => {
             </div>
 
             {/* Мок телефона */}
-            <div className="flex-shrink-0">
-              <div className="w-48 h-80 bg-gray-700 rounded-3xl border-4 border-gray-600 shadow-2xl relative overflow-hidden flex flex-col">
+            <div className="flex-shrink-0 hidden sm:block">
+              <div className="w-40 h-72 sm:w-48 sm:h-80 bg-gray-700 rounded-3xl border-4 border-gray-600 shadow-2xl relative overflow-hidden flex flex-col">
                 <div className="bg-gray-800 h-6 flex items-center justify-center">
                   <div className="w-16 h-1.5 bg-gray-600 rounded-full" />
                 </div>

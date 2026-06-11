@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
+import PageLayout from "@/components/layout/PageLayout";
 import Footer from "@/components/Footer";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
 import FlyToCartAnimation from "@/components/FlyToCartAnimation";
@@ -297,13 +298,13 @@ const Catalog = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="ml-64">
-        <div className="container mx-auto px-6 py-4">
+      <PageLayout>
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <CatalogHero />
 
-          <div className="flex gap-6">
+          <div className="flex flex-col md:flex-row gap-6">
             {/* Боковая панель с фильтрами */}
-            <div className="w-1/4 flex-shrink-0">
+            <div className="w-full md:w-64 lg:w-72 flex-shrink-0">
               <CatalogFilters
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
@@ -365,7 +366,7 @@ const Catalog = () => {
         </div>
         
         <Footer />
-      </main>
+      </PageLayout>
 
       <ProductInquiryModal
         isOpen={isInquiryModalOpen}

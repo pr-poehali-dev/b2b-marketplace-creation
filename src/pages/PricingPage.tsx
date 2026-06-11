@@ -109,7 +109,7 @@ const PricingPage = () => {
               <Icon name="Zap" size={16} />
               Специальное предложение
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Выберите свой тариф
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -170,7 +170,7 @@ const PricingPage = () => {
                   
                   <div className="py-6 px-4 bg-gray-50 rounded-xl">
                     <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      <span className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         {formatPrice(isAnnual ? Math.floor(plan.annualPrice / 12) : plan.monthlyPrice)}
                       </span>
                       <span className="text-gray-600 text-lg font-semibold">₽</span>

@@ -158,15 +158,15 @@ const About = () => {
             
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/30"></div>
+              <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-0.5 bg-primary/30"></div>
               
               <div className="space-y-8">
                 {milestones.map((milestone, index) => (
-                  <div key={index} className="relative flex items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-lg">
-                      <span className="text-sm">{milestone.year}</span>
+                  <div key={index} className="relative flex items-start gap-4 sm:gap-6">
+                    <div className="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                      <span className="text-xs sm:text-sm">{milestone.year}</span>
                     </div>
-                    <div className="bg-white rounded-xl p-6 border shadow-sm flex-1">
+                    <div className="bg-white rounded-xl p-4 sm:p-6 border shadow-sm flex-1">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">{milestone.title}</h3>
                       <p className="text-gray-600">{milestone.description}</p>
                     </div>

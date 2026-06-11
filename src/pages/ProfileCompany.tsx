@@ -87,35 +87,41 @@ const ProfileCompany = () => {
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="grid w-full max-w-4xl grid-cols-6">
-              <TabsTrigger value="info" className="flex items-center gap-2">
-                <Icon name="Building2" size={18} />
-                Информация
+            <TabsList className="flex flex-wrap gap-1 h-auto w-full max-w-4xl bg-muted p-1 rounded-lg">
+              <TabsTrigger value="info" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="Building2" size={16} />
+                <span className="hidden sm:inline">Информация</span>
+                <span className="sm:hidden">Инфо</span>
               </TabsTrigger>
-              <TabsTrigger value="overview" className="flex items-center gap-2">
-                <Icon name="BarChart3" size={18} />
-                Статистика
+              <TabsTrigger value="overview" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="BarChart3" size={16} />
+                <span className="hidden sm:inline">Статистика</span>
+                <span className="sm:hidden">Стат.</span>
               </TabsTrigger>
-              <TabsTrigger value="products" className="flex items-center gap-2">
-                <Icon name="Package" size={18} />
-                Мои товары
+              <TabsTrigger value="products" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="Package" size={16} />
+                <span className="hidden sm:inline">Мои товары</span>
+                <span className="sm:hidden">Товары</span>
               </TabsTrigger>
-              <TabsTrigger value="add" className="flex items-center gap-2">
-                <Icon name="Plus" size={18} />
-                Добавить товар
+              <TabsTrigger value="add" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="Plus" size={16} />
+                <span className="hidden sm:inline">Добавить товар</span>
+                <span className="sm:hidden">Добавить</span>
               </TabsTrigger>
-              <TabsTrigger value="requests" className="flex items-center gap-2">
-                <Icon name="MessageSquare" size={18} />
-                Запросы
+              <TabsTrigger value="requests" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="MessageSquare" size={16} />
+                <span className="hidden sm:inline">Запросы</span>
+                <span className="sm:hidden">Запросы</span>
               </TabsTrigger>
-              <TabsTrigger value="documents" className="flex items-center gap-2">
-                <Icon name="FileText" size={18} />
-                Документы
+              <TabsTrigger value="documents" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="FileText" size={16} />
+                <span className="hidden sm:inline">Документы</span>
+                <span className="sm:hidden">Докум.</span>
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="info">
-              <div className="grid lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Основная информация */}
             <div className="lg:col-span-2 space-y-6">
               <Card>

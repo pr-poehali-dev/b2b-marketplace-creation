@@ -143,7 +143,7 @@ const Contacts = () => {
               <p className="text-xl text-gray-600">Выберите удобный способ связи</p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}

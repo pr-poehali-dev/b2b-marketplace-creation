@@ -87,26 +87,26 @@ const Suppliers = () => {
         <div className="container mx-auto px-4 py-8">
           {/* Hero Section */}
           <div className="bg-gradient-to-r from-primary to-primary/80 text-white rounded-xl p-6 mb-6 shadow-lg">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h1 className="text-3xl font-bold mb-2">База поставщиков Business Market</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-2">База поставщиков Business Market</h1>
                 <p className="text-base text-white/80">
                   Найдите надежных партнеров среди {supplierStats.total} проверенных поставщиков
                 </p>
               </div>
               
               {/* Stats */}
-              <div className="flex gap-6">
+              <div className="flex gap-4 sm:gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold">{supplierStats.verified}</div>
+                  <div className="text-2xl sm:text-3xl font-bold">{supplierStats.verified}</div>
                   <div className="text-xs text-white/70">Верифицированных</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold">{supplierStats.categories}</div>
+                  <div className="text-2xl sm:text-3xl font-bold">{supplierStats.categories}</div>
                   <div className="text-xs text-white/70">Категорий</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold">{supplierStats.regions}</div>
+                  <div className="text-2xl sm:text-3xl font-bold">{supplierStats.regions}</div>
                   <div className="text-xs text-white/70">Регионов</div>
                 </div>
               </div>
@@ -127,9 +127,9 @@ const Suppliers = () => {
 
             {/* Suppliers Tab */}
             <TabsContent value="suppliers">
-              <div className="grid lg:grid-cols-4 gap-8">
+              <div className="flex flex-col lg:flex-row gap-8">
                 {/* Боковая панель с фильтрами */}
-                <div className="lg:col-span-1">
+                <div className="w-full lg:w-64 xl:w-72 flex-shrink-0">
                   <SupplierFilters
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
@@ -147,7 +147,7 @@ const Suppliers = () => {
                 </div>
 
                 {/* Основной контент */}
-                <div className="lg:col-span-3">
+                <div className="flex-1 min-w-0">
                   {/* Панель сортировки */}
                   <div className="flex items-center justify-between mb-6">
                     <p className="text-gray-600">
