@@ -10,8 +10,8 @@ const PageLayout = ({ children, className = '' }: PageLayoutProps) => {
 
   return (
     <div
-      className={`transition-all duration-300 min-h-screen ${className}`}
-      style={{ marginLeft: sidebarWidth }}
+      className={`transition-all duration-300 w-full min-h-screen ${className}`}
+      style={{ marginLeft: sidebarWidth, width: `calc(100% - ${sidebarWidth}px)` }}
     >
       {children}
     </div>

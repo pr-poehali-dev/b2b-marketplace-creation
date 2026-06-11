@@ -43,14 +43,14 @@ const SidebarNavigation = ({
     { href: "/suppliers", icon: "Users", label: "Поставщики" }
   ];
 
-  // На мобильном: скрыт за экраном (translate-x-full) когда закрыт,
-  // выезжает (translate-x-0) когда открыт. Всегда w-52.
-  // На десктопе: фиксирован, ширина зависит от isMenuExpanded.
+  // Мобильный (< 768px): drawer w-64, выезжает поверх контента
+  // Планшет (768–1024px): фиксирован, всегда w-12, раскрывается hover'ом (не двигает контент)
+  // Десктоп (> 1024px): фиксирован, w-12 / w-52 в зависимости от isMenuExpanded
   const navClass = isMobile
-    ? `fixed left-0 top-0 bottom-0 w-64 z-[9999] flex flex-col transition-transform duration-300 ${
+    ? `fixed left-0 top-0 bottom-0 w-64 z-[9999] flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`
-    : `fixed left-0 top-0 bottom-0 z-[9999] flex flex-col transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+    : `fixed left-0 top-0 bottom-0 z-[9999] flex flex-col transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
         isMenuExpanded ? 'w-52' : 'w-12'
       }`;
 
