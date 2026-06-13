@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Отправка заявки на товар",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "type": "inquiry",
+        "supplier_email": "supplier@example.com",
+        "buyer_company": "ООО Тест",
+        "buyer_name": "Иван Тестов",
+        "buyer_email": "ivan@test.ru",
+        "buyer_phone": "+7 999 000-00-00",
+        "message": "Интересует поставка",
+        "items": [
+          {"name": "Труба стальная", "seller": "МетПром", "price": 45600, "unit": "за тонну", "quantity": "10 тонн", "category": "Металлопрокат"}
+        ]
+      },
+      "expectedStatus": 200,
+      "expectedBody": {"success": true},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

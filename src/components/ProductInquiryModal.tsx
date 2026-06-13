@@ -16,10 +16,13 @@ interface Product {
   image?: string;
   category: string;
   seller: string;
+  sellerEmail?: string;
   price: number;
   unit: string;
   minOrder: string;
 }
+
+const SEND_INQUIRY_URL = 'https://functions.poehali.dev/9549ac9e-663a-46ff-aeb2-9cbcd8d6269d';
 
 interface ProductInquiryModalProps {
   isOpen: boolean;
@@ -31,10 +34,10 @@ const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalPr
   const { addItem } = useCart();
   const navigate = useNavigate();
   const [inquiryData, setInquiryData] = useState({
-    companyName: 'ООО "Торговый дом"',
-    contactName: 'Иван Иванов',
-    email: 'ivan@company.ru',
-    phone: '+7 (999) 123-45-67',
+    companyName: '',
+    contactName: '',
+    email: '',
+    phone: '',
     quantity: '',
     message: '',
     includeInCart: true
@@ -48,36 +51,32 @@ const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalPr
     setIsSubmitting(true);
 
     try {
-      // Симуляция отправки заявки на email
-      const inquiryEmail = {
-        to: inquiryData.email,
-        subject: `Заявка на товар: ${product.name}`,
-        body: `
-Новая заявка на товар
+      const response = await fetch(SEND_INQUIRY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'inquiry',
+          supplier_email: product.sellerEmail || '',
+          buyer_company: inquiryData.companyName,
+          buyer_name: inquiryData.contactName,
+          buyer_email: inquiryData.email,
+          buyer_phone: inquiryData.phone,
+          message: inquiryData.message,
+          items: [{
+            name: product.name,
+            seller: product.seller,
+            category: product.category,
+            price: product.price,
+            unit: product.unit,
+            quantity: inquiryData.quantity || product.minOrder,
+          }],
+        }),
+      });
 
-ТОВАР:
-Название: ${product.name}
-Категория: ${product.category}
-Поставщик: ${product.seller}
-Цена: ${product.price.toLocaleString('ru-RU')} ₽ ${product.unit}
-Минимальный заказ: ${product.minOrder}
+      if (!response.ok) {
+        throw new Error('Не удалось отправить заявку');
+      }
 
-ЗАЯВКА:
-Компания: ${inquiryData.companyName}
-Контактное лицо: ${inquiryData.contactName}
-Email: ${inquiryData.email}
-Телефон: ${inquiryData.phone}
-Количество: ${inquiryData.quantity || 'Не указано'}
-Сообщение: ${inquiryData.message || 'Не указано'}
-
-Дата заявки: ${new Date().toLocaleString('ru-RU')}
-        `
-      };
-
-      // Здесь должна быть реальная отправка email
-      console.log('Отправка заявки на email:', inquiryEmail);
-
-      // Добавляем товар в корзину, если выбрана опция
       if (inquiryData.includeInCart) {
         addItem({
           id: product.id.toString(),
@@ -89,12 +88,10 @@ Email: ${inquiryData.email}
         });
       }
 
-      // Показываем сообщение об успехе
-      alert(`Заявка отправлена на ${inquiryData.email}!\n\n${inquiryData.includeInCart ? 'Товар также добавлен в корзину.' : ''}\n\nМенеджер свяжется с вами в ближайшее время.`);
+      alert(`Заявка успешно отправлена поставщику!\n\n${inquiryData.includeInCart ? 'Товар также добавлен в корзину.\n\n' : ''}Менеджер свяжется с вами в ближайшее время.`);
 
       onClose();
     } catch (error) {
-      console.error('Ошибка при отправке заявки:', error);
       alert('Произошла ошибка при отправке заявки. Попробуйте позже.');
     } finally {
       setIsSubmitting(false);
@@ -166,6 +163,7 @@ Email: ${inquiryData.email}
                 id="companyName"
                 value={inquiryData.companyName}
                 onChange={(e) => setInquiryData(prev => ({ ...prev, companyName: e.target.value }))}
+                placeholder='ООО "Ваша компания"'
                 required
               />
             </div>
@@ -176,6 +174,7 @@ Email: ${inquiryData.email}
                 id="contactName"
                 value={inquiryData.contactName}
                 onChange={(e) => setInquiryData(prev => ({ ...prev, contactName: e.target.value }))}
+                placeholder="Иван Иванов"
                 required
               />
             </div>

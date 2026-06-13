@@ -11,15 +11,18 @@ import Icon from "@/components/ui/icon";
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '@/contexts/CartContext';
 
+const SEND_INQUIRY_URL = 'https://functions.poehali.dev/9549ac9e-663a-46ff-aeb2-9cbcd8d6269d';
+
 const Cart = () => {
   const navigate = useNavigate();
   const { items, removeItem, updateQuantity, clearCart, getTotalPrice } = useCart();
   const [orderComment, setOrderComment] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactInfo, setContactInfo] = useState({
-    name: 'Иван Иванов',
-    phone: '+7 (999) 123-45-67',
-    email: 'ivan@company.ru',
-    company: 'ООО "Торговый дом"'
+    name: '',
+    phone: '',
+    email: '',
+    company: ''
   });
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
@@ -27,19 +30,48 @@ const Cart = () => {
     updateQuantity(id, newQuantity);
   };
 
-  const handleCreateOrder = () => {
+  const handleCreateOrder = async () => {
     if (items.length === 0) return;
-    
-    console.log('Создание заказа:', {
-      items,
-      totalPrice: getTotalPrice(),
-      contactInfo,
-      comment: orderComment
-    });
-    
-    alert('Заказ успешно создан! Менеджер свяжется с вами в ближайшее время.');
-    clearCart();
-    navigate('/orders');
+
+    if (!contactInfo.name || !contactInfo.phone || !contactInfo.email || !contactInfo.company) {
+      alert('Пожалуйста, заполните контактные данные.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(SEND_INQUIRY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'order',
+          buyer_company: contactInfo.company,
+          buyer_name: contactInfo.name,
+          buyer_email: contactInfo.email,
+          buyer_phone: contactInfo.phone,
+          message: orderComment,
+          items: items.map(item => ({
+            name: item.title,
+            seller: item.company,
+            category: item.category,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Не удалось оформить заказ');
+      }
+
+      alert('Заказ успешно оформлен! Поставщики получили вашу заявку и свяжутся с вами в ближайшее время.');
+      clearCart();
+      navigate('/orders');
+    } catch (error) {
+      alert('Произошла ошибка при оформлении заказа. Попробуйте позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (items.length === 0) {
@@ -276,10 +308,19 @@ const Cart = () => {
                     className="w-full"
                     size="lg"
                     onClick={handleCreateOrder}
-                    disabled={!contactInfo.name || !contactInfo.phone}
+                    disabled={isSubmitting || !contactInfo.name || !contactInfo.phone}
                   >
-                    <Icon name="ShoppingBag" size={16} className="mr-2" />
-                    Оформить заказ
+                    {isSubmitting ? (
+                      <>
+                        <Icon name="Loader2" size={16} className="mr-2 animate-spin" />
+                        Оформляем...
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="ShoppingBag" size={16} className="mr-2" />
+                        Оформить заказ
+                      </>
+                    )}
                   </Button>
 
                   <div className="text-center">

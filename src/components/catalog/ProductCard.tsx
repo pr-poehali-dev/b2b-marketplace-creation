@@ -15,6 +15,7 @@ export interface Product {
   images?: string[];
   category: string;
   seller: string;
+  sellerEmail?: string;
   verified: boolean;
   price: number;
   oldPrice?: number;
