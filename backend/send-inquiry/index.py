@@ -7,7 +7,7 @@ from email.mime.multipart import MIMEMultipart
 
 def handler(event: dict, context) -> dict:
     """Отправка заявки/заказа на товар на email поставщика (с копией админу).
-    Принимает type (inquiry/order), supplier_email, контакты покупателя, товары."""
+    Принимает type (inquiry/order), supplier_email, контакты, товары."""
 
     cors_headers = {
         'Access-Control-Allow-Origin': '*',
@@ -115,13 +115,25 @@ def handler(event: dict, context) -> dict:
         with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
             server.login(smtp_user, smtp_password)
             server.sendmail(admin_email, recipients, msg.as_string())
-    except smtplib.SMTPAuthenticationError:
+        print(f'INQUIRY SENT OK to {recipients} from {smtp_user}')
+    except smtplib.SMTPAuthenticationError as e:
+        print(f'SMTP AUTH FAILED. user={smtp_user} pwd_len={len(smtp_password)} resp={e}')
+        # Диагностика без раскрытия пароля
+        masked_user = smtp_user
+        pwd_len = len(smtp_password)
+        pwd_has_space = ' ' in os.environ.get('SMTP_PASSWORD', '')
         return {
             'statusCode': 500,
             'headers': cors_headers,
             'body': json.dumps({
                 'success': False,
-                'error': 'Ошибка авторизации почты. Проверьте SMTP_USER (полный адрес) и SMTP_PASSWORD (пароль приложения для «Почты», IMAP включён).'
+                'error': 'Ошибка авторизации почты Яндекс.',
+                'diagnostics': {
+                    'smtp_user': masked_user,
+                    'password_length': pwd_len,
+                    'password_had_spaces': pwd_has_space,
+                    'yandex_response': str(e)
+                }
             })
         }
 
