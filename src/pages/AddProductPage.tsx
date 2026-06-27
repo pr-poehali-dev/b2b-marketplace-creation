@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Category {
   id: number;
@@ -48,6 +49,7 @@ interface ProductFormData {
 
 const AddProductPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -186,7 +188,8 @@ const AddProductPage: React.FC = () => {
         tags: formData.tags,
         status: formData.status,
         is_featured: formData.is_featured,
-        attributes: formData.attributes
+        attributes: formData.attributes,
+        supplier_email: user?.email || null
       };
 
       const response = await fetch('https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39', {

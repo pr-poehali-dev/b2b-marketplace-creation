@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface Category {
   id: number;
@@ -75,6 +76,7 @@ interface ProductFormData {
 
 const EditProductPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -316,7 +318,8 @@ const EditProductPage: React.FC = () => {
         tags: formData.tags,
         status: formData.status,
         is_featured: formData.is_featured,
-        attributes: formData.attributes
+        attributes: formData.attributes,
+        supplier_email: user?.email || null
       };
 
       const response = await fetch(

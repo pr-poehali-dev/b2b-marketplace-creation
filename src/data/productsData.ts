@@ -1,6 +1,10 @@
 import { Product } from "@/components/catalog/ProductCard";
 
-export const productsData: Product[] = [
+// Почта, на которую приходят заявки по демо-товарам витрины.
+// Когда каталог перейдёт на реальные товары — email будет браться из профиля поставщика.
+const DEMO_SELLER_EMAIL = "bmbusinessmarket@yandex.ru";
+
+const rawProductsData: Product[] = [
   {
     id: 1,
     name: "Труба стальная бесшовная 108x4 мм ГОСТ 8732-78",
@@ -1097,3 +1101,9 @@ export const productsData: Product[] = [
     description: "Прецизионные аналитические весы с дискретностью 0.1 мг"
   }
 ];
+
+// Проставляем email поставщика всем демо-товарам (для отправки заявок с витрины)
+export const productsData: Product[] = rawProductsData.map((p) => ({
+  ...p,
+  sellerEmail: p.sellerEmail || DEMO_SELLER_EMAIL,
+}));
