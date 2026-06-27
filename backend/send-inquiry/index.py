@@ -37,9 +37,10 @@ def handler(event: dict, context) -> dict:
     message = body.get('message', '')
     items = body.get('items', [])  # список товаров: [{name, seller, price, unit, quantity, category}]
 
-    admin_email = os.environ['RECIPIENT_EMAIL']
-    smtp_user = os.environ['SMTP_USER']
-    smtp_password = os.environ['SMTP_PASSWORD']
+    admin_email = os.environ['RECIPIENT_EMAIL'].strip()
+    smtp_user = os.environ['SMTP_USER'].strip()
+    # Убираем пробелы внутри пароля (Яндекс показывает его группами по 4 символа)
+    smtp_password = os.environ['SMTP_PASSWORD'].replace(' ', '').strip()
 
     # Получатель: email поставщика, если указан и валиден; иначе админ
     recipients = []
@@ -110,9 +111,19 @@ def handler(event: dict, context) -> dict:
         msg['Reply-To'] = buyer_email
     msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
-    with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
-        server.login(smtp_user, smtp_password)
-        server.sendmail(admin_email, recipients, msg.as_string())
+    try:
+        with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
+            server.login(smtp_user, smtp_password)
+            server.sendmail(admin_email, recipients, msg.as_string())
+    except smtplib.SMTPAuthenticationError:
+        return {
+            'statusCode': 500,
+            'headers': cors_headers,
+            'body': json.dumps({
+                'success': False,
+                'error': 'Ошибка авторизации почты. Проверьте SMTP_USER (полный адрес) и SMTP_PASSWORD (пароль приложения для «Почты», IMAP включён).'
+            })
+        }
 
     return {
         'statusCode': 200,
