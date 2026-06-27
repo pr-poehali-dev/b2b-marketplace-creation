@@ -37,10 +37,23 @@ def handler(event: dict, context) -> dict:
     message = body.get('message', '')
     items = body.get('items', [])  # список товаров: [{name, seller, price, unit, quantity, category}]
 
-    admin_email = os.environ['RECIPIENT_EMAIL'].strip()
-    smtp_user = os.environ['SMTP_USER'].strip()
+    import re
+
+    def clean_email(value):
+        # Извлекаем валидный email из строки (убирает невидимые символы, пробелы, кавычки)
+        if not value:
+            return ''
+        match = re.search(r'[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}', value)
+        return match.group(0) if match else value.strip()
+
+    admin_email = clean_email(os.environ.get('RECIPIENT_EMAIL', ''))
+    smtp_user = clean_email(os.environ.get('SMTP_USER', ''))
     # Убираем пробелы внутри пароля (Яндекс показывает его группами по 4 символа)
     smtp_password = os.environ['SMTP_PASSWORD'].replace(' ', '').strip()
+
+    # Если RECIPIENT_EMAIL невалиден — используем логин SMTP как получателя
+    if '@' not in admin_email:
+        admin_email = smtp_user
 
     # Получатель: email поставщика, если указан и валиден; иначе админ
     recipients = []
@@ -105,7 +118,7 @@ def handler(event: dict, context) -> dict:
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f'[BM Market] {type_label} от {buyer_company or buyer_name}'
-    msg['From'] = admin_email
+    msg['From'] = smtp_user
     msg['To'] = ', '.join(recipients)
     if buyer_email and '@' in buyer_email:
         msg['Reply-To'] = buyer_email
@@ -133,15 +146,30 @@ def handler(event: dict, context) -> dict:
     try:
         with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
             server.login(smtp_user, smtp_password)
-            server.sendmail(admin_email, recipients, msg.as_string())
+            refused = server.sendmail(smtp_user, recipients, msg.as_string())
+        diagnostics['refused'] = refused
+        print(f'INQUIRY OK from={smtp_user} to={recipients} refused={refused}')
     except smtplib.SMTPAuthenticationError as e:
         diagnostics['yandex_response'] = str(e)
+        print(f'AUTH FAIL: {e}')
         return {
             'statusCode': 200,
             'headers': cors_headers,
             'body': json.dumps({
                 'success': False,
                 'error': 'Ошибка авторизации почты Яндекс.',
+                'diagnostics': diagnostics
+            }, ensure_ascii=False)
+        }
+    except Exception as e:
+        diagnostics['smtp_error'] = f'{type(e).__name__}: {e}'
+        print(f'SMTP ERROR: {type(e).__name__}: {e}')
+        return {
+            'statusCode': 200,
+            'headers': cors_headers,
+            'body': json.dumps({
+                'success': False,
+                'error': 'Ошибка отправки письма.',
                 'diagnostics': diagnostics
             }, ensure_ascii=False)
         }
