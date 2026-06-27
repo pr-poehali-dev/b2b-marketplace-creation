@@ -124,58 +124,31 @@ def handler(event: dict, context) -> dict:
         msg['Reply-To'] = buyer_email
     msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
-    raw_user = os.environ.get('SMTP_USER', '')
-    raw_pwd = os.environ.get('SMTP_PASSWORD', '')
-    # Маскируем логин: первые 2 символа + домен
-    if '@' in smtp_user:
-        local, _, domain = smtp_user.partition('@')
-        masked_user = (local[:2] + '***@' + domain) if local else smtp_user
-    else:
-        masked_user = (smtp_user[:2] + '***') if smtp_user else '(пусто)'
-
-    diagnostics = {
-        'smtp_user_masked': masked_user,
-        'smtp_user_has_at': '@' in smtp_user,
-        'smtp_user_raw_len': len(raw_user),
-        'smtp_user_trimmed_len': len(smtp_user),
-        'password_length': len(smtp_password),
-        'password_raw_length': len(raw_pwd),
-        'password_had_spaces': ' ' in raw_pwd,
-    }
-
     try:
         with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
             server.login(smtp_user, smtp_password)
-            refused = server.sendmail(smtp_user, recipients, msg.as_string())
-        diagnostics['refused'] = refused
-        print(f'INQUIRY OK from={smtp_user} to={recipients} refused={refused}')
-    except smtplib.SMTPAuthenticationError as e:
-        diagnostics['yandex_response'] = str(e)
-        print(f'AUTH FAIL: {e}')
+            server.sendmail(smtp_user, recipients, msg.as_string())
+    except smtplib.SMTPAuthenticationError:
         return {
-            'statusCode': 200,
+            'statusCode': 500,
             'headers': cors_headers,
             'body': json.dumps({
                 'success': False,
-                'error': 'Ошибка авторизации почты Яндекс.',
-                'diagnostics': diagnostics
+                'error': 'Не удалось отправить письмо. Попробуйте позже.'
             }, ensure_ascii=False)
         }
-    except Exception as e:
-        diagnostics['smtp_error'] = f'{type(e).__name__}: {e}'
-        print(f'SMTP ERROR: {type(e).__name__}: {e}')
+    except Exception:
         return {
-            'statusCode': 200,
+            'statusCode': 500,
             'headers': cors_headers,
             'body': json.dumps({
                 'success': False,
-                'error': 'Ошибка отправки письма.',
-                'diagnostics': diagnostics
+                'error': 'Не удалось отправить письмо. Попробуйте позже.'
             }, ensure_ascii=False)
         }
 
     return {
         'statusCode': 200,
         'headers': cors_headers,
-        'body': json.dumps({'success': True, 'sent_to': recipients, 'diagnostics': diagnostics}, ensure_ascii=False)
+        'body': json.dumps({'success': True, 'sent_to': recipients}, ensure_ascii=False)
     }
