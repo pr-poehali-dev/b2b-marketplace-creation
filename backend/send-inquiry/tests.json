@@ -7,17 +7,17 @@
       "expectedStatus": 200
     },
     {
-      "name": "Отправка заявки на товар",
+      "name": "Отправка заявки (только админу)",
       "method": "POST",
       "path": "/",
       "body": {
         "type": "inquiry",
-        "supplier_email": "supplier@example.com",
+        "supplier_email": "",
         "buyer_company": "ООО Тест",
         "buyer_name": "Иван Тестов",
         "buyer_email": "ivan@test.ru",
         "buyer_phone": "+7 999 000-00-00",
-        "message": "Интересует поставка",
+        "message": "Тестовая заявка (автопроверка)",
         "items": [
           {"name": "Труба стальная", "seller": "МетПром", "price": 45600, "unit": "за тонну", "quantity": "10 тонн", "category": "Металлопрокат"}
         ]

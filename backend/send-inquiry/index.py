@@ -6,7 +6,8 @@ from email.mime.multipart import MIMEMultipart
 
 
 def handler(event: dict, context) -> dict:
-    """Отправка заявки/заказа на товар на email поставщика (с копией админу)."""
+    """Отправка заявки/заказа на товар на email поставщика (с копией админу).
+    Принимает type (inquiry/order), supplier_email, контакты покупателя и список товаров."""
 
     cors_headers = {
         'Access-Control-Allow-Origin': '*',
