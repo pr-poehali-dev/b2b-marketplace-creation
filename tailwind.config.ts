@@ -23,7 +23,7 @@ export default {
 				'4xl': '2560px'
 			},
 			maxWidth: {
-				'7xl': 'min(92vw, 1600px)',
+				'7xl': 'min(96vw, 1920px)',
 				'8xl': '90rem',
 				'9xl': '100rem'
 			},
