@@ -10,7 +10,10 @@ interface User {
   company_name: string;
 }
 
-interface VerifyExtra {
+interface RegisterData {
+  phone: string;
+  code: string;
+  password: string;
   user_type?: 'buyer' | 'supplier';
   first_name?: string;
   last_name?: string;
@@ -18,16 +21,19 @@ interface VerifyExtra {
   company_name?: string;
 }
 
+type AuthResult = { success: boolean; error?: string };
+
 interface AuthContextType {
   user: User | null;
   token: string | null;
   isLoading: boolean;
-  sendCode: (phone: string) => Promise<{ success: boolean; error?: string; smsSent?: boolean }>;
-  verifyCode: (
+  sendCode: (
     phone: string,
-    code: string,
-    extra?: VerifyExtra
-  ) => Promise<{ success: boolean; error?: string; isNew?: boolean }>;
+    purpose?: 'register' | 'reset'
+  ) => Promise<{ success: boolean; error?: string; smsSent?: boolean }>;
+  register: (data: RegisterData) => Promise<AuthResult>;
+  login: (phone: string, password: string) => Promise<AuthResult>;
+  resetPassword: (phone: string, code: string, password: string) => Promise<AuthResult>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -70,14 +76,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(false);
   }, []);
 
+  const applySession = (data: { token: string; user: User }) => {
+    setToken(data.token);
+    setUser(data.user);
+    localStorage.setItem('auth_token', data.token);
+    localStorage.setItem('auth_user', JSON.stringify(data.user));
+  };
+
   const sendCode = async (
-    phone: string
+    phone: string,
+    purpose: 'register' | 'reset' = 'register'
   ): Promise<{ success: boolean; error?: string; smsSent?: boolean }> => {
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'send_code', phone }),
+        body: JSON.stringify({ action: 'send_code', phone, purpose }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -89,29 +103,66 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  const verifyCode = async (
-    phone: string,
-    code: string,
-    extra?: VerifyExtra
-  ): Promise<{ success: boolean; error?: string; isNew?: boolean }> => {
+  const register = async (data: RegisterData): Promise<AuthResult> => {
     try {
       setIsLoading(true);
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'verify', phone, code, ...extra }),
+        body: JSON.stringify({ action: 'register', ...data }),
       });
-      const data = await response.json();
+      const res = await response.json();
       if (!response.ok) {
-        return { success: false, error: data.error || 'Неверный код' };
+        return { success: false, error: res.error || 'Ошибка регистрации' };
       }
+      applySession(res);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: 'Ошибка подключения к серверу' };
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      setToken(data.token);
-      setUser(data.user);
-      localStorage.setItem('auth_token', data.token);
-      localStorage.setItem('auth_user', JSON.stringify(data.user));
+  const login = async (phone: string, password: string): Promise<AuthResult> => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'login', phone, password }),
+      });
+      const res = await response.json();
+      if (!response.ok) {
+        return { success: false, error: res.error || 'Неверный телефон или пароль' };
+      }
+      applySession(res);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: 'Ошибка подключения к серверу' };
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      return { success: true, isNew: data.is_new };
+  const resetPassword = async (
+    phone: string,
+    code: string,
+    password: string
+  ): Promise<AuthResult> => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reset_password', phone, code, password }),
+      });
+      const res = await response.json();
+      if (!response.ok) {
+        return { success: false, error: res.error || 'Не удалось сменить пароль' };
+      }
+      applySession(res);
+      return { success: true };
     } catch (error) {
       return { success: false, error: 'Ошибка подключения к серверу' };
     } finally {
@@ -141,7 +192,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     token,
     isLoading,
     sendCode,
-    verifyCode,
+    register,
+    login,
+    resetPassword,
     logout,
     isAuthenticated,
   };

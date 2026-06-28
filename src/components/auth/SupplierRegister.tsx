@@ -8,7 +8,7 @@ interface SupplierRegisterProps {
 }
 
 export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
-  const { sendCode, verifyCode, isLoading } = useAuth();
+  const { sendCode, register, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',
@@ -25,6 +25,8 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
   const [codeSent, setCodeSent] = useState(false);
   const [smsNotConfigured, setSmsNotConfigured] = useState(false);
   const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const totalSteps = 3;
 
   const busy = isLoading || localLoading;
@@ -36,7 +38,7 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
       return;
     }
     setLocalLoading(true);
-    const result = await sendCode(formData.phone);
+    const result = await sendCode(formData.phone, 'register');
     setLocalLoading(false);
 
     if (result.success) {
@@ -47,16 +49,27 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
     }
   };
 
-  const handleVerify = async () => {
+  const handleRegister = async () => {
     setError('');
     if (code.length !== 4) {
       setError('Введите 4-значный код');
       return;
     }
+    if (password.length < 6) {
+      setError('Пароль должен содержать минимум 6 символов');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Пароли не совпадают');
+      return;
+    }
     const firstName = formData.contactPerson.split(' ')[0] || formData.contactPerson;
     const lastName = formData.contactPerson.split(' ').slice(1).join(' ') || '';
 
-    const result = await verifyCode(formData.phone, code, {
+    const result = await register({
+      phone: formData.phone,
+      code,
+      password,
       user_type: 'supplier',
       first_name: firstName,
       last_name: lastName,
@@ -67,7 +80,7 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
     if (result.success) {
       onClose();
     } else {
-      setError(result.error || 'Неверный код');
+      setError(result.error || 'Ошибка регистрации');
     }
   };
 
@@ -357,6 +370,35 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Пароль *
+                    </label>
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="Минимум 6 символов"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Повторите пароль *
+                    </label>
+                    <input
+                      type="password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="Повторите пароль"
+                    />
+                    {confirmPassword.length > 0 && confirmPassword !== password && (
+                      <p className="text-xs text-red-600 mt-1">Пароли не совпадают</p>
+                    )}
+                  </div>
+
                   <button
                     type="button"
                     onClick={handleSendCode}
@@ -415,11 +457,11 @@ export default function SupplierRegister({ onClose }: SupplierRegisterProps) {
               ) : codeSent ? (
                 <button
                   type="button"
-                  onClick={handleVerify}
-                  disabled={busy || code.length !== 4}
+                  onClick={handleRegister}
+                  disabled={busy || code.length !== 4 || password.length < 6 || password !== confirmPassword}
                   className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {busy ? 'Проверка...' : 'Создать аккаунт'}
+                  {busy ? 'Создание...' : 'Создать аккаунт'}
                 </button>
               ) : null}
             </div>

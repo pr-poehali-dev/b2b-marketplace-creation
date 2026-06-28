@@ -8,7 +8,7 @@ interface BuyerRegisterProps {
 }
 
 export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
-  const { sendCode, verifyCode, isLoading } = useAuth();
+  const { sendCode, register, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -27,6 +27,8 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
   const [codeSent, setCodeSent] = useState(false);
   const [smsNotConfigured, setSmsNotConfigured] = useState(false);
   const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const totalSteps = 3;
 
   const busy = isLoading || localLoading;
@@ -51,7 +53,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
       return;
     }
     setLocalLoading(true);
-    const result = await sendCode(formData.phone);
+    const result = await sendCode(formData.phone, 'register');
     setLocalLoading(false);
 
     if (result.success) {
@@ -62,13 +64,24 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
     }
   };
 
-  const handleVerify = async () => {
+  const handleRegister = async () => {
     setError('');
     if (code.length !== 4) {
       setError('Введите 4-значный код');
       return;
     }
-    const result = await verifyCode(formData.phone, code, {
+    if (password.length < 6) {
+      setError('Пароль должен содержать минимум 6 символов');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Пароли не совпадают');
+      return;
+    }
+    const result = await register({
+      phone: formData.phone,
+      code,
+      password,
       user_type: 'buyer',
       first_name: formData.firstName,
       last_name: formData.lastName,
@@ -79,7 +92,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
     if (result.success) {
       onClose();
     } else {
-      setError(result.error || 'Неверный код');
+      setError(result.error || 'Ошибка регистрации');
     }
   };
 
@@ -395,6 +408,35 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Пароль *
+                    </label>
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      placeholder="Минимум 6 символов"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Повторите пароль *
+                    </label>
+                    <input
+                      type="password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      placeholder="Повторите пароль"
+                    />
+                    {confirmPassword.length > 0 && confirmPassword !== password && (
+                      <p className="text-xs text-red-600 mt-1">Пароли не совпадают</p>
+                    )}
+                  </div>
+
                   <button
                     type="button"
                     onClick={handleSendCode}
@@ -453,11 +495,11 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
               ) : codeSent ? (
                 <button
                   type="button"
-                  onClick={handleVerify}
-                  disabled={busy || code.length !== 4}
+                  onClick={handleRegister}
+                  disabled={busy || code.length !== 4 || password.length < 6 || password !== confirmPassword}
                   className="px-8 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {busy ? 'Проверка...' : 'Создать аккаунт'}
+                  {busy ? 'Создание...' : 'Создать аккаунт'}
                 </button>
               ) : null}
             </div>

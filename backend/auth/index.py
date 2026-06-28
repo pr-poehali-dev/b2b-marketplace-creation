@@ -8,6 +8,7 @@ import urllib.parse
 from datetime import datetime, timedelta
 
 import psycopg2
+import bcrypt
 
 CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
@@ -20,6 +21,7 @@ CORS_HEADERS = {
 CODE_TTL_MINUTES = 5
 MAX_ATTEMPTS = 5
 SESSION_TTL_DAYS = 30
+MIN_PASSWORD_LEN = 6
 
 
 def _resp(status: int, body: dict) -> dict:
@@ -41,6 +43,19 @@ def _normalize_phone(raw: str) -> str:
 
 def _db():
     return psycopg2.connect(os.environ['DATABASE_URL'])
+
+
+def _hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+
+def _check_password(password: str, hashed: str) -> bool:
+    if not hashed:
+        return False
+    try:
+        return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+    except Exception:
+        return False
 
 
 def _send_sms(phone: str, code: str) -> dict:
@@ -76,8 +91,41 @@ def _user_to_dict(row) -> dict:
     }
 
 
+def _create_session(cur, user_id: int) -> str:
+    token = secrets.token_hex(32)
+    session_exp = datetime.utcnow() + timedelta(days=SESSION_TTL_DAYS)
+    cur.execute(
+        "INSERT INTO auth_sessions (user_id, token, expires_at) VALUES (%s, %s, %s)",
+        (user_id, token, session_exp),
+    )
+    return token
+
+
+def _verify_code_record(cur, phone: str, code: str):
+    '''Проверяет SMS-код. Возвращает (ok, error_message). При успехе помечает код использованным.'''
+    cur.execute(
+        "SELECT id, code, attempts, expires_at FROM sms_codes "
+        "WHERE phone = %s AND is_used = FALSE ORDER BY created_at DESC LIMIT 1",
+        (phone,),
+    )
+    rec = cur.fetchone()
+    if not rec:
+        return False, 'Код не найден. Запросите новый.'
+    code_id, real_code, attempts, expires_at = rec
+    if expires_at < datetime.utcnow():
+        return False, 'Срок действия кода истёк. Запросите новый.'
+    if attempts >= MAX_ATTEMPTS:
+        cur.execute("UPDATE sms_codes SET is_used = TRUE WHERE id = %s", (code_id,))
+        return False, 'Слишком много попыток. Запросите новый код.'
+    if code != real_code:
+        cur.execute("UPDATE sms_codes SET attempts = attempts + 1 WHERE id = %s", (code_id,))
+        return False, 'Неверный код'
+    cur.execute("UPDATE sms_codes SET is_used = TRUE WHERE id = %s", (code_id,))
+    return True, ''
+
+
 def handler(event: dict, context) -> dict:
-    '''Авторизация по номеру телефона через SMS-код (SMS.ru).'''
+    '''Авторизация: вход по телефону и паролю, регистрация с подтверждением номера через SMS.'''
     method = event.get('httpMethod', 'GET')
     if method == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS_HEADERS, 'body': ''}
@@ -95,8 +143,12 @@ def handler(event: dict, context) -> dict:
         return _handle_me(event)
     if action == 'send_code':
         return _handle_send_code(body)
-    if action == 'verify':
-        return _handle_verify(body)
+    if action == 'register':
+        return _handle_register(body)
+    if action == 'login':
+        return _handle_login(body)
+    if action == 'reset_password':
+        return _handle_reset_password(body)
     if action == 'logout':
         return _handle_logout(event)
 
@@ -105,15 +157,23 @@ def handler(event: dict, context) -> dict:
 
 def _handle_send_code(body: dict) -> dict:
     phone = _normalize_phone(body.get('phone', ''))
+    purpose = body.get('purpose', 'register')
     if len(phone) != 11:
         return _resp(400, {'error': 'Введите корректный номер телефона'})
-
-    code = f'{random.randint(0, 9999):04d}'
-    expires = datetime.utcnow() + timedelta(minutes=CODE_TTL_MINUTES)
 
     conn = _db()
     try:
         cur = conn.cursor()
+        cur.execute("SELECT id FROM users WHERE phone = %s", (phone,))
+        exists = cur.fetchone() is not None
+
+        if purpose == 'register' and exists:
+            return _resp(409, {'error': 'Этот номер уже зарегистрирован. Войдите по паролю.'})
+        if purpose == 'reset' and not exists:
+            return _resp(404, {'error': 'Пользователь с таким номером не найден.'})
+
+        code = f'{random.randint(0, 9999):04d}'
+        expires = datetime.utcnow() + timedelta(minutes=CODE_TTL_MINUTES)
         cur.execute(
             "UPDATE sms_codes SET is_used = TRUE WHERE phone = %s AND is_used = FALSE",
             (phone,),
@@ -135,79 +195,124 @@ def _handle_send_code(body: dict) -> dict:
     return _resp(200, {'success': True, 'sms_sent': True})
 
 
-def _handle_verify(body: dict) -> dict:
+def _handle_register(body: dict) -> dict:
     phone = _normalize_phone(body.get('phone', ''))
     code = re.sub(r'\D', '', body.get('code', ''))
+    password = body.get('password', '')
+
     if len(phone) != 11:
         return _resp(400, {'error': 'Некорректный номер телефона'})
     if not code:
         return _resp(400, {'error': 'Введите код из SMS'})
+    if len(password) < MIN_PASSWORD_LEN:
+        return _resp(400, {'error': f'Пароль должен быть не короче {MIN_PASSWORD_LEN} символов'})
+
+    user_type = body.get('user_type', 'buyer')
+    if user_type not in ('buyer', 'supplier'):
+        user_type = 'buyer'
+
+    conn = _db()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT id FROM users WHERE phone = %s", (phone,))
+        if cur.fetchone():
+            return _resp(409, {'error': 'Этот номер уже зарегистрирован. Войдите по паролю.'})
+
+        ok, err = _verify_code_record(cur, phone, code)
+        if not ok:
+            conn.commit()
+            return _resp(400, {'error': err})
+
+        cur.execute(
+            "INSERT INTO users (phone, user_type, first_name, last_name, email, company_name, password_hash) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s) "
+            "RETURNING id, phone, user_type, first_name, last_name, email, company_name",
+            (
+                phone,
+                user_type,
+                body.get('first_name', ''),
+                body.get('last_name', ''),
+                body.get('email', ''),
+                body.get('company_name', ''),
+                _hash_password(password),
+            ),
+        )
+        user_row = cur.fetchone()
+        user = _user_to_dict(user_row)
+        token = _create_session(cur, user['id'])
+        conn.commit()
+        return _resp(200, {'success': True, 'token': token, 'user': user})
+    finally:
+        conn.close()
+
+
+def _handle_login(body: dict) -> dict:
+    phone = _normalize_phone(body.get('phone', ''))
+    password = body.get('password', '')
+    if len(phone) != 11 or not password:
+        return _resp(400, {'error': 'Введите телефон и пароль'})
 
     conn = _db()
     try:
         cur = conn.cursor()
         cur.execute(
-            "SELECT id, code, attempts, expires_at FROM sms_codes "
-            "WHERE phone = %s AND is_used = FALSE ORDER BY created_at DESC LIMIT 1",
+            "SELECT id, phone, user_type, first_name, last_name, email, company_name, password_hash, is_active "
+            "FROM users WHERE phone = %s",
             (phone,),
         )
-        rec = cur.fetchone()
-        if not rec:
-            return _resp(400, {'error': 'Код не найден. Запросите новый.'})
+        row = cur.fetchone()
+        if not row:
+            return _resp(401, {'error': 'Неверный телефон или пароль'})
+        if not row[8]:
+            return _resp(403, {'error': 'Аккаунт заблокирован'})
+        if not _check_password(password, row[7]):
+            return _resp(401, {'error': 'Неверный телефон или пароль'})
 
-        code_id, real_code, attempts, expires_at = rec
-        if expires_at < datetime.utcnow():
-            return _resp(400, {'error': 'Срок действия кода истёк. Запросите новый.'})
-        if attempts >= MAX_ATTEMPTS:
-            cur.execute("UPDATE sms_codes SET is_used = TRUE WHERE id = %s", (code_id,))
-            conn.commit()
-            return _resp(400, {'error': 'Слишком много попыток. Запросите новый код.'})
-        if code != real_code:
-            cur.execute("UPDATE sms_codes SET attempts = attempts + 1 WHERE id = %s", (code_id,))
-            conn.commit()
-            return _resp(400, {'error': 'Неверный код'})
+        user = _user_to_dict(row)
+        token = _create_session(cur, user['id'])
+        conn.commit()
+        return _resp(200, {'success': True, 'token': token, 'user': user})
+    finally:
+        conn.close()
 
-        cur.execute("UPDATE sms_codes SET is_used = TRUE WHERE id = %s", (code_id,))
 
+def _handle_reset_password(body: dict) -> dict:
+    phone = _normalize_phone(body.get('phone', ''))
+    code = re.sub(r'\D', '', body.get('code', ''))
+    password = body.get('password', '')
+
+    if len(phone) != 11:
+        return _resp(400, {'error': 'Некорректный номер телефона'})
+    if not code:
+        return _resp(400, {'error': 'Введите код из SMS'})
+    if len(password) < MIN_PASSWORD_LEN:
+        return _resp(400, {'error': f'Пароль должен быть не короче {MIN_PASSWORD_LEN} символов'})
+
+    conn = _db()
+    try:
+        cur = conn.cursor()
         cur.execute(
             "SELECT id, phone, user_type, first_name, last_name, email, company_name "
             "FROM users WHERE phone = %s",
             (phone,),
         )
         user_row = cur.fetchone()
-        is_new = False
-
         if not user_row:
-            is_new = True
-            user_type = body.get('user_type', 'buyer')
-            if user_type not in ('buyer', 'supplier'):
-                user_type = 'buyer'
-            cur.execute(
-                "INSERT INTO users (phone, user_type, first_name, last_name, email, company_name) "
-                "VALUES (%s, %s, %s, %s, %s, %s) "
-                "RETURNING id, phone, user_type, first_name, last_name, email, company_name",
-                (
-                    phone,
-                    user_type,
-                    body.get('first_name', ''),
-                    body.get('last_name', ''),
-                    body.get('email', ''),
-                    body.get('company_name', ''),
-                ),
-            )
-            user_row = cur.fetchone()
+            return _resp(404, {'error': 'Пользователь не найден'})
 
-        user = _user_to_dict(user_row)
+        ok, err = _verify_code_record(cur, phone, code)
+        if not ok:
+            conn.commit()
+            return _resp(400, {'error': err})
 
-        token = secrets.token_hex(32)
-        session_exp = datetime.utcnow() + timedelta(days=SESSION_TTL_DAYS)
         cur.execute(
-            "INSERT INTO auth_sessions (user_id, token, expires_at) VALUES (%s, %s, %s)",
-            (user['id'], token, session_exp),
+            "UPDATE users SET password_hash = %s, updated_at = NOW() WHERE id = %s",
+            (_hash_password(password), user_row[0]),
         )
+        user = _user_to_dict(user_row)
+        token = _create_session(cur, user['id'])
         conn.commit()
-
-        return _resp(200, {'success': True, 'token': token, 'user': user, 'is_new': is_new})
+        return _resp(200, {'success': True, 'token': token, 'user': user})
     finally:
         conn.close()
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,10 +7,13 @@ import Icon from '@/components/ui/icon';
 import { useAuth } from '@/contexts/AuthContext';
 
 const RegistrationForm = () => {
-  const { sendCode, verifyCode, isLoading } = useAuth();
+  const { sendCode, register, isLoading } = useAuth();
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -26,7 +30,7 @@ const RegistrationForm = () => {
       return;
     }
     setLocalLoading(true);
-    const result = await sendCode(phone);
+    const result = await sendCode(phone, 'register');
     setLocalLoading(false);
 
     if (result.success) {
@@ -37,16 +41,27 @@ const RegistrationForm = () => {
     }
   };
 
-  const handleVerifyCode = async () => {
+  const handleRegister = async () => {
     setError('');
     if (code.length !== 4) {
       setError('Введите 4-значный код');
       return;
     }
+    if (password.length < 6) {
+      setError('Пароль должен содержать минимум 6 символов');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Пароли не совпадают');
+      return;
+    }
     const firstName = fullName.trim().split(' ')[0] || fullName.trim();
     const lastName = fullName.trim().split(' ').slice(1).join(' ') || '';
 
-    const result = await verifyCode(phone, code, {
+    const result = await register({
+      phone,
+      code,
+      password,
       user_type: 'buyer',
       first_name: firstName,
       last_name: lastName,
@@ -57,7 +72,7 @@ const RegistrationForm = () => {
     if (result.success) {
       setStep(3);
     } else {
-      setError(result.error || 'Неверный код');
+      setError(result.error || 'Ошибка регистрации');
     }
   };
 
@@ -182,6 +197,44 @@ const RegistrationForm = () => {
               className="text-center text-lg tracking-widest"
             />
           </div>
+
+          <div>
+            <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+              Пароль <span className="text-red-500">*</span>
+            </Label>
+            <div className="mt-1 relative">
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Минимум 6 символов"
+                className="pl-10"
+              />
+              <Icon name="Lock" size={18} className="absolute left-3 top-3 text-gray-400" />
+            </div>
+          </div>
+
+          <div>
+            <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+              Повторите пароль <span className="text-red-500">*</span>
+            </Label>
+            <div className="mt-1 relative">
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Повторите пароль"
+                className="pl-10"
+              />
+              <Icon name="Lock" size={18} className="absolute left-3 top-3 text-gray-400" />
+            </div>
+            {confirmPassword.length > 0 && confirmPassword !== password && (
+              <p className="text-xs text-red-600 mt-1">Пароли не совпадают</p>
+            )}
+          </div>
+
           <div className="flex space-x-3">
             <Button 
               variant="outline"
@@ -193,11 +246,11 @@ const RegistrationForm = () => {
               Назад
             </Button>
             <Button 
-              onClick={handleVerifyCode}
+              onClick={handleRegister}
               className="flex-1 bg-emerald-700 hover:bg-emerald-800"
-              disabled={busy || code.length !== 4}
+              disabled={busy || code.length !== 4 || password.length < 6 || password !== confirmPassword}
             >
-              {busy ? 'Проверка...' : 'Подтвердить'}
+              {busy ? 'Создание...' : 'Создать аккаунт'}
             </Button>
           </div>
           <button
@@ -223,6 +276,12 @@ const RegistrationForm = () => {
           <p className="text-gray-600">
             Добро пожаловать на платформу. Вы успешно вошли в аккаунт.
           </p>
+          <Button
+            onClick={() => navigate('/')}
+            className="w-full bg-emerald-700 hover:bg-emerald-800"
+          >
+            Перейти на главную
+          </Button>
         </div>
       )}
 

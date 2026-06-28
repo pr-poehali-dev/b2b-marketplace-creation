@@ -16,10 +16,28 @@
       "bodyMatcher": "partial"
     },
     {
-      "name": "Verify without code",
+      "name": "Login without password",
       "method": "POST",
       "path": "/",
-      "body": {"action": "verify", "phone": "+79991234567", "code": ""},
+      "body": {"action": "login", "phone": "+79991234567", "password": ""},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Login wrong credentials",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "login", "phone": "+79990000000", "password": "wrongpass"},
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Register short password",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "register", "phone": "+79991234567", "code": "1234", "password": "12"},
       "expectedStatus": 400,
       "expectedBody": {"error": "string"},
       "bodyMatcher": "partial"
