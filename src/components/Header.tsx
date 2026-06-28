@@ -147,7 +147,7 @@ const Header = () => {
                   {showSearchDropdown && searchResults.length > 0 && (
                     <div
                       onMouseDown={(e) => e.preventDefault()}
-                      className="fixed left-1/2 -translate-x-1/2 top-[72px] w-full max-w-2xl mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[100] max-h-96 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
+                      className="absolute left-0 right-0 top-full mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[100] max-h-96 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
                     >
                       {searchResults.map((product, index) => (
                         <button
@@ -180,7 +180,7 @@ const Header = () => {
                   {showSearchDropdown && searchResults.length === 0 && searchQuery && !searchLoading && (
                     <div
                       onMouseDown={(e) => e.preventDefault()}
-                      className="fixed left-1/2 -translate-x-1/2 top-[72px] w-full max-w-2xl mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[100] p-6 text-center text-gray-500 text-base animate-in fade-in slide-in-from-top-2 duration-200"
+                      className="absolute left-0 right-0 top-full mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[100] p-6 text-center text-gray-500 text-base animate-in fade-in slide-in-from-top-2 duration-200"
                     >
                       Товары не найдены
                     </div>
