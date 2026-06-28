@@ -14,10 +14,19 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1600px'
 			}
 		},
 		extend: {
+			screens: {
+				'3xl': '1920px',
+				'4xl': '2560px'
+			},
+			maxWidth: {
+				'7xl': 'min(92vw, 1600px)',
+				'8xl': '90rem',
+				'9xl': '100rem'
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
