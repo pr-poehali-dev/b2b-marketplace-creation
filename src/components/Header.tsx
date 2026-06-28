@@ -117,7 +117,7 @@ const Header = () => {
 
               {/* Поиск — только на главной */}
               {location.pathname === '/' ? (
-                <div className="flex-1 max-w-2xl mx-4 md:mx-8 hidden md:block relative">
+                <div className="flex-1 max-w-4xl xl:max-w-5xl mx-4 lg:mx-6 hidden md:block relative">
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                       <Icon name="Search" size={22} className="text-gray-400" />
