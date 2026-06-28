@@ -10,7 +10,7 @@ import { useLayout } from '@/contexts/LayoutContext';
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const {
     isMobile,
     isMenuExpanded,
@@ -23,7 +23,6 @@ const Header = () => {
   } = useLayout();
 
   const [openSection, setOpenSection] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{ id: number; name: string; category: string; price: string }[]>([]);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
@@ -192,8 +191,9 @@ const Header = () => {
               )}
 
               <UserProfile
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
+                isLoggedIn={isAuthenticated}
+                user={user}
+                onLogout={logout}
               />
             </div>
           </div>
