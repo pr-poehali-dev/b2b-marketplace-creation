@@ -2,18 +2,32 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 
 interface User {
   id: number;
-  email: string;
+  phone: string;
   user_type: 'buyer' | 'supplier';
   first_name: string;
   last_name: string;
+  email: string;
+  company_name: string;
+}
+
+interface VerifyExtra {
+  user_type?: 'buyer' | 'supplier';
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  company_name?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  register: (userData: any) => Promise<{ success: boolean; error?: string }>;
+  sendCode: (phone: string) => Promise<{ success: boolean; error?: string; smsSent?: boolean }>;
+  verifyCode: (
+    phone: string,
+    code: string,
+    extra?: VerifyExtra
+  ) => Promise<{ success: boolean; error?: string; isNew?: boolean }>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -32,123 +46,88 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+const API_URL = 'https://functions.poehali.dev/332b71c2-c14c-4685-bbdd-28f869037f7b';
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const API_URL = 'https://functions.poehali.dev/57d19a8a-e379-48c7-9f57-2ce118c81647';
-
-  // Инициализация при загрузке приложения
   useEffect(() => {
     const savedToken = localStorage.getItem('auth_token');
     const savedUser = localStorage.getItem('auth_user');
 
     if (savedToken && savedUser) {
       try {
-        const userData = JSON.parse(savedUser);
         setToken(savedToken);
-        setUser(userData);
+        setUser(JSON.parse(savedUser));
       } catch (error) {
-        // Если данные повреждены, очищаем их
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
       }
     }
-    
+
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const sendCode = async (
+    phone: string
+  ): Promise<{ success: boolean; error?: string; smsSent?: boolean }> => {
     try {
-      setIsLoading(true);
-      
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'login',
-          email,
-          password
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'send_code', phone }),
       });
-
       const data = await response.json();
-
       if (!response.ok) {
-        return { 
-          success: false, 
-          error: data.error || 'Ошибка авторизации' 
-        };
+        return { success: false, error: data.error || 'Не удалось отправить код' };
       }
-
-      // Сохраняем данные
-      setToken(data.token);
-      setUser(data.user);
-      
-      localStorage.setItem('auth_token', data.token);
-      localStorage.setItem('auth_user', JSON.stringify(data.user));
-
-      return { success: true };
-
+      return { success: true, smsSent: data.sms_sent };
     } catch (error) {
-      console.error('Login error:', error);
-      return { 
-        success: false, 
-        error: 'Ошибка подключения к серверу' 
-      };
-    } finally {
-      setIsLoading(false);
+      return { success: false, error: 'Ошибка подключения к серверу' };
     }
   };
 
-  const register = async (userData: any): Promise<{ success: boolean; error?: string }> => {
+  const verifyCode = async (
+    phone: string,
+    code: string,
+    extra?: VerifyExtra
+  ): Promise<{ success: boolean; error?: string; isNew?: boolean }> => {
     try {
       setIsLoading(true);
-      
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'register',
-          ...userData
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify', phone, code, ...extra }),
       });
-
       const data = await response.json();
-
       if (!response.ok) {
-        return { 
-          success: false, 
-          error: data.error || 'Ошибка регистрации' 
-        };
+        return { success: false, error: data.error || 'Неверный код' };
       }
 
-      // Сохраняем данные после успешной регистрации
       setToken(data.token);
       setUser(data.user);
-      
       localStorage.setItem('auth_token', data.token);
       localStorage.setItem('auth_user', JSON.stringify(data.user));
 
-      return { success: true };
-
+      return { success: true, isNew: data.is_new };
     } catch (error) {
-      console.error('Registration error:', error);
-      return { 
-        success: false, 
-        error: 'Ошибка подключения к серверу' 
-      };
+      return { success: false, error: 'Ошибка подключения к серверу' };
     } finally {
       setIsLoading(false);
     }
   };
 
   const logout = () => {
+    const savedToken = localStorage.getItem('auth_token');
+    if (savedToken) {
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Token': savedToken },
+        body: JSON.stringify({ action: 'logout' }),
+      }).catch(() => {});
+    }
     setUser(null);
     setToken(null);
     localStorage.removeItem('auth_token');
@@ -161,15 +140,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     user,
     token,
     isLoading,
-    login,
-    register,
+    sendCode,
+    verifyCode,
     logout,
-    isAuthenticated
+    isAuthenticated,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

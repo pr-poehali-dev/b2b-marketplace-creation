@@ -8,7 +8,7 @@ interface BuyerRegisterProps {
 }
 
 export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
-  const { register, isLoading } = useAuth();
+  const { sendCode, verifyCode, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -19,13 +19,17 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
     businessType: '',
     purchaseVolume: '',
     interests: [] as string[],
-    password: '',
-    confirmPassword: ''
   });
 
   const [currentStep, setCurrentStep] = useState(1);
   const [error, setError] = useState('');
+  const [localLoading, setLocalLoading] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
+  const [smsNotConfigured, setSmsNotConfigured] = useState(false);
+  const [code, setCode] = useState('');
   const totalSteps = 3;
+
+  const busy = isLoading || localLoading;
 
   const interestOptions = [
     'Электроника',
@@ -40,29 +44,42 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
     'Промышленное оборудование'
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSendCode = async () => {
     setError('');
-    
-    const result = await register({
-      email: formData.email,
-      password: formData.password,
-      confirm_password: formData.confirmPassword,
+    if (!formData.phone.trim()) {
+      setError('Введите номер телефона');
+      return;
+    }
+    setLocalLoading(true);
+    const result = await sendCode(formData.phone);
+    setLocalLoading(false);
+
+    if (result.success) {
+      setCodeSent(true);
+      setSmsNotConfigured(result.smsSent === false);
+    } else {
+      setError(result.error || 'Не удалось отправить код');
+    }
+  };
+
+  const handleVerify = async () => {
+    setError('');
+    if (code.length !== 4) {
+      setError('Введите 4-значный код');
+      return;
+    }
+    const result = await verifyCode(formData.phone, code, {
       user_type: 'buyer',
       first_name: formData.firstName,
       last_name: formData.lastName,
-      phone: formData.phone,
+      email: formData.email,
       company_name: formData.companyName,
-      position: formData.position,
-      business_type: formData.businessType,
-      purchase_volume: formData.purchaseVolume,
-      interests: formData.interests
     });
-    
+
     if (result.success) {
       onClose();
     } else {
-      setError(result.error || 'Ошибка регистрации');
+      setError(result.error || 'Неверный код');
     }
   };
 
@@ -77,12 +94,14 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
+      setError('');
       setCurrentStep(currentStep + 1);
     }
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
+      setError('');
       setCurrentStep(currentStep - 1);
     }
   };
@@ -116,7 +135,13 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
+        <div className="p-6">
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Шаг 1: Личная информация */}
           {currentStep === 1 && (
             <div className="space-y-6">
@@ -163,11 +188,10 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email *
+                    Email <span className="text-gray-400">(необязательно)</span>
                   </label>
                   <input
                     type="email"
-                    required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
@@ -231,7 +255,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                   Бизнес-информация
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Помогите нам подобрать подходящих поставщиков
+                  Расскажите о вашем бизнесе
                 </p>
               </div>
 
@@ -323,96 +347,82 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
             </div>
           )}
 
-          {/* Шаг 3: Безопасность */}
+          {/* Шаг 3: Подтверждение телефона */}
           {currentStep === 3 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon name="Shield" size={32} className="text-emerald-700" />
+                  <Icon name="Smartphone" size={32} className="text-emerald-700" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Настройка безопасности
+                  Подтверждение телефона
                 </h3>
                 <p className="text-gray-600 text-sm">
-                  Создайте надежный пароль для защиты аккаунта
+                  Мы отправим SMS-код на номер {formData.phone || '—'}
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Пароль *
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    value={formData.password}
-                    onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    placeholder="Создайте пароль"
-                  />
-                </div>
+              {!codeSent ? (
+                <button
+                  type="button"
+                  onClick={handleSendCode}
+                  disabled={busy}
+                  className="w-full px-8 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {busy ? 'Отправка...' : 'Получить код'}
+                </button>
+              ) : (
+                <div className="space-y-4">
+                  {smsNotConfigured && (
+                    <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm flex items-start">
+                      <Icon name="AlertTriangle" size={18} className="text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
+                      <span>SMS-сервис не настроен. Запросите код у администратора.</span>
+                    </div>
+                  )}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Подтверждение пароля *
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    placeholder="Повторите пароль"
-                  />
-                </div>
-              </div>
-
-              <div className="bg-yellow-50 p-4 rounded-lg">
-                <div className="flex items-start">
-                  <Icon name="AlertTriangle" size={20} className="text-yellow-600 mt-0.5 mr-3 flex-shrink-0" />
-                  <div className="text-sm text-yellow-800">
-                    <p className="font-medium mb-1">Требования к паролю:</p>
-                    <ul className="space-y-1 text-yellow-700">
-                      <li>• Минимум 8 символов</li>
-                      <li>• Хотя бы одна заглавная буква</li>
-                      <li>• Хотя бы одна цифра</li>
-                      <li>• Хотя бы один специальный символ</li>
-                    </ul>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Код из SMS *
+                    </label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={4}
+                      value={code}
+                      onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-center text-2xl tracking-[0.5em]"
+                      placeholder="0000"
+                    />
                   </div>
-                </div>
-              </div>
 
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    required
-                    className="mt-1 mr-3"
-                    id="terms"
-                  />
-                  <label htmlFor="terms" className="text-sm text-gray-600">
-                    Я принимаю условия{' '}
-                    <Link to="/terms" className="text-emerald-700 hover:underline">
-                      Публичной оферты
-                    </Link>{' '}
-                    и даю согласие на обработку персональных данных в соответствии с{' '}
-                    <Link to="/privacy" className="text-emerald-700 hover:underline">
-                      Политикой конфиденциальности
-                    </Link>
-                  </label>
+                  <button
+                    type="button"
+                    onClick={handleSendCode}
+                    disabled={busy}
+                    className="text-sm text-emerald-700 hover:underline font-medium disabled:opacity-50"
+                  >
+                    Отправить код повторно
+                  </button>
                 </div>
+              )}
 
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    className="mt-1 mr-3"
-                    id="newsletter"
-                  />
-                  <label htmlFor="newsletter" className="text-sm text-gray-600">
-                    Получать уведомления о новых товарах и специальных предложениях
-                  </label>
-                </div>
+              <div className="flex items-start">
+                <input
+                  type="checkbox"
+                  required
+                  className="mt-1 mr-3"
+                  id="terms"
+                />
+                <label htmlFor="terms" className="text-sm text-gray-600">
+                  Я принимаю условия{' '}
+                  <Link to="/terms" className="text-emerald-700 hover:underline">
+                    Публичной оферты
+                  </Link>{' '}
+                  и даю согласие на обработку персональных данных в соответствии с{' '}
+                  <Link to="/privacy" className="text-emerald-700 hover:underline">
+                    Политикой конфиденциальности
+                  </Link>
+                </label>
               </div>
             </div>
           )}
@@ -440,14 +450,16 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
                 >
                   Далее
                 </button>
-              ) : (
+              ) : codeSent ? (
                 <button
-                  type="submit"
-                  className="px-8 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors font-medium"
+                  type="button"
+                  onClick={handleVerify}
+                  disabled={busy || code.length !== 4}
+                  className="px-8 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Создать аккаунт
+                  {busy ? 'Проверка...' : 'Создать аккаунт'}
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
 
@@ -464,7 +476,7 @@ export default function BuyerRegister({ onClose }: BuyerRegisterProps) {
               </button>
             </p>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

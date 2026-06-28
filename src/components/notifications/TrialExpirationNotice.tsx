@@ -17,7 +17,7 @@ export default function TrialExpirationNotice({ onUpgrade, onDismiss }: TrialExp
 
     // Симуляция расчета дней до окончания пробного периода
     // В реальном приложении это будет приходить от API
-    const registrationDate = new Date(user.created_at || Date.now());
+    const registrationDate = new Date(Date.now());
     const trialEndDate = new Date(registrationDate);
     trialEndDate.setMonth(trialEndDate.getMonth() + 3);
     
