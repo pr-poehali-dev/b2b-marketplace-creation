@@ -98,7 +98,7 @@ const Header = () => {
 
       <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50">
         <div
-          className="transition-all duration-300 overflow-hidden"
+          className="transition-all duration-300 overflow-x-hidden overflow-y-visible"
           style={{ marginLeft: headerMargin }}
         >
           <div className="container mx-auto px-4 py-4 max-w-none">
