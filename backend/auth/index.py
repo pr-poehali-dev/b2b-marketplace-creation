@@ -65,7 +65,7 @@ def _send_sms(phone: str, code: str) -> dict:
     params = urllib.parse.urlencode({
         'api_id': api_id,
         'to': phone,
-        'msg': f'Kod podtverzhdeniya: {code}',
+        'msg': f'Код подтверждения: {code}',
         'json': 1,
     })
     url = f'https://sms.ru/sms/send?{params}'
