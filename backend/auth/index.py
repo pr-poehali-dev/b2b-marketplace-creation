@@ -72,10 +72,15 @@ def _send_sms(phone: str, code: str) -> dict:
     try:
         with urllib.request.urlopen(url, timeout=15) as r:
             data = json.loads(r.read().decode('utf-8'))
-        if data.get('status') == 'OK':
-            return {'ok': True}
-        return {'ok': False, 'reason': data.get('status_text', 'sms_error')}
+        print(f'SMS.RU response for {phone}: {json.dumps(data, ensure_ascii=False)}')
+        if data.get('status') != 'OK':
+            return {'ok': False, 'reason': data.get('status_text', 'sms_error')}
+        sms_info = (data.get('sms') or {}).get(phone, {})
+        if sms_info.get('status') != 'OK':
+            return {'ok': False, 'reason': sms_info.get('status_text', 'sms_rejected')}
+        return {'ok': True}
     except Exception as e:
+        print(f'SMS.RU exception for {phone}: {e}')
         return {'ok': False, 'reason': str(e)}
 
 
