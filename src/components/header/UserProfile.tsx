@@ -116,7 +116,28 @@ const UserProfile = ({ isLoggedIn, user, onLogout }: UserProfileProps) => {
               onClick={() => navigate('/orders')}
             >
               <Icon name="ShoppingBag" size={16} className="mr-2" />
-              Мои заказы
+              Все заказы
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="flex items-center cursor-pointer"
+              onClick={() => navigate('/orders/pending')}
+            >
+              <Icon name="Clock" size={16} className="mr-2" />
+              В ожидании
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="flex items-center cursor-pointer"
+              onClick={() => navigate('/orders/processing')}
+            >
+              <Icon name="Package" size={16} className="mr-2" />
+              В обработке
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              className="flex items-center cursor-pointer"
+              onClick={() => navigate('/orders/completed')}
+            >
+              <Icon name="CheckCircle" size={16} className="mr-2" />
+              Выполненные
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem 

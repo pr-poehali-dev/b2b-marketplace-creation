@@ -113,21 +113,6 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
           <NavigationSection
-            title="Заказы"
-            icon="ShoppingBag"
-            isExpanded={openSection === 'orders'}
-            isActive={isActive('/orders')}
-            isMenuExpanded={isMenuExpanded || isMobile}
-            openSection={openSection}
-            sectionKey="orders"
-            badge="24"
-            badgeColor="bg-red-100 text-red-600"
-            items={ordersItems}
-            isCollapsible={true}
-            onToggle={() => toggleSection('orders')}
-            checkIsActive={isActive}
-          />
-          <NavigationSection
             title="Поставщики"
             icon="Users"
             isExpanded={false}
