@@ -1,0 +1,36 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Create without title",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "create", "category": "Металлопрокат", "description": "test", "contact_name": "Иван", "contact_phone": "+79001112233"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Create without category",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "create", "title": "Трубы", "description": "test", "contact_name": "Иван", "contact_phone": "+79001112233"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "List requests",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {"success": true},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

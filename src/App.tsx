@@ -13,6 +13,7 @@ const RouteScrollToTop = () => {
 };
 import Index from "./pages/Index";
 import Orders from "./pages/Orders";
+import PlaceRequest from "./pages/PlaceRequest";
 import Catalog from "./pages/Catalog";
 import ProductDetail from "./pages/ProductDetail";
 import Categories from "./pages/Categories";
@@ -64,6 +65,7 @@ const App = () => (
             <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/place-request" element={<PlaceRequest />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/company/:id" element={<CompanyDetail />} />

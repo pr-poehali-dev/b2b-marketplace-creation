@@ -105,6 +105,19 @@ const SidebarNavigation = ({
             checkIsActive={isActive}
           />
           <NavigationSection
+            title="Разместить заявку"
+            icon="Send"
+            isExpanded={false}
+            isActive={isActive('/place-request')}
+            isMenuExpanded={isMenuExpanded || isMobile}
+            openSection={openSection}
+            sectionKey="place-request"
+            badge="Заявка"
+            badgeColor="bg-primary/10 text-primary border border-primary/20 font-semibold"
+            items={[{ href: "/place-request", icon: "Send", label: "Разместить заявку" }]}
+            checkIsActive={isActive}
+          />
+          <NavigationSection
             title="Поставщики"
             icon="Users"
             isExpanded={false}
