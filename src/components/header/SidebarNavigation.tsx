@@ -26,14 +26,6 @@ const SidebarNavigation = ({
 }: SidebarNavigationProps) => {
   const { isSidebarOpen } = useLayout();
 
-  const ordersItems = [
-    { href: "/orders", icon: "List", label: "Все заказы" },
-    { href: "/orders/pending", icon: "Clock", label: "В ожидании" },
-    { href: "/orders/processing", icon: "Package", label: "В обработке" },
-    { href: "/orders/completed", icon: "CheckCircle", label: "Выполненные" },
-    { href: "/analytics", icon: "TrendingUp", label: "Аналитика продаж" }
-  ];
-
   const catalogItems = [
     { href: "/catalog", icon: "List", label: "Все товары" },
     { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" }
