@@ -139,6 +139,15 @@ const UserProfile = ({ isLoggedIn, user, onLogout }: UserProfileProps) => {
               <Icon name="CheckCircle" size={16} className="mr-2" />
               Выполненные
             </DropdownMenuItem>
+            {isSupplier && (
+              <DropdownMenuItem 
+                className="flex items-center cursor-pointer"
+                onClick={() => navigate('/analytics')}
+              >
+                <Icon name="TrendingUp" size={16} className="mr-2" />
+                Аналитика продаж
+              </DropdownMenuItem>
+            )}
             <DropdownMenuSeparator />
             <DropdownMenuItem 
               className="flex items-center cursor-pointer text-red-600"
