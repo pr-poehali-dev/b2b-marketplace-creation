@@ -7,7 +7,8 @@ import { categoriesData } from '@/data/categoriesData';
 import { getRequestHeat } from '@/utils/requestHeat';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import RequestCard, { BuyerRequest } from './RequestCard';
+import { BuyerRequest } from './RequestCard';
+import RequestPost from './RequestPost';
 import RespondModal from './RespondModal';
 
 const PLACE_REQUEST_URL = 'https://functions.poehali.dev/6b4d1a93-652c-4797-b909-9292cda5ab0f';
@@ -154,16 +155,30 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4">
-          {filtered.map((r) => (
-            <RequestCard
-              key={r.id}
-              request={r}
-              onRespond={setRespondTo}
-              isAdmin={!!user?.is_admin}
-              onDelete={handleDelete}
-            />
-          ))}
+        <div className="max-w-2xl mx-auto">
+          {/* Живой заголовок ленты */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+              Лента заявок в эфире
+            </div>
+            <span className="text-xs text-gray-400">{filtered.length} в ленте</span>
+          </div>
+
+          <div className="space-y-4">
+            {filtered.map((r) => (
+              <RequestPost
+                key={r.id}
+                request={r}
+                onRespond={setRespondTo}
+                isAdmin={!!user?.is_admin}
+                onDelete={handleDelete}
+              />
+            ))}
+          </div>
         </div>
       )}
 
