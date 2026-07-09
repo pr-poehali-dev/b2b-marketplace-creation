@@ -5,8 +5,9 @@ import PageLayout from '@/components/layout/PageLayout';
 import Icon from '@/components/ui/icon';
 import CreateRequestForm from '@/components/requests/CreateRequestForm';
 import RequestExchange from '@/components/requests/RequestExchange';
+import MyRequests from '@/components/requests/MyRequests';
 
-type Tab = 'create' | 'exchange';
+type Tab = 'create' | 'exchange' | 'mine';
 
 const PlaceRequest = () => {
   const [tab, setTab] = useState<Tab>('create');
@@ -15,6 +16,7 @@ const PlaceRequest = () => {
   const tabs: { key: Tab; label: string; icon: string }[] = [
     { key: 'create', label: 'Разместить заявку', icon: 'Send' },
     { key: 'exchange', label: 'Биржа заявок', icon: 'LayoutGrid' },
+    { key: 'mine', label: 'Мои заявки', icon: 'FileText' },
   ];
 
   return (
@@ -54,11 +56,11 @@ const PlaceRequest = () => {
             ))}
           </div>
 
-          {tab === 'create' ? (
+          {tab === 'create' && (
             <CreateRequestForm onCreated={() => setRefreshKey((k) => k + 1)} />
-          ) : (
-            <RequestExchange refreshKey={refreshKey} />
           )}
+          {tab === 'exchange' && <RequestExchange refreshKey={refreshKey} />}
+          {tab === 'mine' && <MyRequests refreshKey={refreshKey} />}
         </div>
         <Footer />
       </PageLayout>
