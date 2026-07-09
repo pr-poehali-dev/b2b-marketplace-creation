@@ -31,6 +31,24 @@
       "expectedStatus": 200,
       "expectedBody": {"success": true},
       "bodyMatcher": "partial"
+    },
+    {
+      "name": "Respond without request_id",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "respond", "supplier_name": "ООО Тест", "message": "предложение"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Responses without request_id",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "responses"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
     }
   ]
 }
