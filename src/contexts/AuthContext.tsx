@@ -8,6 +8,7 @@ interface User {
   last_name: string;
   email: string;
   company_name: string;
+  is_admin?: boolean;
 }
 
 interface RegisterData {

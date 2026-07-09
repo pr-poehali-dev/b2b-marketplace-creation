@@ -31,9 +31,11 @@ const heatStyles = {
 interface Props {
   request: BuyerRequest;
   onRespond: (r: BuyerRequest) => void;
+  isAdmin?: boolean;
+  onDelete?: (r: BuyerRequest) => void;
 }
 
-const RequestCard = ({ request, onRespond }: Props) => {
+const RequestCard = ({ request, onRespond, isAdmin, onDelete }: Props) => {
   const heat = getRequestHeat(request);
   const st = heatStyles[heat.level];
 
@@ -56,6 +58,15 @@ const RequestCard = ({ request, onRespond }: Props) => {
             </div>
             <h3 className="font-semibold text-gray-900 text-lg leading-snug">{request.title}</h3>
           </div>
+          {isAdmin && onDelete && (
+            <button
+              onClick={() => onDelete(request)}
+              className="flex-shrink-0 p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+              title="Удалить заявку (админ)"
+            >
+              <Icon name="Trash2" size={18} />
+            </button>
+          )}
         </div>
 
         <p className="text-sm text-gray-600 line-clamp-2 mb-3">{request.description}</p>

@@ -84,15 +84,22 @@ def _send_sms(phone: str, code: str) -> dict:
         return {'ok': False, 'reason': str(e)}
 
 
+def _is_admin_phone(phone: str) -> bool:
+    admin_phone = _normalize_phone(os.environ.get('ADMIN_PHONE', ''))
+    return bool(admin_phone) and _normalize_phone(phone or '') == admin_phone
+
+
 def _user_to_dict(row) -> dict:
+    phone = row[1]
     return {
         'id': row[0],
-        'phone': row[1],
+        'phone': phone,
         'user_type': row[2],
         'first_name': row[3] or '',
         'last_name': row[4] or '',
         'email': row[5] or '',
         'company_name': row[6] or '',
+        'is_admin': _is_admin_phone(phone),
     }
 
 

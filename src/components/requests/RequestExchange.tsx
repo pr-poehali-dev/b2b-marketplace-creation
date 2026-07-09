@@ -5,18 +5,42 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Icon from '@/components/ui/icon';
 import { categoriesData } from '@/data/categoriesData';
 import { getRequestHeat } from '@/utils/requestHeat';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 import RequestCard, { BuyerRequest } from './RequestCard';
 import RespondModal from './RespondModal';
 
 const PLACE_REQUEST_URL = 'https://functions.poehali.dev/6b4d1a93-652c-4797-b909-9292cda5ab0f';
 
 const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
+  const { toast } = useToast();
+  const { user } = useAuth();
   const [requests, setRequests] = useState<BuyerRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [sort, setSort] = useState<'hot' | 'new'>('hot');
   const [respondTo, setRespondTo] = useState<BuyerRequest | null>(null);
+
+  const handleDelete = async (r: BuyerRequest) => {
+    if (!window.confirm(`Удалить заявку «${r.title}»? Действие необратимо.`)) return;
+    try {
+      const res = await fetch(PLACE_REQUEST_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', request_id: r.id, user_id: user?.id }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        toast({ title: data.error || 'Не удалось удалить заявку', variant: 'destructive' });
+        return;
+      }
+      setRequests((list) => list.filter((x) => x.id !== r.id));
+      toast({ title: 'Заявка удалена' });
+    } catch {
+      toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });
+    }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -132,7 +156,13 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
       ) : (
         <div className="grid md:grid-cols-2 gap-4">
           {filtered.map((r) => (
-            <RequestCard key={r.id} request={r} onRespond={setRespondTo} />
+            <RequestCard
+              key={r.id}
+              request={r}
+              onRespond={setRespondTo}
+              isAdmin={!!user?.is_admin}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}

@@ -28,6 +28,31 @@ def _db():
     return psycopg2.connect(os.environ['DATABASE_URL'])
 
 
+def _normalize_phone(raw: str) -> str:
+    digits = re.sub(r'\D', '', raw or '')
+    if digits.startswith('8') and len(digits) == 11:
+        digits = '7' + digits[1:]
+    if len(digits) == 10:
+        digits = '7' + digits
+    return digits
+
+
+def _is_admin(user_id) -> bool:
+    admin_phone = _normalize_phone(os.environ.get('ADMIN_PHONE', ''))
+    if not admin_phone or not user_id:
+        return False
+    conn = _db()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT phone FROM users WHERE id = %s", (user_id,))
+        row = cur.fetchone()
+        if not row:
+            return False
+        return _normalize_phone(row[0]) == admin_phone
+    finally:
+        conn.close()
+
+
 def _clean_email(value: str) -> str:
     if not value:
         return ''
@@ -60,7 +85,28 @@ def handler(event: dict, context) -> dict:
         return _handle_responses(event)
     if action == 'respond':
         return _handle_respond(body)
+    if action == 'delete':
+        return _handle_delete(body)
     return _handle_create(body)
+
+
+def _handle_delete(body: dict) -> dict:
+    request_id = body.get('request_id')
+    user_id = body.get('user_id')
+    if not request_id:
+        return _resp(400, {'error': 'Не указана заявка'})
+    if not _is_admin(user_id):
+        return _resp(403, {'error': 'Недостаточно прав'})
+    conn = _db()
+    try:
+        cur = conn.cursor()
+        cur.execute("DELETE FROM request_responses WHERE request_id = %s", (request_id,))
+        cur.execute("DELETE FROM request_deliveries WHERE request_id = %s", (request_id,))
+        cur.execute("DELETE FROM buyer_requests WHERE id = %s", (request_id,))
+        conn.commit()
+        return _resp(200, {'success': True})
+    finally:
+        conn.close()
 
 
 def _handle_list(event: dict) -> dict:
