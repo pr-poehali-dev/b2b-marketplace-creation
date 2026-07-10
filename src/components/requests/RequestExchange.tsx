@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -13,6 +13,8 @@ import RespondModal from './RespondModal';
 
 const PLACE_REQUEST_URL = 'https://functions.poehali.dev/6b4d1a93-652c-4797-b909-9292cda5ab0f';
 
+const AUTO_REFRESH_MS = 25000;
+
 const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
   const { toast } = useToast();
   const { user } = useAuth();
@@ -22,6 +24,12 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
   const [category, setCategory] = useState('all');
   const [sort, setSort] = useState<'hot' | 'new'>('hot');
   const [respondTo, setRespondTo] = useState<BuyerRequest | null>(null);
+  const [pendingNew, setPendingNew] = useState<BuyerRequest[]>([]);
+  const [newIds, setNewIds] = useState<Set<number>>(new Set());
+  const requestsRef = useRef<BuyerRequest[]>([]);
+  const pendingIdsRef = useRef<Set<number>>(new Set());
+
+  useEffect(() => { requestsRef.current = requests; }, [requests]);
 
   const handleDelete = async (r: BuyerRequest) => {
     if (!window.confirm(`Удалить заявку «${r.title}»? Действие необратимо.`)) return;
@@ -56,7 +64,44 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
     }
   };
 
-  useEffect(() => { load(); }, [refreshKey]);
+  useEffect(() => { load(); setPendingNew([]); pendingIdsRef.current = new Set(); }, [refreshKey]);
+
+  // Тихая проверка новых заявок в фоне, без перерисовки уже открытой ленты
+  const pollForNew = useCallback(async () => {
+    try {
+      const res = await fetch(`${PLACE_REQUEST_URL}?action=list`);
+      const data = await res.json();
+      if (!data.success) return;
+      const fresh: BuyerRequest[] = data.requests || [];
+      const knownIds = new Set([
+        ...requestsRef.current.map((r) => r.id),
+        ...pendingIdsRef.current,
+      ]);
+      const brandNew = fresh.filter((r) => !knownIds.has(r.id));
+      if (brandNew.length > 0) {
+        brandNew.forEach((r) => pendingIdsRef.current.add(r.id));
+        setPendingNew((prev) => [...brandNew, ...prev]);
+      }
+    } catch {
+      /* тихая ошибка — просто пробуем в следующий раз */
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(pollForNew, AUTO_REFRESH_MS);
+    return () => clearInterval(timer);
+  }, [pollForNew]);
+
+  const showPendingNew = () => {
+    if (pendingNew.length === 0) return;
+    const ids = new Set(pendingNew.map((r) => r.id));
+    setRequests((prev) => [...pendingNew, ...prev]);
+    setNewIds(ids);
+    setPendingNew([]);
+    pendingIdsRef.current = new Set();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => setNewIds(new Set()), 6000);
+  };
 
   const filtered = useMemo(() => {
     let list = requests.filter((r) => {
@@ -168,15 +213,32 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
             <span className="text-xs text-gray-400">{filtered.length} в ленте</span>
           </div>
 
+          {/* Плашка новых заявок */}
+          {pendingNew.length > 0 && (
+            <button
+              onClick={showPendingNew}
+              className="w-full flex items-center justify-center gap-2 mb-4 py-2.5 rounded-full bg-primary text-white text-sm font-medium shadow-sm hover:bg-primary/90 transition-colors animate-fade-in-up"
+            >
+              <Icon name="ArrowUp" size={16} />
+              Показать {pendingNew.length} {pendingNew.length === 1 ? 'новую заявку' : 'новых заявок'}
+            </button>
+          )}
+
           <div className="space-y-4">
             {filtered.map((r) => (
-              <RequestPost
-                key={r.id}
-                request={r}
-                onRespond={setRespondTo}
-                isAdmin={!!user?.is_admin}
-                onDelete={handleDelete}
-              />
+              <div key={r.id} className="relative">
+                {newIds.has(r.id) && (
+                  <span className="absolute -top-2 left-4 z-10 bg-emerald-500 text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow">
+                    Новое
+                  </span>
+                )}
+                <RequestPost
+                  request={r}
+                  onRespond={setRespondTo}
+                  isAdmin={!!user?.is_admin}
+                  onDelete={handleDelete}
+                />
+              </div>
             ))}
           </div>
         </div>
