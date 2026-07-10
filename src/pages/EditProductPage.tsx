@@ -9,6 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
+import CategoryCombobox from '@/components/product/CategoryCombobox';
 import { useAuth } from '@/contexts/AuthContext';
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
@@ -540,21 +541,11 @@ const EditProductPage: React.FC = () => {
               </div>
               <div>
                 <Label htmlFor="category">Категория *</Label>
-                <Select
-                  value={formData.category_id.toString()}
-                  onValueChange={(value) => handleInputChange('category_id', parseInt(value))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Выберите категорию" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id.toString()}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <CategoryCombobox
+                  categories={categories}
+                  value={formData.category_id}
+                  onChange={(id) => handleInputChange('category_id', id)}
+                />
               </div>
             </div>
 
