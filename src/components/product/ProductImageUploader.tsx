@@ -5,6 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 import { Textarea } from '@/components/ui/textarea';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 interface ProductImage {
   id: string;
@@ -16,9 +20,17 @@ interface ProductImage {
 
 interface ProductImageUploaderProps {
   images: ProductImage[];
-  onImagesChange: (images: ProductImage[]) => void;
+  onImagesChange: (images: ProductImage[] | ((prev: ProductImage[]) => ProductImage[])) => void;
   maxImages?: number;
 }
+
+const fileToBase64 = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 
 const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
   images,
@@ -26,6 +38,8 @@ const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
   maxImages = 10
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { token } = useAuth();
+  const { toast } = useToast();
   const [urlInput, setUrlInput] = useState('');
   const [generationPrompt, setGenerationPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -34,31 +48,55 @@ const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
 
   const generateImageId = () => `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-  const handleFileUpload = (files: FileList | null) => {
+  const handleFileUpload = async (files: FileList | null) => {
     if (!files) return;
+    if (!token) {
+      toast({ title: 'Войдите в аккаунт, чтобы загрузить фото', variant: 'destructive' });
+      return;
+    }
 
-    const newImages: ProductImage[] = [];
     const remainingSlots = maxImages - images.length;
+    const filesToUpload = Array.from(files)
+      .filter((f) => f.type.startsWith('image/'))
+      .slice(0, remainingSlots);
 
-    for (let i = 0; i < Math.min(files.length, remainingSlots); i++) {
-      const file = files[i];
-      if (file && file.type.startsWith('image/')) {
-        const imageId = generateImageId();
-        const imageUrl = URL.createObjectURL(file);
-        
-        newImages.push({
-          id: imageId,
-          url: imageUrl,
-          file,
-          isMain: images.length === 0 && i === 0, // Первое изображение становится главным
-          isUploading: false
-        });
-      }
-    }
+    if (filesToUpload.length === 0) return;
 
-    if (newImages.length > 0) {
-      onImagesChange([...images, ...newImages]);
-    }
+    const pendingImages: ProductImage[] = filesToUpload.map((file, i) => ({
+      id: generateImageId(),
+      url: '',
+      file,
+      isMain: images.length === 0 && i === 0,
+      isUploading: true,
+    }));
+
+    onImagesChange([...images, ...pendingImages]);
+
+    await Promise.all(
+      pendingImages.map(async (pending) => {
+        try {
+          const dataUrl = await fileToBase64(pending.file as File);
+          const response = await fetch(`${PRODUCTS_URL}?action=upload_image`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Auth-Token': token },
+            body: JSON.stringify({ file_data: dataUrl, content_type: (pending.file as File).type }),
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'Не удалось загрузить изображение');
+
+          onImagesChange((prev: ProductImage[]) =>
+            prev.map((img) => (img.id === pending.id ? { ...img, url: data.url, isUploading: false } : img))
+          );
+        } catch (err) {
+          toast({
+            title: 'Ошибка загрузки изображения',
+            description: err instanceof Error ? err.message : undefined,
+            variant: 'destructive',
+          });
+          onImagesChange((prev: ProductImage[]) => prev.filter((img) => img.id !== pending.id));
+        }
+      })
+    );
   };
 
   const handleUrlAdd = () => {
@@ -271,11 +309,11 @@ const ProductImageUploader: React.FC<ProductImageUploaderProps> = ({
                     {/* Изображение */}
                     <div className="aspect-square relative">
                       <img
-                        src={image.url}
+                        src={image.url || '/placeholder.svg'}
                         alt={`Фото ${index + 1}`}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = '/api/placeholder/200/200';
+                          e.currentTarget.src = '/placeholder.svg';
                         }}
                       />
                       

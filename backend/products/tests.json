@@ -68,6 +68,15 @@
       "expectedStatus": 401,
       "expectedBody": {"error": "string"},
       "bodyMatcher": "partial"
+    },
+    {
+      "name": "Upload image without auth",
+      "method": "POST",
+      "path": "/?action=upload_image",
+      "body": {"file_data": "data:image/png;base64,iVBORw0KGgo=", "content_type": "image/png"},
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
     }
   ]
 }

@@ -1,9 +1,12 @@
+import base64
 import json
 import os
 import re
+import uuid
 from datetime import datetime, date
 from decimal import Decimal
 
+import boto3
 import psycopg2
 
 CORS_HEADERS = {
@@ -78,6 +81,60 @@ def _is_admin(user) -> bool:
     return bool(admin_phone) and _normalize_phone(user['phone']) == admin_phone
 
 
+ALLOWED_IMAGE_TYPES = {
+    'image/png': 'png',
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg',
+    'image/webp': 'webp',
+    'image/gif': 'gif',
+}
+MAX_IMAGE_BYTES = 8 * 1024 * 1024
+
+
+def _handle_upload_image(event: dict, body: dict) -> dict:
+    user = _current_user(event)
+    if not user:
+        return _resp(401, {'error': 'Требуется авторизация'})
+
+    data_url = body.get('file_data', '')
+    content_type = body.get('content_type', '')
+
+    if data_url.startswith('data:'):
+        try:
+            header, encoded = data_url.split(',', 1)
+            if not content_type:
+                content_type = header.split(';')[0].replace('data:', '')
+        except ValueError:
+            return _resp(400, {'error': 'Некорректные данные изображения'})
+    else:
+        encoded = data_url
+
+    if content_type not in ALLOWED_IMAGE_TYPES:
+        return _resp(400, {'error': 'Поддерживаются только PNG, JPEG, WEBP и GIF'})
+
+    try:
+        raw = base64.b64decode(encoded)
+    except Exception:
+        return _resp(400, {'error': 'Не удалось декодировать изображение'})
+
+    if len(raw) > MAX_IMAGE_BYTES:
+        return _resp(400, {'error': 'Файл слишком большой (максимум 8 МБ)'})
+
+    ext = ALLOWED_IMAGE_TYPES[content_type]
+    key = f"products/{user['id']}/{uuid.uuid4().hex}.{ext}"
+
+    s3 = boto3.client(
+        's3',
+        endpoint_url='https://bucket.poehali.dev',
+        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+    )
+    s3.put_object(Bucket='files', Key=key, Body=raw, ContentType=content_type)
+
+    cdn_url = f"https://cdn.poehali.dev/projects/{os.environ['AWS_ACCESS_KEY_ID']}/bucket/{key}"
+    return _resp(200, {'url': cdn_url})
+
+
 PRODUCT_COLUMNS = (
     "id, supplier_id, category_id, name, description, short_description, sku, "
     "price, currency, discount_percentage, stock_quantity, min_order_quantity, "
@@ -138,6 +195,9 @@ def handler(event: dict, context) -> dict:
 
     if action.startswith('promo'):
         return _handle_promotions(event, method, action, body)
+
+    if method == 'POST' and action == 'upload_image':
+        return _handle_upload_image(event, body)
 
     if method == 'GET' and action == 'categories':
         return _handle_categories()

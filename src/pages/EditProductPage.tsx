@@ -222,7 +222,7 @@ const EditProductPage: React.FC = () => {
   const handleInputChange = (field: keyof ProductFormData, value: any) => {
     setFormData(prev => ({
       ...prev,
-      [field]: value
+      [field]: typeof value === 'function' ? value(prev[field]) : value
     }));
   };
 
