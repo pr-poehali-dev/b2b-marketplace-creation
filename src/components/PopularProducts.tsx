@@ -3,75 +3,101 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
-import { productsData } from "@/data/productsData";
+import { Product } from "@/components/catalog/ProductCard";
+import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { getTopProducts } from "@/utils/productClicks";
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 interface PopularProductsProps {
   limit?: number;
   className?: string;
 }
 
-const CATEGORIES = [...new Set(productsData.map(p => p.category))];
-
 export default function PopularProducts({ limit = 8, className = "" }: PopularProductsProps) {
   const navigate = useNavigate();
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   const [categoryIndex, setCategoryIndex] = useState(0);
-  const [displayProducts, setDisplayProducts] = useState(productsData.slice(0, limit));
-  const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
+  const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
+  const [activeCategory, setActiveCategory] = useState("");
   const [lastUpdated, setLastUpdated] = useState(Date.now());
   const [animating, setAnimating] = useState(false);
   const [hovered, setHovered] = useState(false);
   const hoveredRef = useRef(false);
 
-  const loadProducts = (catIdx: number) => {
+  const loadProducts = (catIdx: number, source: Product[], cats: string[]) => {
+    if (source.length === 0) return;
     const topClicks = getTopProducts(limit);
     if (topClicks.length >= 3) {
-      // Ищем реальные товары по id из кликнутых
       const real = topClicks
-        .map(c => productsData.find(p => p.id === c.id))
-        .filter(Boolean) as typeof productsData;
-      const rest = productsData.filter(p => !real.find(r => r.id === p.id));
+        .map(c => source.find(p => p.id === c.id))
+        .filter(Boolean) as Product[];
+      const rest = source.filter(p => !real.find(r => r.id === p.id));
       setDisplayProducts([...real, ...rest].slice(0, limit));
       setActiveCategory("По активности");
-    } else {
-      const category = CATEGORIES[catIdx % CATEGORIES.length];
-      const categoryProducts = productsData.filter(p => p.category === category);
-      const rest = productsData.filter(p => p.category !== category);
+    } else if (cats.length > 0) {
+      const category = cats[catIdx % cats.length];
+      const categoryProducts = source.filter(p => p.category === category);
+      const rest = source.filter(p => p.category !== category);
       setDisplayProducts([...categoryProducts, ...rest].slice(0, limit));
       setActiveCategory(category);
+    } else {
+      setDisplayProducts(source.slice(0, limit));
     }
     setLastUpdated(Date.now());
   };
 
   useEffect(() => {
-    loadProducts(0);
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${PRODUCTS_URL}?limit=50`);
+        const data = await res.json();
+        const list: BackendProduct[] = data.products || [];
+        const mapped = list.map(mapBackendProduct);
+        const cats = [...new Set(mapped.map(p => p.category))];
+        setAllProducts(mapped);
+        setCategories(cats);
+        loadProducts(0, mapped, cats);
+      } catch {
+        setAllProducts([]);
+        setCategories([]);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   useEffect(() => {
+    if (allProducts.length === 0) return;
+
     const interval = setInterval(() => {
       if (hoveredRef.current) return;
       const topClicks = getTopProducts(1);
       if (topClicks.length >= 3) {
-        loadProducts(categoryIndex);
+        loadProducts(categoryIndex, allProducts, categories);
         return;
       }
+      if (categories.length === 0) return;
       setAnimating(true);
       setTimeout(() => {
-        const nextIdx = (categoryIndex + 1) % CATEGORIES.length;
+        const nextIdx = (categoryIndex + 1) % categories.length;
         setCategoryIndex(nextIdx);
-        loadProducts(nextIdx);
+        loadProducts(nextIdx, allProducts, categories);
         setAnimating(false);
       }, 300);
     }, 5000);
 
-    const handleUpdate = () => loadProducts(categoryIndex);
+    const handleUpdate = () => loadProducts(categoryIndex, allProducts, categories);
     window.addEventListener('product-clicks-updated', handleUpdate);
 
     return () => {
       clearInterval(interval);
       window.removeEventListener('product-clicks-updated', handleUpdate);
     };
-  }, [categoryIndex, limit]);
+  }, [categoryIndex, limit, allProducts, categories]);
 
   return (
     <Card className={className}>
@@ -87,10 +113,10 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
               {activeCategory}
             </Badge>
             <div className="flex gap-1">
-              {CATEGORIES.map((_, i) => (
+              {categories.map((_, i) => (
                 <span
                   key={i}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === categoryIndex % CATEGORIES.length ? 'bg-primary scale-125' : 'bg-gray-300'}`}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === categoryIndex % categories.length ? 'bg-primary scale-125' : 'bg-gray-300'}`}
                 />
               ))}
             </div>
@@ -101,6 +127,21 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="animate-pulse rounded-2xl border-2 overflow-hidden">
+                <div className="aspect-[4/3] bg-gray-200" />
+                <div className="p-4 space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                  <div className="h-3 bg-gray-200 rounded w-1/2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : displayProducts.length === 0 ? (
+          <p className="text-center text-gray-500 py-8">Пока нет товаров для показа</p>
+        ) : (
         <div
           className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
           onMouseEnter={() => { setHovered(true); hoveredRef.current = true; }}
@@ -147,6 +188,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
             </div>
           ))}
         </div>
+        )}
       </CardContent>
     </Card>
   );

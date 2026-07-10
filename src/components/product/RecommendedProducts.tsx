@@ -54,9 +54,8 @@ export default function RecommendedProducts({
       setLoading(true);
       
       // Получаем рекомендованные товары
-      const url = 'https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39';
+      const url = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
       const params = new URLSearchParams({
-        status: 'active',
         limit: (limit * 2).toString() // Загружаем больше для фильтрации
       });
 
@@ -87,14 +86,7 @@ export default function RecommendedProducts({
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       });
 
-      // Добавляем моковые данные для демонстрации
-      const enhancedProducts = filteredProducts.slice(0, limit).map((product: Product) => ({
-        ...product,
-
-        supplier_name: product.supplier_name || 'ООО "Поставщик"'
-      }));
-
-      setProducts(enhancedProducts);
+      setProducts(filteredProducts.slice(0, limit));
     } catch (error) {
       console.error('Failed to fetch recommended products:', error);
       setProducts([]);

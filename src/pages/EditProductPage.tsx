@@ -11,6 +11,8 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
 import { useAuth } from '@/contexts/AuthContext';
 
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+
 interface Category {
   id: number;
   name: string;
@@ -76,7 +78,7 @@ interface ProductFormData {
 
 const EditProductPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { token, isAuthenticated } = useAuth();
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -85,9 +87,6 @@ const EditProductPage: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  
-  // Mock supplier ID for demo
-  const supplierId = 1;
 
   const [formData, setFormData] = useState<ProductFormData>({
     name: '',
@@ -149,7 +148,7 @@ const EditProductPage: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('https://functions.poehali.dev/a07998f6-4bc3-4ea6-9df6-a92d86541323');
+      const response = await fetch(`${PRODUCTS_URL}?action=categories`);
       const data = await response.json();
       setCategories(data.categories || []);
     } catch (err) {
@@ -164,14 +163,7 @@ const EditProductPage: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch(
-        `https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39/${id}`,
-        {
-          headers: {
-            'X-Supplier-ID': supplierId.toString()
-          }
-        }
-      );
+      const response = await fetch(`${PRODUCTS_URL}?id=${id}`);
 
       if (!response.ok) {
         if (response.status === 404) {
@@ -318,17 +310,16 @@ const EditProductPage: React.FC = () => {
         tags: formData.tags,
         status: formData.status,
         is_featured: formData.is_featured,
-        attributes: formData.attributes,
-        supplier_email: user?.email || null
+        attributes: formData.attributes
       };
 
       const response = await fetch(
-        `https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39/${id}`,
+        `${PRODUCTS_URL}?id=${id}`,
         {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            'X-Supplier-ID': supplierId.toString()
+            'X-Auth-Token': token || ''
           },
           body: JSON.stringify(productData)
         }
@@ -364,13 +355,39 @@ const EditProductPage: React.FC = () => {
     setError(null);
 
     try {
+      const mainImage = formData.images.find(img => img.isMain);
+      const galleryImages = formData.images.filter(img => !img.isMain).map(img => img.url);
+
       const response = await fetch(
-        `https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39/${id}`,
+        `${PRODUCTS_URL}?id=${id}`,
         {
-          method: 'DELETE',
+          method: 'PUT',
           headers: {
-            'X-Supplier-ID': supplierId.toString()
-          }
+            'Content-Type': 'application/json',
+            'X-Auth-Token': token || ''
+          },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            description: formData.description.trim() || null,
+            short_description: formData.short_description.trim() || null,
+            category_id: Number(formData.category_id),
+            sku: formData.sku.trim() || null,
+            price: parseFloat(formData.price),
+            currency: formData.currency,
+            discount_percentage: parseFloat(formData.discount_percentage) || 0,
+            stock_quantity: parseInt(formData.stock_quantity) || 0,
+            min_order_quantity: parseInt(formData.min_order_quantity) || 1,
+            max_order_quantity: formData.max_order_quantity ? parseInt(formData.max_order_quantity) : null,
+            weight_kg: formData.weight_kg ? parseFloat(formData.weight_kg) : null,
+            main_image_url: mainImage?.url || null,
+            gallery_images: galleryImages,
+            meta_title: formData.meta_title.trim() || null,
+            meta_description: formData.meta_description.trim() || null,
+            tags: formData.tags,
+            status: 'archived',
+            is_featured: formData.is_featured,
+            attributes: formData.attributes
+          })
         }
       );
 
@@ -390,6 +407,17 @@ const EditProductPage: React.FC = () => {
       setSaving(false);
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="container mx-auto px-4 py-16 max-w-md text-center">
+        <Icon name="LogIn" size={44} className="mx-auto text-gray-400 mb-3" />
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">Войдите в аккаунт</h3>
+        <p className="text-gray-600 mb-6">Чтобы редактировать товар, нужно войти как поставщик.</p>
+        <Button onClick={() => navigate('/login')}>Войти</Button>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

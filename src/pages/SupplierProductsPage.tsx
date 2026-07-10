@@ -6,6 +6,10 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 interface Product {
   id: number;
@@ -42,6 +46,8 @@ interface ProductsResponse {
 
 const SupplierProductsPage: React.FC = () => {
   const navigate = useNavigate();
+  const { token, isAuthenticated } = useAuth();
+  const { toast } = useToast();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -55,12 +61,9 @@ const SupplierProductsPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
-  // Mock supplier ID for demo
-  const supplierId = 1;
-
   const fetchCategories = async () => {
     try {
-      const response = await fetch('https://functions.poehali.dev/a07998f6-4bc3-4ea6-9df6-a92d86541323');
+      const response = await fetch(`${PRODUCTS_URL}?action=categories`);
       const data = await response.json();
       setCategories(data.categories || []);
     } catch (err) {
@@ -69,11 +72,16 @@ const SupplierProductsPage: React.FC = () => {
   };
 
   const fetchProducts = async () => {
+    if (!isAuthenticated || !token) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
     
     try {
       const params = new URLSearchParams({
+        mine: '1',
         page: currentPage.toString(),
         limit: '12'
       });
@@ -83,10 +91,10 @@ const SupplierProductsPage: React.FC = () => {
       if (categoryFilter !== 'all') params.append('category_id', categoryFilter);
 
       const response = await fetch(
-        `https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39?${params}`,
+        `${PRODUCTS_URL}?${params}`,
         {
           headers: {
-            'X-Supplier-ID': supplierId.toString()
+            'X-Auth-Token': token
           }
         }
       );
@@ -108,13 +116,34 @@ const SupplierProductsPage: React.FC = () => {
     }
   };
 
+  const handleDelete = async (productId: number, productName: string) => {
+    if (!token) return;
+    if (!window.confirm(`Удалить товар «${productName}»? Действие необратимо.`)) return;
+    try {
+      const response = await fetch(`${PRODUCTS_URL}?action=delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Token': token },
+        body: JSON.stringify({ id: productId }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        toast({ title: data.error || 'Не удалось удалить товар', variant: 'destructive' });
+        return;
+      }
+      setProducts((prev) => prev.filter((p) => p.id !== productId));
+      toast({ title: 'Товар удалён' });
+    } catch {
+      toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });
+    }
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
 
   useEffect(() => {
     fetchProducts();
-  }, [currentPage, searchTerm, statusFilter, categoryFilter]);
+  }, [currentPage, searchTerm, statusFilter, categoryFilter, isAuthenticated]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -148,6 +177,17 @@ const SupplierProductsPage: React.FC = () => {
     setCategoryFilter('all');
     setCurrentPage(1);
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="container mx-auto px-4 py-16 max-w-md text-center">
+        <Icon name="LogIn" size={44} className="mx-auto text-gray-400 mb-3" />
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">Войдите в аккаунт</h3>
+        <p className="text-gray-600 mb-6">Чтобы управлять своими товарами, нужно войти как поставщик.</p>
+        <Button onClick={() => navigate('/login')}>Войти</Button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -355,6 +395,14 @@ const SupplierProductsPage: React.FC = () => {
                         onClick={() => navigate(`/product/${product.id}`)}
                       >
                         <Icon name="Eye" size={16} />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        onClick={() => handleDelete(product.id, product.name)}
+                      >
+                        <Icon name="Trash2" size={16} />
                       </Button>
                     </div>
                   </CardContent>

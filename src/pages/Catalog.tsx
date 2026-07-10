@@ -14,10 +14,32 @@ import QuickViewModal from "@/components/catalog/QuickViewModal";
 import ProductComparison from "@/components/catalog/ProductComparison";
 import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
 import { Product } from "@/components/catalog/ProductCard";
-import { productsData } from "@/data/productsData";
+import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
+import Icon from "@/components/ui/icon";
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 const Catalog = () => {
   const navigate = useNavigate();
+
+  const [productsData, setProductsData] = useState<Product[]>([]);
+  const [productsLoading, setProductsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      setProductsLoading(true);
+      try {
+        const res = await fetch(`${PRODUCTS_URL}?limit=50`);
+        const data = await res.json();
+        const list: BackendProduct[] = data.products || [];
+        setProductsData(list.map(mapBackendProduct));
+      } catch {
+        setProductsData([]);
+      } finally {
+        setProductsLoading(false);
+      }
+    })();
+  }, []);
 
   // Функции для работы с localStorage
   const saveToLocalStorage = (key: string, value: any) => {
@@ -350,16 +372,39 @@ const Catalog = () => {
               />
               
               <div className="mt-4">
-                <CatalogGrid
-                products={filteredProducts}
-                viewMode={viewMode}
-                onSendInquiry={handleSendInquiry}
-                onResetFilters={resetFilters}
-                onQuickView={handleQuickView}
-                onAddToCompare={handleAddToCompare}
-                compareProducts={compareProducts.map(p => p.id)}
-                onProductClick={handleProductClick}
-                />
+                {productsLoading ? (
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {[...Array(6)].map((_, i) => (
+                      <div key={i} className="animate-pulse rounded-xl border-0 shadow-md overflow-hidden">
+                        <div className="aspect-video bg-gray-200" />
+                        <div className="p-5 space-y-3">
+                          <div className="h-4 bg-gray-200 rounded w-3/4" />
+                          <div className="h-3 bg-gray-200 rounded w-1/2" />
+                          <div className="h-6 bg-gray-200 rounded w-1/3" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : productsData.length === 0 ? (
+                  <div className="text-center py-20 bg-white rounded-xl shadow-md">
+                    <Icon name="PackageSearch" size={64} className="mx-auto text-gray-300 mb-6" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">В каталоге пока нет товаров</h3>
+                    <p className="text-gray-600 max-w-md mx-auto">
+                      Поставщики ещё не добавили товары. Загляните позже — каталог пополняется.
+                    </p>
+                  </div>
+                ) : (
+                  <CatalogGrid
+                    products={filteredProducts}
+                    viewMode={viewMode}
+                    onSendInquiry={handleSendInquiry}
+                    onResetFilters={resetFilters}
+                    onQuickView={handleQuickView}
+                    onAddToCompare={handleAddToCompare}
+                    compareProducts={compareProducts.map(p => p.id)}
+                    onProductClick={handleProductClick}
+                  />
+                )}
               </div>
             </div>
           </div>

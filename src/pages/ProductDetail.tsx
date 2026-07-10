@@ -8,9 +8,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { Product } from "@/components/catalog/ProductCard";
-import { productsData } from "@/data/productsData";
+import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { useCart } from "@/contexts/CartContext";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,28 +22,46 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [notFound, setNotFound] = useState(false);
 
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    if (id) {
-      const foundProduct = productsData.find(p => p.id === parseInt(id));
-      if (foundProduct) {
-        setProduct(foundProduct);
-        
-        // Находим похожие товары из той же категории
-        const related = productsData
-          .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
-          .slice(0, 4);
-        setRelatedProducts(related);
-      } else {
-        navigate('/catalog');
+    if (!id) return;
+    setProduct(null);
+    setNotFound(false);
+    setSelectedImage(0);
+
+    (async () => {
+      try {
+        const res = await fetch(`${PRODUCTS_URL}?id=${id}`);
+        if (!res.ok) {
+          setNotFound(true);
+          return;
+        }
+        const bp: BackendProduct = await res.json();
+        const mapped = mapBackendProduct(bp);
+        setProduct(mapped);
+
+        const relatedRes = await fetch(`${PRODUCTS_URL}?limit=20&category_id=${bp.category_id}`);
+        const relatedData = await relatedRes.json();
+        const related: BackendProduct[] = relatedData.products || [];
+        setRelatedProducts(
+          related.filter((p) => p.id !== bp.id).slice(0, 4).map(mapBackendProduct)
+        );
+      } catch {
+        setNotFound(true);
       }
-    }
-  }, [id, navigate]);
+    })();
+  }, [id]);
+
+  useEffect(() => {
+    if (notFound) navigate('/catalog');
+  }, [notFound, navigate]);
 
   const handleAddToCart = () => {
+    if (!product) return;
     for (let i = 0; i < quantity; i++) {
       addItem({
         id: product.id.toString(),
@@ -75,8 +95,7 @@ const ProductDetail = () => {
     );
   }
 
-  // Создаем массив изображений (для демонстрации - используем одно и то же изображение)
-  const productImages = Array(4).fill(product.image);
+  const productImages = product.images && product.images.length > 0 ? product.images : [product.image];
 
   return (
     <div className="min-h-screen bg-gray-50">

@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
 import { useAuth } from '@/contexts/AuthContext';
 
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+
 interface Category {
   id: number;
   name: string;
@@ -49,13 +51,10 @@ interface ProductFormData {
 
 const AddProductPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { token, isAuthenticated } = useAuth();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
-  // Mock supplier ID for demo
-  const supplierId = 1;
 
   const [formData, setFormData] = useState<ProductFormData>({
     name: '',
@@ -85,7 +84,7 @@ const AddProductPage: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch('https://functions.poehali.dev/a07998f6-4bc3-4ea6-9df6-a92d86541323');
+      const response = await fetch(`${PRODUCTS_URL}?action=categories`);
       const data = await response.json();
       setCategories(data.categories || []);
     } catch (err) {
@@ -152,6 +151,9 @@ const AddProductPage: React.FC = () => {
     setError(null);
 
     try {
+      if (!isAuthenticated || !token) {
+        throw new Error('Войдите в аккаунт, чтобы добавить товар');
+      }
       // Validate required fields
       if (!formData.name.trim()) {
         throw new Error('Название товара обязательно');
@@ -188,15 +190,14 @@ const AddProductPage: React.FC = () => {
         tags: formData.tags,
         status: formData.status,
         is_featured: formData.is_featured,
-        attributes: formData.attributes,
-        supplier_email: user?.email || null
+        attributes: formData.attributes
       };
 
-      const response = await fetch('https://functions.poehali.dev/8fe277e5-ff21-4acb-a688-5dae6eb30c39', {
+      const response = await fetch(PRODUCTS_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Supplier-ID': supplierId.toString()
+          'X-Auth-Token': token
         },
         body: JSON.stringify(productData)
       });
@@ -220,6 +221,17 @@ const AddProductPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="container mx-auto px-4 py-16 max-w-md text-center">
+        <Icon name="LogIn" size={44} className="mx-auto text-gray-400 mb-3" />
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">Войдите в аккаунт</h3>
+        <p className="text-gray-600 mb-6">Чтобы добавить товар в каталог, нужно войти как поставщик.</p>
+        <Button onClick={() => navigate('/login')}>Войти</Button>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">

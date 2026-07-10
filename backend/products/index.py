@@ -326,8 +326,9 @@ def _handle_list(params: dict, event: dict) -> dict:
             f"p.max_order_quantity, p.weight_kg, p.main_image_url, p.gallery_images_json, "
             f"p.meta_title, p.meta_description, p.tags_json, p.attributes_json, p.status, p.is_featured, "
             f"p.views_count, p.favorites_count, p.requests_count, p.created_at, p.updated_at, p.published_at, "
-            f"c.name "
+            f"c.name, u.company_name, u.first_name, u.last_name "
             f"FROM products p JOIN categories c ON c.id = p.category_id "
+            f"JOIN users u ON u.id = p.supplier_id "
             f"WHERE {where_sql} ORDER BY p.created_at DESC LIMIT %s OFFSET %s",
             args + [limit, offset],
         )
@@ -336,6 +337,7 @@ def _handle_list(params: dict, event: dict) -> dict:
         for r in rows:
             item = _row_to_product(r[:28])
             item['category_name'] = r[28]
+            item['supplier_name'] = r[29] or f"{r[30] or ''} {r[31] or ''}".strip() or 'Поставщик'
             products.append(item)
 
         total_pages = max(1, (total_count + limit - 1) // limit)
@@ -349,12 +351,17 @@ def _handle_list(params: dict, event: dict) -> dict:
 
 def _handle_get_one(params: dict) -> dict:
     product_id = params.get('id')
+    prefixed_columns = ', '.join(f"products.{c.strip()}" for c in PRODUCT_COLUMNS.split(','))
     conn = _db()
     try:
         cur = conn.cursor()
         cur.execute(
-            f"SELECT {PRODUCT_COLUMNS}, (SELECT name FROM categories WHERE id = category_id) "
-            f"FROM products WHERE id = %s",
+            f"SELECT {prefixed_columns}, categories.name, "
+            f"users.company_name, users.first_name, users.last_name "
+            f"FROM products "
+            f"JOIN categories ON categories.id = products.category_id "
+            f"JOIN users ON users.id = products.supplier_id "
+            f"WHERE products.id = %s",
             (product_id,),
         )
         row = cur.fetchone()
@@ -364,6 +371,7 @@ def _handle_get_one(params: dict) -> dict:
         conn.commit()
         item = _row_to_product(row[:28])
         item['category_name'] = row[28]
+        item['supplier_name'] = row[29] or f"{row[30] or ''} {row[31] or ''}".strip() or 'Поставщик'
         return _resp(200, item)
     finally:
         conn.close()
