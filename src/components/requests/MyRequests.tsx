@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 import { timeAgo } from '@/utils/requestHeat';
 import { BuyerRequest } from './RequestCard';
 
 const PLACE_REQUEST_URL = 'https://functions.poehali.dev/6b4d1a93-652c-4797-b909-9292cda5ab0f';
+const AUTO_REFRESH_MS = 25000;
 
 interface Response {
   id: number;
@@ -21,36 +23,88 @@ interface Response {
 
 const MyRequests = ({ refreshKey }: { refreshKey: number }) => {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [requests, setRequests] = useState<BuyerRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [openId, setOpenId] = useState<number | null>(null);
   const [responses, setResponses] = useState<Record<number, Response[]>>({});
   const [loadingResp, setLoadingResp] = useState(false);
+  const [newResponseIds, setNewResponseIds] = useState<Set<number>>(new Set());
+  const countsRef = useRef<Record<number, number>>({});
+  const openIdRef = useRef<number | null>(null);
+  const initialLoadDone = useRef(false);
+
+  useEffect(() => { openIdRef.current = openId; }, [openId]);
+
+  const fetchResponses = useCallback(async (id: number) => {
+    try {
+      const res = await fetch(`${PLACE_REQUEST_URL}?action=responses&request_id=${id}`);
+      const data = await res.json();
+      if (data.success) setResponses((p) => ({ ...p, [id]: data.responses || [] }));
+    } catch { /* ignore */ }
+  }, []);
+
+  const load = useCallback(async (silent = false) => {
+    if (!user) { setLoading(false); return; }
+    if (!silent) setLoading(true);
+    try {
+      const res = await fetch(`${PLACE_REQUEST_URL}?action=list&mine=1&user_id=${user.id}`);
+      const data = await res.json();
+      if (data.success) {
+        const fresh: BuyerRequest[] = data.requests || [];
+
+        if (initialLoadDone.current) {
+          const grown: BuyerRequest[] = [];
+          fresh.forEach((r) => {
+            const prevCount = countsRef.current[r.id];
+            if (prevCount !== undefined && (r.responses_count || 0) > prevCount) {
+              grown.push(r);
+            }
+          });
+          if (grown.length > 0) {
+            setNewResponseIds((prev) => new Set([...prev, ...grown.map((r) => r.id)]));
+            grown.forEach((r) => {
+              toast({ title: 'Новый отклик!', description: `Поставщик откликнулся на заявку «${r.title}»` });
+              if (openIdRef.current === r.id) fetchResponses(r.id);
+            });
+            setTimeout(() => {
+              setNewResponseIds((prev) => {
+                const next = new Set(prev);
+                grown.forEach((r) => next.delete(r.id));
+                return next;
+              });
+            }, 8000);
+          }
+        }
+
+        fresh.forEach((r) => { countsRef.current[r.id] = r.responses_count || 0; });
+        initialLoadDone.current = true;
+        setRequests(fresh);
+      }
+    } catch { if (!silent) setRequests([]); }
+    finally { if (!silent) setLoading(false); }
+  }, [user, toast, fetchResponses]);
+
+  useEffect(() => { initialLoadDone.current = false; load(); }, [user, refreshKey]);
 
   useEffect(() => {
-    if (!user) { setLoading(false); return; }
-    (async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`${PLACE_REQUEST_URL}?action=list&mine=1&user_id=${user.id}`);
-        const data = await res.json();
-        if (data.success) setRequests(data.requests || []);
-      } catch { setRequests([]); }
-      finally { setLoading(false); }
-    })();
-  }, [user, refreshKey]);
+    const timer = setInterval(() => load(true), AUTO_REFRESH_MS);
+    return () => clearInterval(timer);
+  }, [load]);
 
   const toggle = async (id: number) => {
     if (openId === id) { setOpenId(null); return; }
     setOpenId(id);
+    setNewResponseIds((prev) => {
+      if (!prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.delete(id);
+      return next;
+    });
     if (!responses[id]) {
       setLoadingResp(true);
-      try {
-        const res = await fetch(`${PLACE_REQUEST_URL}?action=responses&request_id=${id}`);
-        const data = await res.json();
-        if (data.success) setResponses((p) => ({ ...p, [id]: data.responses || [] }));
-      } catch { /* ignore */ }
-      finally { setLoadingResp(false); }
+      await fetchResponses(id);
+      setLoadingResp(false);
     }
   };
 
@@ -92,8 +146,14 @@ const MyRequests = ({ refreshKey }: { refreshKey: number }) => {
       {requests.map((r) => {
         const isOpen = openId === r.id;
         const list = responses[r.id] || [];
+        const isNew = newResponseIds.has(r.id);
         return (
-          <Card key={r.id} className="overflow-hidden">
+          <Card key={r.id} className={`overflow-hidden relative ${isNew ? 'ring-2 ring-emerald-400' : ''}`}>
+            {isNew && (
+              <span className="absolute -top-2 left-4 z-10 bg-emerald-500 text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow animate-fade-in-up">
+                Новый отклик
+              </span>
+            )}
             <button onClick={() => toggle(r.id)} className="w-full text-left p-5 hover:bg-gray-50 transition-colors">
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
