@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +8,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import Icon from '@/components/ui/icon';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 interface Product {
   id: number;
@@ -44,32 +48,40 @@ interface ProductPromotionProps {
 }
 
 export default function ProductPromotion({ products, className = "" }: ProductPromotionProps) {
-  const [campaigns, setCampaigns] = useState<PromotionCampaign[]>([
-    {
-      id: '1',
-      type: 'featured',
-      title: 'Продвижение офисных стульев',
-      description: 'Показ в блоке "Рекомендуем" на главной странице',
-      productIds: [1, 2],
-      startDate: '2024-01-15',
-      endDate: '2024-02-15',
-      budget: 15000,
-      status: 'active',
-      stats: { views: 8540, clicks: 234, sales: 12, spent: 8750 }
-    },
-    {
-      id: '2',
-      type: 'discount',
-      title: 'Скидка 20% на столы',
-      description: 'Автоматическая скидка для привлечения покупателей',
-      productIds: [3, 4],
-      startDate: '2024-01-20',
-      endDate: '2024-02-20',
-      budget: 25000,
-      status: 'active',
-      stats: { views: 5420, clicks: 187, sales: 8, spent: 12300 }
+  const { token, isAuthenticated } = useAuth();
+  const { toast } = useToast();
+  const [campaigns, setCampaigns] = useState<PromotionCampaign[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadCampaigns = useCallback(async () => {
+    if (!isAuthenticated || !token) { setLoading(false); return; }
+    setLoading(true);
+    try {
+      const res = await fetch(`${PRODUCTS_URL}?action=promo_list`, {
+        headers: { 'X-Auth-Token': token },
+      });
+      const data = await res.json();
+      const list = (data.campaigns || []).map((c: any) => ({
+        id: String(c.id),
+        type: c.type,
+        title: c.title,
+        description: c.description || '',
+        productIds: c.product_ids || [],
+        startDate: c.start_date || '',
+        endDate: c.end_date || '',
+        budget: c.budget,
+        status: c.status,
+        stats: c.stats,
+      }));
+      setCampaigns(list);
+    } catch {
+      setCampaigns([]);
+    } finally {
+      setLoading(false);
     }
-  ]);
+  }, [isAuthenticated, token]);
+
+  useEffect(() => { loadCampaigns(); }, [loadCampaigns]);
 
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [newCampaign, setNewCampaign] = useState({
@@ -135,33 +147,86 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
     }
   };
 
-  const handleCreateCampaign = () => {
-    const campaign: PromotionCampaign = {
-      id: (campaigns.length + 1).toString(),
-      ...newCampaign,
-      status: 'active',
-      stats: { views: 0, clicks: 0, sales: 0, spent: 0 }
-    };
-    
-    setCampaigns([...campaigns, campaign]);
-    setNewCampaign({
-      type: 'featured',
-      title: '',
-      description: '',
-      productIds: [],
-      startDate: '',
-      endDate: '',
-      budget: 0
-    });
-    setShowCreateForm(false);
+  const handleCreateCampaign = async () => {
+    if (!token) return;
+    if (!newCampaign.title.trim()) {
+      toast({ title: 'Укажите название кампании', variant: 'destructive' });
+      return;
+    }
+    try {
+      const res = await fetch(`${PRODUCTS_URL}?action=promo_create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Token': token },
+        body: JSON.stringify({
+          type: newCampaign.type,
+          title: newCampaign.title.trim(),
+          description: newCampaign.description,
+          product_ids: newCampaign.productIds,
+          start_date: newCampaign.startDate || null,
+          end_date: newCampaign.endDate || null,
+          budget: newCampaign.budget,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: data.error || 'Не удалось создать кампанию', variant: 'destructive' });
+        return;
+      }
+      await loadCampaigns();
+      setNewCampaign({
+        type: 'featured',
+        title: '',
+        description: '',
+        productIds: [],
+        startDate: '',
+        endDate: '',
+        budget: 0
+      });
+      setShowCreateForm(false);
+      toast({ title: 'Кампания создана' });
+    } catch {
+      toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });
+    }
   };
 
-  const toggleCampaignStatus = (campaignId: string) => {
-    setCampaigns(campaigns.map(campaign => 
-      campaign.id === campaignId 
-        ? { ...campaign, status: campaign.status === 'active' ? 'paused' : 'active' as any }
-        : campaign
-    ));
+  const toggleCampaignStatus = async (campaignId: string) => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${PRODUCTS_URL}?action=promo_toggle`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Token': token },
+        body: JSON.stringify({ id: Number(campaignId) }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: data.error || 'Не удалось изменить статус', variant: 'destructive' });
+        return;
+      }
+      setCampaigns((prev) => prev.map((c) => (c.id === campaignId ? { ...c, status: data.status } : c)));
+    } catch {
+      toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });
+    }
+  };
+
+  const handleDeleteCampaign = async (campaignId: string, title: string) => {
+    if (!token) return;
+    if (!window.confirm(`Удалить кампанию «${title}»?`)) return;
+    try {
+      const res = await fetch(`${PRODUCTS_URL}?action=promo_delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Auth-Token': token },
+        body: JSON.stringify({ id: Number(campaignId) }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        toast({ title: data.error || 'Не удалось удалить кампанию', variant: 'destructive' });
+        return;
+      }
+      setCampaigns((prev) => prev.filter((c) => c.id !== campaignId));
+      toast({ title: 'Кампания удалена' });
+    } catch {
+      toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });
+    }
   };
 
   const calculateROI = (campaign: PromotionCampaign) => {
@@ -170,6 +235,14 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
     const roi = campaign.stats.spent > 0 ? ((revenue - campaign.stats.spent) / campaign.stats.spent) * 100 : 0;
     return roi;
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="text-center py-12 text-gray-500">
+        Войдите в аккаунт, чтобы управлять продвижением товаров.
+      </div>
+    );
+  }
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -209,7 +282,14 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
                     <p className="text-sm text-gray-600 mt-1">{promo.description}</p>
                     <div className="flex items-center justify-between mt-3">
                       <span className="text-sm font-medium text-green-600">{promo.price}</span>
-                      <Button size="sm" variant="outline">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setNewCampaign((prev) => ({ ...prev, type: promo.type }));
+                          setShowCreateForm(true);
+                        }}
+                      >
                         Настроить
                       </Button>
                     </div>
@@ -234,7 +314,13 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {campaigns.map((campaign) => (
+            {loading && (
+              <div className="text-center py-8 text-gray-400">
+                <Icon name="Loader2" size={28} className="mx-auto animate-spin mb-2" />
+                Загружаем кампании...
+              </div>
+            )}
+            {!loading && campaigns.map((campaign) => (
               <div key={campaign.id} className="p-4 border rounded-lg">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
@@ -259,8 +345,13 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
                       checked={campaign.status === 'active'} 
                       onCheckedChange={() => toggleCampaignStatus(campaign.id)}
                     />
-                    <Button variant="outline" size="sm">
-                      <Icon name="Settings" size={14} />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      onClick={() => handleDeleteCampaign(campaign.id, campaign.title)}
+                    >
+                      <Icon name="Trash2" size={14} />
                     </Button>
                   </div>
                 </div>
@@ -301,7 +392,7 @@ export default function ProductPromotion({ products, className = "" }: ProductPr
               </div>
             ))}
 
-            {campaigns.length === 0 && (
+            {!loading && campaigns.length === 0 && (
               <div className="text-center py-8">
                 <Icon name="Megaphone" size={48} className="mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Нет активных кампаний</h3>

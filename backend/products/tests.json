@@ -1,0 +1,73 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS CORS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get categories",
+      "method": "GET",
+      "path": "/?action=categories",
+      "expectedStatus": 200
+    },
+    {
+      "name": "List public products",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "List my products without auth",
+      "method": "GET",
+      "path": "/?mine=1",
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get missing product",
+      "method": "GET",
+      "path": "/?id=999999",
+      "expectedStatus": 404,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Create without auth",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тестовый товар", "category_id": 1, "price": 100},
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Delete without auth",
+      "method": "POST",
+      "path": "/?action=delete",
+      "body": {"id": 999999},
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Promo list without auth",
+      "method": "GET",
+      "path": "/?action=promo_list",
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Promo create without auth",
+      "method": "POST",
+      "path": "/?action=promo_create",
+      "body": {"type": "featured", "title": "Тест"},
+      "expectedStatus": 401,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

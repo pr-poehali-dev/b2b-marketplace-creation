@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,9 +13,31 @@ import Footer from "@/components/Footer";
 import PageLayout from '@/components/layout/PageLayout';
 import SupplierStats from "@/components/supplier/SupplierStats";
 import SupplierProductsTable from "@/components/supplier/SupplierProductsTable";
-import SupplierAddProduct from "@/components/supplier/SupplierAddProduct";
+import ProductPromotion from "@/components/supplier/ProductPromotion";
+import { useAuth } from "@/contexts/AuthContext";
+
+const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 const ProfileCompany = () => {
+  const navigate = useNavigate();
+  const { token, isAuthenticated } = useAuth();
+  const [myProducts, setMyProducts] = useState<any[]>([]);
+
+  const loadMyProducts = useCallback(async () => {
+    if (!isAuthenticated || !token) return;
+    try {
+      const res = await fetch(`${PRODUCTS_URL}?mine=1&limit=50`, {
+        headers: { 'X-Auth-Token': token },
+      });
+      const data = await res.json();
+      setMyProducts(data.products || []);
+    } catch {
+      setMyProducts([]);
+    }
+  }, [isAuthenticated, token]);
+
+  useEffect(() => { loadMyProducts(); }, [loadMyProducts]);
+
   const [companyData, setCompanyData] = useState({
     name: "ООО «ТехИнновации»",
     description: "Разрабатываем и внедряем инновационные IT-решения для бизнеса",
@@ -103,10 +126,10 @@ const ProfileCompany = () => {
                 <span className="hidden sm:inline">Мои товары</span>
                 <span className="sm:hidden">Товары</span>
               </TabsTrigger>
-              <TabsTrigger value="add" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
-                <Icon name="Plus" size={16} />
-                <span className="hidden sm:inline">Добавить товар</span>
-                <span className="sm:hidden">Добавить</span>
+              <TabsTrigger value="promotion" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
+                <Icon name="Megaphone" size={16} />
+                <span className="hidden sm:inline">Продвижение</span>
+                <span className="sm:hidden">Промо</span>
               </TabsTrigger>
               <TabsTrigger value="requests" className="flex items-center gap-1.5 flex-1 min-w-[120px]">
                 <Icon name="MessageSquare" size={16} />
@@ -387,8 +410,12 @@ const ProfileCompany = () => {
 
             <TabsContent value="products" className="space-y-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0">
                   <CardTitle>Мои товары</CardTitle>
+                  <Button size="sm" onClick={() => navigate('/supplier/products/new')}>
+                    <Icon name="Plus" size={16} className="mr-2" />
+                    Добавить товар
+                  </Button>
                 </CardHeader>
                 <CardContent>
                   <SupplierProductsTable />
@@ -396,8 +423,8 @@ const ProfileCompany = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="add" className="space-y-6">
-              <SupplierAddProduct />
+            <TabsContent value="promotion" className="space-y-6">
+              <ProductPromotion products={myProducts} />
             </TabsContent>
 
             <TabsContent value="requests" className="space-y-6">
