@@ -36,7 +36,6 @@ import CompanyDetail from "./pages/CompanyDetail";
 
 import NewsPublish from "./pages/NewsPublish";
 import News from "./pages/News";
-import Cart from "./pages/Cart";
 import Favorites from "./pages/Favorites";
 import SupplierProductsPage from "./pages/SupplierProductsPage";
 import AddProductPage from "./pages/AddProductPage";
@@ -45,7 +44,6 @@ import EditProductPage from "./pages/EditProductPage";
 import DownloadApp from "./pages/DownloadApp";
 import BuildInstructions from "./pages/BuildInstructions";
 import NotFound from "./pages/NotFound";
-import { CartProvider } from "./contexts/CartContext";
 import { FavoritesProvider } from "./contexts/FavoritesContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LayoutProvider } from "./contexts/LayoutContext";
@@ -58,7 +56,6 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <LayoutProvider>
-        <CartProvider>
         <FavoritesProvider>
           <Toaster />
           <Sonner />
@@ -89,7 +86,6 @@ const App = () => (
           <Route path="/profile/company" element={<ProfileCompany />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/publish" element={<NewsPublish />} />
-          <Route path="/cart" element={<Cart />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/supplier/products" element={<SupplierProductsPage />} />
           <Route path="/supplier/products/new" element={<AddProductPage />} />
@@ -101,7 +97,6 @@ const App = () => (
           </Routes>
           </BrowserRouter>
         </FavoritesProvider>
-        </CartProvider>
         </LayoutProvider>
       </AuthProvider>
     </TooltipProvider>

@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
 import ProductBadges from './ProductBadges';
+import { useFavorites } from '@/contexts/FavoritesContext';
 
 interface Product {
   id: number;
@@ -18,7 +19,7 @@ interface Product {
   gallery_images?: string[];
   stock_quantity: number;
   supplier_name?: string;
-
+  category_name?: string;
 
   is_featured?: boolean;
   created_at: string;
@@ -28,17 +29,15 @@ interface ProductQuickViewProps {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
-  onAddToCart?: (productId: number, quantity: number) => void;
 }
 
 export default function ProductQuickView({ 
   product, 
   isOpen, 
-  onClose, 
-  onAddToCart 
+  onClose
 }: ProductQuickViewProps) {
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   if (!product) return null;
 
@@ -59,10 +58,16 @@ export default function ProductQuickView({
     return createdDate > thirtyDaysAgo;
   };
 
-  const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart(product.id, quantity);
-    }
+  const handleToggleFavorite = () => {
+    toggleFavorite({
+      id: product.id,
+      name: product.name,
+      image: product.main_image_url || '',
+      category: product.category_name || '',
+      seller: product.supplier_name || '',
+      price: discountedPrice,
+      unit: product.currency,
+    });
   };
 
   return (
@@ -183,39 +188,17 @@ export default function ProductQuickView({
               </span>
             </div>
 
-            {/* Количество и добавление в корзину */}
+            {/* Добавление в избранное */}
             {product.stock_quantity > 0 && (
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium">Количество:</span>
-                  <div className="flex items-center border rounded-md">
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-3 py-2 hover:bg-gray-100"
-                      disabled={quantity <= 1}
-                    >
-                      <Icon name="Minus" size={16} />
-                    </button>
-                    <span className="px-4 py-2 border-x">{quantity}</span>
-                    <button
-                      onClick={() => setQuantity(Math.min(product.stock_quantity, quantity + 1))}
-                      className="px-3 py-2 hover:bg-gray-100"
-                      disabled={quantity >= product.stock_quantity}
-                    >
-                      <Icon name="Plus" size={16} />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button onClick={handleAddToCart} className="flex-1">
-                    <Icon name="ShoppingCart" size={16} className="mr-2" />
-                    Добавить в корзину
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Icon name="Heart" size={16} />
-                  </Button>
-                </div>
+                <Button onClick={handleToggleFavorite} className="w-full">
+                  <Icon 
+                    name="Heart" 
+                    size={16} 
+                    className={`mr-2 ${isFavorite(product.id) ? 'text-red-500 fill-red-500' : ''}`}
+                  />
+                  {isFavorite(product.id) ? 'В избранном' : 'Добавить в избранное'}
+                </Button>
               </div>
             )}
 

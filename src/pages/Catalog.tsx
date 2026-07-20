@@ -4,8 +4,6 @@ import Header from "@/components/Header";
 import PageLayout from "@/components/layout/PageLayout";
 import Footer from "@/components/Footer";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
-import FlyToCartAnimation from "@/components/FlyToCartAnimation";
-import { useCart } from "@/contexts/CartContext";
 import CatalogHero from "@/components/catalog/CatalogHero";
 import CatalogFilters from "@/components/catalog/CatalogFilters";
 import CatalogToolbar from "@/components/catalog/CatalogToolbar";
@@ -77,23 +75,12 @@ const Catalog = () => {
   const [isInquiryModalOpen, setIsInquiryModalOpen] = useState(false);
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => getFromLocalStorage('viewMode', 'grid'));
-  const [flyingAnimation, setFlyingAnimation] = useState<{
-    isActive: boolean;
-    startElement: HTMLElement | null;
-    productImage?: string;
-  }>({
-    isActive: false,
-    startElement: null,
-    productImage: undefined
-  });
   
   // Новые состояния для функциональности
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
   const [compareProducts, setCompareProducts] = useState<Product[]>([]);
   const [isComparisonOpen, setIsComparisonOpen] = useState(false);
-  
-  const { addItem } = useCart();
 
   // useEffect для автосохранения состояний в localStorage
   useEffect(() => {
@@ -254,13 +241,6 @@ const Catalog = () => {
 
 
 
-  const handleAnimationComplete = () => {
-    setFlyingAnimation(prev => ({
-      ...prev,
-      isActive: false
-    }));
-  };
-
   const handleSendInquiry = (product: Product) => {
     setSelectedProduct(product);
     setIsInquiryModalOpen(true);
@@ -417,13 +397,6 @@ const Catalog = () => {
         isOpen={isInquiryModalOpen}
         onClose={handleCloseInquiry}
         product={selectedProduct}
-      />
-
-      <FlyToCartAnimation
-        isActive={flyingAnimation.isActive}
-        startElement={flyingAnimation.startElement}
-        productImage={flyingAnimation.productImage}
-        onAnimationComplete={handleAnimationComplete}
       />
 
       <QuickViewModal

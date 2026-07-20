@@ -5,6 +5,7 @@ import Icon from '@/components/ui/icon';
 
 import ProductBadges from './ProductBadges';
 import ProductQuickView from './ProductQuickView';
+import { useFavorites } from '@/contexts/FavoritesContext';
 
 interface Product {
   id: number;
@@ -44,6 +45,7 @@ export default function RecommendedProducts({
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quickViewOpen, setQuickViewOpen] = useState(false);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   useEffect(() => {
     fetchRecommendedProducts();
@@ -100,9 +102,16 @@ export default function RecommendedProducts({
     setQuickViewOpen(true);
   };
 
-  const handleAddToCart = (productId: number, quantity: number) => {
-    console.log(`Adding product ${productId} to cart with quantity ${quantity}`);
-    // Здесь будет интеграция с корзиной
+  const handleToggleFavorite = (product: Product) => {
+    toggleFavorite({
+      id: product.id,
+      name: product.name,
+      image: product.main_image_url || '',
+      category: product.category_name || '',
+      seller: product.supplier_name || '',
+      price: calculateDiscountedPrice(product.price, product.discount_percentage),
+      unit: product.currency,
+    });
   };
 
   const isNew = (createdAt: string) => {
@@ -200,30 +209,25 @@ export default function RecommendedProducts({
                       >
                         <Icon name="Eye" size={14} />
                       </Button>
-                      <Button 
-                        size="icon" 
-                        variant="secondary" 
-                        className="h-8 w-8 bg-white/90 hover:bg-white"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Icon name="Heart" size={14} />
-                      </Button>
                     </div>
                   </div>
 
-                  {/* Быстрое добавление в корзину */}
+                  {/* Быстрое добавление в избранное */}
                   <div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <Button 
                       size="sm" 
                       className="w-full"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleAddToCart(product.id, 1);
+                        handleToggleFavorite(product);
                       }}
-                      disabled={product.stock_quantity === 0}
                     >
-                      <Icon name="ShoppingCart" size={14} className="mr-1" />
-                      {product.stock_quantity > 0 ? 'В корзину' : 'Нет в наличии'}
+                      <Icon 
+                        name="Heart" 
+                        size={14} 
+                        className={`mr-1 ${isFavorite(product.id) ? 'text-red-500 fill-red-500' : ''}`}
+                      />
+                      {isFavorite(product.id) ? 'В избранном' : 'В избранное'}
                     </Button>
                   </div>
                 </div>
@@ -280,7 +284,6 @@ export default function RecommendedProducts({
         product={selectedProduct}
         isOpen={quickViewOpen}
         onClose={() => setQuickViewOpen(false)}
-        onAddToCart={handleAddToCart}
       />
     </>
   );

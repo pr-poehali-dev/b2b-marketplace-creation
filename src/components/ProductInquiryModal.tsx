@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import { useCart } from '@/contexts/CartContext';
 
 interface Product {
   id: number;
@@ -31,7 +30,6 @@ interface ProductInquiryModalProps {
 }
 
 const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalProps) => {
-  const { addItem } = useCart();
   const navigate = useNavigate();
   const [inquiryData, setInquiryData] = useState({
     companyName: '',
@@ -39,8 +37,7 @@ const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalPr
     email: '',
     phone: '',
     quantity: '',
-    message: '',
-    includeInCart: true
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -77,18 +74,7 @@ const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalPr
         throw new Error('Не удалось отправить заявку');
       }
 
-      if (inquiryData.includeInCart) {
-        addItem({
-          id: product.id.toString(),
-          title: product.name,
-          price: product.price,
-          image: product.image,
-          category: product.category,
-          company: product.seller
-        });
-      }
-
-      alert(`Заявка успешно отправлена поставщику!\n\n${inquiryData.includeInCart ? 'Товар также добавлен в корзину.\n\n' : ''}Менеджер свяжется с вами в ближайшее время.`);
+      alert('Заявка успешно отправлена поставщику!\n\nМенеджер свяжется с вами в ближайшее время.');
 
       onClose();
     } catch (error) {
@@ -222,19 +208,6 @@ const ProductInquiryModal = ({ isOpen, onClose, product }: ProductInquiryModalPr
               placeholder="Укажите дополнительные требования, условия поставки, сроки..."
               rows={4}
             />
-          </div>
-
-          <div className="flex items-center space-x-2 p-3 bg-emerald-50 rounded-lg">
-            <input
-              type="checkbox"
-              id="includeInCart"
-              checked={inquiryData.includeInCart}
-              onChange={(e) => setInquiryData(prev => ({ ...prev, includeInCart: e.target.checked }))}
-              className="rounded border-gray-300"
-            />
-            <Label htmlFor="includeInCart" className="text-sm">
-              Также добавить товар в корзину для удобства
-            </Label>
           </div>
 
           <div className="flex gap-3 pt-4">

@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
-import { useCart } from "@/contexts/CartContext";
+import { useFavorites } from "@/contexts/FavoritesContext";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
@@ -17,7 +17,7 @@ const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { addItem } = useCart();
+  const { isFavorite, toggleFavorite } = useFavorites();
   
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -60,18 +60,17 @@ const ProductDetail = () => {
     if (notFound) navigate('/catalog');
   }, [notFound, navigate]);
 
-  const handleAddToCart = () => {
+  const handleToggleFavorite = () => {
     if (!product) return;
-    for (let i = 0; i < quantity; i++) {
-      addItem({
-        id: product.id.toString(),
-        title: product.name,
-        price: product.price,
-        image: product.image,
-        category: product.category,
-        company: product.seller
-      });
-    }
+    toggleFavorite({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      category: product.category,
+      seller: product.seller,
+      price: product.price,
+      unit: product.unit,
+    });
   };
 
 
@@ -325,13 +324,16 @@ const ProductDetail = () => {
                     </Button>
                     <Button 
                       variant="outline"
-                      onClick={handleAddToCart}
-                      disabled={!product.inStock}
+                      onClick={handleToggleFavorite}
                       className="w-full border-emerald-700 text-emerald-700 hover:bg-emerald-50 py-3 px-4 rounded-lg font-medium border-2"
                     >
                       <div className="flex items-center justify-center gap-2">
-                        <Icon name="ShoppingCart" size={16} />
-                        <span>В корзину</span>
+                        <Icon 
+                          name="Heart" 
+                          size={16} 
+                          className={isFavorite(product.id) ? 'text-red-500 fill-red-500' : ''}
+                        />
+                        <span>{isFavorite(product.id) ? 'В избранном' : 'В избранное'}</span>
                       </div>
                     </Button>
                   </div>

@@ -237,8 +237,8 @@ const CompanyDetail = () => {
                         
                         <div className="flex gap-2 pt-2">
                           <Button size="sm" className="flex-1">
-                            <Icon name="ShoppingCart" size={14} className="mr-1" />
-                            В корзину
+                            <Icon name="Heart" size={14} className="mr-1" />
+                            В избранное
                           </Button>
                           <Button size="sm" variant="outline">
                             <Icon name="Eye" size={14} />
