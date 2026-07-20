@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
-import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
-  const navigate = useNavigate();
   return (
     <>
       {/* Registration CTA */}
@@ -53,7 +51,7 @@ const Footer = () => {
       {/* Footer */}
       <footer id="contacts" className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Icon name="Building" size={24} className="text-primary" />
@@ -88,24 +86,6 @@ const Footer = () => {
                 <li><a href="#" className="hover:text-white transition-colors">Размещение товаров</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Верификация</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Тарифы</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Приложение</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <button onClick={() => navigate('/download')} className="hover:text-white transition-colors flex items-center gap-2">
-                    <Icon name="Smartphone" size={14} />
-                    Скачать для Android
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigate('/download')} className="hover:text-white transition-colors flex items-center gap-2">
-                    <Icon name="Download" size={14} />
-                    Инструкция установки
-                  </button>
-                </li>
               </ul>
             </div>
 
