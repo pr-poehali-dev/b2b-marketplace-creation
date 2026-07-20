@@ -5,7 +5,7 @@ import Icon from "@/components/ui/icon";
 
 import ProductBadges from "@/components/product/ProductBadges";
 import { useState } from 'react';
-import { useCart } from '@/contexts/CartContext';
+import { useFavorites } from '@/contexts/FavoritesContext';
 import { useToast } from '@/hooks/use-toast';
 
 export interface Product {
@@ -46,10 +46,11 @@ const ProductCard = ({
   onProductClick
 }: ProductCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const { addToCart } = useCart();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const { toast } = useToast();
+
+  const isLiked = isFavorite(product.id);
 
   const images = product.images && product.images.length > 0 ? product.images : [product.image];
 
@@ -63,18 +64,17 @@ const ProductCard = ({
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart(product);
-    toast({
-      title: "Товар добавлен в корзину",
-      description: product.name,
-    });
-  };
-
   const handleToggleLike = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
+    toggleFavorite({
+      id: product.id,
+      name: product.name,
+      image: images[0],
+      category: product.category,
+      seller: product.seller,
+      price: product.price,
+      unit: product.unit,
+    });
     toast({
       title: isLiked ? "Удалено из избранного" : "Добавлено в избранное",
       description: product.name,
@@ -255,17 +255,7 @@ const ProductCard = ({
                   size={14} 
                   className={`mr-1 ${isLiked ? 'text-red-500 fill-red-500' : ''}`}
                 />
-                Нравится
-              </Button>
-              <Button 
-                variant="outline"
-                size="sm"
-                className="flex-1 text-xs"
-                onClick={handleAddToCart}
-                disabled={!product.inStock}
-              >
-                <Icon name="ShoppingCart" size={14} className="mr-1" />
-                В корзину
+                {isLiked ? 'В избранном' : 'В избранное'}
               </Button>
             </div>
         </div>

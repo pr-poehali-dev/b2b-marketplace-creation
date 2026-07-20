@@ -1,8 +1,16 @@
 import React from 'react';
 import Header from '@/components/Header';
 import ProfileDashboard from '@/components/profile/ProfileDashboard';
+import ProfileCompany from './ProfileCompany';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Profile() {
+  const { user } = useAuth();
+
+  if (user?.user_type === 'supplier') {
+    return <ProfileCompany />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
