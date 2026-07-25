@@ -23,7 +23,7 @@ const PlaceRequest = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <PageLayout>
-        <div className="container mx-auto px-4 py-8 max-w-5xl">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
           {/* Заголовок */}
           <div className="mb-6">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-3">

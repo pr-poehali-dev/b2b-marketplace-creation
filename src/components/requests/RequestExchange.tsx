@@ -8,7 +8,7 @@ import { getRequestHeat } from '@/utils/requestHeat';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { BuyerRequest } from './RequestCard';
-import RequestPost from './RequestPost';
+import RequestCard from './RequestCard';
 import RespondModal from './RespondModal';
 
 const PLACE_REQUEST_URL = 'https://functions.poehali.dev/6b4d1a93-652c-4797-b909-9292cda5ab0f';
@@ -122,6 +122,12 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
 
   const hotCount = requests.filter((r) => getRequestHeat(r).level === 'hot').length;
 
+  const categoryCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    requests.forEach((r) => map.set(r.category, (map.get(r.category) || 0) + 1));
+    return map;
+  }, [requests]);
+
   return (
     <div className="space-y-5">
       {/* Живая статистика биржи */}
@@ -163,86 +169,113 @@ const RequestExchange = ({ refreshKey }: { refreshKey: number }) => {
         </Card>
       </div>
 
-      {/* Фильтры */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
-          <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <Input className="pl-9" placeholder="Поиск по заявкам..." value={search} onChange={(e) => setSearch(e.target.value)} />
-        </div>
-        <Select value={category} onValueChange={setCategory}>
-          <SelectTrigger className="sm:w-56"><SelectValue /></SelectTrigger>
-          <SelectContent className="max-h-72">
-            <SelectItem value="all">Все категории</SelectItem>
-            {categoriesData.map((c) => <SelectItem key={c.id} value={c.name}>{c.name}</SelectItem>)}
-          </SelectContent>
-        </Select>
-        <Select value={sort} onValueChange={(v) => setSort(v as 'hot' | 'new')}>
-          <SelectTrigger className="sm:w-44"><SelectValue /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="hot">Сначала горячие</SelectItem>
-            <SelectItem value="new">Сначала новые</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* Лента */}
-      {loading ? (
-        <div className="text-center py-16 text-gray-400">
-          <Icon name="Loader2" size={32} className="mx-auto animate-spin mb-2" />
-          Загружаем заявки...
-        </div>
-      ) : filtered.length === 0 ? (
-        <Card className="text-center py-16">
-          <CardContent>
-            <Icon name="Inbox" size={44} className="mx-auto text-gray-400 mb-3" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">Заявок пока нет</h3>
-            <p className="text-gray-600">Как только покупатели разместят заявки — они появятся здесь.</p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="max-w-2xl mx-auto">
-          {/* Живой заголовок ленты */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
-              Лента заявок в эфире
-            </div>
-            <span className="text-xs text-gray-400">{filtered.length} в ленте</span>
+      <div className="flex flex-col lg:flex-row gap-5 items-start">
+        {/* Сайдбар с категориями */}
+        <div className="w-full lg:w-64 flex-shrink-0 space-y-4 lg:sticky lg:top-20">
+          <div className="relative">
+            <Icon name="Search" size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Input className="pl-9" placeholder="Поиск по заявкам..." value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
 
-          {/* Плашка новых заявок */}
-          {pendingNew.length > 0 && (
-            <button
-              onClick={showPendingNew}
-              className="w-full flex items-center justify-center gap-2 mb-4 py-2.5 rounded-full bg-primary text-white text-sm font-medium shadow-sm hover:bg-primary/90 transition-colors animate-fade-in-up"
-            >
-              <Icon name="ArrowUp" size={16} />
-              Показать {pendingNew.length} {pendingNew.length === 1 ? 'новую заявку' : 'новых заявок'}
-            </button>
-          )}
+          <Select value={sort} onValueChange={(v) => setSort(v as 'hot' | 'new')}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="hot">Сначала горячие</SelectItem>
+              <SelectItem value="new">Сначала новые</SelectItem>
+            </SelectContent>
+          </Select>
 
-          <div className="space-y-4">
-            {filtered.map((r) => (
-              <div key={r.id} className="relative">
-                {newIds.has(r.id) && (
-                  <span className="absolute -top-2 left-4 z-10 bg-emerald-500 text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow">
-                    Новое
-                  </span>
-                )}
-                <RequestPost
-                  request={r}
-                  onRespond={setRespondTo}
-                  isAdmin={!!user?.is_admin}
-                  onDelete={handleDelete}
-                />
+          <Card>
+            <CardContent className="p-3">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-2 mb-1">Категории</p>
+              <div className="max-h-[60vh] overflow-y-auto space-y-0.5">
+                <button
+                  onClick={() => setCategory('all')}
+                  className={`w-full flex items-center justify-between px-2 py-2 rounded-lg text-sm text-left transition-colors ${
+                    category === 'all' ? 'bg-primary/10 text-primary font-medium' : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <span>Все категории</span>
+                  <span className="text-xs text-gray-400">{requests.length}</span>
+                </button>
+                {categoriesData.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => setCategory(c.name)}
+                    className={`w-full flex items-center justify-between px-2 py-2 rounded-lg text-sm text-left transition-colors ${
+                      category === c.name ? 'bg-primary/10 text-primary font-medium' : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    <span className="truncate">{c.name}</span>
+                    <span className="text-xs text-gray-400 flex-shrink-0 ml-2">{categoryCounts.get(c.name) || 0}</span>
+                  </button>
+                ))}
               </div>
-            ))}
-          </div>
+            </CardContent>
+          </Card>
         </div>
-      )}
+
+        {/* Список заявок */}
+        <div className="flex-1 min-w-0 w-full">
+          {loading ? (
+            <div className="text-center py-16 text-gray-400">
+              <Icon name="Loader2" size={32} className="mx-auto animate-spin mb-2" />
+              Загружаем заявки...
+            </div>
+          ) : filtered.length === 0 ? (
+            <Card className="text-center py-16">
+              <CardContent>
+                <Icon name="Inbox" size={44} className="mx-auto text-gray-400 mb-3" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Заявок пока нет</h3>
+                <p className="text-gray-600">Как только покупатели разместят заявки — они появятся здесь.</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <>
+              {/* Живой заголовок ленты */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                  </span>
+                  Заявки в эфире
+                </div>
+                <span className="text-xs text-gray-400">{filtered.length} найдено</span>
+              </div>
+
+              {/* Плашка новых заявок */}
+              {pendingNew.length > 0 && (
+                <button
+                  onClick={showPendingNew}
+                  className="w-full flex items-center justify-center gap-2 mb-4 py-2.5 rounded-full bg-primary text-white text-sm font-medium shadow-sm hover:bg-primary/90 transition-colors animate-fade-in-up"
+                >
+                  <Icon name="ArrowUp" size={16} />
+                  Показать {pendingNew.length} {pendingNew.length === 1 ? 'новую заявку' : 'новых заявок'}
+                </button>
+              )}
+
+              <div className="space-y-3">
+                {filtered.map((r) => (
+                  <div key={r.id} className="relative">
+                    {newIds.has(r.id) && (
+                      <span className="absolute -top-2 left-4 z-10 bg-emerald-500 text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow">
+                        Новое
+                      </span>
+                    )}
+                    <RequestCard
+                      request={r}
+                      onRespond={setRespondTo}
+                      isAdmin={!!user?.is_admin}
+                      onDelete={handleDelete}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
 
       {respondTo && (
         <RespondModal
