@@ -24,7 +24,7 @@ const Categories = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-64">
+      <div>
         <div className="container mx-auto px-6 py-8">
           <HeroSection 
             totalCategories={totalCategories} 

@@ -2,6 +2,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import UserProfile from './header/UserProfile';
 import SidebarNavigation from './header/SidebarNavigation';
+import MobileMenu from './header/MobileMenu';
+import Logo from '@/components/ui/logo';
 import Icon from '@/components/ui/icon';
 import TrialExpirationNotice from '@/components/notifications/TrialExpirationNotice';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,28 +13,14 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
-  const {
-    isMobile,
-    isMenuExpanded,
-    sidebarWidth,
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setIsHovered,
-    isPinned,
-    setIsPinned,
-  } = useLayout();
+  const { isMobile, isMenuOpen, setIsMenuOpen } = useLayout();
 
-  const [openSection, setOpenSection] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{ id: number; name: string; category: string; price: string }[]>([]);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
-
-  const toggleSection = (section: string) => {
-    setOpenSection(openSection === section ? null : section);
-  };
 
   const searchProducts = async (query: string) => {
     if (!query.trim()) {
@@ -71,23 +59,13 @@ const Header = () => {
     navigate(`/product/${productId}`);
   };
 
-  // Закрывать сайдбар при переходе по маршруту на мобильном
+  // Закрывать мобильное меню при переходе по маршруту
   useEffect(() => {
-    if (isMobile) setIsSidebarOpen(false);
+    if (isMobile) setIsMenuOpen(false);
   }, [location.pathname, isMobile]);
-
-  const headerMargin = isMobile ? 0 : sidebarWidth;
 
   return (
     <>
-      {/* Overlay для мобильного сайдбара */}
-      {isMobile && isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-[9998] animate-in fade-in duration-200"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
-
       {/* Overlay при открытом поиске */}
       {showSearchDropdown && (
         <div
@@ -97,23 +75,25 @@ const Header = () => {
       )}
 
       <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-        <div
-          className="transition-all duration-300"
-          style={{ marginLeft: headerMargin }}
-        >
-          <div className="container mx-auto px-4 py-4 max-w-none">
-            <div className="flex items-center justify-between">
+        <div>
+          <div className="container mx-auto px-4 py-3 max-w-none">
+            <div className="flex items-center justify-between gap-3">
 
               {/* Бургер-кнопка на мобильном */}
               {isMobile && (
                 <button
-                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  className="mr-3 p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
                   aria-label="Открыть меню"
                 >
-                  <Icon name={isSidebarOpen ? "X" : "Menu"} size={22} className="text-gray-600" />
+                  <Icon name={isMenuOpen ? "X" : "Menu"} size={22} className="text-gray-600" />
                 </button>
               )}
+
+              {/* Логотип */}
+              <div className="flex-shrink-0">
+                <Logo isCollapsed={isMobile} />
+              </div>
 
               {/* Поиск — только на главной */}
               {location.pathname === '/' ? (
@@ -199,30 +179,20 @@ const Header = () => {
           </div>
         </div>
 
-        <SidebarNavigation
-          isMenuExpanded={isMenuExpanded}
-          isMobile={isMobile}
-          openSection={openSection}
-          toggleSection={toggleSection}
-          isActive={isActive}
-          setIsHovered={setIsHovered}
-          isPinned={isPinned}
-          setIsPinned={setIsPinned}
-        />
+        {!isMobile && <SidebarNavigation isActive={isActive} />}
       </header>
+
+      {isMobile && (
+        <MobileMenu open={isMenuOpen} onOpenChange={setIsMenuOpen} isActive={isActive} />
+      )}
 
       {/* Уведомления о пробном периоде */}
       {user && user.user_type === 'supplier' && (
-        <div
-          className="transition-all duration-300"
-          style={{ marginLeft: headerMargin }}
-        >
-          <div className="container mx-auto px-4 pt-4 max-w-none">
-            <TrialExpirationNotice
-              onUpgrade={() => navigate('/pricing')}
-              onDismiss={() => {}}
-            />
-          </div>
+        <div className="container mx-auto px-4 pt-4 max-w-none">
+          <TrialExpirationNotice
+            onUpgrade={() => navigate('/pricing')}
+            onDismiss={() => {}}
+          />
         </div>
       )}
     </>

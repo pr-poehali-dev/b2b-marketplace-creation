@@ -100,7 +100,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="ml-0 lg:ml-64">
+      <div>
         <div className="container mx-auto px-4 sm:px-6 py-8 max-w-7xl">
           {/* Кнопка назад */}
           <Button 
