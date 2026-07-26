@@ -10,6 +10,7 @@ import CatalogGrid from "@/components/catalog/CatalogGrid";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
 import QuickViewModal from "@/components/catalog/QuickViewModal";
 import CategoriesGrid from "@/components/home/CategoriesGrid";
+import PopularProducts from "@/components/PopularProducts";
 import HeroSection from "@/components/HeroSection";
 import SupplierSection from "@/components/SupplierSection";
 import FeaturesSection from "@/components/FeaturesSection";
@@ -141,6 +142,10 @@ const Index = () => {
       <PageLayout>
         <CategoriesGrid />
 
+        <div className="container mx-auto px-4 sm:px-6 pt-6 max-w-7xl">
+          <PopularProducts limit={4} />
+        </div>
+
         {/* Витрина товаров сразу под шапкой */}
         <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
           <div className="flex items-center justify-between mb-4">
@@ -153,6 +158,35 @@ const Index = () => {
               <Icon name="ArrowRight" size={14} />
             </button>
           </div>
+
+          {/* Быстрые чипы категорий */}
+          {categories.length > 0 && (
+            <div className="flex items-center gap-2 mb-5 overflow-x-auto pb-1 scrollbar-hide">
+              <button
+                onClick={() => setCategoryFilter('all')}
+                className={`px-3.5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                  categoryFilter === 'all'
+                    ? 'bg-primary text-white shadow-sm'
+                    : 'bg-white border text-gray-700 hover:border-primary/40 hover:text-primary'
+                }`}
+              >
+                Все товары
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCategoryFilter(cat)}
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                    categoryFilter === cat
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'bg-white border text-gray-700 hover:border-primary/40 hover:text-primary'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-64 lg:w-72 flex-shrink-0">

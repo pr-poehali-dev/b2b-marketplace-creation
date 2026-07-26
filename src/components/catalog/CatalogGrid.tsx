@@ -9,8 +9,6 @@ interface CatalogGridProps {
   onSendInquiry: (product: Product) => void;
   onResetFilters: () => void;
   onQuickView?: (product: Product) => void;
-  onAddToCompare?: (product: Product) => void;
-  compareProducts?: number[];
   onProductClick?: (productId: number) => void;
 }
 
@@ -20,8 +18,6 @@ const CatalogGrid = ({
   onSendInquiry,
   onResetFilters,
   onQuickView,
-  onAddToCompare,
-  compareProducts = [],
   onProductClick
 }: CatalogGridProps) => {
   if (products.length === 0) {
@@ -49,16 +45,15 @@ const CatalogGrid = ({
       ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-4" 
       : "space-y-3"
     } style={viewMode === 'grid' ? { gridAutoRows: '1fr' } : {}}>
-      {products.map((product) => (
+      {products.map((product, index) => (
         <ProductCard
           key={product.id}
           product={product}
           viewMode={viewMode}
           onSendInquiry={onSendInquiry}
           onQuickView={onQuickView}
-          onAddToCompare={onAddToCompare}
-          isInCompare={compareProducts.includes(product.id)}
           onProductClick={onProductClick}
+          animationDelay={Math.min(index, 8) * 60}
         />
       ))}
     </div>

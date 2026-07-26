@@ -380,8 +380,6 @@ const Catalog = () => {
                     onSendInquiry={handleSendInquiry}
                     onResetFilters={resetFilters}
                     onQuickView={handleQuickView}
-                    onAddToCompare={handleAddToCompare}
-                    compareProducts={compareProducts.map(p => p.id)}
                     onProductClick={handleProductClick}
                   />
                 )}

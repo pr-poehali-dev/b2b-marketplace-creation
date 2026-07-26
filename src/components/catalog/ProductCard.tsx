@@ -37,13 +37,17 @@ interface ProductCardProps {
   viewMode: 'grid' | 'list';
   onSendInquiry: (product: Product) => void;
   onProductClick?: (productId: number) => void;
+  onQuickView?: (product: Product) => void;
+  animationDelay?: number;
 }
 
 const ProductCard = ({
   product,
   viewMode,
   onSendInquiry,
-  onProductClick
+  onProductClick,
+  onQuickView,
+  animationDelay = 0
 }: ProductCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -83,9 +87,10 @@ const ProductCard = ({
 
   return (
     <Card 
-      className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 cursor-pointer ${
+      className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 cursor-pointer animate-fade-in-up ${
         viewMode === 'list' ? 'flex flex-row h-48' : 'flex flex-col min-h-[600px]'
       }`}
+      style={{ animationDelay: `${animationDelay}ms`, animationFillMode: 'backwards' }}
       data-product-card
       onClick={() => onProductClick?.(product.id)}
     >
@@ -97,6 +102,20 @@ const ProductCard = ({
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
+
+        {/* Быстрый просмотр по наведению */}
+        {onQuickView && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onQuickView(product);
+            }}
+            className="absolute inset-x-3 bottom-3 bg-white/95 backdrop-blur-sm text-gray-800 text-xs font-medium py-2 rounded-lg shadow-md opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 flex items-center justify-center gap-1.5 hover:bg-white z-10"
+          >
+            <Icon name="Eye" size={14} />
+            Быстрый просмотр
+          </button>
+        )}
         
         {/* Кнопки листания фото */}
         {images.length > 1 && (
