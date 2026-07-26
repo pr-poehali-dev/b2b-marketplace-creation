@@ -1,4 +1,5 @@
 import Icon from "@/components/ui/icon";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 interface NavItem {
   href: string;
@@ -21,12 +22,17 @@ const navItems: NavItem[] = [
   { href: "/suppliers", icon: "Users", label: "Поставщики" },
   { href: "/news", icon: "Newspaper", label: "Новости", badge: "Новое", badgeColor: "bg-green-100 text-green-600" },
   { href: "/pricing", icon: "Crown", label: "Тарифы", badge: "Premium", badgeColor: "bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold", isPremium: true },
+];
+
+const moreItems: NavItem[] = [
   { href: "/contacts", icon: "Phone", label: "Контакты" },
   { href: "/help", icon: "HelpCircle", label: "Помощь" },
   { href: "/about", icon: "Info", label: "О компании" },
 ];
 
 const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
+  const isMoreActive = moreItems.some((item) => isActive(item.href));
+
   return (
     <nav className="border-t bg-white overflow-x-auto scrollbar-hide">
       <div className="flex items-center gap-1 px-4 py-1.5 min-w-max">
@@ -51,6 +57,32 @@ const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
             )}
           </a>
         ))}
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                isMoreActive
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
+              }`}
+            >
+              <Icon name="MoreHorizontal" size={15} />
+              <span>Ещё</span>
+              <Icon name="ChevronDown" size={13} />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-52">
+            {moreItems.map((item) => (
+              <DropdownMenuItem key={item.href} asChild className="cursor-pointer">
+                <a href={item.href} className="flex items-center gap-2">
+                  <Icon name={item.icon} size={16} />
+                  <span>{item.label}</span>
+                </a>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </nav>
   );

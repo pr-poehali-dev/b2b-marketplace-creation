@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import Icon from "@/components/ui/icon";
 import Logo from "@/components/ui/logo";
@@ -19,8 +20,11 @@ const navItems: NavItem[] = [
   { href: "/suppliers", icon: "Users", label: "Поставщики" },
   { href: "/news", icon: "Newspaper", label: "Новости", badge: "Новое", badgeColor: "bg-green-100 text-green-600" },
   { href: "/pricing", icon: "Crown", label: "Тарифы", badge: "Premium", badgeColor: "bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold", isPremium: true },
-  { href: "/contacts", icon: "Phone", label: "Контакты" },
   { href: "/settings", icon: "Settings", label: "Настройки" },
+];
+
+const moreItems: NavItem[] = [
+  { href: "/contacts", icon: "Phone", label: "Контакты" },
   { href: "/help", icon: "HelpCircle", label: "Помощь" },
   { href: "/about", icon: "Info", label: "О компании" },
 ];
@@ -32,6 +36,9 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
+  const isMoreActive = moreItems.some((item) => isActive(item.href));
+  const [isMoreOpen, setIsMoreOpen] = useState(isMoreActive);
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-72 p-0 flex flex-col">
@@ -61,6 +68,35 @@ const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
               )}
             </a>
           ))}
+
+          <button
+            onClick={() => setIsMoreOpen(!isMoreOpen)}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              isMoreActive ? 'bg-primary/10 text-primary' : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Icon name="MoreHorizontal" size={18} />
+            <span className="flex-1 text-left">Ещё</span>
+            <Icon name={isMoreOpen ? "ChevronUp" : "ChevronDown"} size={16} />
+          </button>
+
+          {isMoreOpen && (
+            <div className="pl-4 space-y-1">
+              {moreItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => onOpenChange(false)}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive(item.href) ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <Icon name={item.icon} size={16} />
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>
