@@ -16,12 +16,15 @@ interface SidebarNavigationProps {
 
 const navItems: NavItem[] = [
   { href: "/", icon: "Home", label: "Главная" },
-  { href: "/catalog", icon: "List", label: "Товары", badge: "2.5k", badgeColor: "bg-emerald-100 text-emerald-700" },
-  { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" },
   { href: "/place-request", icon: "Send", label: "Разместить заявку", badge: "Заявка", badgeColor: "bg-primary/10 text-primary border border-primary/20 font-semibold" },
   { href: "/suppliers", icon: "Users", label: "Поставщики" },
   { href: "/news", icon: "Newspaper", label: "Новости", badge: "Новое", badgeColor: "bg-green-100 text-green-600" },
   { href: "/pricing", icon: "Crown", label: "Тарифы", badge: "Premium", badgeColor: "bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold", isPremium: true },
+];
+
+const productsItems: NavItem[] = [
+  { href: "/catalog", icon: "List", label: "Все товары", badge: "2.5k", badgeColor: "bg-emerald-100 text-emerald-700" },
+  { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" },
 ];
 
 const moreItems: NavItem[] = [
@@ -32,11 +35,51 @@ const moreItems: NavItem[] = [
 
 const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
   const isMoreActive = moreItems.some((item) => isActive(item.href));
+  const isProductsActive = productsItems.some((item) => isActive(item.href));
 
   return (
     <nav className="border-t bg-white overflow-x-auto scrollbar-hide">
       <div className="flex items-center gap-1 px-4 py-1.5 min-w-max">
-        {navItems.map((item) => (
+        <a
+          href="/"
+          className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+            isActive('/')
+              ? 'bg-primary text-white shadow-sm'
+              : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
+          }`}
+        >
+          <Icon name="Home" size={15} />
+          <span>Главная</span>
+        </a>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                isProductsActive
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
+              }`}
+            >
+              <Icon name="List" size={15} />
+              <span>Товары</span>
+              <span className="text-[11px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap bg-emerald-100 text-emerald-700">2.5k</span>
+              <Icon name="ChevronDown" size={13} />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-52">
+            {productsItems.map((item) => (
+              <DropdownMenuItem key={item.href} asChild className="cursor-pointer">
+                <a href={item.href} className="flex items-center gap-2">
+                  <Icon name={item.icon} size={16} />
+                  <span>{item.label}</span>
+                </a>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {navItems.filter((item) => item.href !== '/').map((item) => (
           <a
             key={item.href}
             href={item.href}

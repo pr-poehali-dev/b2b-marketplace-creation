@@ -14,13 +14,16 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: "/", icon: "Home", label: "Главная" },
-  { href: "/catalog", icon: "List", label: "Товары", badge: "2.5k", badgeColor: "bg-emerald-100 text-emerald-700" },
-  { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" },
   { href: "/place-request", icon: "Send", label: "Разместить заявку", badge: "Заявка", badgeColor: "bg-primary/10 text-primary border border-primary/20 font-semibold" },
   { href: "/suppliers", icon: "Users", label: "Поставщики" },
   { href: "/news", icon: "Newspaper", label: "Новости", badge: "Новое", badgeColor: "bg-green-100 text-green-600" },
   { href: "/pricing", icon: "Crown", label: "Тарифы", badge: "Premium", badgeColor: "bg-gradient-to-r from-yellow-200 to-orange-200 text-orange-800 border border-orange-300 font-semibold", isPremium: true },
   { href: "/settings", icon: "Settings", label: "Настройки" },
+];
+
+const productsItems: NavItem[] = [
+  { href: "/catalog", icon: "List", label: "Все товары", badge: "2.5k", badgeColor: "bg-emerald-100 text-emerald-700" },
+  { href: "/catalog/categories", icon: "FolderOpen", label: "Категории" },
 ];
 
 const moreItems: NavItem[] = [
@@ -37,7 +40,9 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
   const isMoreActive = moreItems.some((item) => isActive(item.href));
+  const isProductsActive = productsItems.some((item) => isActive(item.href));
   const [isMoreOpen, setIsMoreOpen] = useState(isMoreActive);
+  const [isProductsOpen, setIsProductsOpen] = useState(isProductsActive);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -46,7 +51,48 @@ const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
           <Logo />
         </div>
         <div className="flex-1 overflow-y-auto py-2 px-2 space-y-1">
-          {navItems.map((item) => (
+          <a
+            href="/"
+            onClick={() => onOpenChange(false)}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              isActive('/') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Icon name="Home" size={18} />
+            <span className="flex-1">Главная</span>
+          </a>
+
+          <button
+            onClick={() => setIsProductsOpen(!isProductsOpen)}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              isProductsActive ? 'bg-primary/10 text-primary' : 'text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            <Icon name="List" size={18} />
+            <span className="flex-1 text-left">Товары</span>
+            <span className="text-[11px] px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap bg-emerald-100 text-emerald-700">2.5k</span>
+            <Icon name={isProductsOpen ? "ChevronUp" : "ChevronDown"} size={16} />
+          </button>
+
+          {isProductsOpen && (
+            <div className="pl-4 space-y-1">
+              {productsItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => onOpenChange(false)}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive(item.href) ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <Icon name={item.icon} size={16} />
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
+
+          {navItems.filter((item) => item.href !== '/').map((item) => (
             <a
               key={item.href}
               href={item.href}
