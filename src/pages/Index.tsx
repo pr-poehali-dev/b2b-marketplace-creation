@@ -19,6 +19,7 @@ import DeliverySection from "@/components/DeliverySection";
 import WelcomeModal from "@/components/WelcomeModal";
 import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
+import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
@@ -37,9 +38,11 @@ const Index = () => {
         const res = await fetch(`${PRODUCTS_URL}?limit=24`);
         const data = await res.json();
         const list: BackendProduct[] = data.products || [];
-        setProductsData(list.map(mapBackendProduct));
+        const mapped = list.map(mapBackendProduct);
+        // ТЕСТОВО: пока с сервера мало реальных товаров — дополняем витриной демо-товаров категорий
+        setProductsData(mapped.length > 0 ? [...mapped, ...categoryShowcaseProducts] : categoryShowcaseProducts);
       } catch {
-        setProductsData([]);
+        setProductsData(categoryShowcaseProducts);
       } finally {
         setProductsLoading(false);
       }

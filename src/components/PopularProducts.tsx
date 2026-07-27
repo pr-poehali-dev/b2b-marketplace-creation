@@ -6,6 +6,7 @@ import Icon from "@/components/ui/icon";
 import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { getTopProducts } from "@/utils/productClicks";
+import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
@@ -56,14 +57,17 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
         const res = await fetch(`${PRODUCTS_URL}?limit=50`);
         const data = await res.json();
         const list: BackendProduct[] = data.products || [];
-        const mapped = list.map(mapBackendProduct);
+        const mappedReal = list.map(mapBackendProduct);
+        // ТЕСТОВО: дополняем витриной демо-товаров категорий, пока с сервера мало реальных
+        const mapped = mappedReal.length > 0 ? [...mappedReal, ...categoryShowcaseProducts] : categoryShowcaseProducts;
         const cats = [...new Set(mapped.map(p => p.category))];
         setAllProducts(mapped);
         setCategories(cats);
         loadProducts(0, mapped, cats);
       } catch {
-        setAllProducts([]);
-        setCategories([]);
+        setAllProducts(categoryShowcaseProducts);
+        setCategories([...new Set(categoryShowcaseProducts.map(p => p.category))]);
+        loadProducts(0, categoryShowcaseProducts, [...new Set(categoryShowcaseProducts.map(p => p.category))]);
       } finally {
         setLoading(false);
       }
@@ -165,6 +169,13 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
                 {product.discount && (
                   <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                     -{product.discount}%
+                  </div>
+                )}
+                {!product.inStock && (
+                  <div className="absolute inset-0 bg-gray-900/55 flex items-center justify-center">
+                    <Badge variant="secondary" className="text-xs font-medium">
+                      Нет в наличии
+                    </Badge>
                   </div>
                 )}
               </div>

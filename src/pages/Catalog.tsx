@@ -13,6 +13,7 @@ import ProductComparison from "@/components/catalog/ProductComparison";
 import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
 import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
+import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
 import Icon from "@/components/ui/icon";
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
@@ -30,9 +31,11 @@ const Catalog = () => {
         const res = await fetch(`${PRODUCTS_URL}?limit=50`);
         const data = await res.json();
         const list: BackendProduct[] = data.products || [];
-        setProductsData(list.map(mapBackendProduct));
+        const mapped = list.map(mapBackendProduct);
+        // ТЕСТОВО: дополняем витриной демо-товаров категорий, пока с сервера мало реальных
+        setProductsData(mapped.length > 0 ? [...mapped, ...categoryShowcaseProducts] : categoryShowcaseProducts);
       } catch {
-        setProductsData([]);
+        setProductsData(categoryShowcaseProducts);
       } finally {
         setProductsLoading(false);
       }

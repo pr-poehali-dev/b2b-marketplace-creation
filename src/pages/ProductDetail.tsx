@@ -11,6 +11,7 @@ import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
+import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
@@ -32,6 +33,18 @@ const ProductDetail = () => {
     setProduct(null);
     setNotFound(false);
     setSelectedImage(0);
+
+    // ТЕСТОВО: демо-товары витрины категорий (id >= 900000) не хранятся в БД — берём из локальных данных
+    const demoProduct = categoryShowcaseProducts.find((p) => p.id === Number(id));
+    if (demoProduct) {
+      setProduct(demoProduct);
+      setRelatedProducts(
+        categoryShowcaseProducts
+          .filter((p) => p.category === demoProduct.category && p.id !== demoProduct.id)
+          .slice(0, 4)
+      );
+      return;
+    }
 
     (async () => {
       try {
