@@ -270,7 +270,6 @@ const Index = () => {
           </div>
         </div>
 
-        <HeroSection isModalOpen={isModalOpen} shouldRestart={shouldRestartSlideshow} />
         <SupplierSection />
         <FeaturesSection />
         <NewsSection />
