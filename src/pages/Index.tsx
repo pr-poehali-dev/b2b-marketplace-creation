@@ -146,9 +146,7 @@ const Index = () => {
           <PopularProducts limit={4} />
         </div>
 
-        {/* ВЫКЛЮЧЕНО ТЕСТОВО: витрина товаров с фильтрами на главной.
-            Чтобы вернуть — раскомментировать этот блок целиком. */}
-        {false && (
+        {/* Раздел товаров на главной: поиск → категории → товары с фильтрами */}
         <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Товары от поставщиков</h1>
@@ -161,7 +159,19 @@ const Index = () => {
             </button>
           </div>
 
-          {/* Быстрые чипы категорий */}
+          {/* Поисковик */}
+          <div className="relative mb-4">
+            <Icon name="Search" size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Поиск товаров, поставщиков, категорий..."
+              className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary text-base transition-colors"
+            />
+          </div>
+
+          {/* Категории */}
           {categories.length > 0 && (
             <div className="flex items-center gap-2 mb-5 overflow-x-auto pb-1 scrollbar-hide">
               <button
@@ -190,6 +200,7 @@ const Index = () => {
             </div>
           )}
 
+          {/* Товары с фильтрами */}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-64 lg:w-72 flex-shrink-0">
               <CatalogFilters
@@ -271,7 +282,6 @@ const Index = () => {
             </div>
           </div>
         </div>
-        )}
 
         <SupplierSection />
         <FeaturesSection />
