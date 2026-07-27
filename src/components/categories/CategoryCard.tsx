@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import DemoProductCard from "@/components/categories/DemoProductCard";
+import { getDemoProductsForCategory } from "@/data/categoryDemoProducts";
+import { CategoryType } from "@/data/categoriesData";
 
 interface CategoryCardProps {
   category: {
@@ -17,6 +20,9 @@ interface CategoryCardProps {
 }
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
+  // ТЕСТОВО: 4 демо-товара с фото/каруселью и статусом "Нет в наличии" под каждой категорией.
+  // Чтобы убрать — удалить этот блок и связанный JSX ниже (обёрнут в комментарий).
+  const demoProducts = getDemoProductsForCategory(category as CategoryType);
   return (
     <Card 
       className="group overflow-hidden border-0 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 ring-1 ring-gray-100 hover:ring-primary/20"
@@ -47,7 +53,14 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
         </div>
       </div>
 
-      <CardContent className="p-4 bg-gradient-to-br from-gray-50 to-white">
+      <CardContent className="p-4 bg-gradient-to-br from-gray-50 to-white space-y-4">
+        {/* ТЕСТОВО: демо-товары категории (4 шт, статус "Нет в наличии") */}
+        <div className="grid grid-cols-2 gap-3">
+          {demoProducts.map((product) => (
+            <DemoProductCard key={product.id} product={product} />
+          ))}
+        </div>
+
         <Button 
           className="w-full bg-gradient-to-r from-primary via-primary/90 to-emerald-600 hover:from-emerald-700 hover:to-primary shadow-md hover:shadow-lg transition-all"
           onClick={() => window.location.href = category.href}
