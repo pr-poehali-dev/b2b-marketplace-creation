@@ -146,7 +146,9 @@ const Index = () => {
           <PopularProducts limit={4} />
         </div>
 
-        {/* Витрина товаров сразу под шапкой */}
+        {/* ВЫКЛЮЧЕНО ТЕСТОВО: витрина товаров с фильтрами на главной.
+            Чтобы вернуть — раскомментировать этот блок целиком. */}
+        {false && (
         <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Товары от поставщиков</h1>
@@ -269,10 +271,12 @@ const Index = () => {
             </div>
           </div>
         </div>
+        )}
 
         <SupplierSection />
         <FeaturesSection />
-        <NewsSection />
+        {/* ВЫКЛЮЧЕНО ТЕСТОВО: блок новостей. Чтобы вернуть — убрать false && (...) ниже. */}
+        {false && <NewsSection />}
         <DeliverySection />
         <Footer />
       </PageLayout>
