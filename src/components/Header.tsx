@@ -191,6 +191,79 @@ const Header = () => {
         <MobileMenu open={isMenuOpen} onOpenChange={setIsMenuOpen} isActive={isActive} />
       )}
 
+      {/* ТЕСТОВО: поисковик товаров, добавлен под шапкой */}
+      <div className="container mx-auto px-4 pt-4 max-w-none">
+        <div className="relative max-w-2xl">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Icon name="Search" size={20} className="text-gray-400" />
+            </div>
+            <input
+              type="text"
+              placeholder="Найти товары, бренды, категории..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && searchQuery.trim()) {
+                  navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+                  setShowSearchDropdown(false);
+                }
+              }}
+              onFocus={() => searchQuery && setShowSearchDropdown(true)}
+              onBlur={() => setTimeout(() => setShowSearchDropdown(false), 300)}
+              className="block w-full pl-11 pr-4 py-2.5 border-2 border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:placeholder-gray-300 focus:ring-2 focus:ring-primary/50 focus:border-primary text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:border-gray-300"
+            />
+            {searchLoading && (
+              <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                <Icon name="Loader2" size={18} className="text-primary animate-spin" />
+              </div>
+            )}
+          </div>
+
+          {showSearchDropdown && searchResults.length > 0 && (
+            <div
+              onMouseDown={(e) => e.preventDefault()}
+              className="absolute left-0 right-0 top-full mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[100] max-h-96 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
+            >
+              {searchResults.map((product, index) => (
+                <button
+                  key={product.id}
+                  onClick={() => handleProductClick(product.id)}
+                  style={{ animationDelay: `${index * 30}ms` }}
+                  className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-primary/5 hover:to-transparent border-b border-gray-100/60 last:border-b-0 transition-all duration-200 group animate-in fade-in slide-in-from-left-1"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="font-semibold text-gray-900 text-base group-hover:text-primary transition-colors">{product.name}</div>
+                      <div className="text-sm text-gray-500 mt-1.5">{product.category}</div>
+                    </div>
+                    <div className="text-base font-bold text-primary ml-6">{product.price}</div>
+                  </div>
+                </button>
+              ))}
+              <button
+                onClick={() => {
+                  navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+                  setShowSearchDropdown(false);
+                }}
+                className="w-full px-5 py-4 text-center text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 font-semibold text-base border-t-2 border-gray-200/50 backdrop-blur-sm rounded-b-2xl transition-all duration-200"
+              >
+                Показать все результаты поиска
+              </button>
+            </div>
+          )}
+
+          {showSearchDropdown && searchResults.length === 0 && searchQuery && !searchLoading && (
+            <div
+              onMouseDown={(e) => e.preventDefault()}
+              className="absolute left-0 right-0 top-full mt-2 bg-white border-2 border-gray-200/80 rounded-2xl shadow-2xl z-[100] p-6 text-center text-gray-500 text-base animate-in fade-in slide-in-from-top-2 duration-200"
+            >
+              Товары не найдены
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Уведомления о пробном периоде */}
       {user && user.user_type === 'supplier' && (
         <div className="container mx-auto px-4 pt-4 max-w-none">
