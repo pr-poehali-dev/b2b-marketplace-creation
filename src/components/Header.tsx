@@ -193,7 +193,7 @@ const Header = () => {
 
       {/* ТЕСТОВО: поисковик товаров, добавлен под шапкой */}
       <div className="container mx-auto px-4 pt-4 max-w-none">
-        <div className="relative max-w-2xl">
+        <div className="relative w-full">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Icon name="Search" size={20} className="text-gray-400" />
