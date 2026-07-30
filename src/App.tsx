@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 const RouteScrollToTop = () => {
@@ -11,7 +11,6 @@ const RouteScrollToTop = () => {
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 };
-import Index from "./pages/Index";
 import Orders from "./pages/Orders";
 import PlaceRequest from "./pages/PlaceRequest";
 import Catalog from "./pages/Catalog";
@@ -63,7 +62,8 @@ const App = () => (
             <RouteScrollToTop />
             <ScrollToTop />
             <Routes>
-          <Route path="/" element={<Index />} />
+          {/* Главная страница объединена с разделом "Товары" — редиректим "/" на "/catalog" */}
+          <Route path="/" element={<Navigate to="/catalog" replace />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/place-request" element={<PlaceRequest />} />
           <Route path="/catalog" element={<Catalog />} />

@@ -13,7 +13,6 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { href: "/", icon: "Home", label: "Главная" },
   { href: "/place-request", icon: "Send", label: "Разместить заявку", badge: "Заявка", badgeColor: "bg-primary/10 text-primary border border-primary/20 font-semibold" },
   { href: "/suppliers", icon: "Users", label: "Поставщики" },
   { href: "/news", icon: "Newspaper", label: "Новости", badge: "Новое", badgeColor: "bg-green-100 text-green-600" },
@@ -40,7 +39,8 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
   const isMoreActive = moreItems.some((item) => isActive(item.href));
-  const isProductsActive = productsItems.some((item) => isActive(item.href));
+  // "/" теперь редиректит на "/catalog" — считаем пункт "Товары" активным и на главном пути тоже
+  const isProductsActive = productsItems.some((item) => isActive(item.href)) || isActive('/');
   const [isMoreOpen, setIsMoreOpen] = useState(isMoreActive);
   const [isProductsOpen, setIsProductsOpen] = useState(isProductsActive);
 
@@ -51,17 +51,6 @@ const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
           <Logo />
         </div>
         <div className="flex-1 overflow-y-auto py-2 px-2 space-y-1">
-          <a
-            href="/"
-            onClick={() => onOpenChange(false)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-              isActive('/') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            <Icon name="Home" size={18} />
-            <span className="flex-1">Главная</span>
-          </a>
-
           <button
             onClick={() => setIsProductsOpen(!isProductsOpen)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
@@ -92,7 +81,7 @@ const MobileMenu = ({ open, onOpenChange, isActive }: MobileMenuProps) => {
             </div>
           )}
 
-          {navItems.filter((item) => item.href !== '/').map((item) => (
+          {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}

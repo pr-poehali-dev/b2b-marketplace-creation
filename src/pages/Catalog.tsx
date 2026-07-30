@@ -15,11 +15,27 @@ import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
 import Icon from "@/components/ui/icon";
+// Перенесено с бывшей главной страницы ("/") — теперь всё содержимое живёт в разделе "Товары"
+import CategoriesGrid from "@/components/home/CategoriesGrid";
+import PopularProducts from "@/components/PopularProducts";
+import SupplierSection from "@/components/SupplierSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import DeliverySection from "@/components/DeliverySection";
+import WelcomeModal from "@/components/WelcomeModal";
 
 const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 const Catalog = () => {
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shouldRestartSlideshow, setShouldRestartSlideshow] = useState(false);
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setShouldRestartSlideshow(true);
+    setTimeout(() => setShouldRestartSlideshow(false), 100);
+  };
 
   const [productsData, setProductsData] = useState<Product[]>([]);
   const [productsLoading, setProductsLoading] = useState(true);
@@ -302,8 +318,15 @@ const Catalog = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+      <WelcomeModal onOpen={handleModalOpen} onClose={handleModalClose} />
+
       <PageLayout>
+        {/* Перенесено с бывшей главной страницы */}
+        <CategoriesGrid />
+        <div className="container mx-auto px-4 sm:px-6 pt-6 max-w-7xl">
+          <PopularProducts limit={4} />
+        </div>
+
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <CatalogHero />
 
@@ -390,7 +413,12 @@ const Catalog = () => {
             </div>
           </div>
         </div>
-        
+
+        {/* Перенесено с бывшей главной страницы */}
+        <SupplierSection />
+        <FeaturesSection />
+        <DeliverySection />
+
         <Footer />
       </PageLayout>
 

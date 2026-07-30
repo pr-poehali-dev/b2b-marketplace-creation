@@ -15,7 +15,6 @@ interface SidebarNavigationProps {
 }
 
 const navItems: NavItem[] = [
-  { href: "/", icon: "Home", label: "Главная" },
   { href: "/place-request", icon: "Send", label: "Разместить заявку", badge: "Заявка", badgeColor: "bg-primary/10 text-primary border border-primary/20 font-semibold" },
   { href: "/suppliers", icon: "Users", label: "Поставщики" },
   { href: "/news", icon: "Newspaper", label: "Новости", badge: "Новое", badgeColor: "bg-green-100 text-green-600" },
@@ -35,23 +34,12 @@ const moreItems: NavItem[] = [
 
 const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
   const isMoreActive = moreItems.some((item) => isActive(item.href));
-  const isProductsActive = productsItems.some((item) => isActive(item.href));
+  // "/" теперь редиректит на "/catalog" — считаем пункт "Товары" активным и на главном пути тоже
+  const isProductsActive = productsItems.some((item) => isActive(item.href)) || isActive('/');
 
   return (
     <nav className="border-t bg-white overflow-x-auto scrollbar-hide">
       <div className="flex items-center gap-1 px-4 py-1.5 min-w-max">
-        <a
-          href="/"
-          className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-            isActive('/')
-              ? 'bg-primary text-white shadow-sm'
-              : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
-          }`}
-        >
-          <Icon name="Home" size={15} />
-          <span>Главная</span>
-        </a>
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
@@ -79,7 +67,7 @@ const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {navItems.filter((item) => item.href !== '/').map((item) => (
+        {navItems.map((item) => (
           <a
             key={item.href}
             href={item.href}
