@@ -95,6 +95,13 @@ const Header = () => {
                 <Logo isCollapsed={isMobile} />
               </div>
 
+              {/* ТЕСТОВО: навигация перенесена между логотипом и избранным */}
+              {!isMobile && (
+                <div className="flex-shrink-0">
+                  <SidebarNavigation isActive={isActive} />
+                </div>
+              )}
+
               {/* Поиск — только на главной */}
               {location.pathname === '/' ? (
                 <div className="flex-1 mx-4 lg:mx-6 hidden md:block relative">
@@ -178,8 +185,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-
-        {!isMobile && <SidebarNavigation isActive={isActive} />}
       </header>
 
       {isMobile && (
