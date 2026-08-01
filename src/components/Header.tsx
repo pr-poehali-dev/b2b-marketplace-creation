@@ -174,7 +174,7 @@ const Header = () => {
                   )}
                 </div>
               ) : (
-                <div className="flex-1" />
+                isMobile && <div className="flex-1" />
               )}
 
               <UserProfile

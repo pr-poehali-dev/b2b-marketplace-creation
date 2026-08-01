@@ -39,11 +39,11 @@ const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
 
   return (
     <nav className="bg-white w-full">
-      <div className="flex items-center flex-wrap gap-1 py-1.5">
+      <div className="flex items-center flex-wrap gap-1 py-1.5 w-full">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
-              className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+              className={`group flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-1 ${
                 isProductsActive
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
@@ -71,7 +71,7 @@ const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
           <a
             key={item.href}
             href={item.href}
-            className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+            className={`group flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-1 ${
               item.isPremium
                 ? 'bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 border border-orange-200 text-orange-800 hover:from-yellow-200 hover:to-orange-200'
                 : isActive(item.href)
@@ -92,7 +92,7 @@ const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
-              className={`group flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+              className={`group flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-1 ${
                 isMoreActive
                   ? 'bg-primary text-white shadow-sm'
                   : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
