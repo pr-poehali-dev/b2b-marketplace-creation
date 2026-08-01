@@ -97,7 +97,7 @@ const Header = () => {
 
               {/* ТЕСТОВО: навигация перенесена между логотипом и избранным */}
               {!isMobile && (
-                <div className="flex-shrink-0">
+                <div className="flex-1 min-w-0">
                   <SidebarNavigation isActive={isActive} />
                 </div>
               )}

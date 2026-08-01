@@ -38,8 +38,8 @@ const SidebarNavigation = ({ isActive }: SidebarNavigationProps) => {
   const isProductsActive = productsItems.some((item) => isActive(item.href)) || isActive('/');
 
   return (
-    <nav className="border-t bg-white overflow-x-auto scrollbar-hide">
-      <div className="flex items-center gap-1 px-4 py-1.5 min-w-max">
+    <nav className="bg-white w-full">
+      <div className="flex items-center flex-wrap gap-1 py-1.5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
