@@ -8,8 +8,7 @@ import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+import { PRODUCTS_URL, fetchCategories as fetchCategoriesApi, invalidateProductsCache } from '@/lib/productsApi';
 
 interface Product {
   id: number;
@@ -63,9 +62,8 @@ const SupplierProductsPage: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${PRODUCTS_URL}?action=categories`);
-      const data = await response.json();
-      setCategories(data.categories || []);
+      const cats = await fetchCategoriesApi();
+      setCategories(cats);
     } catch (err) {
       console.error('Failed to fetch categories:', err);
     }
@@ -131,6 +129,7 @@ const SupplierProductsPage: React.FC = () => {
         return;
       }
       setProducts((prev) => prev.filter((p) => p.id !== productId));
+      invalidateProductsCache();
       toast({ title: 'Товар удалён' });
     } catch {
       toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });

@@ -14,6 +14,7 @@ import CompareFloatingButton from "@/components/catalog/CompareFloatingButton";
 import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
+import { fetchProductsList } from "@/lib/productsApi";
 import Icon from "@/components/ui/icon";
 // Перенесено с бывшей главной страницы ("/") — теперь всё содержимое живёт в разделе "Товары"
 import CategoriesGrid from "@/components/home/CategoriesGrid";
@@ -22,8 +23,6 @@ import SupplierSection from "@/components/SupplierSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import DeliverySection from "@/components/DeliverySection";
 import WelcomeModal from "@/components/WelcomeModal";
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
 
 const Catalog = () => {
   const navigate = useNavigate();
@@ -44,8 +43,7 @@ const Catalog = () => {
     (async () => {
       setProductsLoading(true);
       try {
-        const res = await fetch(`${PRODUCTS_URL}?limit=50`);
-        const data = await res.json();
+        const data = await fetchProductsList({ limit: 50 });
         const list: BackendProduct[] = data.products || [];
         const mapped = list.map(mapBackendProduct);
         // ТЕСТОВО: дополняем витриной демо-товаров категорий, пока с сервера мало реальных

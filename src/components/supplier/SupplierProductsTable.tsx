@@ -13,8 +13,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+import { PRODUCTS_URL, invalidateProductsCache } from '@/lib/productsApi';
 
 interface Product {
   id: number;
@@ -68,6 +67,7 @@ const SupplierProductsTable = () => {
         return;
       }
       setProducts((prev) => prev.filter((p) => p.id !== id));
+      invalidateProductsCache();
       toast({ title: 'Товар удалён' });
     } catch {
       toast({ title: 'Ошибка подключения к серверу', variant: 'destructive' });

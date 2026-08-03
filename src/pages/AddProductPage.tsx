@@ -11,8 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
 import CategoryCombobox from '@/components/product/CategoryCombobox';
 import { useAuth } from '@/contexts/AuthContext';
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+import { PRODUCTS_URL, fetchCategories as fetchCategoriesApi, invalidateProductsCache } from '@/lib/productsApi';
 
 interface Category {
   id: number;
@@ -85,9 +84,8 @@ const AddProductPage: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${PRODUCTS_URL}?action=categories`);
-      const data = await response.json();
-      setCategories(data.categories || []);
+      const cats = await fetchCategoriesApi();
+      setCategories(cats);
     } catch (err) {
       console.error('Failed to fetch categories:', err);
     }
@@ -209,6 +207,7 @@ const AddProductPage: React.FC = () => {
       }
 
       const result = await response.json();
+      invalidateProductsCache();
       
       // Navigate to product edit page or products list
       navigate(`/supplier/products/${result.id}/edit`, {

@@ -6,6 +6,7 @@ import Icon from '@/components/ui/icon';
 import ProductBadges from './ProductBadges';
 import ProductQuickView from './ProductQuickView';
 import { useFavorites } from '@/contexts/FavoritesContext';
+import { fetchProductsList } from '@/lib/productsApi';
 
 interface Product {
   id: number;
@@ -54,22 +55,13 @@ export default function RecommendedProducts({
   const fetchRecommendedProducts = async () => {
     try {
       setLoading(true);
-      
+
       // Получаем рекомендованные товары
-      const url = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
-      const params = new URLSearchParams({
-        limit: (limit * 2).toString() // Загружаем больше для фильтрации
-      });
+      const params: Record<string, string | number> = { limit: limit * 2 };
+      if (categoryId) params.category_id = categoryId;
 
-      if (categoryId) {
-        params.append('category_id', categoryId.toString());
-      }
-
-      const response = await fetch(`${url}?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch products');
-
-      const data = await response.json();
-      let filteredProducts = data.products || [];
+      const data = await fetchProductsList(params);
+      let filteredProducts = (data.products || []) as unknown as Product[];
 
       // Исключаем текущий товар
       if (currentProductId) {

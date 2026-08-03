@@ -11,8 +11,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import ProductImageUploader from '@/components/product/ProductImageUploader';
 import CategoryCombobox from '@/components/product/CategoryCombobox';
 import { useAuth } from '@/contexts/AuthContext';
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+import { PRODUCTS_URL, fetchCategories as fetchCategoriesApi, fetchProductById, invalidateProductsCache } from '@/lib/productsApi';
 
 interface Category {
   id: number;
@@ -149,9 +148,8 @@ const EditProductPage: React.FC = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${PRODUCTS_URL}?action=categories`);
-      const data = await response.json();
-      setCategories(data.categories || []);
+      const cats = await fetchCategoriesApi();
+      setCategories(cats);
     } catch (err) {
       console.error('Failed to fetch categories:', err);
     }
@@ -164,16 +162,7 @@ const EditProductPage: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${PRODUCTS_URL}?id=${id}`);
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('Товар не найден');
-        }
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const productData: Product = await response.json();
+      const productData = await fetchProductById(id) as unknown as Product;
       setProduct(productData);
       
       // Populate form with product data
@@ -334,6 +323,7 @@ const EditProductPage: React.FC = () => {
       const result = await response.json();
       setProduct(result);
       setSuccessMessage('Товар успешно обновлен!');
+      invalidateProductsCache();
       
       // Scroll to top to show success message
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -397,6 +387,7 @@ const EditProductPage: React.FC = () => {
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
 
+      invalidateProductsCache();
       navigate('/supplier/products', {
         state: { message: 'Товар успешно архивирован' }
       });

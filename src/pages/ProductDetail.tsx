@@ -12,8 +12,7 @@ import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { useFavorites } from "@/contexts/FavoritesContext";
 import ProductInquiryModal from "@/components/ProductInquiryModal";
 import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+import { fetchProductById, fetchProductsList } from "@/lib/productsApi";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,17 +47,11 @@ const ProductDetail = () => {
 
     (async () => {
       try {
-        const res = await fetch(`${PRODUCTS_URL}?id=${id}`);
-        if (!res.ok) {
-          setNotFound(true);
-          return;
-        }
-        const bp: BackendProduct = await res.json();
+        const bp = await fetchProductById(id);
         const mapped = mapBackendProduct(bp);
         setProduct(mapped);
 
-        const relatedRes = await fetch(`${PRODUCTS_URL}?limit=20&category_id=${bp.category_id}`);
-        const relatedData = await relatedRes.json();
+        const relatedData = await fetchProductsList({ limit: 20, category_id: bp.category_id });
         const related: BackendProduct[] = relatedData.products || [];
         setRelatedProducts(
           related.filter((p) => p.id !== bp.id).slice(0, 4).map(mapBackendProduct)

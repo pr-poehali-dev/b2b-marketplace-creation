@@ -7,8 +7,7 @@ import { Product } from "@/components/catalog/ProductCard";
 import { mapBackendProduct, BackendProduct } from "@/utils/mapBackendProduct";
 import { getTopProducts } from "@/utils/productClicks";
 import { categoryShowcaseProducts } from "@/data/categoryShowcaseProducts";
-
-const PRODUCTS_URL = 'https://functions.poehali.dev/65a30f37-03fa-4e12-ad16-d14f83cd61b4';
+import { fetchProductsList } from "@/lib/productsApi";
 
 interface PopularProductsProps {
   limit?: number;
@@ -54,8 +53,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
     (async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${PRODUCTS_URL}?limit=50`);
-        const data = await res.json();
+        const data = await fetchProductsList({ limit: 50 });
         const list: BackendProduct[] = data.products || [];
         const mappedReal = list.map(mapBackendProduct);
         // ТЕСТОВО: дополняем витриной демо-товаров категорий, пока с сервера мало реальных
