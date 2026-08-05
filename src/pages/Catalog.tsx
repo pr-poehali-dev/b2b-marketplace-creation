@@ -377,7 +377,7 @@ const Catalog = () => {
               
               <div className="mt-4">
                 {productsLoading ? (
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {[...Array(8)].map((_, i) => (
                       <div key={i} className="animate-pulse rounded-xl border-0 shadow-md overflow-hidden">
                         <div className="aspect-video bg-gray-200" />
