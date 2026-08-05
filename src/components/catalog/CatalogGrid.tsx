@@ -42,7 +42,7 @@ const CatalogGrid = ({
 
   return (
     <div className={viewMode === 'grid' 
-      ? "grid sm:grid-cols-2 xl:grid-cols-3 gap-4" 
+      ? "grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" 
       : "space-y-3"
     } style={viewMode === 'grid' ? { gridAutoRows: '1fr' } : {}}>
       {products.map((product, index) => (
