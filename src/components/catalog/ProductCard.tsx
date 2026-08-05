@@ -6,6 +6,7 @@ import Icon from "@/components/ui/icon";
 import ProductBadges from "@/components/product/ProductBadges";
 import { useState } from 'react';
 import { useFavorites } from '@/contexts/FavoritesContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
 export interface Product {
@@ -52,6 +53,7 @@ const ProductCard = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   const isLiked = isFavorite(product.id);
@@ -262,21 +264,23 @@ const ProductCard = ({
             </Button>
             
             {/* Дополнительные действия */}
-            <div className="flex gap-2">
-              <Button 
-                variant="outline"
-                size="sm"
-                className="flex-1 text-xs"
-                onClick={handleToggleLike}
-              >
-                <Icon 
-                  name="Heart" 
-                  size={14} 
-                  className={`mr-1 ${isLiked ? 'text-red-500 fill-red-500' : ''}`}
-                />
-                {isLiked ? 'В избранном' : 'В избранное'}
-              </Button>
-            </div>
+            {isAuthenticated && (
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  className="flex-1 text-xs"
+                  onClick={handleToggleLike}
+                >
+                  <Icon 
+                    name="Heart" 
+                    size={14} 
+                    className={`mr-1 ${isLiked ? 'text-red-500 fill-red-500' : ''}`}
+                  />
+                  {isLiked ? 'В избранном' : 'В избранное'}
+                </Button>
+              </div>
+            )}
         </div>
       </CardContent>
     </Card>
