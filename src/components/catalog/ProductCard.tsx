@@ -247,8 +247,8 @@ const ProductCard = ({
 
         </div>
         
-        {/* Кнопки действий - всегда внизу */}
-        <div className="space-y-2 pt-2 mt-auto">
+        {/* Кнопки действий */}
+        <div className="space-y-2 pt-2">
             <Button 
               className="w-full bg-[#0d5e3c] hover:bg-[#0a4a2f] text-white font-medium py-2 px-3 text-sm h-9"
               onClick={(e) => {
