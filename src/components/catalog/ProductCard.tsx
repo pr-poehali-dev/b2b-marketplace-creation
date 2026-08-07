@@ -90,7 +90,7 @@ const ProductCard = ({
   return (
     <Card 
       className={`group overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:-translate-y-1 cursor-pointer animate-fade-in-up ${
-        viewMode === 'list' ? 'flex flex-row h-48' : 'flex flex-col min-h-[600px]'
+        viewMode === 'list' ? 'flex flex-row h-48' : 'flex flex-col'
       }`}
       style={{ animationDelay: `${animationDelay}ms`, animationFillMode: 'backwards' }}
       data-product-card
@@ -182,36 +182,30 @@ const ProductCard = ({
 
       </div>
       
-      <CardContent className={`p-5 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-between' : ''}`}>
+      <CardContent className={`p-5 flex flex-col ${viewMode === 'list' ? 'flex-1 justify-between' : ''}`}>
         <div className="space-y-3">
           {/* Название товара */}
-          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#0d5e3c] transition-colors">
+          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#0d5e3c] transition-colors line-clamp-2 min-h-[3.5rem]">
             {product.name}
           </h3>
           
           {/* Продавец */}
-          <div className="space-y-1">
+          <div className="space-y-1 min-h-[4.5rem]">
             <div className="flex items-center gap-2">
               <Icon name="Store" size={14} className="text-gray-400" />
               <span className="text-sm text-gray-600">{product.seller}</span>
             </div>
-            {product.verified && (
-              <div className="flex items-center gap-1 ml-6">
-                <Badge variant="outline" className="text-xs h-5 border-green-200 text-green-700 px-1.5 py-0.5">
-                  <Icon name="CheckCircle" size={8} className="mr-0.5" />
-                  <span className="text-[10px] font-medium">Верифицирован</span>
-                </Badge>
-              </div>
-            )}
-            {product.region && (
-              <div className="flex items-center gap-2 ml-6">
-                <Icon name="Truck" size={14} className="text-gray-400" />
-                <span className="text-sm text-gray-600">Доставка из г. {product.region}</span>
-              </div>
-            )}
+            <div className={`flex items-center gap-1 ml-6 h-5 ${product.verified ? '' : 'invisible'}`}>
+              <Badge variant="outline" className="text-xs h-5 border-green-200 text-green-700 px-1.5 py-0.5">
+                <Icon name="CheckCircle" size={8} className="mr-0.5" />
+                <span className="text-[10px] font-medium">Верифицирован</span>
+              </Badge>
+            </div>
+            <div className={`flex items-center gap-2 ml-6 h-5 ${product.region ? '' : 'invisible'}`}>
+              <Icon name="Truck" size={14} className="text-gray-400" />
+              <span className="text-sm text-gray-600">Доставка из г. {product.region}</span>
+            </div>
           </div>
-
-
 
           {/* Описание (только в режиме списка) */}
           {viewMode === 'list' && (
@@ -244,7 +238,6 @@ const ProductCard = ({
               </div>
             </div>
           </div>
-
         </div>
         
         {/* Кнопки действий */}
