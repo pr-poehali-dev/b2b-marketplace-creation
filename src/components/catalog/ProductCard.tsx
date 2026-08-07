@@ -183,7 +183,7 @@ const ProductCard = ({
       </div>
       
       <CardContent className={`p-5 flex-1 flex flex-col ${viewMode === 'list' ? 'justify-between' : ''}`}>
-        <div className="space-y-3 flex-1">
+        <div className="space-y-3">
           {/* Название товара */}
           <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#0d5e3c] transition-colors">
             {product.name}
