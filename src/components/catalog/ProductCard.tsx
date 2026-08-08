@@ -70,6 +70,22 @@ const ProductCard = ({
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const handleImageHoverMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (images.length <= 1) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    const segmentWidth = rect.width / images.length;
+    const index = Math.min(
+      images.length - 1,
+      Math.max(0, Math.floor(relativeX / segmentWidth))
+    );
+    setCurrentImageIndex(index);
+  };
+
+  const handleImageHoverLeave = () => {
+    setCurrentImageIndex(0);
+  };
+
   const handleToggleLike = (e: React.MouseEvent) => {
     e.stopPropagation();
     toggleFavorite({
@@ -96,14 +112,32 @@ const ProductCard = ({
       data-product-card
       onClick={() => onProductClick?.(product.id)}
     >
-      <div className={`relative overflow-hidden ${
-        viewMode === 'list' ? 'w-64 h-48' : 'aspect-video'
-      }`}>
+      <div 
+        className={`relative overflow-hidden ${
+          viewMode === 'list' ? 'w-64 h-48' : 'aspect-video'
+        }`}
+        onMouseMove={handleImageHoverMove}
+        onMouseLeave={handleImageHoverLeave}
+      >
         <img 
           src={images[currentImageIndex]} 
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
+
+        {/* Полосы-индикаторы для листания по наведению */}
+        {images.length > 1 && (
+          <div className="absolute top-2 left-2 right-2 flex gap-1 z-10">
+            {images.map((_, index) => (
+              <div
+                key={index}
+                className={`h-1 flex-1 rounded-full transition-colors ${
+                  index === currentImageIndex ? 'bg-white' : 'bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Быстрый просмотр по наведению */}
         {onQuickView && (
@@ -119,7 +153,7 @@ const ProductCard = ({
           </button>
         )}
         
-        {/* Кнопки листания фото */}
+        {/* Кнопки листания фото (для тач-устройств) */}
         {images.length > 1 && (
           <>
             <Button
@@ -138,24 +172,6 @@ const ProductCard = ({
             >
               <Icon name="ChevronRight" size={18} className="text-gray-700" />
             </Button>
-            
-            {/* Индикаторы */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-1.5 h-1.5 rounded-full transition-all ${
-                    index === currentImageIndex 
-                      ? 'bg-white w-4' 
-                      : 'bg-white/60 hover:bg-white/80'
-                  }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentImageIndex(index);
-                  }}
-                />
-              ))}
-            </div>
           </>
         )}
         
