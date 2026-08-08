@@ -178,6 +178,36 @@ const ProductDetail = () => {
                     </Badge>
                   </div>
                 )}
+
+                {/* Стрелки листания фото */}
+                {productImages.length > 1 && (
+                  <>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-md"
+                      onClick={() =>
+                        setSelectedImage((prev) =>
+                          prev === 0 ? productImages.length - 1 : prev - 1
+                        )
+                      }
+                    >
+                      <Icon name="ChevronLeft" size={20} className="text-gray-700" />
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-md"
+                      onClick={() =>
+                        setSelectedImage((prev) =>
+                          prev === productImages.length - 1 ? 0 : prev + 1
+                        )
+                      }
+                    >
+                      <Icon name="ChevronRight" size={20} className="text-gray-700" />
+                    </Button>
+                  </>
+                )}
               </div>
 
               {/* Миниатюры */}
