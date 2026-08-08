@@ -104,7 +104,7 @@ const ProductCard = ({
     >
       <div 
         className={`relative overflow-hidden ${
-          viewMode === 'list' ? 'w-64 h-48' : 'aspect-video'
+          viewMode === 'list' ? 'w-64 h-48' : 'aspect-[4/3]'
         }`}
         onMouseMove={handleImageHoverMove}
         onMouseLeave={handleImageHoverLeave}
@@ -167,15 +167,15 @@ const ProductCard = ({
 
       </div>
       
-      <CardContent className={`p-5 flex flex-col ${viewMode === 'list' ? 'flex-1 justify-between' : ''}`}>
-        <div className="space-y-3">
+      <CardContent className={`p-3 flex flex-col ${viewMode === 'list' ? 'flex-1 justify-between' : ''}`}>
+        <div className="space-y-1.5">
           {/* Название товара */}
-          <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#0d5e3c] transition-colors line-clamp-2 min-h-[3.5rem]">
+          <h3 className="font-semibold text-base text-gray-900 group-hover:text-[#0d5e3c] transition-colors line-clamp-2 min-h-[2.5rem]">
             {product.name}
           </h3>
           
           {/* Продавец */}
-          <div className="space-y-1 min-h-[4.5rem]">
+          <div className="space-y-0.5 min-h-[3.5rem]">
             <div className="flex items-center gap-2">
               <Icon name="Store" size={14} className="text-gray-400" />
               <span className="text-sm text-gray-600">{product.seller}</span>
@@ -197,9 +197,9 @@ const ProductCard = ({
             <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
           )}
 
-          <div className="border-t pt-3">
+          <div className="border-t pt-1.5">
             {/* Цена */}
-            <div className="flex items-baseline gap-2 mb-3">
+            <div className="flex items-baseline gap-2 mb-1.5">
               <span className="text-2xl font-bold text-[#0d5e3c]">
                 {product.price.toLocaleString('ru-RU')} ₽
               </span>
@@ -212,7 +212,7 @@ const ProductCard = ({
             </div>
             
             {/* Информация о заказе */}
-            <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
+            <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-1.5">
               <div className="flex items-center gap-1">
                 <Icon name="Package" size={12} className="text-gray-400" />
                 <span>Мин: {product.minOrder}</span>
@@ -226,7 +226,7 @@ const ProductCard = ({
         </div>
         
         {/* Кнопки действий */}
-        <div className="space-y-2 pt-2">
+        <div className="space-y-1.5 pt-1.5">
             <Button 
               className="w-full bg-[#0d5e3c] hover:bg-[#0a4a2f] text-white font-medium py-2 px-3 text-sm h-9"
               onClick={(e) => {
