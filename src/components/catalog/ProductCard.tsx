@@ -60,16 +60,6 @@ const ProductCard = ({
 
   const images = product.images && product.images.length > 0 ? product.images : [product.image];
 
-  const handlePrevImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
   const handleImageHoverMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (images.length <= 1) return;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -153,27 +143,6 @@ const ProductCard = ({
           </button>
         )}
         
-        {/* Кнопки листания фото (для тач-устройств) */}
-        {images.length > 1 && (
-          <>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-              onClick={handlePrevImage}
-            >
-              <Icon name="ChevronLeft" size={18} className="text-gray-700" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
-              onClick={handleNextImage}
-            >
-              <Icon name="ChevronRight" size={18} className="text-gray-700" />
-            </Button>
-          </>
-        )}
         
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
