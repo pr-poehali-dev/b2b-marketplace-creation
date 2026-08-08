@@ -322,7 +322,7 @@ const Catalog = () => {
         {/* Перенесено с бывшей главной страницы */}
         <CategoriesGrid />
         <div className="container mx-auto px-4 sm:px-6 pt-6 max-w-7xl">
-          <PopularProducts limit={4} />
+          <PopularProducts limit={6} />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 py-4">

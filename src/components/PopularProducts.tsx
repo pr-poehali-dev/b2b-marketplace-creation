@@ -130,8 +130,8 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
       </CardHeader>
       <CardContent>
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {[...Array(6)].map((_, i) => (
               <div key={i} className="animate-pulse rounded-2xl border-2 overflow-hidden">
                 <div className="aspect-[4/3] bg-gray-200" />
                 <div className="p-4 space-y-2">
@@ -145,7 +145,7 @@ export default function PopularProducts({ limit = 8, className = "" }: PopularPr
           <p className="text-center text-gray-500 py-8">Пока нет товаров для показа</p>
         ) : (
         <div
-          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
+          className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}
           onMouseEnter={() => { setHovered(true); hoveredRef.current = true; }}
           onMouseLeave={() => { setHovered(false); hoveredRef.current = false; }}
         >
