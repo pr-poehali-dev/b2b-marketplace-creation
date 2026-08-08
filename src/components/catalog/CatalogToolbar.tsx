@@ -126,9 +126,9 @@ const CatalogToolbar = ({
   return (
     <div className="space-y-4">
       {/* Поиск товаров */}
-      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+      <div className="bg-white p-4 rounded-lg shadow-md border-2 border-emerald-200">
         <div className="relative">
-          <Icon name="Search" size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Icon name="Search" size={22} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-emerald-600" />
           <Input
             ref={searchRef}
             type="text"
@@ -141,7 +141,7 @@ const CatalogToolbar = ({
                 setShowSuggestions(suggestions.length > 0);
               }
             }}
-            className="pl-10 pr-4 py-3 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20 text-base"
+            className="pl-11 pr-4 py-3 h-12 border-2 border-emerald-300 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 text-base font-medium shadow-sm"
           />
           
           {/* Выпадающий список подсказок */}
