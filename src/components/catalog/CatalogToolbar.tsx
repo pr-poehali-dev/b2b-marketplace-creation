@@ -127,47 +127,56 @@ const CatalogToolbar = ({
     <div className="space-y-4">
       {/* Поиск товаров */}
       <div className="bg-white p-4 rounded-lg shadow-md border-2 border-emerald-200">
-        <div className="relative">
-          <Icon name="Search" size={22} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-emerald-600" />
-          <Input
-            ref={searchRef}
-            type="text"
-            placeholder="Поиск товаров, поставщиков, категорий..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            onFocus={() => {
-              if (searchQuery.length >= 2) {
-                setShowSuggestions(suggestions.length > 0);
-              }
-            }}
-            className="pl-11 pr-4 py-3 h-12 border-2 border-emerald-300 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 text-base font-medium shadow-sm"
-          />
-          
-          {/* Выпадающий список подсказок */}
-          {showSuggestions && suggestions.length > 0 && (
-            <div
-              ref={suggestionsRef}
-              className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto"
-            >
-              {suggestions.map((suggestion, index) => (
-                <div
-                  key={suggestion}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className={`px-4 py-3 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
-                    index === selectedSuggestion 
-                      ? 'bg-emerald-50 text-emerald-700' 
-                      : 'hover:bg-gray-50'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon name="Search" size={14} className="text-gray-400" />
-                    <span className="text-sm">{suggestion}</span>
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <Icon name="Search" size={22} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-emerald-600" />
+            <Input
+              ref={searchRef}
+              type="text"
+              placeholder="Поиск товаров, поставщиков, категорий..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onFocus={() => {
+                if (searchQuery.length >= 2) {
+                  setShowSuggestions(suggestions.length > 0);
+                }
+              }}
+              className="pl-11 pr-4 py-3 h-12 border-2 border-emerald-300 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 text-base font-medium shadow-sm"
+            />
+            
+            {/* Выпадающий список подсказок */}
+            {showSuggestions && suggestions.length > 0 && (
+              <div
+                ref={suggestionsRef}
+                className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto"
+              >
+                {suggestions.map((suggestion, index) => (
+                  <div
+                    key={suggestion}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className={`px-4 py-3 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors ${
+                      index === selectedSuggestion 
+                        ? 'bg-emerald-50 text-emerald-700' 
+                        : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Icon name="Search" size={14} className="text-gray-400" />
+                      <span className="text-sm">{suggestion}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </div>
+          <Button
+            onClick={() => setShowSuggestions(false)}
+            className="h-12 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-medium"
+          >
+            <Icon name="Search" size={18} className="mr-1.5" />
+            Найти
+          </Button>
         </div>
       </div>
       
